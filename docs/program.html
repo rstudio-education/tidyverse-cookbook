@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>The Tidyverse Cookbook</title>
   <meta name="description" content="How to solve common data science tasks with R’s Tidyverse">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
   <meta property="og:title" content="The Tidyverse Cookbook" />
   <meta property="og:type" content="book" />
@@ -36,6 +36,7 @@
 <link rel="next" href="import.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -52,7 +53,7 @@
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -65,11 +66,13 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
 pre.numberSource a.sourceLine::before
   { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -212,14 +215,14 @@ Tidyverse functions are designed to be used with the <code>%&gt;%</code> operato
 <p>You’d like to install a package that is in the tidyverse.</p>
 <div id="solution" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre>
 </div>
 <div id="discussion" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>Tidyverse packages can be installed in the normal way with <code>install.packages()</code>. See <code>?install.packages</code> for installation details.</p>
 
 <div class="rmdcaution">
-By default, <code>install.packages()</code> will download packages from <a href="https://cran.r-project.org">https://cran.r-project.org</a>, or one of its mirrors—so be sure you are connected to the internet when you run it.
+By default, <code>install.packages()</code> will download packages from <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a>, or one of its mirrors—so be sure you are connected to the internet when you run it.
 </div>
 
 </div>
@@ -229,7 +232,7 @@ By default, <code>install.packages()</code> will download packages from <a href=
 <p>You’d like to install <em>all</em> of the packages in the tidyverse with a single command.</p>
 <div id="solution-1" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre>
 </div>
 <div id="discussion-1" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -248,7 +251,7 @@ By default, <code>install.packages()</code> will download packages from <a href=
 <p>You want to load a package in the tidyverse that has been <a href="program.html#install">installed</a> on your computer, so that you can use its contents.</p>
 <div id="solution-2" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre>
 </div>
 <div id="discussion-2" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -265,7 +268,7 @@ By default, <code>install.packages()</code> will download packages from <a href=
 <p>You would like to load the most used tidyverse packages so you can use their contents. You’ve already <a href="program.html#install-all">installed</a> these packages on your computer.</p>
 <div id="solution-3" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre>
 </div>
 <div id="discussion-3" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -298,7 +301,7 @@ Notice that <code>library(&quot;tidyverse&quot;)</code> does not load every pack
 <p>You want to ensure that you have the most up-to-date version of a package in the tidyverse installed on your machine.</p>
 <div id="solution-4" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">update.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre>
 </div>
 <div id="discussion-4" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -315,7 +318,7 @@ Be sure that you are connected to the internet when you run <code>update.package
 <p>You want to ensure that you have the latest version of <em>every</em> tidyverse package.</p>
 <div id="solution-5" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">tidyverse_update</span>()</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidyverse_update</span>()</code></pre>
 </div>
 <div id="discussion-5" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -328,7 +331,7 @@ Be sure that you are connected to the internet when you run <code>update.package
 <p>You want to generate a vector that contains the names of every package in the tidyverse.</p>
 <div id="solution-6" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">tidyverse_packages</span>()</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidyverse_packages</span>()</code></pre>
 <pre><code>##  [1] &quot;broom&quot;       &quot;cli&quot;         &quot;crayon&quot;      &quot;dplyr&quot;       &quot;dbplyr&quot;     
 ##  [6] &quot;forcats&quot;     &quot;ggplot2&quot;     &quot;haven&quot;       &quot;hms&quot;         &quot;httr&quot;       
 ## [11] &quot;jsonlite&quot;    &quot;lubridate&quot;   &quot;magrittr&quot;    &quot;modelr&quot;      &quot;purrr&quot;      
@@ -347,10 +350,10 @@ Be sure that you are connected to the internet when you run <code>update.package
 <p>You want to chain multiple functions together to be run in sequence, with each function operating on the preceeding function’s output.</p>
 <div id="solution-7" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">starwars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avg_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw">arrange</span>(avg_height)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">avg_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(avg_height)</code></pre>
 <pre><code>## # A tibble: 38 x 2
 ##    species        avg_height
 ##    &lt;chr&gt;               &lt;dbl&gt;
@@ -370,18 +373,18 @@ Be sure that you are connected to the internet when you run <code>update.package
 <h4>Discussion</h4>
 <p>The <code>%&gt;%</code> operator (pronounced “pipe operator”) evaluates the code on its left hand side (LHS) and then passes the result to the the code on its right hand side (RHS), which should be a function call. By default <code>%&gt;%</code> will pass the result of the LHS to the first unnamed argument of the function on the RHS.</p>
 <p><code>starwars %&gt;% group_by(species)</code> is the equivalent of <code>group_by(starwars, species)</code>, and the above solution is the equivalent of the nested code:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">arrange</span>(</a>
-<a class="sourceLine" id="cb18-2" data-line-number="2">  <span class="kw">summarise</span>(</a>
-<a class="sourceLine" id="cb18-3" data-line-number="3">    <span class="kw">group_by</span>(starwars, species), </a>
-<a class="sourceLine" id="cb18-4" data-line-number="4">    <span class="dt">avg_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb18-5" data-line-number="5">  ), </a>
-<a class="sourceLine" id="cb18-6" data-line-number="6">  avg_height</a>
-<a class="sourceLine" id="cb18-7" data-line-number="7">)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">arrange</span>(
+  <span class="kw">summarise</span>(
+    <span class="kw">group_by</span>(starwars, species), 
+    <span class="dt">avg_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+  ), 
+  avg_height
+)</code></pre>
 <p>or the equivalent of:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">x1 &lt;-<span class="st"> </span>starwars </a>
-<a class="sourceLine" id="cb19-2" data-line-number="2">x2 &lt;-<span class="st"> </span><span class="kw">group_by</span>(x1, species)</a>
-<a class="sourceLine" id="cb19-3" data-line-number="3">x3 &lt;-<span class="st"> </span><span class="kw">summarise</span>(x3, <span class="dt">avg_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="kw">arrange</span>(x3, avg_height)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x1 &lt;-<span class="st"> </span>starwars 
+x2 &lt;-<span class="st"> </span><span class="kw">group_by</span>(x1, species)
+x3 &lt;-<span class="st"> </span><span class="kw">summarise</span>(x3, <span class="dt">avg_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+<span class="kw">arrange</span>(x3, avg_height)</code></pre>
 <p>The chunk of functions connected by <code>%&gt;%</code> is called a “pipe.”
 Pipes are easier to read than nested code (mentally pronounce <code>%&gt;%</code> as “then” to read the pipe as a sequence of steps). And pipes require fewer temporary objects than code that passes temporary objects from one function to the next.</p>
 <p>The <code>%&gt;%</code> operator is loaded with the dplyr package, which imports it from the magrittr package. Tidyverse functions facilitate using <code>%&gt;%</code> by</p>
@@ -404,8 +407,8 @@ Pipes are easier to read than nested code (mentally pronounce <code>%&gt;%</code
 <p>You want to use <code>%&gt;%</code> to pass the result of the left hand side to an argument that is not the first argument of the function on the right hand side.</p>
 <div id="solution-8" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">starwars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="st">  </span><span class="kw">lm</span>(mass <span class="op">~</span><span class="st"> </span>height, <span class="dt">data =</span> .)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">lm</span>(mass <span class="op">~</span><span class="st"> </span>height, <span class="dt">data =</span> .)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = mass ~ height, data = .)
@@ -418,7 +421,7 @@ Pipes are easier to read than nested code (mentally pronounce <code>%&gt;%</code
 <h4>Discussion</h4>
 <p>By default <code>%&gt;%</code> passes the result of the left hand side to the the first unnamed argument of the function on the right hand side. To override this default, use <code>.</code> as a placeholder within the function call on the right hand side. <code>%&gt;%</code> will evaluate <code>.</code> as the result of the left hand side, instead of passing the result to the first unnamed argument.</p>
 <p>The solution code is the equivalent of</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">lm</span>(mass <span class="op">~</span><span class="st"> </span>height, <span class="dt">data =</span> starwars)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(mass <span class="op">~</span><span class="st"> </span>height, <span class="dt">data =</span> starwars)</code></pre>
 
 </div>
 </div>
@@ -449,7 +452,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -461,6 +464,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/rstudio-education/tidyverse-cookbook/edit/master/01-program.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
