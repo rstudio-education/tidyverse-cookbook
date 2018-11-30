@@ -1,0 +1,374 @@
+# Transform Tables
+
+***
+
+```{r echo = FALSE, results='asis'}
+build_toc("04-transform-tables.Rmd")
+```
+
+***
+
+## What you should know before you begin {-}
+
+```{block2, type='rmdcaution'}
+Tidyverse functions that transform tables do not transform your original table, which is preserved in its original form under its original name. Tidyverse functions instead return a modified copy of the table, which can be passed to the next function in a pipe, or assigned to a name for later use.
+```
+
+## Arrange rows in ascending order by the values of a column
+
+You want to sort the rows of a data frame in **ascending** order by the values in one or more columns.
+
+#### Solution {-}
+
+```{r}
+mpg %>% 
+  arrange(cty)
+```
+
+#### Discussion {-}
+
+`arrange()` sorts the rows according to the values of the specified column, with the lowest values appearing near the top of the data frame. `arrange()` will use additional columns as tiebreakers to sort within rows that share the same value of the first column.
+
+```{r}
+mpg %>% 
+  arrange(cty, hwy)
+```
+
+## Arrange rows in descending order by the values of a column
+
+You want to sort the rows of a data frame in **descending** order by the values in one or more columns.
+
+#### Solution {-}
+
+```{r}
+mpg %>% 
+  arrange(desc(cty))
+```
+
+#### Discussion {-}
+
+Place `desc()` around a column name to cause `arrange()` to sort by descending values of that column. You can use `desc()` for tie-breaker columns as well.
+
+```{r}
+mpg %>% 
+  arrange(cty, desc(hwy))
+```
+
+
+## Filter rows with a logical test
+
+You want to filter your table to just the rows that meet a specific condition.
+
+#### Solution {-}
+
+```{r}
+mpg %>% 
+  filter(model == "jetta")
+```
+
+#### Discussion {-}
+
+`filter()` takes a logical test and returns the rows for which the logical test returns `TRUE`. `filter()` will match column names that appear within the logical test to columns in your data frame.
+
+`filter()` will combine multiple logical tests with an AND operator (`&`):
+
+```{r}
+mpg %>% 
+  filter(model == "jetta", year == 1999)
+```
+
+See `?Comparison` and `?Logic` to learn more about writing logical tests in R.
+
+## Select columns by name
+
+You want to return a "subset" of columns from your data frame by listing the name of each column to return.
+
+#### Solution {-}
+
+```{r}
+table1 %>% 
+  select(country, year, cases)
+```
+
+
+#### Discussion {-}
+
+`select()` returns a new data frame that includes each column passed to `select()`. Repeat a name to include the column twice.
+
+## Drop columns by name
+
+You want to return a "subset" of columns from your data frame by listing the name of each column to drop.
+
+#### Solution {-}
+
+```{r}
+table1 %>% 
+  select(-c(population, year))
+```
+
+#### Discussion {-}
+
+If you use a `-` before a column name, `select()` will return every column in the data frame except that column. To drop more than one column at a time, group the columns into a vector preceded by `-`. 
+
+## Select a range of columns
+
+You want to return two columns from a data frame as well as every column that appears between them. 
+
+#### Solution {-}
+
+```{r}
+table1 %>% 
+  select(country:cases)
+```
+
+#### Discussion {-}
+
+If you combine two column names with a `:`, `select()` will return both columns and every column that appears between them in the data frame.
+
+## Select columns by integer position
+
+You want to return a "subset" of columns from your data frame by listing the position of each column to return.
+
+#### Solution {-}
+
+```{r}
+table1 %>% 
+  select(1, 2, 4)
+```
+
+#### Discussion {-}
+
+`select()` interprets the whole number _n_ as the _n_th column in the data set. You can combine numbers with `-` and `:` inside of `select()` as well.
+
+## Select columns by start of name
+
+You want to return evey column in your data that begins with a specific string.
+
+#### Solution {-}
+
+```{r}
+table1 %>% 
+  select(starts_with("c"))
+```
+
+## Select columns by end of name
+
+You want to return evey column in your data that ends with a specific string.
+
+#### Solution {-}
+
+```{r}
+table1 %>% 
+  select(ends_with("tion"))
+```
+
+## Select columns by string in name
+
+You want to return evey column in your data whose name contains a specific string or regular expression.
+
+#### Solution {-}
+
+```{r}
+table1 %>% 
+  select(matches("o.*u"))
+```
+
+#### Discussion {-}
+
+`o.*u` is a regular expression that matches an `o` followed by a `u` with any number of characters in between. `country` and `population` are returned because the names `country` and `population` each contain an `o` followed (at any distance) by a `u`.
+
+## Reorder columns
+
+You want to return all of the columns in the original data frame in a new order.
+
+#### Solution {-}
+
+```{r}
+table1 %>% 
+  select(country, year, population, cases)
+```
+
+#### Discussion {-}
+
+Use `select()` to select all of the columns in the new order.
+
+## Rename columns
+
+You want to rename one or more columns in your data frame, retaining the rest.
+
+#### Solution {-}
+
+```{r}
+table1 %>% 
+  rename(state = country, date = year)
+```
+
+#### Discussion {-}
+
+For each column to be renamed, type a new name for the column and set it equal to the old name for the column.
+
+## Return the contents of a column as a vector
+
+You want to return the contents of a single column as a vector, not as a data frame with one column.
+
+#### Solution {-}
+
+```{r}
+table1 %>% 
+  pluck("cases")
+```
+
+#### Discussion {-}
+
+`pluck()` comes in the purrr package. Unlike `select()`, `pluck()` requires the clumn name to be passed as a character string (i.e. surrounded by quotes). You can also pluck a column by integer position:
+
+```{r}
+table1 %>% 
+  pluck(3)
+```
+
+## Summarise data
+
+You want to
+
+#### Solution {-}
+
+#### Discussion {-}
+
+## Summarise data by groups
+
+You want to
+
+#### Solution {-}
+
+#### Discussion {-}
+
+## Mutate data
+
+You want to
+
+#### Solution {-}
+
+#### Discussion {-}
+
+Transforming a table sometimes requires more than one recipe. Why? Because tables are made of multiple data structures that work together: 
+
+1. The table itself is a data frame or tibble.  
+1. The columns of the table are vectors.  
+1. Some columns may be list-columns, which are lists that contain vectors.  
+
+This matters because one of the [design philosophies of the tidyverse](#what-is-the-tidyverse) is that each function should focus on one task and do it well. Functions that do one task well tend to work with one type of data structure. So to transform a table, you often need to combine a function that manipulates tables with a function that manipulates data vectors and maybe a function that manipulates lists.
+  
+In R, it is difficult to distinguish between vectors that are lists and vectors that are not lists.  Whenever the difference matters, I'll call the first set of vectors **lists** and the second set **data vectors**. This seems sensible because non-list vectors are used to store data: every piece of data is stored in one. In turn, a data vector may be stored in a list or a data frame. Data vectors include atomic vectors but also include modified atomic vectors like factors and date-times.
+
+## How to combine transform recipes
+
+There are two ways to 
+
+
+When you transform a data frame, you often work with several functions:
+
+1. A function that transforms the structure of the data frame to add or remove rows or columns. This function transforms a _table_. 
+
+1. A function that transforms the values that appear in the data frame to create new values to place in a new row or column. This function transforms a _data vector_.
+
+1. A function that mediates between 1 and 2 if the values are embedded in a list-column, which is a _list_.
+
+The most concise way to learn how to combine these functions is to learn about the functions in isolation, and to then have the functions call each other as necessary.
+
+### An Example
+
+`mtcars` contains performance data for 32 cars.^[To make the example easier to inspect, I made `mtcars` a tibble and removed the `wt`, `qsec`, `vs`, `am`, `gear` and `carb` columns before running this example.]
+
+```{r echo = FALSE}
+mtcars <- mtcars %>% 
+  select(-wt, -qsec, -vs, -am, -gear, -carb) %>% 
+  as_tibble()
+```
+
+```{r}
+mtcars
+```
+
+To round the `mpg` value for each car, you would need two functions:
+
+1. `round()` which can round the values of the data vector stored in `mtcars$mpg`.^[`mtcars$mpg` is R syntax for the `mpg` column of the `mtcars` data frame.]
+
+```{r}
+round(mtcars$mpg)
+```
+
+2. `mutate()` which can add the results to a copy of the `mtcars` table. 
+
+```{r}
+mtcars %>% 
+  mutate(mpg_int = round(mpg))
+```
+
+`round()` works with data vectors. `mutate()` works with tables. Together they create the table you want.
+
+### Another Example
+
+`sepals` contains sepal length measurements for three species of flower. The measurements are stored in a list-column named `lengths`.^[I made this data frame with the code `sepals <- iris %>% 
+  group_by(Species) %>% 
+  summarise(lengths = list(Sepal.Length))`]
+
+```{r echo = FALSE}
+sepals <- iris %>% 
+  group_by(Species) %>% 
+  summarise(lengths = list(Sepal.Length))
+```
+
+```{r}
+sepals
+```
+
+Each cell in `lengths` contains a data vector of 50 sepal lengths.
+
+```{r}
+# For example, the first cell of lengths
+sepals[[1, 2]]
+```
+
+To append the average sepal length for each species, you would need three functions:
+
+1. `mean()` which can compute the average value of a data vector in `lengths`
+
+    ```{r}
+    mean(sepals[[1, 2]])
+    ```
+    
+2. `map_dbl()` which can apply `mean()` to each cell of `lengths`, which is a list-column.
+
+    ```{r}
+    map_dbl(sepals$lengths, mean)
+    ```
+
+3. `mutate()` which can add the results to a copy of the `sepals` table. 
+
+    ```{r}
+    sepals %>% 
+      mutate(avg_length = map_dbl(lengths, mean))
+    ```
+
+`mean()` works with data vectors. `map_dbl()` works with list-columns. `mutate()` works with tables. Together they create the table you want.
+
+
+
+## Join data sets
+
+You want to
+
+#### Solution {-}
+
+#### Discussion {-}
+
+## Filter one data set against another
+
+You want to
+
+#### Solution {-}
+
+#### Discussion {-}
+
+

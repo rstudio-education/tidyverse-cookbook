@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>The Tidyverse Cookbook</title>
+  <meta name="description" content="How to solve common data science tasks with R’s Tidyverse">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="The Tidyverse Cookbook" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="How to solve common data science tasks with R’s Tidyverse" />
+  <meta name="github-repo" content="rstudio-education/tidyverse-cookbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="The Tidyverse Cookbook" />
+  
+  <meta name="twitter:description" content="How to solve common data science tasks with R’s Tidyverse" />
+  
+
+<meta name="author" content="Edited by Garrett Grolemund">
+
+
+<meta name="date" content="2018-11-30">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="program.html">
+<link rel="next" href="tidy.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Tidyverse Cookbook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="how-to-contribute.html"><a href="how-to-contribute.html"><i class="fa fa-check"></i>How to contribute</a></li>
+<li class="chapter" data-level="" data-path="what-is-the-tidyverse.html"><a href="what-is-the-tidyverse.html"><i class="fa fa-check"></i>What is the tidyverse?</a></li>
+<li class="part"><span><b>I The Recipes</b></span></li>
+<li class="chapter" data-level="1" data-path="program.html"><a href="program.html"><i class="fa fa-check"></i><b>1</b> Program</a></li>
+<li class="chapter" data-level="2" data-path="import.html"><a href="import.html"><i class="fa fa-check"></i><b>2</b> Import</a></li>
+<li class="chapter" data-level="3" data-path="tidy.html"><a href="tidy.html"><i class="fa fa-check"></i><b>3</b> Tidy</a></li>
+<li class="chapter" data-level="4" data-path="transform-tables.html"><a href="transform-tables.html"><i class="fa fa-check"></i><b>4</b> Transform Tables</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Tidyverse Cookbook</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="import" class="section level1">
+<h1><span class="header-section-number">2</span> Import</h1>
+<hr />
+<div class="col2">
+<ol style="list-style-type: decimal">
+<li><a href="import.html#import-data-quickly-with-a-gui">Import data quickly with a GUI</a></li>
+</ol>
+</div>
+<hr />
+<div id="what-you-should-know-before-you-begin-1" class="section level2 unnumbered">
+<h2>What you should know before you begin</h2>
+
+<div class="rmdcaution">
+Before you can manipulate data with R, you need to import the data into R’s memory, or build a connection that R can use to access the data remotely.
+</div>
+
+
+<div class="rmdcaution">
+How you import data will depend on the format in which the data is stored. The most common way to store small data sets is as a plain text file. Data may also be stored in a proprietary format associated with a specific piece of software, such as SAS, SPSS, or Microsoft Excel. Data collected from the internet is often stored as a JSON file. Large data sets may be stored in a database or a distributed storage system.
+</div>
+
+
+<div class="rmdcaution">
+R stores data in your computer’s RAM while you manipulate it. This creates a size limitation: truly big data sets should be stored outside of R in a database or distributed storage system that R can connect to to manipulate the data.
+</div>
+
+</div>
+<div id="import-data-quickly-with-a-gui" class="section level2">
+<h2><span class="header-section-number">2.1</span> Import data quickly with a GUI</h2>
+<p>You want to import data quickly, and you do not mind using a semi-reproducible graphical user interface (GUI) to do so.</p>
+<div id="solution-9" class="section level4 unnumbered">
+<h4>Solution</h4>
+<p><img src="images/import-dataset.png" width="80%" /></p>
+</div>
+<div id="discussion-9" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>The RStudio IDE provides an Import Dataset button in the Environment pane, which appears in the top right corner of the IDE by default. You can use this button to import data that is stored in plain text files as well as in Excel, SAS, SPSS, and Stata files.</p>
+<p>Click the button to launch a window that includes a file browser (below). Use the browser to select the file to import.</p>
+<p><img src="images/import-wizard.png" width="80%" /></p>
+<p>After you’ve selected a file, RStudio will display a preview of how the file will be imported as a data frame. Below the preview, RStudio provides a GUI interface to the common options for importing the type of file you have selected. As you customize the options, RStudio updates the data preview to display the results.</p>
+<p>The bottom right-hand corner of the window displays the code that will reproduce your importation process programatically. You should copy and save this code if you wish to document your work in a reproducible workflow.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="program.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tidy.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio-education/tidyverse-cookbook/edit/master/02-import.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

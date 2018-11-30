@@ -1,0 +1,15 @@
+book_filename: "tidyverse-cookbook"
+edit: "https://github.com/rstudio-education/tidyverse-cookbook/edit/master/%s"
+delete_merged_file: true
+before_chapter_script: "setup.R"
+
+rmd_files: [
+  "index.rmd",
+  "what-is-the-tidyverse.Rmd",
+  "01-program.Rmd",
+  "02-import.Rmd",
+  "03-tidy.Rmd",
+  "04-transform-tables.Rmd"
+]
+
+output_dir: "docs"

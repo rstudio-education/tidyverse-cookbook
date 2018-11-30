@@ -1,0 +1,261 @@
+# (PART) The Recipes {-} 
+
+# Program
+
+***
+
+To manipulate vectors with [purrr](http://purrr.tidyverse.org), see [Transform Lists].
+
+```{r echo = FALSE, results='asis'}
+build_toc("01-program.Rmd")
+```
+
+***
+
+## What you should know before you begin {-}
+
+```{block2, type='rmdcaution'}
+An R package is a bundle of functions, documentation, and data sets. R has over 13,000 packages. These are not installed with R, but are archived [online](https://cran.r-project.org/web/packages/index.html) for when you need them. 
+
+The [tidyverse](http://www.tidyverse.org) is a collection of R packages that are designed to work well together. There are about 25 packages in the tidyverse.
+```
+
+```{block2, type='rmdcaution'}
+To use an R package, you must:
+  
+1. Install the package on your local machine with `install.packages()`. You only need to do this once per machine. 
+
+2. Load the package with `library()`. You need to do this each time you start a new R session (if you wish to use the package in that session).
+```
+
+```{block2, type = "rmdcaution"}
+You cannot use the contents of a package until you load the package in your current R session. 
+```
+
+```{block2, type='rmdcaution'}
+You should update your packages from time to time to receive the latest improvements from package authors.
+```
+
+```{block2, type='rmdcaution'}
+Tidyverse functions are designed to be used with the `%>%` operator. `%>%` links R functions together to create a "pipe" of functions that are run in sequence: `%>%` passes the output of one function to the input of the next. `%>%` comes with the dplyr package, which imports it from the magrittr package. 
+```
+
+## Install a tidyverse package {#install}
+
+You'd like to install a package that is in the tidyverse.
+
+#### Solution {-}
+
+```{r eval = FALSE}
+install.packages("dplyr")
+```
+
+#### Discussion {-}
+
+Tidyverse packages can be installed in the normal way with `install.packages()`. See `?install.packages` for installation details.
+
+```{block2, type = "rmdcaution"}
+By default, `install.packages()` will download packages from [https://cran.r-project.org](https://cran.r-project.org), or one of its mirrors---so be sure you are connected to the internet when you run it.
+```
+
+## Install all of the tidyverse packages {#install-all}
+
+You'd like to install _all_ of the packages in the tidyverse with a single command.
+
+#### Solution {-}
+
+```{r include = FALSE}
+install.packages("tidyverse", repo = "https://cloud.r-project.org")
+```
+
+```{r eval = FALSE}
+install.packages("tidyverse")
+```
+
+#### Discussion {-}
+
+The `tidyverse` package provides a shortcut for downloading all of the packages in the tidyverse. `tidyverse` purposefully lists each of the tidyverse packages as a dependency, which causes R to install all of the packages in the tidyverse when R installs `tidyverse`.
+
+`install.packages("tidyverse")` will install the following packages:
+
+```{r echo = FALSE}
+tidyverse_packages()
+```
+
+## Load a single tidyverse package {#load}
+
+You want to load a package in the tidyverse that has been [installed](#install) on your computer, so that you can use its contents.
+
+#### Solution {-}
+
+```{r eval = FALSE}
+library("dplyr")
+```
+
+#### Discussion {-}
+
+You can load individual tidyverse packages with `library()`. The package will stay loaded until you end your R session or run `detach()` on the package. If you begin a new R session, you will need to reload the package in the new session with `library()`.
+
+```{block2, type = "rmdcaution"}
+`library()` cannot load packages that have not been previously [installed](#install) on your machine.
+```
+
+## Load the core set of tidyverse packages
+
+You would like to load the most used tidyverse packages so you can use their contents. You've already [installed](#install-all) these packages on your computer.
+
+#### Solution {-}
+
+```{r results='hide', message = FALSE, warning = FALSE}
+library("tidyverse")
+```
+
+#### Discussion {-}
+
+When you load the `tidyverse` package, R will also load the following packages:
+
+- `ggplot2`
+- `dplyr`
+- `tidyr`
+- `readr`
+- `purrr`
+- `tibble`
+- `stringr`
+- `forcats`
+
+These eight packages are considered the "core" of the tidyverse because:
+
+1. They are the most used tidyverse packages.
+1. They are often used together as a set (when you use one of the packages, you tend to also use the others).
+
+You can still load each of these packages individually with `library()`. 
+
+```{block2, type = "rmdcaution"}
+Notice that `library("tidyverse")` does not load every package installed by `install.packages("tidyverse")`. You must [use `library()`](#load) to individually load the "non-core" tidyverse packages.
+```
+
+## Update a tidyverse package {#update}
+
+You want to ensure that you have the most up-to-date version of a package in the tidyverse installed on your machine. 
+
+#### Solution {-}
+
+```{r eval = FALSE}
+update.packages("dplyr")
+```
+
+#### Discussion {-}
+
+`update.packages()` will compare the version number of the package that you have installed locally to the newest version number available on CRAN. If the version numbers do not match, `update.packages()` will download and install the newest version from CRAN.
+
+```{block2, type = "rmdcaution"}
+Be sure that you are connected to the internet when you run `update.packages()`.
+```
+
+## Check that all of your tidyverse packages are up-to-date {#update-all}
+
+You want to ensure that you have the latest version of _every_ tidyverse package.
+
+#### Solution {-}
+
+```{r eval= FALSE}
+tidyverse_update()
+```
+
+#### Discussion {-}
+
+`tidyverse_update()` checks whether or not each of your tidyverse packages is [up-to-date](#update). If every package is up-to-date, `tidyverse_update()` will return the message: `All tidyverse packages up-to-date`. 
+
+Otherwise, `tidyverse_update()` will return a piece of code that you can copy and run to selectively update only those packages that are out-of-date.
+
+## List every package in the tidyverse
+
+You want to generate a vector that contains the names of every package in the tidyverse.
+
+#### Solution {-}
+
+```{r}
+tidyverse_packages()
+```
+
+#### Discussion {-}
+
+`tidyverse_packages()` returns a vector with the names of every package that was in the tidyverse when you installed the `tidyverse` package. These are the packages that were installed onto your machine along with the `tidyverse` package. They are also the packages that [`tidyverse_update()`](#update-all) will check.
+
+[Update](#update) the `tidyverse` package before running `tidyverse_packages()` to receive the most current list.
+
+## Combine functions into a pipe
+
+You want to chain multiple functions together to be run in sequence, with each function operating on the preceeding function's output.
+
+#### Solution {-}
+
+```{r}
+starwars %>% 
+  group_by(species) %>% 
+  summarise(avg_height = mean(height, na.rm = TRUE)) %>% 
+  arrange(avg_height)
+```
+
+#### Discussion {-}
+
+The `%>%` operator (pronounced "pipe operator") evaluates the code on its left hand side (LHS) and then passes the result to the the code on its right hand side (RHS), which should be a function call. By default `%>%` will pass the result of the LHS to the first unnamed argument of the function on the RHS.
+
+`starwars %>% group_by(species)` is the equivalent of `group_by(starwars, species)`, and the above solution is the equivalent of the nested code:
+
+```{r eval = FALSE}
+arrange(
+  summarise(
+    group_by(starwars, species), 
+    avg_height = mean(height, na.rm = TRUE)
+  ), 
+  avg_height
+)
+```
+
+or the equivalent of:
+
+```{r eval = FALSE}
+x1 <- starwars 
+x2 <- group_by(x1, species)
+x3 <- summarise(x3, avg_height = mean(height, na.rm = TRUE))
+arrange(x3, avg_height)
+```
+
+The chunk of functions connected by `%>%` is called a "pipe."
+Pipes are easier to read than nested code (mentally pronounce `%>%` as "then" to read the pipe as a sequence of steps). And pipes require fewer temporary objects than code that passes temporary objects from one function to the next.
+
+The `%>%` operator is loaded with the dplyr package, which imports it from the magrittr package. Tidyverse functions facilitate using `%>%` by 
+
+1. accepting a data frame as their first argument
+2. returning a data frame as their result
+
+```{block2, type = "rmdcaution"}
+`%>%` is easy to type in the RStudio IDE with the keyboard shortcuts 
+
+* **Command + Shift + M** (Mac OS)
+* **Control + Shift + M** (Windows)
+```
+
+
+## Pipe a result to a specific argument
+
+You want to use `%>%` to pass the result of the left hand side to an argument that is not the first argument of the function on the right hand side.
+
+#### Solution {-}
+
+```{r}
+starwars %>% 
+  lm(mass ~ height, data = .)
+```
+
+#### Discussion {-}
+
+By default `%>%` passes the result of the left hand side to the the first unnamed argument of the function on the right hand side. To override this default, use `.` as a placeholder within the function call on the right hand side. `%>%` will evaluate `.` as the result of the left hand side, instead of passing the result to the first unnamed argument.
+
+The solution code is the equivalent of 
+
+```{r eval = FALSE}
+lm(mass ~ height, data = starwars)
+```
+

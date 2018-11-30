@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>The Tidyverse Cookbook</title>
+  <meta name="description" content="How to solve common data science tasks with R’s Tidyverse">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="The Tidyverse Cookbook" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="How to solve common data science tasks with R’s Tidyverse" />
+  <meta name="github-repo" content="rstudio-education/tidyverse-cookbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="The Tidyverse Cookbook" />
+  
+  <meta name="twitter:description" content="How to solve common data science tasks with R’s Tidyverse" />
+  
+
+<meta name="author" content="Edited by Garrett Grolemund">
+
+
+<meta name="date" content="2018-11-30">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="tidy.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Tidyverse Cookbook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="how-to-contribute.html"><a href="how-to-contribute.html"><i class="fa fa-check"></i>How to contribute</a></li>
+<li class="chapter" data-level="" data-path="what-is-the-tidyverse.html"><a href="what-is-the-tidyverse.html"><i class="fa fa-check"></i>What is the tidyverse?</a></li>
+<li class="part"><span><b>I The Recipes</b></span></li>
+<li class="chapter" data-level="1" data-path="program.html"><a href="program.html"><i class="fa fa-check"></i><b>1</b> Program</a></li>
+<li class="chapter" data-level="2" data-path="import.html"><a href="import.html"><i class="fa fa-check"></i><b>2</b> Import</a></li>
+<li class="chapter" data-level="3" data-path="tidy.html"><a href="tidy.html"><i class="fa fa-check"></i><b>3</b> Tidy</a></li>
+<li class="chapter" data-level="4" data-path="transform-tables.html"><a href="transform-tables.html"><i class="fa fa-check"></i><b>4</b> Transform Tables</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Tidyverse Cookbook</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="transform-tables" class="section level1">
+<h1><span class="header-section-number">4</span> Transform Tables</h1>
+<hr />
+<div class="col2">
+<ol style="list-style-type: decimal">
+<li><a href="transform-tables.html#arrange-rows-in-ascending-order-by-the-values-of-a-column">Arrange rows in ascending order by the values of a column</a></li>
+<li><a href="transform-tables.html#arrange-rows-in-descending-order-by-the-values-of-a-column">Arrange rows in descending order by the values of a column</a></li>
+<li><a href="transform-tables.html#filter-rows-with-a-logical-test">Filter rows with a logical test</a></li>
+<li><a href="transform-tables.html#select-columns-by-name">Select columns by name</a></li>
+<li><a href="transform-tables.html#drop-columns-by-name">Drop columns by name</a></li>
+<li><a href="transform-tables.html#select-a-range-of-columns">Select a range of columns</a></li>
+<li><a href="transform-tables.html#select-columns-by-integer-position">Select columns by integer position</a></li>
+<li><a href="transform-tables.html#select-columns-by-start-of-name">Select columns by start of name</a></li>
+<li><a href="transform-tables.html#select-columns-by-end-of-name">Select columns by end of name</a></li>
+<li><a href="transform-tables.html#select-columns-by-string-in-name">Select columns by string in name</a></li>
+<li><a href="transform-tables.html#reorder-columns">Reorder columns</a></li>
+<li><a href="transform-tables.html#rename-columns">Rename columns</a></li>
+<li><a href="transform-tables.html#return-the-contents-of-a-column-as-a-vector">Return the contents of a column as a vector</a></li>
+<li><a href="transform-tables.html#summarise-data">Summarise data</a></li>
+<li><a href="transform-tables.html#summarise-data-by-groups">Summarise data by groups</a></li>
+<li><a href="transform-tables.html#mutate-data">Mutate data</a></li>
+<li><a href="transform-tables.html#how-to-combine-transform-recipes">How to combine transform recipes</a></li>
+<li><a href="transform-tables.html#join-data-sets">Join data sets</a></li>
+<li><a href="transform-tables.html#filter-one-data-set-against-another">Filter one data set against another</a></li>
+</ol>
+</div>
+<hr />
+<div id="what-you-should-know-before-you-begin-3" class="section level2 unnumbered">
+<h2>What you should know before you begin</h2>
+
+<div class="rmdcaution">
+Tidyverse functions that transform tables do not transform your original table, which is preserved in its original form under its original name. Tidyverse functions instead return a modified copy of the table, which can be passed to the next function in a pipe, or assigned to a name for later use.
+</div>
+
+</div>
+<div id="arrange-rows-in-ascending-order-by-the-values-of-a-column" class="section level2">
+<h2><span class="header-section-number">4.1</span> Arrange rows in ascending order by the values of a column</h2>
+<p>You want to sort the rows of a data frame in <strong>ascending</strong> order by the values in one or more columns.</p>
+<div id="solution-19" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(cty)</a></code></pre></div>
+<pre><code>## # A tibble: 234 x 11
+##    manufacturer model displ  year   cyl trans drv     cty   hwy fl    cla…
+##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;ch&gt;
+##  1 dodge        dako…   4.7  2008     8 auto… 4         9    12 e     pic…
+##  2 dodge        dura…   4.7  2008     8 auto… 4         9    12 e     suv 
+##  3 dodge        ram …   4.7  2008     8 auto… 4         9    12 e     pic…
+##  4 dodge        ram …   4.7  2008     8 manu… 4         9    12 e     pic…
+##  5 jeep         gran…   4.7  2008     8 auto… 4         9    12 e     suv 
+##  6 chevrolet    c150…   5.3  2008     8 auto… r        11    15 e     suv 
+##  7 chevrolet    k150…   5.3  2008     8 auto… 4        11    14 e     suv 
+##  8 chevrolet    k150…   5.7  1999     8 auto… 4        11    15 r     suv 
+##  9 dodge        cara…   3.3  2008     6 auto… f        11    17 e     min…
+## 10 dodge        dako…   5.2  1999     8 manu… 4        11    17 r     pic…
+## # ... with 224 more rows</code></pre>
+</div>
+<div id="discussion-18" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p><code>arrange()</code> sorts the rows according to the values of the specified column, with the lowest values appearing near the top of the data frame. <code>arrange()</code> will use additional columns as tiebreakers to sort within rows that share the same value of the first column.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(cty, hwy)</a></code></pre></div>
+<pre><code>## # A tibble: 234 x 11
+##    manufacturer model displ  year   cyl trans drv     cty   hwy fl    cla…
+##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;ch&gt;
+##  1 dodge        dako…   4.7  2008     8 auto… 4         9    12 e     pic…
+##  2 dodge        dura…   4.7  2008     8 auto… 4         9    12 e     suv 
+##  3 dodge        ram …   4.7  2008     8 auto… 4         9    12 e     pic…
+##  4 dodge        ram …   4.7  2008     8 manu… 4         9    12 e     pic…
+##  5 jeep         gran…   4.7  2008     8 auto… 4         9    12 e     suv 
+##  6 chevrolet    k150…   5.3  2008     8 auto… 4        11    14 e     suv 
+##  7 jeep         gran…   6.1  2008     8 auto… 4        11    14 p     suv 
+##  8 chevrolet    c150…   5.3  2008     8 auto… r        11    15 e     suv 
+##  9 chevrolet    k150…   5.7  1999     8 auto… 4        11    15 r     suv 
+## 10 dodge        dako…   5.2  1999     8 auto… 4        11    15 r     pic…
+## # ... with 224 more rows</code></pre>
+</div>
+</div>
+<div id="arrange-rows-in-descending-order-by-the-values-of-a-column" class="section level2">
+<h2><span class="header-section-number">4.2</span> Arrange rows in descending order by the values of a column</h2>
+<p>You want to sort the rows of a data frame in <strong>descending</strong> order by the values in one or more columns.</p>
+<div id="solution-20" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cty))</a></code></pre></div>
+<pre><code>## # A tibble: 234 x 11
+##    manufacturer model displ  year   cyl trans drv     cty   hwy fl    cla…
+##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;ch&gt;
+##  1 volkswagen   new …   1.9  1999     4 manu… f        35    44 d     sub…
+##  2 volkswagen   jetta   1.9  1999     4 manu… f        33    44 d     com…
+##  3 volkswagen   new …   1.9  1999     4 auto… f        29    41 d     sub…
+##  4 honda        civic   1.6  1999     4 manu… f        28    33 r     sub…
+##  5 toyota       coro…   1.8  2008     4 manu… f        28    37 r     com…
+##  6 honda        civic   1.8  2008     4 manu… f        26    34 r     sub…
+##  7 toyota       coro…   1.8  1999     4 manu… f        26    35 r     com…
+##  8 toyota       coro…   1.8  2008     4 auto… f        26    35 r     com…
+##  9 honda        civic   1.6  1999     4 manu… f        25    32 r     sub…
+## 10 honda        civic   1.8  2008     4 auto… f        25    36 r     sub…
+## # ... with 224 more rows</code></pre>
+</div>
+<div id="discussion-19" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>Place <code>desc()</code> around a column name to cause <code>arrange()</code> to sort by descending values of that column. You can use <code>desc()</code> for tie-breaker columns as well.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(cty, <span class="kw">desc</span>(hwy))</a></code></pre></div>
+<pre><code>## # A tibble: 234 x 11
+##    manufacturer model displ  year   cyl trans drv     cty   hwy fl    cla…
+##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;ch&gt;
+##  1 dodge        dako…   4.7  2008     8 auto… 4         9    12 e     pic…
+##  2 dodge        dura…   4.7  2008     8 auto… 4         9    12 e     suv 
+##  3 dodge        ram …   4.7  2008     8 auto… 4         9    12 e     pic…
+##  4 dodge        ram …   4.7  2008     8 manu… 4         9    12 e     pic…
+##  5 jeep         gran…   4.7  2008     8 auto… 4         9    12 e     suv 
+##  6 dodge        cara…   3.3  2008     6 auto… f        11    17 e     min…
+##  7 dodge        dako…   5.2  1999     8 manu… 4        11    17 r     pic…
+##  8 ford         expe…   4.6  1999     8 auto… r        11    17 r     suv 
+##  9 ford         expe…   5.4  1999     8 auto… r        11    17 r     suv 
+## 10 lincoln      navi…   5.4  1999     8 auto… r        11    17 r     suv 
+## # ... with 224 more rows</code></pre>
+</div>
+</div>
+<div id="filter-rows-with-a-logical-test" class="section level2">
+<h2><span class="header-section-number">4.3</span> Filter rows with a logical test</h2>
+<p>You want to filter your table to just the rows that meet a specific condition.</p>
+<div id="solution-21" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(model <span class="op">==</span><span class="st"> &quot;jetta&quot;</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 9 x 11
+##   manufacturer model displ  year   cyl trans drv     cty   hwy fl    class
+##   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+## 1 volkswagen   jetta   1.9  1999     4 manu… f        33    44 d     comp…
+## 2 volkswagen   jetta   2    1999     4 manu… f        21    29 r     comp…
+## 3 volkswagen   jetta   2    1999     4 auto… f        19    26 r     comp…
+## 4 volkswagen   jetta   2    2008     4 auto… f        22    29 p     comp…
+## 5 volkswagen   jetta   2    2008     4 manu… f        21    29 p     comp…
+## 6 volkswagen   jetta   2.5  2008     5 auto… f        21    29 r     comp…
+## 7 volkswagen   jetta   2.5  2008     5 manu… f        21    29 r     comp…
+## 8 volkswagen   jetta   2.8  1999     6 auto… f        16    23 r     comp…
+## 9 volkswagen   jetta   2.8  1999     6 manu… f        17    24 r     comp…</code></pre>
+</div>
+<div id="discussion-20" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p><code>filter()</code> takes a logical test and returns the rows for which the logical test returns <code>TRUE</code>. <code>filter()</code> will match column names that appear within the logical test to columns in your data frame.</p>
+<p><code>filter()</code> will combine multiple logical tests with an AND operator (<code>&amp;</code>):</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb59-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(model <span class="op">==</span><span class="st"> &quot;jetta&quot;</span>, year <span class="op">==</span><span class="st"> </span><span class="dv">1999</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 5 x 11
+##   manufacturer model displ  year   cyl trans drv     cty   hwy fl    class
+##   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+## 1 volkswagen   jetta   1.9  1999     4 manu… f        33    44 d     comp…
+## 2 volkswagen   jetta   2    1999     4 manu… f        21    29 r     comp…
+## 3 volkswagen   jetta   2    1999     4 auto… f        19    26 r     comp…
+## 4 volkswagen   jetta   2.8  1999     6 auto… f        16    23 r     comp…
+## 5 volkswagen   jetta   2.8  1999     6 manu… f        17    24 r     comp…</code></pre>
+<p>See <code>?Comparison</code> and <code>?Logic</code> to learn more about writing logical tests in R.</p>
+</div>
+</div>
+<div id="select-columns-by-name" class="section level2">
+<h2><span class="header-section-number">4.4</span> Select columns by name</h2>
+<p>You want to return a “subset” of columns from your data frame by listing the name of each column to return.</p>
+<div id="solution-22" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb61-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country, year, cases)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   country      year  cases
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;
+## 1 Afghanistan  1999    745
+## 2 Afghanistan  2000   2666
+## 3 Brazil       1999  37737
+## 4 Brazil       2000  80488
+## 5 China        1999 212258
+## 6 China        2000 213766</code></pre>
+</div>
+<div id="discussion-21" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p><code>select()</code> returns a new data frame that includes each column passed to <code>select()</code>. Repeat a name to include the column twice.</p>
+</div>
+</div>
+<div id="drop-columns-by-name" class="section level2">
+<h2><span class="header-section-number">4.5</span> Drop columns by name</h2>
+<p>You want to return a “subset” of columns from your data frame by listing the name of each column to drop.</p>
+<div id="solution-23" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(population, year))</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 2
+##   country      cases
+##   &lt;chr&gt;        &lt;int&gt;
+## 1 Afghanistan    745
+## 2 Afghanistan   2666
+## 3 Brazil       37737
+## 4 Brazil       80488
+## 5 China       212258
+## 6 China       213766</code></pre>
+</div>
+<div id="discussion-22" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>If you use a <code>-</code> before a column name, <code>select()</code> will return every column in the data frame except that column. To drop more than one column at a time, group the columns into a vector preceded by <code>-</code>.</p>
+</div>
+</div>
+<div id="select-a-range-of-columns" class="section level2">
+<h2><span class="header-section-number">4.6</span> Select a range of columns</h2>
+<p>You want to return two columns from a data frame as well as every column that appears between them.</p>
+<div id="solution-24" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country<span class="op">:</span>cases)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   country      year  cases
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;
+## 1 Afghanistan  1999    745
+## 2 Afghanistan  2000   2666
+## 3 Brazil       1999  37737
+## 4 Brazil       2000  80488
+## 5 China        1999 212258
+## 6 China        2000 213766</code></pre>
+</div>
+<div id="discussion-23" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>If you combine two column names with a <code>:</code>, <code>select()</code> will return both columns and every column that appears between them in the data frame.</p>
+</div>
+</div>
+<div id="select-columns-by-integer-position" class="section level2">
+<h2><span class="header-section-number">4.7</span> Select columns by integer position</h2>
+<p>You want to return a “subset” of columns from your data frame by listing the position of each column to return.</p>
+<div id="solution-25" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb67-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   country      year population
+##   &lt;chr&gt;       &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan  1999   19987071
+## 2 Afghanistan  2000   20595360
+## 3 Brazil       1999  172006362
+## 4 Brazil       2000  174504898
+## 5 China        1999 1272915272
+## 6 China        2000 1280428583</code></pre>
+</div>
+<div id="discussion-24" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p><code>select()</code> interprets the whole number <em>n</em> as the _n_th column in the data set. You can combine numbers with <code>-</code> and <code>:</code> inside of <code>select()</code> as well.</p>
+</div>
+</div>
+<div id="select-columns-by-start-of-name" class="section level2">
+<h2><span class="header-section-number">4.8</span> Select columns by start of name</h2>
+<p>You want to return evey column in your data that begins with a specific string.</p>
+<div id="solution-26" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb69-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&quot;c&quot;</span>))</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 2
+##   country      cases
+##   &lt;chr&gt;        &lt;int&gt;
+## 1 Afghanistan    745
+## 2 Afghanistan   2666
+## 3 Brazil       37737
+## 4 Brazil       80488
+## 5 China       212258
+## 6 China       213766</code></pre>
+</div>
+</div>
+<div id="select-columns-by-end-of-name" class="section level2">
+<h2><span class="header-section-number">4.9</span> Select columns by end of name</h2>
+<p>You want to return evey column in your data that ends with a specific string.</p>
+<div id="solution-27" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb71-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">ends_with</span>(<span class="st">&quot;tion&quot;</span>))</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 1
+##   population
+##        &lt;int&gt;
+## 1   19987071
+## 2   20595360
+## 3  172006362
+## 4  174504898
+## 5 1272915272
+## 6 1280428583</code></pre>
+</div>
+</div>
+<div id="select-columns-by-string-in-name" class="section level2">
+<h2><span class="header-section-number">4.10</span> Select columns by string in name</h2>
+<p>You want to return evey column in your data whose name contains a specific string or regular expression.</p>
+<div id="solution-28" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb73-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;o.*u&quot;</span>))</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 2
+##   country     population
+##   &lt;chr&gt;            &lt;int&gt;
+## 1 Afghanistan   19987071
+## 2 Afghanistan   20595360
+## 3 Brazil       172006362
+## 4 Brazil       174504898
+## 5 China       1272915272
+## 6 China       1280428583</code></pre>
+</div>
+<div id="discussion-25" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p><code>o.*u</code> is a regular expression that matches an <code>o</code> followed by a <code>u</code> with any number of characters in between. <code>country</code> and <code>population</code> are returned because the names <code>country</code> and <code>population</code> each contain an <code>o</code> followed (at any distance) by a <code>u</code>.</p>
+</div>
+</div>
+<div id="reorder-columns" class="section level2">
+<h2><span class="header-section-number">4.11</span> Reorder columns</h2>
+<p>You want to return all of the columns in the original data frame in a new order.</p>
+<div id="solution-29" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb75-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country, year, population, cases)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   country      year population  cases
+##   &lt;chr&gt;       &lt;int&gt;      &lt;int&gt;  &lt;int&gt;
+## 1 Afghanistan  1999   19987071    745
+## 2 Afghanistan  2000   20595360   2666
+## 3 Brazil       1999  172006362  37737
+## 4 Brazil       2000  174504898  80488
+## 5 China        1999 1272915272 212258
+## 6 China        2000 1280428583 213766</code></pre>
+</div>
+<div id="discussion-26" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>Use <code>select()</code> to select all of the columns in the new order.</p>
+</div>
+</div>
+<div id="rename-columns" class="section level2">
+<h2><span class="header-section-number">4.12</span> Rename columns</h2>
+<p>You want to rename one or more columns in your data frame, retaining the rest.</p>
+<div id="solution-30" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb77-2" data-line-number="2"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">state =</span> country, <span class="dt">date =</span> year)</a></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   state        date  cases population
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+</div>
+<div id="discussion-27" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>For each column to be renamed, type a new name for the column and set it equal to the old name for the column.</p>
+</div>
+</div>
+<div id="return-the-contents-of-a-column-as-a-vector" class="section level2">
+<h2><span class="header-section-number">4.13</span> Return the contents of a column as a vector</h2>
+<p>You want to return the contents of a single column as a vector, not as a data frame with one column.</p>
+<div id="solution-31" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb79-2" data-line-number="2"><span class="st">  </span><span class="kw">pluck</span>(<span class="st">&quot;cases&quot;</span>)</a></code></pre></div>
+<pre><code>## [1]    745   2666  37737  80488 212258 213766</code></pre>
+</div>
+<div id="discussion-28" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p><code>pluck()</code> comes in the purrr package. Unlike <code>select()</code>, <code>pluck()</code> requires the clumn name to be passed as a character string (i.e. surrounded by quotes). You can also pluck a column by integer position:</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb81-2" data-line-number="2"><span class="st">  </span><span class="kw">pluck</span>(<span class="dv">3</span>)</a></code></pre></div>
+<pre><code>## [1]    745   2666  37737  80488 212258 213766</code></pre>
+</div>
+</div>
+<div id="summarise-data" class="section level2">
+<h2><span class="header-section-number">4.14</span> Summarise data</h2>
+<p>You want to</p>
+<div id="solution-32" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-29" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="summarise-data-by-groups" class="section level2">
+<h2><span class="header-section-number">4.15</span> Summarise data by groups</h2>
+<p>You want to</p>
+<div id="solution-33" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-30" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="mutate-data" class="section level2">
+<h2><span class="header-section-number">4.16</span> Mutate data</h2>
+<p>You want to</p>
+<div id="solution-34" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-31" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>Transforming a table sometimes requires more than one recipe. Why? Because tables are made of multiple data structures that work together:</p>
+<ol style="list-style-type: decimal">
+<li>The table itself is a data frame or tibble.<br />
+</li>
+<li>The columns of the table are vectors.<br />
+</li>
+<li>Some columns may be list-columns, which are lists that contain vectors.</li>
+</ol>
+<p>This matters because one of the <a href="what-is-the-tidyverse.html#what-is-the-tidyverse">design philosophies of the tidyverse</a> is that each function should focus on one task and do it well. Functions that do one task well tend to work with one type of data structure. So to transform a table, you often need to combine a function that manipulates tables with a function that manipulates data vectors and maybe a function that manipulates lists.</p>
+<p>In R, it is difficult to distinguish between vectors that are lists and vectors that are not lists. Whenever the difference matters, I’ll call the first set of vectors <strong>lists</strong> and the second set <strong>data vectors</strong>. This seems sensible because non-list vectors are used to store data: every piece of data is stored in one. In turn, a data vector may be stored in a list or a data frame. Data vectors include atomic vectors but also include modified atomic vectors like factors and date-times.</p>
+</div>
+</div>
+<div id="how-to-combine-transform-recipes" class="section level2">
+<h2><span class="header-section-number">4.17</span> How to combine transform recipes</h2>
+<p>There are two ways to</p>
+<p>When you transform a data frame, you often work with several functions:</p>
+<ol style="list-style-type: decimal">
+<li><p>A function that transforms the structure of the data frame to add or remove rows or columns. This function transforms a <em>table</em>.</p></li>
+<li><p>A function that transforms the values that appear in the data frame to create new values to place in a new row or column. This function transforms a <em>data vector</em>.</p></li>
+<li><p>A function that mediates between 1 and 2 if the values are embedded in a list-column, which is a <em>list</em>.</p></li>
+</ol>
+<p>The most concise way to learn how to combine these functions is to learn about the functions in isolation, and to then have the functions call each other as necessary.</p>
+<div id="an-example" class="section level3">
+<h3><span class="header-section-number">4.17.1</span> An Example</h3>
+<p><code>mtcars</code> contains performance data for 32 cars.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">mtcars</a></code></pre></div>
+<pre><code>## # A tibble: 32 x 5
+##      mpg   cyl  disp    hp  drat
+##  * &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  21       6  160    110  3.9 
+##  2  21       6  160    110  3.9 
+##  3  22.8     4  108     93  3.85
+##  4  21.4     6  258    110  3.08
+##  5  18.7     8  360    175  3.15
+##  6  18.1     6  225    105  2.76
+##  7  14.3     8  360    245  3.21
+##  8  24.4     4  147.    62  3.69
+##  9  22.8     4  141.    95  3.92
+## 10  19.2     6  168.   123  3.92
+## # ... with 22 more rows</code></pre>
+<p>To round the <code>mpg</code> value for each car, you would need two functions:</p>
+<ol style="list-style-type: decimal">
+<li><code>round()</code> which can round the values of the data vector stored in <code>mtcars$mpg</code>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></li>
+</ol>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="kw">round</span>(mtcars<span class="op">$</span>mpg)</a></code></pre></div>
+<pre><code>##  [1] 21 21 23 21 19 18 14 24 23 19 18 16 17 15 10 10 15 32 30 34 22 16 15
+## [24] 13 19 27 26 30 16 20 15 21</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><code>mutate()</code> which can add the results to a copy of the <code>mtcars</code> table.</li>
+</ol>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mpg_int =</span> <span class="kw">round</span>(mpg))</a></code></pre></div>
+<pre><code>## # A tibble: 32 x 6
+##      mpg   cyl  disp    hp  drat mpg_int
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+##  1  21       6  160    110  3.9       21
+##  2  21       6  160    110  3.9       21
+##  3  22.8     4  108     93  3.85      23
+##  4  21.4     6  258    110  3.08      21
+##  5  18.7     8  360    175  3.15      19
+##  6  18.1     6  225    105  2.76      18
+##  7  14.3     8  360    245  3.21      14
+##  8  24.4     4  147.    62  3.69      24
+##  9  22.8     4  141.    95  3.92      23
+## 10  19.2     6  168.   123  3.92      19
+## # ... with 22 more rows</code></pre>
+<p><code>round()</code> works with data vectors. <code>mutate()</code> works with tables. Together they create the table you want.</p>
+</div>
+<div id="another-example" class="section level3">
+<h3><span class="header-section-number">4.17.2</span> Another Example</h3>
+<p><code>sepals</code> contains sepal length measurements for three species of flower. The measurements are stored in a list-column named <code>lengths</code>.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">sepals</a></code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   Species    lengths   
+##   &lt;fct&gt;      &lt;list&gt;    
+## 1 setosa     &lt;dbl [50]&gt;
+## 2 versicolor &lt;dbl [50]&gt;
+## 3 virginica  &lt;dbl [50]&gt;</code></pre>
+<p>Each cell in <code>lengths</code> contains a data vector of 50 sepal lengths.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="co"># For example, the first cell of lengths</span></a>
+<a class="sourceLine" id="cb91-2" data-line-number="2">sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</a></code></pre></div>
+<pre><code>##  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4
+## [18] 5.1 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5
+## [35] 4.9 5.0 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0</code></pre>
+<p>To append the average sepal length for each species, you would need three functions:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>mean()</code> which can compute the average value of a data vector in <code>lengths</code></p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="kw">mean</span>(sepals[[<span class="dv">1</span>, <span class="dv">2</span>]])</a></code></pre></div>
+<pre><code>## [1] 5.006</code></pre></li>
+<li><p><code>map_dbl()</code> which can apply <code>mean()</code> to each cell of <code>lengths</code>, which is a list-column.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">map_dbl</span>(sepals<span class="op">$</span>lengths, mean)</a></code></pre></div>
+<pre><code>## [1] 5.006 5.936 6.588</code></pre></li>
+<li><p><code>mutate()</code> which can add the results to a copy of the <code>sepals</code> table.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">sepals <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb97-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">avg_length =</span> <span class="kw">map_dbl</span>(lengths, mean))</a></code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   Species    lengths    avg_length
+##   &lt;fct&gt;      &lt;list&gt;          &lt;dbl&gt;
+## 1 setosa     &lt;dbl [50]&gt;       5.01
+## 2 versicolor &lt;dbl [50]&gt;       5.94
+## 3 virginica  &lt;dbl [50]&gt;       6.59</code></pre></li>
+</ol>
+<p><code>mean()</code> works with data vectors. <code>map_dbl()</code> works with list-columns. <code>mutate()</code> works with tables. Together they create the table you want.</p>
+</div>
+</div>
+<div id="join-data-sets" class="section level2">
+<h2><span class="header-section-number">4.18</span> Join data sets</h2>
+<p>You want to</p>
+<div id="solution-35" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-32" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="filter-one-data-set-against-another" class="section level2">
+<h2><span class="header-section-number">4.19</span> Filter one data set against another</h2>
+<p>You want to</p>
+<div id="solution-36" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-33" class="section level4 unnumbered">
+<h4>Discussion</h4>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>To make the example easier to inspect, I made <code>mtcars</code> a tibble and removed the <code>wt</code>, <code>qsec</code>, <code>vs</code>, <code>am</code>, <code>gear</code> and <code>carb</code> columns before running this example.<a href="transform-tables.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p><code>mtcars$mpg</code> is R syntax for the <code>mpg</code> column of the <code>mtcars</code> data frame.<a href="transform-tables.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>I made this data frame with the code <code>sepals &lt;- iris %&gt;%    group_by(Species) %&gt;%    summarise(lengths = list(Sepal.Length))</code><a href="transform-tables.html#fnref3" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tidy.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio-education/tidyverse-cookbook/edit/master/04-transform-tables.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

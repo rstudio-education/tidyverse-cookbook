@@ -1,0 +1,13 @@
+bookdown::gitbook:
+  config:
+    toc:
+      collapse: section
+      before: |
+        <li><a href="./">A Tidyverse Cookbook</a></li>
+      after: |
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+    edit:
+      link: https://github.com/rstudio-education/tidyverse-cookbook/edit/master/%s
+      text: "Edit"
+  css: style.css
+  toc_depth: 1
