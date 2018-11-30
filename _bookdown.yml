@@ -4,7 +4,7 @@ delete_merged_file: true
 before_chapter_script: "setup.R"
 
 rmd_files: [
-  "index.rmd",
+  "index.Rmd",
   "what-is-the-tidyverse.Rmd",
   "01-program.Rmd",
   "02-import.Rmd",
