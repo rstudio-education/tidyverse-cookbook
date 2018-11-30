@@ -90,6 +90,7 @@ table1 %>%
   select(country, year, cases)
 ```
 
+<!-- I couldn't find table1 anywhere in a search, may want to provide code for people at the top to generate? Or at least cross-reference -->
 
 #### Discussion {-}
 
@@ -215,16 +216,17 @@ You want to return the contents of a single column as a vector, not as a data fr
 
 ```{r}
 table1 %>% 
-  pluck("cases")
+  pull(cases)
 ```
+
 
 #### Discussion {-}
 
-`pluck()` comes in the purrr package. Unlike `select()`, `pluck()` requires the clumn name to be passed as a character string (i.e. surrounded by quotes). You can also pluck a column by integer position:
+`pull()` comes in the dplyr package. You can also pull a column by integer position:
 
 ```{r}
 table1 %>% 
-  pluck(3)
+  pull(3)
 ```
 
 ## Summarise data
