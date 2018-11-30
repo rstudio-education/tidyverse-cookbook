@@ -176,7 +176,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="transform-tables.html#select-columns-by-end-of-name">Select columns by end of name</a></li>
 <li><a href="transform-tables.html#select-columns-by-string-in-name">Select columns by string in name</a></li>
 <li><a href="transform-tables.html#reorder-columns">Reorder columns</a></li>
-<li><a href="transform-tables.html#reorder-columns-without-naming-all-columns">Reorder columns without naming all columns</a></li>
 <li><a href="transform-tables.html#rename-columns">Rename columns</a></li>
 <li><a href="transform-tables.html#return-the-contents-of-a-column-as-a-vector">Return the contents of a column as a vector</a></li>
 <li><a href="transform-tables.html#summarise-data">Summarise data</a></li>
@@ -487,32 +486,10 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p>Use <code>select()</code> to select all of the columns in the new order.</p>
 </div>
 </div>
-<div id="reorder-columns-without-naming-all-columns" class="section level2">
-<h2><span class="header-section-number">4.12</span> Reorder columns without naming all columns</h2>
-<p>You want to reorder some of the columns in the original data frame, but you don’t care about the order for other columns, and you may have too many columns to name them each individually.</p>
-<div id="solution-30" class="section level4 unnumbered">
-<h4>Solution</h4>
-<pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">select</span>(country, year, <span class="kw">everything</span>())</code></pre>
-<pre><code>## # A tibble: 6 x 4
-##   country      year  cases population
-##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
-## 1 Afghanistan  1999    745   19987071
-## 2 Afghanistan  2000   2666   20595360
-## 3 Brazil       1999  37737  172006362
-## 4 Brazil       2000  80488  174504898
-## 5 China        1999 212258 1272915272
-## 6 China        2000 213766 1280428583</code></pre>
-</div>
-<div id="discussion-27" class="section level4 unnumbered">
-<h4>Discussion</h4>
-<p>Use <code>everything()</code> within <code>select()</code> to select all of the columns in the order they are named: all columns are kept, and no columns are duplicated. Using <code>everything()</code> preserves the original ordering of the original (unnamed) columns.</p>
-</div>
-</div>
 <div id="rename-columns" class="section level2">
-<h2><span class="header-section-number">4.13</span> Rename columns</h2>
+<h2><span class="header-section-number">4.12</span> Rename columns</h2>
 <p>You want to rename one or more columns in your data frame, retaining the rest.</p>
-<div id="solution-31" class="section level4 unnumbered">
+<div id="solution-30" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">rename</span>(<span class="dt">state =</span> country, <span class="dt">date =</span> year)</code></pre>
@@ -526,21 +503,21 @@ Tidyverse functions that transform tables do not transform your original table, 
 ## 5 China        1999 212258 1272915272
 ## 6 China        2000 213766 1280428583</code></pre>
 </div>
-<div id="discussion-28" class="section level4 unnumbered">
+<div id="discussion-27" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>For each column to be renamed, type a new name for the column and set it equal to the old name for the column.</p>
 </div>
 </div>
 <div id="return-the-contents-of-a-column-as-a-vector" class="section level2">
-<h2><span class="header-section-number">4.14</span> Return the contents of a column as a vector</h2>
+<h2><span class="header-section-number">4.13</span> Return the contents of a column as a vector</h2>
 <p>You want to return the contents of a single column as a vector, not as a data frame with one column.</p>
-<div id="solution-32" class="section level4 unnumbered">
+<div id="solution-31" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">pluck</span>(<span class="st">&quot;cases&quot;</span>)</code></pre>
 <pre><code>## [1]    745   2666  37737  80488 212258 213766</code></pre>
 </div>
-<div id="discussion-29" class="section level4 unnumbered">
+<div id="discussion-28" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>pluck()</code> comes in the purrr package. Unlike <code>select()</code>, <code>pluck()</code> requires the clumn name to be passed as a character string (i.e. surrounded by quotes). You can also pluck a column by integer position:</p>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
@@ -549,7 +526,17 @@ Tidyverse functions that transform tables do not transform your original table, 
 </div>
 </div>
 <div id="summarise-data" class="section level2">
-<h2><span class="header-section-number">4.15</span> Summarise data</h2>
+<h2><span class="header-section-number">4.14</span> Summarise data</h2>
+<p>You want to</p>
+<div id="solution-32" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-29" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="summarise-data-by-groups" class="section level2">
+<h2><span class="header-section-number">4.15</span> Summarise data by groups</h2>
 <p>You want to</p>
 <div id="solution-33" class="section level4 unnumbered">
 <h4>Solution</h4>
@@ -558,23 +545,13 @@ Tidyverse functions that transform tables do not transform your original table, 
 <h4>Discussion</h4>
 </div>
 </div>
-<div id="summarise-data-by-groups" class="section level2">
-<h2><span class="header-section-number">4.16</span> Summarise data by groups</h2>
+<div id="mutate-data" class="section level2">
+<h2><span class="header-section-number">4.16</span> Mutate data</h2>
 <p>You want to</p>
 <div id="solution-34" class="section level4 unnumbered">
 <h4>Solution</h4>
 </div>
 <div id="discussion-31" class="section level4 unnumbered">
-<h4>Discussion</h4>
-</div>
-</div>
-<div id="mutate-data" class="section level2">
-<h2><span class="header-section-number">4.17</span> Mutate data</h2>
-<p>You want to</p>
-<div id="solution-35" class="section level4 unnumbered">
-<h4>Solution</h4>
-</div>
-<div id="discussion-32" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>Transforming a table sometimes requires more than one recipe. Why? Because tables are made of multiple data structures that work together:</p>
 <ol style="list-style-type: decimal">
@@ -589,7 +566,7 @@ Tidyverse functions that transform tables do not transform your original table, 
 </div>
 </div>
 <div id="how-to-combine-transform-recipes" class="section level2">
-<h2><span class="header-section-number">4.18</span> How to combine transform recipes</h2>
+<h2><span class="header-section-number">4.17</span> How to combine transform recipes</h2>
 <p>There are two ways to</p>
 <p>When you transform a data frame, you often work with several functions:</p>
 <ol style="list-style-type: decimal">
@@ -599,7 +576,7 @@ Tidyverse functions that transform tables do not transform your original table, 
 </ol>
 <p>The most concise way to learn how to combine these functions is to learn about the functions in isolation, and to then have the functions call each other as necessary.</p>
 <div id="an-example" class="section level3">
-<h3><span class="header-section-number">4.18.1</span> An Example</h3>
+<h3><span class="header-section-number">4.17.1</span> An Example</h3>
 <p><code>mtcars</code> contains performance data for 32 cars.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <pre class="sourceCode r"><code class="sourceCode r">mtcars</code></pre>
 <pre><code>## # A tibble: 32 x 5
@@ -645,7 +622,7 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p><code>round()</code> works with data vectors. <code>mutate()</code> works with tables. Together they create the table you want.</p>
 </div>
 <div id="another-example" class="section level3">
-<h3><span class="header-section-number">4.18.2</span> Another Example</h3>
+<h3><span class="header-section-number">4.17.2</span> Another Example</h3>
 <p><code>sepals</code> contains sepal length measurements for three species of flower. The measurements are stored in a list-column named <code>lengths</code>.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <pre class="sourceCode r"><code class="sourceCode r">sepals</code></pre>
 <pre><code>## # A tibble: 3 x 2
@@ -682,22 +659,22 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 </div>
 </div>
 <div id="join-data-sets" class="section level2">
-<h2><span class="header-section-number">4.19</span> Join data sets</h2>
+<h2><span class="header-section-number">4.18</span> Join data sets</h2>
+<p>You want to</p>
+<div id="solution-35" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-32" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="filter-one-data-set-against-another" class="section level2">
+<h2><span class="header-section-number">4.19</span> Filter one data set against another</h2>
 <p>You want to</p>
 <div id="solution-36" class="section level4 unnumbered">
 <h4>Solution</h4>
 </div>
 <div id="discussion-33" class="section level4 unnumbered">
-<h4>Discussion</h4>
-</div>
-</div>
-<div id="filter-one-data-set-against-another" class="section level2">
-<h2><span class="header-section-number">4.20</span> Filter one data set against another</h2>
-<p>You want to</p>
-<div id="solution-37" class="section level4 unnumbered">
-<h4>Solution</h4>
-</div>
-<div id="discussion-34" class="section level4 unnumbered">
 <h4>Discussion</h4>
 
 </div>
