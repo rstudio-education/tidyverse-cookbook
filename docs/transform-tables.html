@@ -334,7 +334,6 @@ Tidyverse functions that transform tables do not transform your original table, 
 ## 4 Brazil       2000  80488
 ## 5 China        1999 212258
 ## 6 China        2000 213766</code></pre>
-<!-- I couldn't find table1 anywhere in a search, may want to provide code for people at the top to generate? Or at least cross-reference -->
 </div>
 <div id="discussion-21" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -515,14 +514,14 @@ Tidyverse functions that transform tables do not transform your original table, 
 <div id="solution-31" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pull</span>(cases)</code></pre>
+<span class="st">  </span><span class="kw">pluck</span>(<span class="st">&quot;cases&quot;</span>)</code></pre>
 <pre><code>## [1]    745   2666  37737  80488 212258 213766</code></pre>
 </div>
 <div id="discussion-28" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p><code>pull()</code> comes in the dplyr package. You can also pull a column by integer position:</p>
+<p><code>pluck()</code> comes in the purrr package. Unlike <code>select()</code>, <code>pluck()</code> requires the clumn name to be passed as a character string (i.e. surrounded by quotes). You can also pluck a column by integer position:</p>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">pull</span>(<span class="dv">3</span>)</code></pre>
+<span class="st">  </span><span class="kw">pluck</span>(<span class="dv">3</span>)</code></pre>
 <pre><code>## [1]    745   2666  37737  80488 212258 213766</code></pre>
 </div>
 </div>
