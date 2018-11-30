@@ -10,11 +10,11 @@ description: "How to solve common data science tasks with R's Tidyverse"
 
 # Welcome {-}
 
-This book collects code recipes for doing data science with R's [tidyverse](#what-is-the-tidyverse). Each recipe solves a single common task, with a minimum of discussion. Everything in this book is licensed under the permissive [Creative Commons 4.0 International License](https://creativecommons.org/licenses/by/4.0/). We encourage you to reuse and adapt the recipes.
-
 ```{block2, type = "rmdtip"}
 This book is an R community project, and it wouldn't be nearly as good without your help. There are a number of ways you can contribute, from spotting typos to adding recipes. Read [How to Contribute] to get started.
 ```
+
+This book collects code recipes for doing data science with R's [tidyverse](#what-is-the-tidyverse). Each recipe solves a single common task, with a minimum of discussion. Everything in this book is licensed under the permissive [Creative Commons 4.0 International License](https://creativecommons.org/licenses/by/4.0/). We encourage you to reuse and adapt the recipes.
    
 ## How the recipes are organized {-}
 
@@ -42,11 +42,13 @@ To access the help page for an R function, type a `?` at the command line follow
 ?mutate
 ```
 
-```{block2, type = "rmdcaution"}
 If a function comes in an R package, you will need to load the package with `library()` before you access the function's help page. 
 
-Alternatively, you can access the help page by typing a `?` followed by the package name, followed by `::`, followed by the function name, e.g. `?dplyr::mutate`
-```   
+Alternatively, you can access the help page by typing a `?` followed by the package name, followed by `::`, followed by the function name, e.g.
+
+```{r eval = FALSE}
+?dplyr::mutate
+```  
     
 ## Legal disclaimer {-}
 

@@ -197,8 +197,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p>You want to sort the rows of a data frame in <strong>ascending</strong> order by the values in one or more columns.</p>
 <div id="solution-19" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(cty)</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(cty)</a></code></pre></div>
 <pre><code>## # A tibble: 234 x 11
 ##    manufacturer model displ  year   cyl trans drv     cty   hwy fl    cla…
 ##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;ch&gt;
@@ -217,8 +217,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <div id="discussion-18" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>arrange()</code> sorts the rows according to the values of the specified column, with the lowest values appearing near the top of the data frame. <code>arrange()</code> will use additional columns as tiebreakers to sort within rows that share the same value of the first column.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(cty, hwy)</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(cty, hwy)</a></code></pre></div>
 <pre><code>## # A tibble: 234 x 11
 ##    manufacturer model displ  year   cyl trans drv     cty   hwy fl    cla…
 ##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;ch&gt;
@@ -240,8 +240,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p>You want to sort the rows of a data frame in <strong>descending</strong> order by the values in one or more columns.</p>
 <div id="solution-20" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cty))</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cty))</a></code></pre></div>
 <pre><code>## # A tibble: 234 x 11
 ##    manufacturer model displ  year   cyl trans drv     cty   hwy fl    cla…
 ##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;ch&gt;
@@ -260,8 +260,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <div id="discussion-19" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>Place <code>desc()</code> around a column name to cause <code>arrange()</code> to sort by descending values of that column. You can use <code>desc()</code> for tie-breaker columns as well.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(cty, <span class="kw">desc</span>(hwy))</a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(cty, <span class="kw">desc</span>(hwy))</a></code></pre></div>
 <pre><code>## # A tibble: 234 x 11
 ##    manufacturer model displ  year   cyl trans drv     cty   hwy fl    cla…
 ##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;ch&gt;
@@ -283,8 +283,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p>You want to filter your table to just the rows that meet a specific condition.</p>
 <div id="solution-21" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(model <span class="op">==</span><span class="st"> &quot;jetta&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(model <span class="op">==</span><span class="st"> &quot;jetta&quot;</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 9 x 11
 ##   manufacturer model displ  year   cyl trans drv     cty   hwy fl    class
 ##   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
@@ -302,8 +302,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <h4>Discussion</h4>
 <p><code>filter()</code> takes a logical test and returns the rows for which the logical test returns <code>TRUE</code>. <code>filter()</code> will match column names that appear within the logical test to columns in your data frame.</p>
 <p><code>filter()</code> will combine multiple logical tests with an AND operator (<code>&amp;</code>):</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb59-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(model <span class="op">==</span><span class="st"> &quot;jetta&quot;</span>, year <span class="op">==</span><span class="st"> </span><span class="dv">1999</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(model <span class="op">==</span><span class="st"> &quot;jetta&quot;</span>, year <span class="op">==</span><span class="st"> </span><span class="dv">1999</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 11
 ##   manufacturer model displ  year   cyl trans drv     cty   hwy fl    class
 ##   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
@@ -320,8 +320,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p>You want to return a “subset” of columns from your data frame by listing the name of each column to return.</p>
 <div id="solution-22" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb61-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country, year, cases)</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country, year, cases)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ##   country      year  cases
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;
@@ -342,8 +342,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p>You want to return a “subset” of columns from your data frame by listing the name of each column to drop.</p>
 <div id="solution-23" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(population, year))</a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb64-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(population, year))</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   country      cases
 ##   &lt;chr&gt;        &lt;int&gt;
@@ -364,8 +364,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p>You want to return two columns from a data frame as well as every column that appears between them.</p>
 <div id="solution-24" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country<span class="op">:</span>cases)</a></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb66-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country<span class="op">:</span>cases)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ##   country      year  cases
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;
@@ -386,8 +386,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p>You want to return a “subset” of columns from your data frame by listing the position of each column to return.</p>
 <div id="solution-25" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb67-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb68-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ##   country      year population
 ##   &lt;chr&gt;       &lt;int&gt;      &lt;int&gt;
@@ -408,8 +408,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p>You want to return evey column in your data that begins with a specific string.</p>
 <div id="solution-26" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb69-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&quot;c&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&quot;c&quot;</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   country      cases
 ##   &lt;chr&gt;        &lt;int&gt;
@@ -426,8 +426,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p>You want to return evey column in your data that ends with a specific string.</p>
 <div id="solution-27" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb71-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">ends_with</span>(<span class="st">&quot;tion&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb72-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">ends_with</span>(<span class="st">&quot;tion&quot;</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 1
 ##   population
 ##        &lt;int&gt;
@@ -444,8 +444,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p>You want to return evey column in your data whose name contains a specific string or regular expression.</p>
 <div id="solution-28" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb73-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;o.*u&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb74-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;o.*u&quot;</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   country     population
 ##   &lt;chr&gt;            &lt;int&gt;
@@ -466,8 +466,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p>You want to return all of the columns in the original data frame in a new order.</p>
 <div id="solution-29" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb75-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country, year, population, cases)</a></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb76-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country, year, population, cases)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   country      year population  cases
 ##   &lt;chr&gt;       &lt;int&gt;      &lt;int&gt;  &lt;int&gt;
@@ -488,8 +488,8 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p>You want to rename one or more columns in your data frame, retaining the rest.</p>
 <div id="solution-30" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb77-2" data-line-number="2"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">state =</span> country, <span class="dt">date =</span> year)</a></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb78-2" data-line-number="2"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">state =</span> country, <span class="dt">date =</span> year)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   state        date  cases population
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
@@ -510,15 +510,15 @@ Tidyverse functions that transform tables do not transform your original table, 
 <p>You want to return the contents of a single column as a vector, not as a data frame with one column.</p>
 <div id="solution-31" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb79-2" data-line-number="2"><span class="st">  </span><span class="kw">pluck</span>(<span class="st">&quot;cases&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb80-2" data-line-number="2"><span class="st">  </span><span class="kw">pluck</span>(<span class="st">&quot;cases&quot;</span>)</a></code></pre></div>
 <pre><code>## [1]    745   2666  37737  80488 212258 213766</code></pre>
 </div>
 <div id="discussion-28" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>pluck()</code> comes in the purrr package. Unlike <code>select()</code>, <code>pluck()</code> requires the clumn name to be passed as a character string (i.e. surrounded by quotes). You can also pluck a column by integer position:</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb81-2" data-line-number="2"><span class="st">  </span><span class="kw">pluck</span>(<span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb82-2" data-line-number="2"><span class="st">  </span><span class="kw">pluck</span>(<span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## [1]    745   2666  37737  80488 212258 213766</code></pre>
 </div>
 </div>
@@ -575,7 +575,7 @@ Tidyverse functions that transform tables do not transform your original table, 
 <div id="an-example" class="section level3">
 <h3><span class="header-section-number">4.17.1</span> An Example</h3>
 <p><code>mtcars</code> contains performance data for 32 cars.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">mtcars</a></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1">mtcars</a></code></pre></div>
 <pre><code>## # A tibble: 32 x 5
 ##      mpg   cyl  disp    hp  drat
 ##  * &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -594,14 +594,14 @@ Tidyverse functions that transform tables do not transform your original table, 
 <ol style="list-style-type: decimal">
 <li><code>round()</code> which can round the values of the data vector stored in <code>mtcars$mpg</code>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></li>
 </ol>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="kw">round</span>(mtcars<span class="op">$</span>mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="kw">round</span>(mtcars<span class="op">$</span>mpg)</a></code></pre></div>
 <pre><code>##  [1] 21 21 23 21 19 18 14 24 23 19 18 16 17 15 10 10 15 32 30 34 22 16 15
 ## [24] 13 19 27 26 30 16 20 15 21</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><code>mutate()</code> which can add the results to a copy of the <code>mtcars</code> table.</li>
 </ol>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mpg_int =</span> <span class="kw">round</span>(mpg))</a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb88-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mpg_int =</span> <span class="kw">round</span>(mpg))</a></code></pre></div>
 <pre><code>## # A tibble: 32 x 6
 ##      mpg   cyl  disp    hp  drat mpg_int
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
@@ -621,7 +621,7 @@ Tidyverse functions that transform tables do not transform your original table, 
 <div id="another-example" class="section level3">
 <h3><span class="header-section-number">4.17.2</span> Another Example</h3>
 <p><code>sepals</code> contains sepal length measurements for three species of flower. The measurements are stored in a list-column named <code>lengths</code>.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">sepals</a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1">sepals</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   Species    lengths   
 ##   &lt;fct&gt;      &lt;list&gt;    
@@ -629,22 +629,22 @@ Tidyverse functions that transform tables do not transform your original table, 
 ## 2 versicolor &lt;dbl [50]&gt;
 ## 3 virginica  &lt;dbl [50]&gt;</code></pre>
 <p>Each cell in <code>lengths</code> contains a data vector of 50 sepal lengths.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="co"># For example, the first cell of lengths</span></a>
-<a class="sourceLine" id="cb91-2" data-line-number="2">sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="co"># For example, the first cell of lengths</span></a>
+<a class="sourceLine" id="cb92-2" data-line-number="2">sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</a></code></pre></div>
 <pre><code>##  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4
 ## [18] 5.1 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5
 ## [35] 4.9 5.0 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0</code></pre>
 <p>To append the average sepal length for each species, you would need three functions:</p>
 <ol style="list-style-type: decimal">
 <li><p><code>mean()</code> which can compute the average value of a data vector in <code>lengths</code></p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="kw">mean</span>(sepals[[<span class="dv">1</span>, <span class="dv">2</span>]])</a></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1"><span class="kw">mean</span>(sepals[[<span class="dv">1</span>, <span class="dv">2</span>]])</a></code></pre></div>
 <pre><code>## [1] 5.006</code></pre></li>
 <li><p><code>map_dbl()</code> which can apply <code>mean()</code> to each cell of <code>lengths</code>, which is a list-column.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">map_dbl</span>(sepals<span class="op">$</span>lengths, mean)</a></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"><span class="kw">map_dbl</span>(sepals<span class="op">$</span>lengths, mean)</a></code></pre></div>
 <pre><code>## [1] 5.006 5.936 6.588</code></pre></li>
 <li><p><code>mutate()</code> which can add the results to a copy of the <code>sepals</code> table.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">sepals <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb97-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">avg_length =</span> <span class="kw">map_dbl</span>(lengths, mean))</a></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1">sepals <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb98-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">avg_length =</span> <span class="kw">map_dbl</span>(lengths, mean))</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   Species    lengths    avg_length
 ##   &lt;fct&gt;      &lt;list&gt;          &lt;dbl&gt;

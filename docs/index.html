@@ -164,12 +164,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="welcome" class="section level1 unnumbered">
 <h1>Welcome</h1>
-<p>This book collects code recipes for doing data science with R’s <a href="what-is-the-tidyverse.html#what-is-the-tidyverse">tidyverse</a>. Each recipe solves a single common task, with a minimum of discussion. Everything in this book is licensed under the permissive <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons 4.0 International License</a>. We encourage you to reuse and adapt the recipes.</p>
 
 <div class="rmdtip">
 This book is an R community project, and it wouldn’t be nearly as good without your help. There are a number of ways you can contribute, from spotting typos to adding recipes. Read <a href="how-to-contribute.html#how-to-contribute">How to Contribute</a> to get started.
 </div>
 
+<p>This book collects code recipes for doing data science with R’s <a href="what-is-the-tidyverse.html#what-is-the-tidyverse">tidyverse</a>. Each recipe solves a single common task, with a minimum of discussion. Everything in this book is licensed under the permissive <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons 4.0 International License</a>. We encourage you to reuse and adapt the recipes.</p>
 <div id="how-the-recipes-are-organized" class="section level2 unnumbered">
 <h2>How the recipes are organized</h2>
 <p>The recipes in this book are organized according to the model of data science presented in <a href="http://r4ds.had.co.nz/introduction.html"><em>R for Data Science</em></a>. When you do data science, you find yourself repeating the same sequence of steps:</p>
@@ -182,12 +182,9 @@ This book is an R community project, and it wouldn’t be nearly as good without
 <p>R comes with a built in reference manual, which is fondly (but inaccurately) called R’s help pages. You can use R’s help pages to glean details that I do not cover here.</p>
 <p>To access the help page for an R function, type a <code>?</code> at the command line followed by the function name, and then run the result, e.g.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">?mutate</a></code></pre></div>
-
-<div class="rmdcaution">
 <p>If a function comes in an R package, you will need to load the package with <code>library()</code> before you access the function’s help page.</p>
-Alternatively, you can access the help page by typing a <code>?</code> followed by the package name, followed by <code>::</code>, followed by the function name, e.g. <code>?dplyr::mutate</code>
-</div>
-
+<p>Alternatively, you can access the help page by typing a <code>?</code> followed by the package name, followed by <code>::</code>, followed by the function name, e.g.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">?dplyr<span class="op">::</span>mutate</a></code></pre></div>
 </div>
 <div id="legal-disclaimer" class="section level2 unnumbered">
 <h2>Legal disclaimer</h2>

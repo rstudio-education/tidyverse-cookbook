@@ -172,13 +172,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Make your request very specific. Each recipe should focus on one single, simple task. No homework problems please.</p></li>
 <li><p>Include the recipe template below. Don’t forget to change the <code>TITLE</code> and to complete the “You want to” sentence. This template will be the beginning of the finished recipe.</p></li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">## TITLE</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">You want to</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#### Solution {-}</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#### Discussion {-}</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">## TITLE</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">You want to</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#### Solution {-}</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#### Discussion {-}</span></a></code></pre></div></li>
 </ol></li>
 <li><p><strong>Write a recipe or fix a typo</strong> - If you would like to add a recipe, or if you spot a typo, feel free to edit the underlying page and send a pull request. If you’ve never done this before, the process is very easy:</p>
 <ol style="list-style-type: decimal">
@@ -195,58 +195,58 @@ If you add a recipe or make significant changes, include this phrase in your pul
 </div></li>
 </ol>
 <p>You can begin a recipe by copying and pasting the following template:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">## TITLE</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">You want to</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#### Solution {-}</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#### Discussion {-}</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">## TITLE</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">You want to</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#### Solution {-}</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#### Discussion {-}</span></a></code></pre></div>
 <p>Keep in mind that your solution code <strong>must</strong> run. When you write the recipe, assume that the user has run <code>library(&quot;tidyverse&quot;)</code> and nothing else. Where possible, try to minimize additional package dependencies.</p>
 <p>A useful way to do this is to use data that comes in a tidyverse package. Here are the tidyverse data sets and the packages you’ll find them in.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># data frames (tibbles)</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">dplyr<span class="op">::</span>band_instruments</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">dplyr<span class="op">::</span>band_instruments2</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">dplyr<span class="op">::</span>band_members</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">dplyr<span class="op">::</span>starwars</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">dplyr<span class="op">::</span>storms</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">forcats<span class="op">::</span>gss_cat</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">ggplot2<span class="op">::</span>diamonds</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">ggplot2<span class="op">::</span>economics</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">ggplot2<span class="op">::</span>economics_long</a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">ggplot2<span class="op">::</span>faithfuld</a>
-<a class="sourceLine" id="cb4-12" data-line-number="12">ggplot2<span class="op">::</span>midwest</a>
-<a class="sourceLine" id="cb4-13" data-line-number="13">ggplot2<span class="op">::</span>mpg</a>
-<a class="sourceLine" id="cb4-14" data-line-number="14">ggplot2<span class="op">::</span>msleep</a>
-<a class="sourceLine" id="cb4-15" data-line-number="15">ggplot2<span class="op">::</span>presidential</a>
-<a class="sourceLine" id="cb4-16" data-line-number="16">ggplot2<span class="op">::</span>seals</a>
-<a class="sourceLine" id="cb4-17" data-line-number="17">ggplot2<span class="op">::</span>txhousing</a>
-<a class="sourceLine" id="cb4-18" data-line-number="18">modelr<span class="op">::</span>heights</a>
-<a class="sourceLine" id="cb4-19" data-line-number="19">modelr<span class="op">::</span>sim1</a>
-<a class="sourceLine" id="cb4-20" data-line-number="20">modelr<span class="op">::</span>sim2</a>
-<a class="sourceLine" id="cb4-21" data-line-number="21">modelr<span class="op">::</span>sim3</a>
-<a class="sourceLine" id="cb4-22" data-line-number="22">modelr<span class="op">::</span>sim4</a>
-<a class="sourceLine" id="cb4-23" data-line-number="23">tidyr<span class="op">::</span>population</a>
-<a class="sourceLine" id="cb4-24" data-line-number="24">tidyr<span class="op">::</span>smiths</a>
-<a class="sourceLine" id="cb4-25" data-line-number="25">tidyr<span class="op">::</span>table1</a>
-<a class="sourceLine" id="cb4-26" data-line-number="26">tidyr<span class="op">::</span>table2</a>
-<a class="sourceLine" id="cb4-27" data-line-number="27">tidyr<span class="op">::</span>table3</a>
-<a class="sourceLine" id="cb4-28" data-line-number="28">tidyr<span class="op">::</span>table4a</a>
-<a class="sourceLine" id="cb4-29" data-line-number="29">tidyr<span class="op">::</span>table4b</a>
-<a class="sourceLine" id="cb4-30" data-line-number="30">tidyr<span class="op">::</span>table5</a>
-<a class="sourceLine" id="cb4-31" data-line-number="31">tidyr<span class="op">::</span>who</a>
-<a class="sourceLine" id="cb4-32" data-line-number="32"></a>
-<a class="sourceLine" id="cb4-33" data-line-number="33"><span class="co"># data frames (non-tibbles)</span></a>
-<a class="sourceLine" id="cb4-34" data-line-number="34">ggplot2<span class="op">::</span>luv_colours</a>
-<a class="sourceLine" id="cb4-35" data-line-number="35">lubridate<span class="op">::</span>lakers</a>
-<a class="sourceLine" id="cb4-36" data-line-number="36"></a>
-<a class="sourceLine" id="cb4-37" data-line-number="37"><span class="co"># arrays</span></a>
-<a class="sourceLine" id="cb4-38" data-line-number="38">dplyr<span class="op">::</span>nasa</a>
-<a class="sourceLine" id="cb4-39" data-line-number="39"></a>
-<a class="sourceLine" id="cb4-40" data-line-number="40"><span class="co"># character vectors</span></a>
-<a class="sourceLine" id="cb4-41" data-line-number="41">stringr<span class="op">::</span>fruit</a>
-<a class="sourceLine" id="cb4-42" data-line-number="42">stringr<span class="op">::</span>sentences</a>
-<a class="sourceLine" id="cb4-43" data-line-number="43">stringr<span class="op">::</span>words</a></code></pre></div></li>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># data frames (tibbles)</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">dplyr<span class="op">::</span>band_instruments</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">dplyr<span class="op">::</span>band_instruments2</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">dplyr<span class="op">::</span>band_members</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">dplyr<span class="op">::</span>starwars</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">dplyr<span class="op">::</span>storms</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">forcats<span class="op">::</span>gss_cat</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">ggplot2<span class="op">::</span>diamonds</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">ggplot2<span class="op">::</span>economics</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">ggplot2<span class="op">::</span>economics_long</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">ggplot2<span class="op">::</span>faithfuld</a>
+<a class="sourceLine" id="cb5-12" data-line-number="12">ggplot2<span class="op">::</span>midwest</a>
+<a class="sourceLine" id="cb5-13" data-line-number="13">ggplot2<span class="op">::</span>mpg</a>
+<a class="sourceLine" id="cb5-14" data-line-number="14">ggplot2<span class="op">::</span>msleep</a>
+<a class="sourceLine" id="cb5-15" data-line-number="15">ggplot2<span class="op">::</span>presidential</a>
+<a class="sourceLine" id="cb5-16" data-line-number="16">ggplot2<span class="op">::</span>seals</a>
+<a class="sourceLine" id="cb5-17" data-line-number="17">ggplot2<span class="op">::</span>txhousing</a>
+<a class="sourceLine" id="cb5-18" data-line-number="18">modelr<span class="op">::</span>heights</a>
+<a class="sourceLine" id="cb5-19" data-line-number="19">modelr<span class="op">::</span>sim1</a>
+<a class="sourceLine" id="cb5-20" data-line-number="20">modelr<span class="op">::</span>sim2</a>
+<a class="sourceLine" id="cb5-21" data-line-number="21">modelr<span class="op">::</span>sim3</a>
+<a class="sourceLine" id="cb5-22" data-line-number="22">modelr<span class="op">::</span>sim4</a>
+<a class="sourceLine" id="cb5-23" data-line-number="23">tidyr<span class="op">::</span>population</a>
+<a class="sourceLine" id="cb5-24" data-line-number="24">tidyr<span class="op">::</span>smiths</a>
+<a class="sourceLine" id="cb5-25" data-line-number="25">tidyr<span class="op">::</span>table1</a>
+<a class="sourceLine" id="cb5-26" data-line-number="26">tidyr<span class="op">::</span>table2</a>
+<a class="sourceLine" id="cb5-27" data-line-number="27">tidyr<span class="op">::</span>table3</a>
+<a class="sourceLine" id="cb5-28" data-line-number="28">tidyr<span class="op">::</span>table4a</a>
+<a class="sourceLine" id="cb5-29" data-line-number="29">tidyr<span class="op">::</span>table4b</a>
+<a class="sourceLine" id="cb5-30" data-line-number="30">tidyr<span class="op">::</span>table5</a>
+<a class="sourceLine" id="cb5-31" data-line-number="31">tidyr<span class="op">::</span>who</a>
+<a class="sourceLine" id="cb5-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb5-33" data-line-number="33"><span class="co"># data frames (non-tibbles)</span></a>
+<a class="sourceLine" id="cb5-34" data-line-number="34">ggplot2<span class="op">::</span>luv_colours</a>
+<a class="sourceLine" id="cb5-35" data-line-number="35">lubridate<span class="op">::</span>lakers</a>
+<a class="sourceLine" id="cb5-36" data-line-number="36"></a>
+<a class="sourceLine" id="cb5-37" data-line-number="37"><span class="co"># arrays</span></a>
+<a class="sourceLine" id="cb5-38" data-line-number="38">dplyr<span class="op">::</span>nasa</a>
+<a class="sourceLine" id="cb5-39" data-line-number="39"></a>
+<a class="sourceLine" id="cb5-40" data-line-number="40"><span class="co"># character vectors</span></a>
+<a class="sourceLine" id="cb5-41" data-line-number="41">stringr<span class="op">::</span>fruit</a>
+<a class="sourceLine" id="cb5-42" data-line-number="42">stringr<span class="op">::</span>sentences</a>
+<a class="sourceLine" id="cb5-43" data-line-number="43">stringr<span class="op">::</span>words</a></code></pre></div></li>
 </ol>
 
 </div>
