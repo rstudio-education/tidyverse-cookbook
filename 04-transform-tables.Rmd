@@ -193,6 +193,21 @@ table1 %>%
 
 Use `select()` to select all of the columns in the new order.
 
+## Reorder columns without naming all columns
+
+You want to reorder some of the columns in the original data frame, but you don't care about the order for other columns, and you may have too many columns to name them each individually.
+
+#### Solution {-}
+
+```{r}
+table1 %>% 
+  select(country, year, everything())
+```
+
+#### Discussion {-}
+
+Use `everything()` within `select()` to select all of the columns in the order they are named: all columns are kept, and no columns are duplicated. Using `everything()` preserves the original ordering of the original (unnamed) columns.
+
 ## Rename columns
 
 You want to rename one or more columns in your data frame, retaining the rest.
