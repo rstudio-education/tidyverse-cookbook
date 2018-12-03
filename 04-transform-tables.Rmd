@@ -246,11 +246,22 @@ table1 %>%
 
 ## Summarise data
 
-You want to
+You want to compute summary statistics for your data set.
 
 #### Solution {-}
 
+```{r}
+table1 %>% 
+  summarise(total_cases = sum(cases), max_rate = max(cases/population))
+```
+
 #### Discussion {-}
+
+When used by itself, `summarise()` returns a new 1 x n tibble. Each argument name passed to `summarise()` will become a column name in the tibble. Each column will contain the result of the R expression passed to the argument/column name.
+
+`summarise()` is intended to be used with _summary functions_, which are functions that take a vector of values as input and return a single value as output (e.g `sum()`, `max()`, `mean()`).
+
+`summarize()` is an alias for `summarise()`.
 
 ## Summarise data by groups
 
