@@ -551,12 +551,21 @@ Tidyverse functions that transform tables do not transform your original table, 
 </div>
 <div id="summarise-data" class="section level2">
 <h2><span class="header-section-number">4.15</span> Summarise data</h2>
-<p>You want to</p>
+<p>You want to compute summary statistics for your data set.</p>
 <div id="solution-33" class="section level4 unnumbered">
 <h4>Solution</h4>
+<pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(cases), <span class="dt">max_rate =</span> <span class="kw">max</span>(cases<span class="op">/</span>population))</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##   total_cases max_rate
+##         &lt;int&gt;    &lt;dbl&gt;
+## 1      547660 0.000461</code></pre>
 </div>
 <div id="discussion-30" class="section level4 unnumbered">
 <h4>Discussion</h4>
+<p>When used by itself, <code>summarise()</code> returns a new 1 x n tibble. Each argument name passed to <code>summarise()</code> will become a column name in the tibble. Each column will contain the result of the R expression passed to the argument/column name.</p>
+<p><code>summarise()</code> is intended to be used with <em>summary functions</em>, which are functions that take a vector of values as input and return a single value as output (e.g <code>sum()</code>, <code>max()</code>, <code>mean()</code>).</p>
+<p><code>summarize()</code> is an alias for <code>summarise()</code>.</p>
 </div>
 </div>
 <div id="summarise-data-by-groups" class="section level2">
