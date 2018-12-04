@@ -265,12 +265,55 @@ When used by itself, `summarise()` returns a new 1 x n tibble. Each argument nam
 
 ## Summarise data by groups
 
-You want to
+You want to compute and then compare summary statistics for different groups of data in your data set.
 
 #### Solution {-}
 
+```{r}
+table1 %>% 
+  group_by(country) %>% 
+  summarise(total_cases = sum(cases), max_rate = max(cases/population))
+```
+
 #### Discussion {-}
 
+`group_by()` converts your data set into a grouped tibble, which is a tibble subclass that indicates in its attributes which rows belong to which group. 
+
+Where appropriate, tidyverse functions recognize grouped tibbles. The functions: 
+
+1. treat each group as a distinct data set
+1. execute their code content separately on each group
+1. combine the results in a new data frame that contains a column of group labels (as above).
+
+Pass `group_by()` a column to group by the values of that column (rows that contain the same value will be placed in the same group). Pass `group_by()` two or more column names to group by the distinct combinations of values in those columns.
+
+As a rule, tidyverse functions will return a result that contains the same grouping criteria as the original grouped tibble. `summarise()` is an exception: `summarise()` removes the last column name from the grouping criteria of its result. Because of this, you can call `summarise()` repeatedly to view progressively higher level summaries:
+
+```{r}
+table1 %>% 
+  group_by(country, year) %>% 
+  summarise(total_cases = sum(cases))
+```
+
+```{r}
+table1 %>% 
+  group_by(country, year) %>% 
+  summarise(total_cases = sum(cases)) %>% 
+  summarise(total_cases = sum(total_cases))
+```
+
+```{r}
+table1 %>% 
+  group_by(country, year) %>% 
+  summarise(total_cases = sum(cases)) %>% 
+  summarise(total_cases = sum(total_cases)) %>% 
+  summarise(total_cases = sum(total_cases))
+```
+
+
+
+
+<!--
 ## Mutate data
 
 You want to
@@ -398,5 +441,5 @@ You want to
 #### Solution {-}
 
 #### Discussion {-}
-
+-->
 
