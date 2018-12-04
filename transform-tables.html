@@ -195,6 +195,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Tidyverse functions that transform tables do not transform your original table, which is preserved in its original form under its original name. Tidyverse functions instead return a modified copy of the table, which can be passed to the next function in a pipe, or assigned to a name for later use.
 </div>
 
+
+<div class="rmdcaution">
+<p>Transforming a table sometimes requires more than one recipe. Why? Because tables are made of multiple data structures that work together:</p>
+<ol style="list-style-type: decimal">
+<li>The table itself is a data frame or tibble.<br />
+</li>
+<li>The columns of the table are vectors.<br />
+</li>
+<li>Some columns may be list-columns, which are lists that contain vectors.</li>
+</ol>
+This matters because one of the <a href="what-is-the-tidyverse.html#what-is-the-tidyverse">design philosophies of the tidyverse</a> is that each function should focus on one task and do it well. Functions that do one task well tend to work with one type of data structure. So to transform a table, you often need to combine a function that manipulates tables with a function that manipulates data vectors and maybe a function that manipulates lists. See [Combine Transform Recipes] for tips.
+</div>
+
 </div>
 <div id="arrange-rows-in-ascending-order-by-the-values-of-a-column" class="section level2">
 <h2><span class="header-section-number">4.1</span> Arrange rows in ascending order by the values of a column</h2>
@@ -634,14 +647,6 @@ You want to
 #### Solution {-}
 
 #### Discussion {-}
-
-Transforming a table sometimes requires more than one recipe. Why? Because tables are made of multiple data structures that work together: 
-
-1. The table itself is a data frame or tibble.  
-1. The columns of the table are vectors.  
-1. Some columns may be list-columns, which are lists that contain vectors.  
-
-This matters because one of the [design philosophies of the tidyverse](#what-is-the-tidyverse) is that each function should focus on one task and do it well. Functions that do one task well tend to work with one type of data structure. So to transform a table, you often need to combine a function that manipulates tables with a function that manipulates data vectors and maybe a function that manipulates lists.
   
 In R, it is difficult to distinguish between vectors that are lists and vectors that are not lists.  Whenever the difference matters, I'll call the first set of vectors **lists** and the second set **data vectors**. This seems sensible because non-list vectors are used to store data: every piece of data is stored in one. In turn, a data vector may be stored in a list or a data frame. Data vectors include atomic vectors but also include modified atomic vectors like factors and date-times.
 
