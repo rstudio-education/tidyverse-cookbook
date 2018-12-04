@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>The Tidyverse Cookbook</title>
+  <meta name="description" content="How to solve common data science tasks with R’s Tidyverse">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="The Tidyverse Cookbook" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="How to solve common data science tasks with R’s Tidyverse" />
+  <meta name="github-repo" content="rstudio-education/tidyverse-cookbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="The Tidyverse Cookbook" />
+  
+  <meta name="twitter:description" content="How to solve common data science tasks with R’s Tidyverse" />
+  
+
+<meta name="author" content="Edited by Garrett Grolemund">
+
+
+<meta name="date" content="2018-12-04">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+
+<link rel="next" href="how-to-contribute.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Tidyverse Cookbook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="how-to-contribute.html"><a href="how-to-contribute.html"><i class="fa fa-check"></i>How to contribute</a></li>
+<li class="chapter" data-level="" data-path="what-is-the-tidyverse.html"><a href="what-is-the-tidyverse.html"><i class="fa fa-check"></i>What is the tidyverse?</a></li>
+<li class="part"><span><b>I The Recipes</b></span></li>
+<li class="chapter" data-level="1" data-path="program.html"><a href="program.html"><i class="fa fa-check"></i><b>1</b> Program</a></li>
+<li class="chapter" data-level="2" data-path="import.html"><a href="import.html"><i class="fa fa-check"></i><b>2</b> Import</a></li>
+<li class="chapter" data-level="3" data-path="tidy.html"><a href="tidy.html"><i class="fa fa-check"></i><b>3</b> Tidy</a></li>
+<li class="chapter" data-level="4" data-path="transform-tables.html"><a href="transform-tables.html"><i class="fa fa-check"></i><b>4</b> Transform Tables</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Tidyverse Cookbook</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">The Tidyverse Cookbook</h1>
+<p class="author"><em>Edited by Garrett Grolemund</em></p>
+<p class="date"><em>2018-12-04</em></p>
+</div>
+<div id="welcome" class="section level1 unnumbered">
+<h1>Welcome</h1>
+
+<div class="rmdtip">
+This book is an R community project, and it wouldn’t be nearly as good without your help. There are a number of ways you can contribute, from spotting typos to adding recipes. Read <a href="how-to-contribute.html#how-to-contribute">How to Contribute</a> to get started.
+</div>
+
+<p>This book collects code recipes for doing data science with R’s <a href="what-is-the-tidyverse.html#what-is-the-tidyverse">tidyverse</a>. Each recipe solves a single common task, with a minimum of discussion. Everything in this book is licensed under the permissive <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons 4.0 International License</a>. We encourage you to reuse and adapt the recipes.</p>
+<div id="how-the-recipes-are-organized" class="section level2 unnumbered">
+<h2>How the recipes are organized</h2>
+<p>The recipes in this book are organized according to the model of data science presented in <a href="http://r4ds.had.co.nz/introduction.html"><em>R for Data Science</em></a>. When you do data science, you find yourself repeating the same sequence of steps:</p>
+<p><img src="images/data-science-workflow.png" /><!-- --></p>
+<p>I’ve grouped the recipes by task with the exception of Transform, which is split into chapters based on the type of data or structure to transform. To drill down to a recipe, click on one of the task names in the sidebar. If you are new to R, begin with <a href="program.html#program">Program</a>, which will show you how to install the tidyverse.</p>
+<p>To save space, each recipe assumes that you have already run <code>library(&quot;tidyverse&quot;)</code>. If additional <code>library()</code> calls are required, they will appear in the recipe.</p>
+</div>
+<div id="how-to-get-help" class="section level2 unnumbered">
+<h2>How to get help</h2>
+<p>R comes with a built in reference manual, which is fondly (but inaccurately) called R’s help pages. You can use R’s help pages to glean details that I do not cover here.</p>
+<p>To access the help page for an R function, type a <code>?</code> at the command line followed by the function name, and then run the result, e.g.</p>
+<pre class="sourceCode r"><code class="sourceCode r">?mutate</code></pre>
+<p>If a function comes in an R package, you will need to load the package with <code>library()</code> before you access the function’s help page.</p>
+<p>Alternatively, you can access the help page by typing a <code>?</code> followed by the package name, followed by <code>::</code>, followed by the function name, e.g.</p>
+<pre class="sourceCode r"><code class="sourceCode r">?dplyr<span class="op">::</span>mutate</code></pre>
+</div>
+<div id="legal-disclaimer" class="section level2 unnumbered">
+<h2>Legal disclaimer</h2>
+<p>I believe that each recipe in this book works as advertised, but be aware that the recipes come with the same warranty as R: ABSOLUTELY NO WARRANTY.</p>
+<hr />
+<p>The online version of this book is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons 4.0 International License</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="how-to-contribute.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio-education/tidyverse-cookbook/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
