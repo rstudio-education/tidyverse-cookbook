@@ -211,7 +211,7 @@ Tidy data is not an arbitrary requirement of the tidyverse; it is the ideal data
 <div id="create-a-tibble-manually" class="section level2">
 <h2><span class="header-section-number">3.1</span> Create a tibble manually</h2>
 <p>You want to create a tibble from scratch by typing in the contents of the tibble.</p>
-<div id="solution-10" class="section level4 unnumbered">
+<div id="solution-11" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tribble</span>(<span class="op">~</span>number, <span class="op">~</span>letter,   <span class="op">~</span>greek,
               <span class="dv">1</span>,     <span class="st">&quot;a&quot;</span>,  <span class="st">&quot;alpha&quot;</span>,
@@ -224,7 +224,7 @@ Tidy data is not an arbitrary requirement of the tidyverse; it is the ideal data
 ## 2      2 b      beta 
 ## 3      3 c      gamma</code></pre>
 </div>
-<div id="discussion-10" class="section level4 unnumbered">
+<div id="discussion-11" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>tribble()</code> creates a tibble while generating a preview of the result in your code. To use <code>tribble()</code>, list each column name preceded by a <code>~</code>, then list the values of the tribble in a rowwise fashion. If you take care to align your columns, the transposed syntax of <code>tribble()</code> becomes a preview of the table.</p>
 <p>You can also create a tibble with <code>tibble()</code>, whose syntax mirrors <code>data.frame()</code>:</p>
@@ -236,7 +236,7 @@ Tidy data is not an arbitrary requirement of the tidyverse; it is the ideal data
 <div id="convert-a-data-frame-to-a-tibble" class="section level2">
 <h2><span class="header-section-number">3.2</span> Convert a data frame to a tibble</h2>
 <p>You want to convert a data frame to a tibble.</p>
-<div id="solution-11" class="section level4 unnumbered">
+<div id="solution-12" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as_tibble</span>(iris)</code></pre>
 <pre><code>## # A tibble: 150 x 5
@@ -258,7 +258,7 @@ Tidy data is not an arbitrary requirement of the tidyverse; it is the ideal data
 <div id="convert-a-tibble-to-a-data-frame" class="section level2">
 <h2><span class="header-section-number">3.3</span> Convert a tibble to a data frame</h2>
 <p>You want to convert a tibble to a data frame.</p>
-<div id="solution-12" class="section level4 unnumbered">
+<div id="solution-13" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(table1)</code></pre>
 <pre><code>##       country year  cases population
@@ -269,7 +269,7 @@ Tidy data is not an arbitrary requirement of the tidyverse; it is the ideal data
 ## 5       China 1999 212258 1272915272
 ## 6       China 2000 213766 1280428583</code></pre>
 </div>
-<div id="discussion-11" class="section level4 unnumbered">
+<div id="discussion-12" class="section level4 unnumbered">
 <h4>Discussion</h4>
 
 <div class="rmdcaution">
@@ -281,7 +281,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 <div id="preview-the-contents-of-a-tibble" class="section level2">
 <h2><span class="header-section-number">3.4</span> Preview the contents of a tibble</h2>
 <p>You want to get an idea of what variables and values are stored in a tibble.</p>
-<div id="solution-13" class="section level4 unnumbered">
+<div id="solution-14" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">storms</code></pre>
 <pre><code>## # A tibble: 10,010 x 13
@@ -300,7 +300,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 ## # ... with 10,000 more rows, and 2 more variables: ts_diameter &lt;dbl&gt;,
 ## #   hu_diameter &lt;dbl&gt;</code></pre>
 </div>
-<div id="discussion-12" class="section level4 unnumbered">
+<div id="discussion-13" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>When you call a tibble directly, R will display enough information to give you a quick sense of the contents of the tibble. This includes:</p>
 <ol style="list-style-type: decimal">
@@ -313,11 +313,11 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 <div id="inspect-every-cell-of-a-tibble" class="section level2">
 <h2><span class="header-section-number">3.5</span> Inspect every cell of a tibble</h2>
 <p>You want to see which values are stored in a tibble.</p>
-<div id="solution-14" class="section level4 unnumbered">
+<div id="solution-15" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(storms)</code></pre>
 </div>
-<div id="discussion-13" class="section level4 unnumbered">
+<div id="discussion-14" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>View()</code> (with a capital V) opens the tibble in R’s data viewer, which will let you scroll to every cell in the tibble.</p>
 </div>
@@ -342,7 +342,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 ## 10 China        1999 population 1272915272
 ## 11 China        2000 cases          213766
 ## 12 China        2000 population 1280428583</code></pre>
-<div id="solution-15" class="section level4 unnumbered">
+<div id="solution-16" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table2 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> type, <span class="dt">value =</span> count)</code></pre>
@@ -356,7 +356,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 ## 5 China        1999 212258 1272915272
 ## 6 China        2000 213766 1280428583</code></pre>
 </div>
-<div id="discussion-14" class="section level4 unnumbered">
+<div id="discussion-15" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>To use <code>spread()</code>, assign the column that contains variable names to <code>key</code>. Assign the column that contains the values that are associated with those names to <code>value</code>. <code>spread()</code> will:</p>
 <ol style="list-style-type: decimal">
@@ -380,7 +380,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 ## 1 Afghanistan    745   2666
 ## 2 Brazil       37737  80488
 ## 3 China       212258 213766</code></pre>
-<div id="solution-16" class="section level4 unnumbered">
+<div id="solution-17" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table4a <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>)</code></pre>
@@ -394,7 +394,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 ## 5 Brazil      2000   80488
 ## 6 China       2000  213766</code></pre>
 </div>
-<div id="discussion-15" class="section level4 unnumbered">
+<div id="discussion-16" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>gather()</code> is the inverse of <code>spread()</code>: <code>gather()</code> collapses a field of cells that spans several columns into two columns:</p>
 <ol style="list-style-type: decimal">
@@ -431,7 +431,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 ## 4 Brazil       2000 80488/174504898  
 ## 5 China        1999 212258/1272915272
 ## 6 China        2000 213766/1280428583</code></pre>
-<div id="solution-17" class="section level4 unnumbered">
+<div id="solution-18" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table3 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(<span class="dt">col =</span> rate, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>)</code></pre>
@@ -445,7 +445,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 ## 5 China        1999 212258 1272915272
 ## 6 China        2000 213766 1280428583</code></pre>
 </div>
-<div id="discussion-16" class="section level4 unnumbered">
+<div id="discussion-17" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>To use <code>separate()</code>, pass <code>col</code> the name of the column to split. Pass <code>into</code> a vector of names for the new columns that <code>col</code> will be split into. You should supply one name for each new column that you expect to appear in the result; a mismatch will imply that something went wrong. <code>separate()</code> will:</p>
 <ol style="list-style-type: decimal">
@@ -479,7 +479,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 ## 4 Brazil      20      00    80488/174504898  
 ## 5 China       19      99    212258/1272915272
 ## 6 China       20      00    213766/1280428583</code></pre>
-<div id="solution-18" class="section level4 unnumbered">
+<div id="solution-19" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table5 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">unite</span>(<span class="dt">col =</span> <span class="st">&quot;year&quot;</span>, century, year, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</code></pre>
@@ -493,7 +493,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 ## 5 China       1999  212258/1272915272
 ## 6 China       2000  213766/1280428583</code></pre>
 </div>
-<div id="discussion-17" class="section level4 unnumbered">
+<div id="discussion-18" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>To use <code>unite()</code>, give <code>col</code> a character string to use as the name of the new column to create. Then list the columns to combine, and give <code>sep</code> a separator character to use to paste together the values in the cells of each column. <code>unite()</code> will:</p>
 <ol style="list-style-type: decimal">

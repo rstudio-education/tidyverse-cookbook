@@ -175,6 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="program.html#list-every-package-in-the-tidyverse">List every package in the tidyverse</a></li>
 <li><a href="program.html#combine-functions-into-a-pipe">Combine functions into a pipe</a></li>
 <li><a href="program.html#pipe-a-result-to-a-specific-argument">Pipe a result to a specific argument</a></li>
+<li><a href="program.html#change-an-object-in-place-with-a-pipe">Change an object in place with a pipe</a></li>
 </ol>
 </div>
 <hr />
@@ -422,6 +423,35 @@ Pipes are easier to read than nested code (mentally pronounce <code>%&gt;%</code
 <p>By default <code>%&gt;%</code> passes the result of the left hand side to the the first unnamed argument of the function on the right hand side. To override this default, use <code>.</code> as a placeholder within the function call on the right hand side. <code>%&gt;%</code> will evaluate <code>.</code> as the result of the left hand side, instead of passing the result to the first unnamed argument.</p>
 <p>The solution code is the equivalent of</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(mass <span class="op">~</span><span class="st"> </span>height, <span class="dt">data =</span> starwars)</code></pre>
+</div>
+</div>
+<div id="change-an-object-in-place-with-a-pipe" class="section level2">
+<h2><span class="header-section-number">1.10</span> Change an object in place with a pipe</h2>
+<p>You want to manipulate a data set and then assign the resulting data set back to its original object. You don’t want to repeat the name of the object twice. For example:</p>
+<pre class="sourceCode r"><code class="sourceCode r">starwars &lt;-<span class="st"> </span>starwars <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">avg_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre>
+<div id="solution-9" class="section level4 unnumbered">
+<h4>Solution</h4>
+<pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&lt;&gt;%</span>
+<span class="st">    </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">avg_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre>
+</div>
+<div id="discussion-9" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>The <code>%&lt;&gt;%</code> operator (pronounced “compound assignment operator”) is used to update a variable by first piping it into one or more right hand side expressions (ex. <code>group_by</code> and <code>summarise</code>), and then assigning the result back into the object.</p>
+<p>It saves you the extra step of typing the assignment operator and the variable name again.</p>
+
+<div class="rmdcaution">
+Overwriting your original object is a bad idea if you haven’t created a backup copy of your unmodified data somewhere else.
+</div>
+
+<p>The authors of the <a href="https://r4ds.had.co.nz/">R for Data Science</a> present a contrary opinion to the compound assignment operator.</p>
+<blockquote>
+<p>I’m not a fan of this operator because I think assignment is such a special operation that it should always be clear when it’s occurring. In my opinion, a little bit of duplication (i.e. repeating the name of the object twice) is fine in return for making assignment more explicit.</p>
+</blockquote>
+<p>What this boils down to is a tradeoff between writing concise code (<code>%&lt;&gt;%</code>) or readable and clear code (repeating the name of the object twice with <code>%&gt;%</code>).
+```</p>
 
 </div>
 </div>
