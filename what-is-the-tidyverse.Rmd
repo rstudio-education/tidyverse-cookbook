@@ -1,4 +1,42 @@
-# What is the tidyverse? {-}
+# How to use this book {-}
+
+```{r setup, warning=FALSE, message=FALSE, echo=FALSE}
+library(tidyverse)
+```
+
+The recipes in this book are organized according to the model of data science presented in [_R for Data Science_](http://r4ds.had.co.nz/introduction.html). When you do data science, you find yourself repeating the same sequence of steps:
+
+```{r echo = FALSE}
+knitr::include_graphics("images/data-science-workflow.png")
+```
+
+I've grouped the recipes by task with the exception of Transform, which is split into chapters based on the type of data or structure to transform. To drill down to a recipe, click on one of the task names in the sidebar. If you are new to R, begin with [Program], which will show you how to install the tidyverse.
+
+To save space, each recipe assumes that you have already run `library("tidyverse")`. If additional `library()` calls are required, they will appear in the recipe.
+
+## How to get help
+
+R comes with a built in reference manual, which is fondly (but inaccurately) called R's help pages. You can use R's help pages to glean details that I do not cover here.
+
+To access the help page for an R function, type a `?` at the command line followed by the function name, and then run the result, e.g.
+
+```{r eval = FALSE}
+?mutate
+```
+
+If a function comes in an R package, you will need to load the package with `library()` before you access the function's help page. 
+
+Alternatively, you can access the help page by typing a `?` followed by the package name, followed by `::`, followed by the function name, e.g.
+
+```{r eval = FALSE}
+?dplyr::mutate
+```  
+
+## Vocab
+
+In R, it is difficult to distinguish between vectors that are lists and vectors that are not lists.  Whenever the difference matters, I'll call the first set of vectors **lists** and the second set **data vectors**. This seems sensible because non-list vectors are used to store data: every piece of data is stored in one. In turn, a data vector may be stored in a list or a data frame. Data vectors include atomic vectors but also include modified atomic vectors like factors and date-times.
+    
+## What is the tidyverse?
 
 Each of the recipes in this book relies on R's [tidyverse](https://www.tidyverse.org/), which is a collection of packages, functions, and _ideas_. You do not need to know which ideas are in the tidyverse to use tidyverse functions, just as you do not need to know which ingredients are in a cake mix to make a cake. But understanding the tidyverse will help you see the best practices embedded in each recipe. This will make it easier for you to adapt the recipes to your own work.
 
