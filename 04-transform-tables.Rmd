@@ -15,6 +15,10 @@ Tidyverse functions that transform tables do not transform your original table, 
 ```
 
 ```{block2, type = "rmdcaution"}
+dplyr functions will match column names that appear within their arguments to columns in the data frame that they are manipulating. To avoid this behavior, place `!!` before a name to unquote it, e.g. `!!model`.
+```
+
+```{block2, type = "rmdcaution"}
 Transforming a table sometimes requires more than one recipe. Why? Because tables are made of multiple data structures that work together: 
 
 1. The table itself is a data frame or tibble.  
@@ -78,7 +82,7 @@ mpg %>%
 
 #### Discussion {-}
 
-`filter()` takes a logical test and returns the rows for which the logical test returns `TRUE`. `filter()` will match column names that appear within the logical test to columns in your data frame.
+`filter()` takes a logical test and returns the rows for which the logical test returns `TRUE`. `filter()` will match column names that appear within the logical test to columns in your data frame. 
 
 `filter()` will combine multiple logical tests with an AND operator (`&`):
 
@@ -267,7 +271,7 @@ table1 %>%
 
 #### Discussion {-}
 
-When used by itself, `summarise()` returns a new 1 x n tibble. Each argument name passed to `summarise()` will become a column name in the tibble. Each column will contain the result of the R expression passed to the argument/column name.
+When used by itself, `summarise()` returns a new 1 x n tibble. Each argument name passed to `summarise()` will become a column name in the tibble. Each column will contain the result of the R expression passed to the argument/column name. 
 
 `summarise()` is intended to be used with _summary functions_, which are functions that take a vector of values as input and return a single value as output (e.g `sum()`, `max()`, `mean()`).
 
@@ -320,19 +324,35 @@ table1 %>%
   summarise(total_cases = sum(total_cases))
 ```
 
+## Mutate data (Add new variables)
 
-
-
-<!--
-## Mutate data
-
-You want to
+You want to compute one or more new variables and add them to your table as columns.
 
 #### Solution {-}
 
+```{r}
+table1 %>% 
+  mutate(rate = cases/population, percent = rate * 100)
+```
+
 #### Discussion {-}
+
+`mutate()` returns a copy of your table that contains additional columns. Each argument name passed to `mutate()` will become the name of a new column. Each new column will contain the result of the R expression passed to the argument/column name. 
+
+`mutate()` will build the columns in the order that you define them. As a result, you may use a column in the column definitions that follow it.
+
+`mutate()` is intended to be used with _vectorized functions_, which are functions that take a vector of values as input and return a new vector of values as output (e.g `abs()`, `round()`, and all of R's math operations).
+
+Use `transmute()` to return only the new columns that `mutate()` would create.
+
+```{r}
+table1 %>% 
+  transmute(rate = cases/population, percent = rate * 100)
+```
+
+<!--
   
-In R, it is difficult to distinguish between vectors that are lists and vectors that are not lists.  Whenever the difference matters, I'll call the first set of vectors **lists** and the second set **data vectors**. This seems sensible because non-list vectors are used to store data: every piece of data is stored in one. In turn, a data vector may be stored in a list or a data frame. Data vectors include atomic vectors but also include modified atomic vectors like factors and date-times.
+
 
 ## How to combine transform recipes
 
