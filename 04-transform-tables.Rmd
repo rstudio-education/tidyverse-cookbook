@@ -463,5 +463,92 @@ You want to
 #### Solution {-}
 
 #### Discussion {-}
+
+
+
+## Remove rownames
+
+You want to remove rownames from a tibble or dataframe.
+
+For example, `table4a` contains row indexes as rownames.
+
+```{r}
+table4a
+```
+
+```{r}
+# A tibble: 3 x 3
+  country     `1999` `2000`
+* <chr>        <int>  <int>
+1 Afghanistan    745   2666
+2 Brazil       37737  80488
+3 China       212258 213766
+```
+
+#### Solution {-}
+
+```{r}
+table4a %>% remove_rownames()
+```
+
+#### Discussion {-}
+
+According to the `tibble` documentation, 
+
+> Generally, it is best to avoid row names, because they are basically a character column with different semantics to every other column.
+
+
+## Check if data has rownames
+
+You want to see if dataset has rownames.
+
+Let's use `table4a`, which has rownames.
+
+
+#### Solution {-}
+
+```{r}
+table4a %>% has_rownames()
+```
+
+```{r}
+TRUE
+```
+
+#### Discussion {-}
+
+The only argument to `has_rownames()` is a dataframe. 
+
+
+
+## Convert rownames to column
+
+
+Let's use `table4a`, which has rownames.
+
+
+#### Solution {-}
+
+```{r}
+table4a %>% rownames_to_column(var = "row_index")
+```
+
+```{r}
+# A tibble: 3 x 4
+  row_index country     `1999` `2000`
+  <chr>     <chr>        <int>  <int>
+1 1         Afghanistan    745   2666
+2 2         Brazil       37737  80488
+3 3         China       212258 213766
+```
+
+
+
+#### Discussion {-}
+
+The arguments are a dataframe and name for the new column. 
+
+
+
 -->
 
