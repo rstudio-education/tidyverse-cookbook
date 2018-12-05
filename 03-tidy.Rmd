@@ -117,6 +117,54 @@ View(storms)
 
 `View()` (with a capital V) opens the tibble in R's data viewer, which will let you scroll to every cell in the tibble.
 
+
+## Name data viewers inside RStudio
+
+You want to assign custom names to several datasets you are inspecting in the data viewers.
+
+For example,
+
+```{r}
+View(starwars)
+View(storms)
+View(smiths)
+```
+
+Inside RStudio, those commands open R's data viewer with default names:
+
+<img width="300" alt="screen shot 2018-12-05 at 4 01 42 pm" src="https://user-images.githubusercontent.com/28586264/49543846-3cea1200-f8a7-11e8-89b5-590efdf837b4.png">
+
+
+
+#### Solution {-}
+
+##### Option 1
+```{r}
+View(starwars, "starwars from dplyr")
+View(storms, "storms from dplyr")
+View(smiths, "smiths from tidyr")
+```
+##### Option 2
+```{r}
+starwars %>% 
+  View("starwars from dplyr")
+storms %>% 
+  View("storms from dplyr")
+smiths %>% 
+  View("smiths from tidyr")
+```
+
+<br>
+
+<img width="500" alt="screen shot 2018-12-05 at 4 06 28 pm" src="https://user-images.githubusercontent.com/28586264/49544023-c1d52b80-f8a7-11e8-8d38-0b797374b068.png">
+
+
+#### Discussion {-}
+
+Inside `View()` you insert a R object and then the title for the data viewer. This is really unnecessary with a few datasets, but when inspecting more than 5 datasets, this comes in handy. 
+
+
+
 ## Spread a pair of columns into a field of cells
 
 You want to **pivot**, **convert long data to wide**, or move variable names out of the cells and into the column names. These are different ways of describing the same thing.
