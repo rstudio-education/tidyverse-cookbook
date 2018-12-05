@@ -254,3 +254,42 @@ To use `unite()`, give `col` a character string to use as the name of the new co
 ```{block2, type = "rmdcaution"}
 If you do not suppy a `sep` value, `unite()` will use `_` as a separator character.
 ```
+
+## Replace columns that have NA values with desired value
+
+You want to specify certain columns that contain `NA` and replace it with another value such as `0`. 
+
+For example, `smiths`, a dataset contained in `tidyr`, has a couple of `NA` values in `age` and `weight` columns. 
+
+```{r}
+smiths
+```
+
+```{r}
+# A tibble: 2 x 5
+  subject     time   age weight height
+  <chr>      <dbl> <dbl>  <dbl>  <dbl>
+1 John Smith     1    33     90   1.87
+2 Mary Smith     1    NA     NA   1.54
+```
+
+
+#### Solution {-}
+```{r}
+smiths %>%
+  replace_na(list(age = 0, weight = 0))
+```
+
+```{r}
+# A tibble: 2 x 5
+  subject     time   age weight height
+  <chr>      <dbl> <dbl>  <dbl>  <dbl>
+1 John Smith     1    33     90   1.87
+2 Mary Smith     1     0      0   1.54
+```
+
+#### Discussion {-}
+
+If `data` is a dataframe or tibble, you need to create a list inside `replace_na` with the name of columns on the left hand side and value to replace `NA` with on the right hand side. 
+
+If `data` is a vector, you insert a single value used for replacement. 
