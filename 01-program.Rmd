@@ -259,3 +259,35 @@ The solution code is the equivalent of
 lm(mass ~ height, data = starwars)
 ```
 
+
+
+You want to use `tidyverse` expressions to manipulate a dataset and then assign the resulting dataset back to its original object. 
+
+You don't want to repeat the name of the object twice. For example:
+
+```{r}
+starwars <- starwars %>%
+    group_by(species) %>%
+    summarise(avg_height = mean(height, na.rm = TRUE))
+```
+
+#### Solution {-}
+
+```{r}
+starwars %<>%
+    group_by(species) %>% 
+    summarise(avg_height = mean(height, na.rm = TRUE))
+```
+
+
+#### Discussion {-}
+
+The `%<>%` operator (pronounced "compound assignment operator")  is used to update a variable by first piping it into one or more right hand side expressions (ex. `group_by` and `summarise`), and then assigning the result back into the object.
+
+It saves you the extra step of typing the assignment operator and the variable name again. 
+
+The authors of the renown [R for Data Science](https://r4ds.had.co.nz/) present a contrary opinion to the  compound assignment operator. 
+
+> I’m not a fan of this operator because I think assignment is such a special operation that it should always be clear when it’s occurring. In my opinion, a little bit of duplication (i.e. repeating the name of the object twice) is fine in return for making assignment more explicit.
+
+What this boils down to whether you prefer writing concise code (`%<>%`) or readable and clear code (repeating the name of the object twice with `%>%`).
