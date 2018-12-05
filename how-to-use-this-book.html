@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>What is the tidyverse? | The Tidyverse Cookbook</title>
+  <title>How to use this book | The Tidyverse Cookbook</title>
   <meta name="description" content="How to solve common data science tasks with R’s Tidyverse">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="What is the tidyverse? | The Tidyverse Cookbook />
+  <meta property="og:title" content="How to use this book | The Tidyverse Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="rstudio-education/tidyverse-cookbook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="What is the tidyverse? | The Tidyverse Cookbook />
+  <meta name="twitter:title" content="How to use this book | The Tidyverse Cookbook" />
   
   <meta name="twitter:description" content="How to solve common data science tasks with R’s Tidyverse" />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2018-12-04">
+<meta name="date" content="2018-12-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -134,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="chapter" data-level="" data-path="how-to-contribute.html"><a href="how-to-contribute.html"><i class="fa fa-check"></i>How to contribute</a></li>
-<li class="chapter" data-level="" data-path="what-is-the-tidyverse.html"><a href="what-is-the-tidyverse.html"><i class="fa fa-check"></i>What is the tidyverse?</a></li>
+<li class="chapter" data-level="" data-path="how-to-use-this-book.html"><a href="how-to-use-this-book.html"><i class="fa fa-check"></i>How to use this book</a></li>
 <li class="part"><span><b>I The Recipes</b></span></li>
 <li class="chapter" data-level="1" data-path="program.html"><a href="program.html"><i class="fa fa-check"></i><b>1</b> Program</a></li>
 <li class="chapter" data-level="2" data-path="import.html"><a href="import.html"><i class="fa fa-check"></i><b>2</b> Import</a></li>
@@ -160,8 +160,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="what-is-the-tidyverse" class="section level1 unnumbered">
-<h1>What is the tidyverse?</h1>
+<div id="how-to-use-this-book" class="section level1 unnumbered">
+<h1>How to use this book</h1>
+<p>The recipes in this book are organized according to the model of data science presented in <a href="http://r4ds.had.co.nz/introduction.html"><em>R for Data Science</em></a>. When you do data science, you find yourself repeating the same sequence of steps:</p>
+<p><img src="images/data-science-workflow.png" /><!-- --></p>
+<p>I’ve grouped the recipes by task with the exception of Transform, which is split into chapters based on the type of data or structure to transform. To drill down to a recipe, click on one of the task names in the sidebar. If you are new to R, begin with <a href="program.html#program">Program</a>, which will show you how to install the tidyverse.</p>
+<p>To save space, each recipe assumes that you have already run <code>library(&quot;tidyverse&quot;)</code>. If additional <code>library()</code> calls are required, they will appear in the recipe.</p>
+<div id="how-to-get-help" class="section level2">
+<h2><span class="header-section-number">0.1</span> How to get help</h2>
+<p>R comes with a built in reference manual, which is fondly (but inaccurately) called R’s help pages. You can use R’s help pages to glean details that I do not cover here.</p>
+<p>To access the help page for an R function, type a <code>?</code> at the command line followed by the function name, and then run the result, e.g.</p>
+<pre class="sourceCode r"><code class="sourceCode r">?mutate</code></pre>
+<p>If a function comes in an R package, you will need to load the package with <code>library()</code> before you access the function’s help page.</p>
+<p>Alternatively, you can access the help page by typing a <code>?</code> followed by the package name, followed by <code>::</code>, followed by the function name, e.g.</p>
+<pre class="sourceCode r"><code class="sourceCode r">?dplyr<span class="op">::</span>mutate</code></pre>
+</div>
+<div id="vocab" class="section level2">
+<h2><span class="header-section-number">0.2</span> Vocab</h2>
+<p>In R, it is difficult to distinguish between vectors that are lists and vectors that are not lists. Whenever the difference matters, I’ll call the first set of vectors <strong>lists</strong> and the second set <strong>data vectors</strong>. This seems sensible because non-list vectors are used to store data: every piece of data is stored in one. In turn, a data vector may be stored in a list or a data frame. Data vectors include atomic vectors but also include modified atomic vectors like factors and date-times.</p>
+</div>
+<div id="what-is-the-tidyverse" class="section level2">
+<h2><span class="header-section-number">0.3</span> What is the tidyverse?</h2>
 <p>Each of the recipes in this book relies on R’s <a href="https://www.tidyverse.org/">tidyverse</a>, which is a collection of packages, functions, and <em>ideas</em>. You do not need to know which ideas are in the tidyverse to use tidyverse functions, just as you do not need to know which ingredients are in a cake mix to make a cake. But understanding the tidyverse will help you see the best practices embedded in each recipe. This will make it easier for you to adapt the recipes to your own work.</p>
 <p>The <strong>tidyverse</strong> is a collection of R packages designed for data science. Tidyverse packages share a common design philosophy, so when you learn how to use one tidyverse package, you learn a lot about how to use the others.</p>
 <p>Tidyverse packages are also:</p>
@@ -173,7 +192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Install the complete set of tidyverse packages with:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre>
 <div id="tidy-data" class="section level3">
-<h3><span class="header-section-number">0.0.1</span> Tidy data</h3>
+<h3><span class="header-section-number">0.3.1</span> Tidy data</h3>
 <p>Each package in the tidyverse is designed to use and return <strong>tidy data</strong> whenever appropriate. Tidy data is tabular data organized so that:</p>
 <ol style="list-style-type: decimal">
 <li>Each column contains a single variable</li>
@@ -184,7 +203,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Tidy tibbles act as a common data structure that tidyverse functions use to talk to each other. Tidy data has other advantages as well. Tidy data aligns with R’s native data structure, the data frame; and tidy data is easy to use with R’s fast, built in vectorized operations. You can think of tidy data as the data format optimized for R.</p>
 </div>
 <div id="tidy-tools" class="section level3">
-<h3><span class="header-section-number">0.0.2</span> Tidy tools</h3>
+<h3><span class="header-section-number">0.3.2</span> Tidy tools</h3>
 <p>Each package in the tidyverse also provides <strong>tidy tools</strong>. Tidy tools are R functions that:</p>
 <ol style="list-style-type: decimal">
 <li>Accept and return the same type of data structure (as input and output)</li>
@@ -198,6 +217,7 @@ If you’d like to develop a deeper understanding of the tidyverse, I encourage 
 </div>
 
 
+</div>
 </div>
 </div>
 
