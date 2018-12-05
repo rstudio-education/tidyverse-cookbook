@@ -259,13 +259,11 @@ The solution code is the equivalent of
 lm(mass ~ height, data = starwars)
 ```
 
+## Change an object in place with a pipe
 
+You want to manipulate a data set and then assign the resulting data set back to its original object. You don't want to repeat the name of the object twice. For example:
 
-You want to use `tidyverse` expressions to manipulate a dataset and then assign the resulting dataset back to its original object. 
-
-You don't want to repeat the name of the object twice. For example:
-
-```{r}
+```{r eval = FALSE}
 starwars <- starwars %>%
     group_by(species) %>%
     summarise(avg_height = mean(height, na.rm = TRUE))
@@ -273,7 +271,7 @@ starwars <- starwars %>%
 
 #### Solution {-}
 
-```{r}
+```{r eval = FALSE}
 starwars %<>%
     group_by(species) %>% 
     summarise(avg_height = mean(height, na.rm = TRUE))
@@ -286,8 +284,13 @@ The `%<>%` operator (pronounced "compound assignment operator")  is used to upda
 
 It saves you the extra step of typing the assignment operator and the variable name again. 
 
-The authors of the renown [R for Data Science](https://r4ds.had.co.nz/) present a contrary opinion to the  compound assignment operator. 
+```{block2, type = "rmdcaution"}
+Overwriting your original object is a bad idea if you haven't created a backup copy of your unmodified data somewhere else.
+```
+
+The authors of the [R for Data Science](https://r4ds.had.co.nz/) present a contrary opinion to the  compound assignment operator. 
 
 > I’m not a fan of this operator because I think assignment is such a special operation that it should always be clear when it’s occurring. In my opinion, a little bit of duplication (i.e. repeating the name of the object twice) is fine in return for making assignment more explicit.
 
-What this boils down to whether you prefer writing concise code (`%<>%`) or readable and clear code (repeating the name of the object twice with `%>%`).
+What this boils down to is a tradeoff between writing concise code (`%<>%`) or readable and clear code (repeating the name of the object twice with `%>%`).
+```
