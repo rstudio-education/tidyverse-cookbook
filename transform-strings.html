@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>The Tidyverse Cookbook</title>
+  <title>7 Transform Strings | The Tidyverse Cookbook</title>
   <meta name="description" content="How to solve common data science tasks with R’s Tidyverse">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="The Tidyverse Cookbook" />
+  <meta property="og:title" content="7 Transform Strings | The Tidyverse Cookbook" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="rstudio-education/tidyverse-cookbook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="The Tidyverse Cookbook" />
+  <meta name="twitter:title" content="7 Transform Strings | The Tidyverse Cookbook" />
   
   <meta name="twitter:description" content="How to solve common data science tasks with R’s Tidyverse" />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="how-to-use-this-book.html">
+<link rel="prev" href="transform-data-vectors.html">
+<link rel="next" href="transform-factors.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -164,140 +164,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">The Tidyverse Cookbook</h1>
-<p class="author"><em>Edited by Garrett Grolemund</em></p>
-<p class="date"><em>2018-12-06</em></p>
-</div>
-<div id="welcome" class="section level1 unnumbered">
-<h1>Welcome</h1>
-<!--
-\BeginKnitrBlock{rmdtip}<div class="rmdtip">This book is an R community project, and it wouldn't be nearly as good without your help. There are a number of ways you can contribute, from spotting typos to adding recipes. Read [How to Contribute] to get started.</div>\EndKnitrBlock{rmdtip}
--->
-<p>This book collects code recipes for doing data science with R’s <a href="how-to-use-this-book.html#what-is-the-tidyverse">tidyverse</a>. Each recipe solves a single common task, with a minimum of discussion. Everything in this book is licensed under the permissive <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons 4.0 International License</a>. We encourage you to reuse and adapt the recipes.</p>
-<div id="legal-disclaimer" class="section level2 unnumbered">
-<h2>Legal disclaimer</h2>
-<p>I believe that each recipe in this book works as advertised, but be aware that the recipes come with the same warranty as R: ABSOLUTELY NO WARRANTY.</p>
+<div id="transform-strings" class="section level1">
+<h1><span class="header-section-number">7</span> Transform Strings</h1>
 <hr />
-<p>The online version of this book is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons 4.0 International License</a>.</p>
-<!--
-# How to contribute {-}
-
-Please help us improve this book. Here are some ways to join the fun: 
-
-1. **Proofread** - If something does not work, please 
-  [let me know](https://github.com/rstudio-education/tidyverse-cookbook/issues). Your vigilence is valuable!
-  
-1. **Vote on which recipes to add next** - Visit the [github issue tracker](https://github.com/rstudio-education/tidyverse-cookbook/issues) and upvote the recipes that you would like someone to write.
-
-1. **Suggest a recipe** - Propose new recipes on the [github issue tracker](https://github.com/rstudio-education/tidyverse-cookbook/issues). To propose a recipe, visit the [tracker](https://github.com/rstudio-education/tidyverse-cookbook/issues) and then:
-    
-    1. Check that your recipe has not been proposed already. You'll know if it has because proposed recipes will appear in the list of open issues. If your recipe has already been requested, upvote it.
-    
-    2. Click New Issue and then write and save your proposal. To help us write the recipe please:
-    
-        * Make your request very specific. Each recipe should focus on one single, simple task. No homework problems please.
-    
-        * Include the recipe template below. Don't forget to change the `TITLE` and to complete the "You want to" sentence. This template will be the beginning of the finished recipe.
-    
-        
-        ```r
-        ## TITLE
-        
-        You want to
-        
-        #### Solution {-}
-        
-        #### Discussion {-}
-        ```
-
-1. **Write a recipe or fix a typo** - If you would like to add a recipe, or if you spot a typo, feel free to edit the underlying page and send a pull request. If you've never done this before, the process is very easy: 
-  
-    1. Click the edit icon in the header at the top of this page.
-      
-    2. Make the changes using github's in-page editor and save.
-
-         \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">If your changes add a recipe that has been proposed in the [github issue tracker](https://github.com/rstudio-education/tidyverse-cookbook/issues), add the phrase `Fixes #` and then the number of the issue that proposes the recipe. This will close the issue when your recipe is accepted.</div>\EndKnitrBlock{rmdcaution}
-    
-    3. Submit a pull request and include a brief description of your changes. "Fixing typos" is perfectly adequate.
-      
-        \BeginKnitrBlock{rmdcaution}<div class="rmdcaution">If you add a recipe or make significant changes, include this phrase in your pull request message: `CC BY 4.0.` This applies the [Creative Commons 4.0 International License](https://creativecommons.org/licenses/by/4.0/) to your contribution, which helps provide a uniform copyright for the entire book.</div>\EndKnitrBlock{rmdcaution}
-    
-    You can begin a recipe by copying and pasting the following template:
-
-    
-    ```r
-    ## TITLE
-    
-    You want to
-    
-    #### Solution {-}
-    
-    #### Discussion {-}
-    ```
-        
-    Keep in mind that your solution code **must** run. When you write the recipe, assume that the user has run `library("tidyverse")` and nothing else. Where possible, try to minimize additional package dependencies. 
-
-    A useful way to do this is to use data that comes in a tidyverse package. Here are the tidyverse data sets and the packages you'll find them in.
-
-    
-    ```r
-    # data frames (tibbles)
-    dplyr::band_instruments
-    dplyr::band_instruments2
-    dplyr::band_members
-    dplyr::starwars
-    dplyr::storms
-    forcats::gss_cat
-    ggplot2::diamonds
-    ggplot2::economics
-    ggplot2::economics_long
-    ggplot2::faithfuld
-    ggplot2::midwest
-    ggplot2::mpg
-    ggplot2::msleep
-    ggplot2::presidential
-    ggplot2::seals
-    ggplot2::txhousing
-    modelr::heights
-    modelr::sim1
-    modelr::sim2
-    modelr::sim3
-    modelr::sim4
-    tidyr::population
-    tidyr::smiths
-    tidyr::table1
-    tidyr::table2
-    tidyr::table3
-    tidyr::table4a
-    tidyr::table4b
-    tidyr::table5
-    tidyr::who
-    
-    # data frames (non-tibbles)
-    ggplot2::luv_colours
-    lubridate::lakers
-    
-    # arrays
-    dplyr::nasa
-    
-    # character vectors
-    stringr::fruit
-    stringr::sentences
-    stringr::words
-    ```
-
--->
+<div class="col2">
 
 </div>
+<hr />
+<!--
+## Apply a function to each element of a list
+
+You want to
+
+#### Solution {-}
+
+#### Discussion {-}
+-->
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="how-to-use-this-book.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="transform-data-vectors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="transform-factors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -327,7 +218,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio-education/tidyverse-cookbook/edit/master/index.Rmd",
+"link": "https://github.com/rstudio-education/tidyverse-cookbook/edit/master/07-transform-strings.Rmd",
 "text": "Edit"
 },
 "history": {
