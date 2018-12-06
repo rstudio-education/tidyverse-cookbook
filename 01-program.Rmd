@@ -293,4 +293,29 @@ The authors of the [R for Data Science](https://r4ds.had.co.nz/) present a contr
 > I’m not a fan of this operator because I think assignment is such a special operation that it should always be clear when it’s occurring. In my opinion, a little bit of duplication (i.e. repeating the name of the object twice) is fine in return for making assignment more explicit.
 
 What this boils down to is a tradeoff between writing concise code (`%<>%`) or readable and clear code (repeating the name of the object twice with `%>%`).
+
+
+
+## Value Matching Operator
+
+You want to find how many values match with another vector of values
+
+#### Solution {-}
+
+```{r}
+c("vancouver", "british columbia", "canada") %in% c("vancouver", "canucks", "canada", "hockey")
+```
+
+#### Discussion {-}
+
+`%in%` compares the values in the left hand side (LHS) to those in the right hand side (RHS) and indicates if each LHS value matches with *any RHS value*. Then, it returns a logical vector whose length is equal to the LHS. 
+
+Naturally, you can find the proportion of LHS values that match RHS by using `mean`.
+
+For example, this line would return 0.666 because two out of three LHS values match the RHS.
+
+```{r}
+mean(c("vancouver", "british columbia", "canada") %in% c("vancouver", "canucks", "canada", "hockey"))
+```
+
 ```
