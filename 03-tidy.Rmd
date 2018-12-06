@@ -124,7 +124,7 @@ You want to assign custom names to several datasets you are inspecting in the da
 
 For example,
 
-```{r}
+```{r eval = FALSE}
 View(starwars)
 View(storms)
 View(smiths)
@@ -139,13 +139,13 @@ Inside RStudio, those commands open R's data viewer with default names:
 #### Solution {-}
 
 ##### Option 1
-```{r}
+```{r eval = FALSE}
 View(starwars, "starwars from dplyr")
 View(storms, "storms from dplyr")
 View(smiths, "smiths from tidyr")
 ```
 ##### Option 2
-```{r}
+```{r eval = FALSE}
 starwars %>% 
   View("starwars from dplyr")
 storms %>% 
@@ -161,7 +161,7 @@ smiths %>%
 
 #### Discussion {-}
 
-Inside `View()` you insert a R object and then the title for the data viewer. This is really unnecessary with a few datasets, but when inspecting more than 5 datasets, this comes in handy. 
+Inside `View()` you insert a R object and then the title for the data viewer. This is really unnecessary with a few datasets, but when inspecting numerous datasets, this comes in handy. 
 
 
 
