@@ -463,5 +463,42 @@ You want to
 #### Solution {-}
 
 #### Discussion {-}
+
+
+## Create new categories inside variable 
+
+You want to make new groups of values in one variable. 
+
+You used nested `ifelse` statements, but find them confusing and are looking for a `tidyverse` way.
+
+
+#### Solution {-}
+
+```{r}
+gss_cat %>% 
+  mutate(rincome_categorized = case_when(
+    rincome %in% c("$4000 to 4999",
+                   "$3000 to 3999",
+                   "$1000 to 2999") ~ "$1000~$4999",
+    rincome %in% c("Lt $1000") ~ "$0~$1000",
+    rincome %in% c("$5000 to 5999",
+                   "$6000 to 6999",
+                   "$7000 to 7999",
+                   "$8000 to 9999") ~ "$5000~$9999",
+    rincome %in% c("$10000 - 14999",
+                   "$15000 - 19999") ~ "$10000~$19999",
+    rincome %in% c("$20000 - 24999",
+                   "$25000 or more") ~ "$20000~",
+    TRUE ~ "Other"
+  )) %>% 
+  select(rincome_categorized) %>% 
+  table()
+```
+
+#### Discussion {-}
+
+Instead of continuously writing ifelse statement inside ifelse statements, you use `case_when` from `dplyr`. 
+It is the R version of SQL's CASE WHEN. Inside, you write a sequence of two-sided formulas where on the left hand side, you write conditions(`rincome %in% c("Lt $1000")`) and on the right hand side, the replacement values. The left hand side must evaluate to a logical condition. The last formula for `case_when` is always `TRUE ~ Replacement Value`, which indicates the replacement value for all other values that *do not satisfy the above conditions.* 
+
 -->
 
