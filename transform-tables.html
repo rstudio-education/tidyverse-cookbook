@@ -133,7 +133,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
-<li class="chapter" data-level="" data-path="how-to-contribute.html"><a href="how-to-contribute.html"><i class="fa fa-check"></i>How to contribute</a></li>
 <li class="chapter" data-level="" data-path="how-to-use-this-book.html"><a href="how-to-use-this-book.html"><i class="fa fa-check"></i>How to use this book</a></li>
 <li class="part"><span><b>I The Recipes</b></span></li>
 <li class="chapter" data-level="1" data-path="program.html"><a href="program.html"><i class="fa fa-check"></i><b>1</b> Program</a></li>
@@ -182,7 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="transform-tables.html#summarise-data">Summarise data</a></li>
 <li><a href="transform-tables.html#summarise-data-by-groups">Summarise data by groups</a></li>
 <li><a href="transform-tables.html#mutate-data-add-new-variables">Mutate data (Add new variables)</a></li>
-<li>[How to combine transform recipes]</li>
+<li><a href="transform-tables.html#combine-transform-recipes">Combine transform recipes</a></li>
 <li>[Join data sets]</li>
 <li>[Filter one data set against another]</li>
 </ol>
@@ -210,7 +209,7 @@ dplyr functions will match column names that appear within their arguments to co
 </li>
 <li>Some columns may be list-columns, which are lists that contain vectors.</li>
 </ol>
-This matters because one of the <a href="how-to-use-this-book.html#what-is-the-tidyverse">design philosophies of the tidyverse</a> is that each function should focus on one task and do it well. Functions that do one task well tend to work with one type of data structure. So to transform a table, you often need to combine a function that manipulates tables with a function that manipulates data vectors and maybe a function that manipulates lists. See [Combine Transform Recipes] for tips.
+This matters because one of the <a href="how-to-use-this-book.html#what-is-the-tidyverse">design philosophies of the tidyverse</a> is that each function should focus on one task and do it well. Functions that do one task well tend to work with one type of data structure. So to transform a table, you often need to combine a function that manipulates tables with a function that manipulates data vectors and maybe a function that manipulates lists. See <a href="transform-tables.html#combine-transform-recipes">Combine transform recipes</a> for tips.
 </div>
 
 </div>
@@ -680,174 +679,87 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ## 4 0.000461  0.0461 
 ## 5 0.000167  0.0167 
 ## 6 0.000167  0.0167</code></pre>
-<!--
-  
-
-
-## How to combine transform recipes
-
-There are two ways to 
-
-
-When you transform a data frame, you often work with several functions:
-
-1. A function that transforms the structure of the data frame to add or remove rows or columns. This function transforms a _table_. 
-
-1. A function that transforms the values that appear in the data frame to create new values to place in a new row or column. This function transforms a _data vector_.
-
-1. A function that mediates between 1 and 2 if the values are embedded in a list-column, which is a _list_.
-
-The most concise way to learn how to combine these functions is to learn about the functions in isolation, and to then have the functions call each other as necessary.
-
-### An Example
-
-`mtcars` contains performance data for 32 cars.^[To make the example easier to inspect, I made `mtcars` a tibble and removed the `wt`, `qsec`, `vs`, `am`, `gear` and `carb` columns before running this example.]
-
-
-
-
-```r
-mtcars
-```
-
-```
-## # A tibble: 32 x 5
-##      mpg   cyl  disp    hp  drat
-##  * <dbl> <dbl> <dbl> <dbl> <dbl>
-##  1  21       6  160    110  3.9 
-##  2  21       6  160    110  3.9 
-##  3  22.8     4  108     93  3.85
-##  4  21.4     6  258    110  3.08
-##  5  18.7     8  360    175  3.15
-##  6  18.1     6  225    105  2.76
-##  7  14.3     8  360    245  3.21
-##  8  24.4     4  147.    62  3.69
-##  9  22.8     4  141.    95  3.92
-## 10  19.2     6  168.   123  3.92
-## # ... with 22 more rows
-```
-
-To round the `mpg` value for each car, you would need two functions:
-
-1. `round()` which can round the values of the data vector stored in `mtcars$mpg`.^[`mtcars$mpg` is R syntax for the `mpg` column of the `mtcars` data frame.]
-
-
-```r
-round(mtcars$mpg)
-```
-
-```
-##  [1] 21 21 23 21 19 18 14 24 23 19 18 16 17 15 10 10 15 32 30 34 22 16 15
-## [24] 13 19 27 26 30 16 20 15 21
-```
-
-2. `mutate()` which can add the results to a copy of the `mtcars` table. 
-
-
-```r
-mtcars %>% 
-  mutate(mpg_int = round(mpg))
-```
-
-```
-## # A tibble: 32 x 6
-##      mpg   cyl  disp    hp  drat mpg_int
-##    <dbl> <dbl> <dbl> <dbl> <dbl>   <dbl>
-##  1  21       6  160    110  3.9       21
-##  2  21       6  160    110  3.9       21
-##  3  22.8     4  108     93  3.85      23
-##  4  21.4     6  258    110  3.08      21
-##  5  18.7     8  360    175  3.15      19
-##  6  18.1     6  225    105  2.76      18
-##  7  14.3     8  360    245  3.21      14
-##  8  24.4     4  147.    62  3.69      24
-##  9  22.8     4  141.    95  3.92      23
-## 10  19.2     6  168.   123  3.92      19
-## # ... with 22 more rows
-```
-
-`round()` works with data vectors. `mutate()` works with tables. Together they create the table you want.
-
-### Another Example
-
-`sepals` contains sepal length measurements for three species of flower. The measurements are stored in a list-column named `lengths`.^[I made this data frame with the code `sepals <- iris %>% 
-  group_by(Species) %>% 
-  summarise(lengths = list(Sepal.Length))`]
-
-
-
-
-```r
-sepals
-```
-
-```
-## # A tibble: 3 x 2
+</div>
+</div>
+<div id="combine-transform-recipes" class="section level2">
+<h2><span class="header-section-number">4.18</span> Combine transform recipes</h2>
+<p>You want to transform the structure of a table, and you want to use the data within the table to do it. This is the sort of thing you do everytime you call <code>summarise()</code> or <code>mutate()</code>.</p>
+<div id="solution-37" class="section level4 unnumbered">
+<h4>Solution</h4>
+<p>See the discussion.</p>
+</div>
+<div id="discussion-34" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>When you transform a data frame, you often work with several functions:</p>
+<ol style="list-style-type: decimal">
+<li><p>A function that transforms the structure of the data frame to add or remove rows or columns. This function transforms a <em>table</em>.</p></li>
+<li><p>A function that transforms the values that appear in the data frame to create new values to place in a new row or column. This function transforms a <em>data vector</em>.</p></li>
+<li><p>A function that mediates between 1 and 2 if the values are embedded in a list-column, which is a <em>list</em>.</p></li>
+</ol>
+<p>The most concise way to learn how to combine these functions is to learn about the functions in isolation, and to then have the functions call each other as necessary.</p>
+<div id="an-example" class="section level5">
+<h5><span class="header-section-number">4.18.0.0.1</span> An Example</h5>
+<p><code>smiths</code> contains measurements that describe two fictional people: John and Mary Smith.</p>
+<pre class="sourceCode r"><code class="sourceCode r">smiths</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##   subject     time   age weight height
+##   &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 John Smith     1    33     90   1.87
+## 2 Mary Smith     1    NA     NA   1.54</code></pre>
+<p>To round the <code>height</code> value for each person, you would need two functions:</p>
+<ol style="list-style-type: decimal">
+<li><code>round()</code> which can round the values of the data vector stored in <code>smiths$height</code>.</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(smiths<span class="op">$</span>height)</code></pre>
+<pre><code>## [1] 2 2</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><code>mutate()</code> which can add the results to a copy of the <code>smiths</code> table.</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">smiths <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">height_int =</span> <span class="kw">round</span>(height))</code></pre>
+<pre><code>## # A tibble: 2 x 6
+##   subject     time   age weight height height_int
+##   &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+## 1 John Smith     1    33     90   1.87          2
+## 2 Mary Smith     1    NA     NA   1.54          2</code></pre>
+<p><code>round()</code> works with data vectors. <code>mutate()</code> works with tables. Together they create the table you want.</p>
+</div>
+<div id="an-example-that-uses-list-columns" class="section level5">
+<h5><span class="header-section-number">4.18.0.0.2</span> An example that uses list columns</h5>
+<p><code>sepals</code> contains sepal length measurements for three species of flower. The measurements are stored in a list-column named <code>lengths</code>.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<pre class="sourceCode r"><code class="sourceCode r">sepals</code></pre>
+<pre><code>## # A tibble: 3 x 2
 ##   Species    lengths   
-##   <fct>      <list>    
-## 1 setosa     <dbl [50]>
-## 2 versicolor <dbl [50]>
-## 3 virginica  <dbl [50]>
-```
-
-Each cell in `lengths` contains a data vector of 50 sepal lengths.
-
-
-```r
-# For example, the first cell of lengths
-sepals[[1, 2]]
-```
-
-```
-##  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4
+##   &lt;fct&gt;      &lt;list&gt;    
+## 1 setosa     &lt;dbl [50]&gt;
+## 2 versicolor &lt;dbl [50]&gt;
+## 3 virginica  &lt;dbl [50]&gt;</code></pre>
+<p>Each cell in <code>lengths</code> contains a data vector of 50 sepal lengths.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># For example, the first cell of lengths</span>
+sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
+<pre><code>##  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4
 ## [18] 5.1 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5
-## [35] 4.9 5.0 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0
-```
-
-To append the average sepal length for each species, you would need three functions:
-
-1. `mean()` which can compute the average value of a data vector in `lengths`
-
-    
-    ```r
-    mean(sepals[[1, 2]])
-    ```
-    
-    ```
-    ## [1] 5.006
-    ```
-    
-2. `map_dbl()` which can apply `mean()` to each cell of `lengths`, which is a list-column.
-
-    
-    ```r
-    map_dbl(sepals$lengths, mean)
-    ```
-    
-    ```
-    ## [1] 5.006 5.936 6.588
-    ```
-
-3. `mutate()` which can add the results to a copy of the `sepals` table. 
-
-    
-    ```r
-    sepals %>% 
-      mutate(avg_length = map_dbl(lengths, mean))
-    ```
-    
-    ```
-    ## # A tibble: 3 x 3
-    ##   Species    lengths    avg_length
-    ##   <fct>      <list>          <dbl>
-    ## 1 setosa     <dbl [50]>       5.01
-    ## 2 versicolor <dbl [50]>       5.94
-    ## 3 virginica  <dbl [50]>       6.59
-    ```
-
-`mean()` works with data vectors. `map_dbl()` works with list-columns. `mutate()` works with tables. Together they create the table you want.
-
-
+## [35] 4.9 5.0 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0</code></pre>
+<p>To append the average sepal length for each species, you would need three functions:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>mean()</code> which can compute the average value of a data vector in <code>lengths</code></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(sepals[[<span class="dv">1</span>, <span class="dv">2</span>]])</code></pre>
+<pre><code>## [1] 5.006</code></pre></li>
+<li><p><code>map_dbl()</code> which can apply <code>mean()</code> to each cell of <code>lengths</code>, which is a list-column.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_dbl</span>(sepals<span class="op">$</span>lengths, mean)</code></pre>
+<pre><code>## [1] 5.006 5.936 6.588</code></pre></li>
+<li><p><code>mutate()</code> which can add the results to a copy of the <code>sepals</code> table.</p>
+<pre class="sourceCode r"><code class="sourceCode r">sepals <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">avg_length =</span> <span class="kw">map_dbl</span>(lengths, mean))</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##   Species    lengths    avg_length
+##   &lt;fct&gt;      &lt;list&gt;          &lt;dbl&gt;
+## 1 setosa     &lt;dbl [50]&gt;       5.01
+## 2 versicolor &lt;dbl [50]&gt;       5.94
+## 3 virginica  &lt;dbl [50]&gt;       6.59</code></pre></li>
+</ol>
+<p><code>mean()</code> works with data vectors. <code>map_dbl()</code> works with list-columns. <code>mutate()</code> works with tables. Together they create the table you want.</p>
+<!--
 
 ## Join data sets
 
@@ -868,6 +780,19 @@ You want to
 
 </div>
 </div>
+</div>
+</div>
+
+
+
+
+
+
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>I made this data frame with the code <code>sepals &lt;- iris %&gt;%    group_by(Species) %&gt;%    summarise(lengths = list(Sepal.Length))</code><a href="transform-tables.html#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 
