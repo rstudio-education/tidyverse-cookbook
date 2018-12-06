@@ -9,7 +9,12 @@ rmd_files: [
   "01-program.Rmd",
   "02-import.Rmd",
   "03-tidy.Rmd",
-  "04-transform-tables.Rmd"
+  "04-transform-tables.Rmd",
+  "05-transform-lists.Rmd",
+  "06-transform-vectors.Rmd",
+  "07-transform-strings.Rmd",
+  "08-transform-factors.Rmd",
+  "09-transform-dates.Rmd"
 ]
 
 output_dir: "docs"

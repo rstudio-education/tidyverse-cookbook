@@ -1,0 +1,20 @@
+
+# Transform Dates and Times
+
+***
+
+```{r echo = FALSE, results='asis'}
+build_toc("09-transform-dates.Rmd")
+```
+
+***
+
+<!--
+## Apply a function to each element of a list
+
+You want to
+
+#### Solution {-}
+
+#### Discussion {-}
+-->

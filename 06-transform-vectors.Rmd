@@ -1,0 +1,20 @@
+
+# Transform Data Vectors
+
+***
+
+```{r echo = FALSE, results='asis'}
+build_toc("06-transform-vectors.Rmd")
+```
+
+***
+
+<!--
+## Apply a function to each element of a list
+
+You want to
+
+#### Solution {-}
+
+#### Discussion {-}
+-->

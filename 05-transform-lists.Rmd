@@ -1,0 +1,20 @@
+
+# Transform Lists
+
+***
+
+```{r echo = FALSE, results='asis'}
+build_toc("05-transform-lists.Rmd")
+```
+
+***
+
+<!--
+## Apply a function to each element of a list
+
+You want to
+
+#### Solution {-}
+
+#### Discussion {-}
+-->
