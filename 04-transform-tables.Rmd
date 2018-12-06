@@ -25,7 +25,7 @@ Transforming a table sometimes requires more than one recipe. Why? Because table
 1. The columns of the table are vectors.  
 1. Some columns may be list-columns, which are lists that contain vectors.  
 
-This matters because one of the [design philosophies of the tidyverse](#what-is-the-tidyverse) is that each function should focus on one task and do it well. Functions that do one task well tend to work with one type of data structure. So to transform a table, you often need to combine a function that manipulates tables with a function that manipulates data vectors and maybe a function that manipulates lists. See [Combine Transform Recipes] for tips.
+This matters because one of the [design philosophies of the tidyverse](#what-is-the-tidyverse) is that each function should focus on one task and do it well. Functions that do one task well tend to work with one type of data structure. So to transform a table, you often need to combine a function that manipulates tables with a function that manipulates data vectors and maybe a function that manipulates lists. See [Combine transform recipes] for tips.
 ```
 
 ## Arrange rows in ascending order by the values of a column
@@ -350,14 +350,15 @@ table1 %>%
   transmute(rate = cases/population, percent = rate * 100)
 ```
 
-<!--
-  
+## Combine transform recipes
 
+You want to transform the structure of a table, and you want to use the data within the table to do it. This is the sort of thing you do everytime you call `summarise()` or `mutate()`.
 
-## How to combine transform recipes
+#### Solution {-}
 
-There are two ways to 
+See the discussion.
 
+#### Discussion {-}
 
 When you transform a data frame, you often work with several functions:
 
@@ -369,38 +370,32 @@ When you transform a data frame, you often work with several functions:
 
 The most concise way to learn how to combine these functions is to learn about the functions in isolation, and to then have the functions call each other as necessary.
 
-### An Example
+##### An Example
 
-`mtcars` contains performance data for 32 cars.^[To make the example easier to inspect, I made `mtcars` a tibble and removed the `wt`, `qsec`, `vs`, `am`, `gear` and `carb` columns before running this example.]
-
-```{r echo = FALSE}
-mtcars <- mtcars %>% 
-  select(-wt, -qsec, -vs, -am, -gear, -carb) %>% 
-  as_tibble()
-```
+`smiths` contains measurements that describe two fictional people: John and Mary Smith.
 
 ```{r}
-mtcars
+smiths
 ```
 
-To round the `mpg` value for each car, you would need two functions:
+To round the `height` value for each person, you would need two functions:
 
-1. `round()` which can round the values of the data vector stored in `mtcars$mpg`.^[`mtcars$mpg` is R syntax for the `mpg` column of the `mtcars` data frame.]
+1. `round()` which can round the values of the data vector stored in `smiths$height`.
 
 ```{r}
-round(mtcars$mpg)
+round(smiths$height)
 ```
 
-2. `mutate()` which can add the results to a copy of the `mtcars` table. 
+2. `mutate()` which can add the results to a copy of the `smiths` table. 
 
 ```{r}
-mtcars %>% 
-  mutate(mpg_int = round(mpg))
+smiths %>% 
+  mutate(height_int = round(height))
 ```
 
 `round()` works with data vectors. `mutate()` works with tables. Together they create the table you want.
 
-### Another Example
+##### An example that uses list columns
 
 `sepals` contains sepal length measurements for three species of flower. The measurements are stored in a list-column named `lengths`.^[I made this data frame with the code `sepals <- iris %>% 
   group_by(Species) %>% 
@@ -446,7 +441,7 @@ To append the average sepal length for each species, you would need three functi
 
 `mean()` works with data vectors. `map_dbl()` works with list-columns. `mutate()` works with tables. Together they create the table you want.
 
-
+<!--
 
 ## Join data sets
 
