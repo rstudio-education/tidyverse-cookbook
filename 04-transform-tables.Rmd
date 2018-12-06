@@ -350,9 +350,8 @@ table1 %>%
   transmute(rate = cases/population, percent = rate * 100)
 ```
 
-<!--
   
-
+<!--
 
 ## How to combine transform recipes
 
