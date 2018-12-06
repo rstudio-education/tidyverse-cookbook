@@ -265,14 +265,6 @@ For example, `smiths`, a dataset contained in `tidyr`, has a couple of `NA` valu
 smiths
 ```
 
-```{r}
-# A tibble: 2 x 5
-  subject     time   age weight height
-  <chr>      <dbl> <dbl>  <dbl>  <dbl>
-1 John Smith     1    33     90   1.87
-2 Mary Smith     1    NA     NA   1.54
-```
-
 
 #### Solution {-}
 ```{r}
@@ -280,13 +272,6 @@ smiths %>%
   replace_na(list(age = 0, weight = 0))
 ```
 
-```{r}
-# A tibble: 2 x 5
-  subject     time   age weight height
-  <chr>      <dbl> <dbl>  <dbl>  <dbl>
-1 John Smith     1    33     90   1.87
-2 Mary Smith     1     0      0   1.54
-```
 
 #### Discussion {-}
 
