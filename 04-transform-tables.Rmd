@@ -458,5 +458,45 @@ You want to
 #### Solution {-}
 
 #### Discussion {-}
+
+
+## Create new categories inside variable 
+
+You want to make new groups of values in one variable. 
+
+You used nested `ifelse` statements, but find them confusing and are looking for a `tidyverse` way.
+
+
+#### Solution {-}
+
+```{r}
+starwars %>% 
+  mutate(birth_year = case_when(
+    between(birth_year, 0, 50) ~ "young",
+    between(birth_year, 51, 400) ~ "middle-aged",
+    between(birth_year, 401, 900) ~ "old",
+    TRUE ~ "NA Age"
+  ))
+```
+
+#### Discussion {-}
+
+Instead of continuously writing ifelse statement inside ifelse statements, you use `case_when` from `dplyr`. 
+It is the R version of SQL's CASE WHEN. Inside, you write a sequence of two-sided formulas where on the left hand side, you write conditions(`rincome %in% c("Lt $1000")`) and on the right hand side, the replacement values. The left hand side must evaluate to a logical condition. The last formula for `case_when` is always `TRUE ~ Replacement Value`, which indicates the replacement value for all other values that *do not satisfy the above conditions.* 
+
+Here is a more complicated example from dplyr [docs](https://dplyr.tidyverse.org/reference/case_when.html)
+
+```{r}
+starwars %>%
+  select(name:mass, gender, species) %>%
+  mutate(
+    type = case_when(
+      height > 200 | mass > 200 ~ "large",
+      species == "Droid"        ~ "robot",
+      TRUE                      ~  "other"
+    )
+  )
+```
+
 -->
 
