@@ -441,15 +441,107 @@ To append the average sepal length for each species, you would need three functi
 
 `mean()` works with data vectors. `map_dbl()` works with list-columns. `mutate()` works with tables. Together they create the table you want.
 
-<!--
+## Join data sets by common column(s)
 
-## Join data sets
+You want to combine two data sets into a single data set, taking care to ensure that observations in the first data set are matched to the corresponding observations in the second data set, even if those observations do not appear in the same order. 
 
-You want to
+Your data is structured in such a way that you can match observations by the values of one or more ID columns that appear in both data sets. 
+
+For example, you would like to combine `band_members` and `band_insturments` into a single data based on the values of the `name` column. The new data set will correctly list who plays what.
+
+```{r}
+band_members
+```
+
+```{r}
+band_instruments
+```
 
 #### Solution {-}
 
+```{r}
+band_members %>% 
+  left_join(band_instruments, by = "name")
+```
+
 #### Discussion {-}
+
+##### Mutating joins {-}
+
+You have four options when joining content from one data set to another. Of these, `left_join()` is the most frequently used.
+
+1. `left_join()` returns a copy of the first data set that includes any rows from the second data set that have a match in the first data set, ignoring the rows that do not have a match (as above).
+
+1. `right_join()` returns a copy of the second data set intermixed with any rows from the first data set that have a match in the second data set, ignoring the rows that do not have a match:
+
+    ```{r}
+    band_members %>% 
+      right_join(band_instruments, by = "name")
+    ```
+    
+1. `inner_join()` returns a copy of those rows in the first data set that have a match in the second data set along with the rows from the second data set that they match. `inner_join()` does not retain any incomplete rows from either data set. 
+
+    ```{r}
+    band_members %>% 
+      inner_join(band_instruments, by = "name")
+    ```
+    
+1. `full_join()` returns a copy of the first data set that includes every row from the second data set. `full_join()` includes all of the data from each data set. 
+
+    ```{r}
+    band_members %>% 
+      full_join(band_instruments, by = "name")
+    ```
+
+`left_join()`, `right_join()`, `inner_join()`, and `full_join()` are collectively called _mutating joins_ because they add additional columns to a copy of a data set, as does `mutate()`.
+
+##### Specifying column(s) to join on {-}
+
+Pass the `by` argument the name of the column to join on as a character string. This name should appear in both data sets. 
+
+To join on multiple columns, pass `by` a character vector of column names. Each name should appear in both data sets. R will join together rows that contain the same combination of values in the columns.
+
+```{r}
+table1 %>% 
+  left_join(table3, by = c("country", "year"))
+```
+
+If you do not provide a `by` argument, the mutating join functions will join on the set of column names that appear in both data sets.
+
+##### Joining when ID names do not match {-}
+
+It is common for an ID column to appear with different names in each data set. For example, the `name` column appears as `artist` in `band_instruments2`. 
+
+```{r}
+band_instruments2
+```
+
+To join by two columns that have different names, pass `by` a named character vector. For each element in the vector, the mutating join will match the column in the first data set that corresponds to the name of the element to the column in the data set that corresponds to the value of the argument.
+
+```{r}
+band_members %>% 
+  left_join(band_instruments2, by = c(name = "artist"))
+```
+
+R will use the column name(s) from the first data set in the result.
+
+##### Suffixes {-}
+
+The mutating joins will append the suffixes `.x` and `.y` to any columns that are not used to join on, but have the same name in both data sets. The columns from the first data set are suffixed with `.x`, the columns from the second with `.y`. 
+
+```{r}
+table4a %>% 
+  left_join(table4b, by = "country")
+```
+
+To use different suffixes, supply a character vector of length two as a `suffix` argument.
+
+```{r}
+table4a %>% 
+  left_join(table4b, by = "country", suffix = c("_cases", "_pop"))
+```
+
+<!--
 
 ## Filter one data set against another
 
@@ -458,5 +550,7 @@ You want to
 #### Solution {-}
 
 #### Discussion {-}
+
+Filtering joins use the same `by` syntax as mutating joins. Learn more in [Specifying column(s) to join on] and [Joining when ID names do not match].
 -->
 
