@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2018-12-06">
+<meta name="date" content="2018-12-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -187,7 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="transform-tables.html#summarise-data-by-groups">Summarise data by groups</a></li>
 <li><a href="transform-tables.html#mutate-data-add-new-variables">Mutate data (Add new variables)</a></li>
 <li><a href="transform-tables.html#combine-transform-recipes">Combine transform recipes</a></li>
-<li>[Join data sets]</li>
+<li><a href="transform-tables.html#join-data-sets-by-common-columns">Join data sets by common column(s)</a></li>
 <li>[Filter one data set against another]</li>
 </ol>
 </div>
@@ -764,15 +764,135 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 3 virginica  &lt;dbl [50]&gt;       6.59</code></pre></li>
 </ol>
 <p><code>mean()</code> works with data vectors. <code>map_dbl()</code> works with list-columns. <code>mutate()</code> works with tables. Together they create the table you want.</p>
+</div>
+</div>
+</div>
+<div id="join-data-sets-by-common-columns" class="section level2">
+<h2><span class="header-section-number">4.19</span> Join data sets by common column(s)</h2>
+<p>You want to combine two data sets into a single data set, taking care to ensure that observations in the first data set are matched to the corresponding observations in the second data set, even if those observations do not appear in the same order.</p>
+<p>Your data is structured in such a way that you can match observations by the values of one or more ID columns that appear in both data sets.</p>
+<p>For example, you would like to combine <code>band_members</code> and <code>band_insturments</code> into a single data based on the values of the <code>name</code> column. The new data set will correctly list who plays what.</p>
+<pre class="sourceCode r"><code class="sourceCode r">band_members</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   name  band   
+##   &lt;chr&gt; &lt;chr&gt;  
+## 1 Mick  Stones 
+## 2 John  Beatles
+## 3 Paul  Beatles</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">band_instruments</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   name  plays 
+##   &lt;chr&gt; &lt;chr&gt; 
+## 1 John  guitar
+## 2 Paul  bass  
+## 3 Keith guitar</code></pre>
+<div id="solution-38" class="section level4 unnumbered">
+<h4>Solution</h4>
+<pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">left_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##   name  band    plays 
+##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+## 1 Mick  Stones  &lt;NA&gt;  
+## 2 John  Beatles guitar
+## 3 Paul  Beatles bass</code></pre>
+</div>
+<div id="discussion-35" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<div id="mutating-joins" class="section level5 unnumbered">
+<h5>Mutating joins</h5>
+<p>You have four options when joining content from one data set to another. Of these, <code>left_join()</code> is the most frequently used.</p>
+<ol style="list-style-type: decimal">
+<li><p><code>left_join()</code> returns a copy of the first data set that includes any rows from the second data set that have a match in the first data set, ignoring the rows that do not have a match (as above).</p></li>
+<li><p><code>right_join()</code> returns a copy of the second data set intermixed with any rows from the first data set that have a match in the second data set, ignoring the rows that do not have a match:</p>
+<pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">right_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##   name  band    plays 
+##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+## 1 John  Beatles guitar
+## 2 Paul  Beatles bass  
+## 3 Keith &lt;NA&gt;    guitar</code></pre></li>
+<li><p><code>inner_join()</code> returns a copy of those rows in the first data set that have a match in the second data set along with the rows from the second data set that they match. <code>inner_join()</code> does not retain any incomplete rows from either data set.</p>
+<pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">inner_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
+<pre><code>## # A tibble: 2 x 3
+##   name  band    plays 
+##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+## 1 John  Beatles guitar
+## 2 Paul  Beatles bass</code></pre></li>
+<li><p><code>full_join()</code> returns a copy of the first data set that includes every row from the second data set. <code>full_join()</code> includes all of the data from each data set.</p>
+<pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">full_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
+<pre><code>## # A tibble: 4 x 3
+##   name  band    plays 
+##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+## 1 Mick  Stones  &lt;NA&gt;  
+## 2 John  Beatles guitar
+## 3 Paul  Beatles bass  
+## 4 Keith &lt;NA&gt;    guitar</code></pre></li>
+</ol>
+<p><code>left_join()</code>, <code>right_join()</code>, <code>inner_join()</code>, and <code>full_join()</code> are collectively called <em>mutating joins</em> because they add additional columns to a copy of a data set, as does <code>mutate()</code>.</p>
+</div>
+<div id="specifying-columns-to-join-on" class="section level5 unnumbered">
+<h5>Specifying column(s) to join on</h5>
+<p>Pass the <code>by</code> argument the name of the column to join on as a character string. This name should appear in both data sets.</p>
+<p>To join on multiple columns, pass <code>by</code> a character vector of column names. Each name should appear in both data sets. R will join together rows that contain the same combination of values in the columns.</p>
+<pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">left_join</span>(table3, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>))</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##   country      year  cases population rate             
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt; &lt;chr&gt;            
+## 1 Afghanistan  1999    745   19987071 745/19987071     
+## 2 Afghanistan  2000   2666   20595360 2666/20595360    
+## 3 Brazil       1999  37737  172006362 37737/172006362  
+## 4 Brazil       2000  80488  174504898 80488/174504898  
+## 5 China        1999 212258 1272915272 212258/1272915272
+## 6 China        2000 213766 1280428583 213766/1280428583</code></pre>
+<p>If you do not provide a <code>by</code> argument, the mutating join functions will join on the set of column names that appear in both data sets.</p>
+</div>
+<div id="joining-when-id-names-do-not-match" class="section level5 unnumbered">
+<h5>Joining when ID names do not match</h5>
+<p>It is common for an ID column to appear with different names in each data set. For example, the <code>name</code> column appears as <code>artist</code> in <code>band_instruments2</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">band_instruments2</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   artist plays 
+##   &lt;chr&gt;  &lt;chr&gt; 
+## 1 John   guitar
+## 2 Paul   bass  
+## 3 Keith  guitar</code></pre>
+<p>To join by two columns that have different names, pass <code>by</code> a named character vector. For each element in the vector, the mutating join will match the column in the first data set that corresponds to the name of the element to the column in the data set that corresponds to the value of the argument.</p>
+<pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">left_join</span>(band_instruments2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="dt">name =</span> <span class="st">&quot;artist&quot;</span>))</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##   name  band    plays 
+##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+## 1 Mick  Stones  &lt;NA&gt;  
+## 2 John  Beatles guitar
+## 3 Paul  Beatles bass</code></pre>
+<p>R will use the column name(s) from the first data set in the result.</p>
+</div>
+<div id="suffixes" class="section level5 unnumbered">
+<h5>Suffixes</h5>
+<p>The mutating joins will append the suffixes <code>.x</code> and <code>.y</code> to any columns that are not used to join on, but have the same name in both data sets. The columns from the first data set are suffixed with <code>.x</code>, the columns from the second with <code>.y</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">table4a <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">left_join</span>(table4b, <span class="dt">by =</span> <span class="st">&quot;country&quot;</span>)</code></pre>
+<pre><code>## # A tibble: 3 x 5
+##   country     `1999.x` `2000.x`   `1999.y`   `2000.y`
+##   &lt;chr&gt;          &lt;int&gt;    &lt;int&gt;      &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan      745     2666   19987071   20595360
+## 2 Brazil         37737    80488  172006362  174504898
+## 3 China         212258   213766 1272915272 1280428583</code></pre>
+<p>To use different suffixes, supply a character vector of length two as a <code>suffix</code> argument.</p>
+<pre class="sourceCode r"><code class="sourceCode r">table4a <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">left_join</span>(table4b, <span class="dt">by =</span> <span class="st">&quot;country&quot;</span>, <span class="dt">suffix =</span> <span class="kw">c</span>(<span class="st">&quot;_cases&quot;</span>, <span class="st">&quot;_pop&quot;</span>))</code></pre>
+<pre><code>## # A tibble: 3 x 5
+##   country     `1999_cases` `2000_cases` `1999_pop` `2000_pop`
+##   &lt;chr&gt;              &lt;int&gt;        &lt;int&gt;      &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan          745         2666   19987071   20595360
+## 2 Brazil             37737        80488  172006362  174504898
+## 3 China             212258       213766 1272915272 1280428583</code></pre>
 <!--
-
-## Join data sets
-
-You want to
-
-#### Solution {-}
-
-#### Discussion {-}
 
 ## Filter one data set against another
 
@@ -781,6 +901,8 @@ You want to
 #### Solution {-}
 
 #### Discussion {-}
+
+Filtering joins use the same `by` syntax as mutating joins. Learn more in [Specifying column(s) to join on] and [Joining when ID names do not match].
 -->
 
 </div>
