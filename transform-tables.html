@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2018-12-07">
+<meta name="date" content="2018-12-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -188,7 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="transform-tables.html#mutate-data-add-new-variables">Mutate data (Add new variables)</a></li>
 <li><a href="transform-tables.html#combine-transform-recipes">Combine transform recipes</a></li>
 <li><a href="transform-tables.html#join-data-sets-by-common-columns">Join data sets by common column(s)</a></li>
-<li>[Filter one data set against another]</li>
+<li><a href="transform-tables.html#filter-one-data-set-against-another">Filter one data set against another</a></li>
 </ol>
 </div>
 <hr />
@@ -892,18 +892,62 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 1 Afghanistan          745         2666   19987071   20595360
 ## 2 Brazil             37737        80488  172006362  174504898
 ## 3 China             212258       213766 1272915272 1280428583</code></pre>
-<!--
-
-## Filter one data set against another
-
-You want to
-
-#### Solution {-}
-
-#### Discussion {-}
-
-Filtering joins use the same `by` syntax as mutating joins. Learn more in [Specifying column(s) to join on] and [Joining when ID names do not match].
--->
+</div>
+</div>
+</div>
+<div id="filter-one-data-set-against-another" class="section level2">
+<h2><span class="header-section-number">4.20</span> Filter one data set against another</h2>
+<p>You want to filter a data set down to only the rows that <em>have</em> a corresponding row in a second set, or alternatively to only the rows that <em>do not have</em> a corresponding row in a second data set.</p>
+<p>Your data is structured in such a way that you can match rows by the values of one or more ID columns that appear in both data sets.</p>
+<p>For example, you would like to return the rows of <code>band_members</code> that have a corresponding row in <code>band_instruments</code>. The new data set will be a reduced version of <code>band_members</code> that does not contain any new columns.</p>
+<pre class="sourceCode r"><code class="sourceCode r">band_members</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   name  band   
+##   &lt;chr&gt; &lt;chr&gt;  
+## 1 Mick  Stones 
+## 2 John  Beatles
+## 3 Paul  Beatles</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">band_instruments</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   name  plays 
+##   &lt;chr&gt; &lt;chr&gt; 
+## 1 John  guitar
+## 2 Paul  bass  
+## 3 Keith guitar</code></pre>
+<div id="solution-39" class="section level4 unnumbered">
+<h4>Solution</h4>
+<pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">semi_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   name  band   
+##   &lt;chr&gt; &lt;chr&gt;  
+## 1 John  Beatles
+## 2 Paul  Beatles</code></pre>
+</div>
+<div id="discussion-36" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<div id="filtering-joins" class="section level5 unnumbered">
+<h5>Filtering joins</h5>
+<p>You have two options when filtering one data against another.</p>
+<ol style="list-style-type: decimal">
+<li><p><code>semi_join()</code> returns a copy of the first data set that includes only the rows that <em>have</em> a corresponding row in the second data set.</p></li>
+<li><p><code>anti_join()</code> returns a copy of the first data set that includes only the rows that <em>do not have</em> a corresponding row in the second data set.</p>
+<pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">anti_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##   name  band  
+##   &lt;chr&gt; &lt;chr&gt; 
+## 1 Mick  Stones</code></pre>
+<p><code>anti_join()</code> provides a useful way to check for typos that could interfere with a mutating join; these rows will not have a match in the second data set (assuming that the typo does not also appear in the second data set).</p>
+<p><code>anti_join()</code> also highlihts entries that are coded in different ways across data sets, such as <code>&quot;North_Carolina&quot;</code> and <code>&quot;North Carolina&quot;</code>.</p></li>
+</ol>
+<p><code>semi_join()</code> and <code>anti_join()</code> are collectively called <em>filtering joins</em> because they filter a data set to only those rows that meet a specific criteria, as does <code>filter()</code>.</p>
+<p>Filtering joins can be more effective than <code>filter()</code> when you need to filter on a complicated set of conditions: use <code>tribble()</code> to create a data set to filter against.</p>
+<p>Unlike mutating joins, filtering joins do not add columns from the second data set to the first. They only use the second data set to identify rows to return from the first.</p>
+</div>
+<div id="specifying-columns-to-join-on-1" class="section level5 unnumbered">
+<h5>Specifying column(s) to join on</h5>
+<p>Filtering joins use the same <code>by</code> syntax as mutating joins. Learn more in <a href="transform-tables.html#specifying-columns-to-join-on-1">Specifying column(s) to join on</a> and <a href="transform-tables.html#joining-when-id-names-do-not-match">Joining when ID names do not match</a>.</p>
 
 </div>
 </div>
