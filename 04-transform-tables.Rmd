@@ -541,16 +541,54 @@ table4a %>%
   left_join(table4b, by = "country", suffix = c("_cases", "_pop"))
 ```
 
-<!--
-
 ## Filter one data set against another
 
-You want to
+You want to filter a data set down to only the rows that _have_ a corresponding row in a second set, or alternatively to only the rows that _do not have_ a corresponding row in a second data set.
+
+Your data is structured in such a way that you can match rows by the values of one or more ID columns that appear in both data sets. 
+
+For example, you would like to return the rows of `band_members` that have a corresponding row in `band_instruments`. The new data set will be a reduced version of `band_members` that does not contain any new columns.
+
+```{r}
+band_members
+```
+
+```{r}
+band_instruments
+```
 
 #### Solution {-}
 
+```{r}
+band_members %>% 
+  semi_join(band_instruments, by = "name")
+```
+
 #### Discussion {-}
 
-Filtering joins use the same `by` syntax as mutating joins. Learn more in [Specifying column(s) to join on] and [Joining when ID names do not match].
--->
+##### Filtering joins {-}
 
+You have two options when filtering one data against another. 
+
+1. `semi_join()` returns a copy of the first data set that includes only the rows that _have_ a corresponding row in the second data set. 
+
+1. `anti_join()` returns a copy of the first data set that includes only the rows that _do not have_ a corresponding row in the second data set. 
+
+    ```{r}
+    band_members %>% 
+      anti_join(band_instruments, by = "name")
+    ```
+    
+    `anti_join()` provides a useful way to check for typos that could interfere with a mutating join; these rows will not have a match in the second data set (assuming that the typo does not also appear in the second data set). 
+    
+    `anti_join()` also highlihts entries that are coded in different ways across data sets, such as `"North_Carolina"` and `"North Carolina"`.
+
+`semi_join()` and `anti_join()` are collectively called _filtering joins_ because they filter a data set to only those rows that meet a specific criteria, as does `filter()`. 
+
+Filtering joins can be more effective than `filter()` when you need to filter on a complicated set of conditions: use `tribble()` to create a data set to filter against.
+
+Unlike mutating joins, filtering joins do not add columns from the second data set to the first. They only use the second data set to identify rows to return from the first.
+
+##### Specifying column(s) to join on {-}
+
+Filtering joins use the same `by` syntax as mutating joins. Learn more in [Specifying column(s) to join on] and [Joining when ID names do not match]. 
