@@ -34,7 +34,7 @@ Alternatively, you can access the help page by typing a `?` followed by the pack
 
 ## Vocab
 
-In R, it is difficult to distinguish between vectors that are lists and vectors that are not lists.  Whenever the difference matters, I'll call the first set of vectors **lists** and the second set **data vectors**. This seems sensible because non-list vectors are used to store data: every piece of data is stored in one. In turn, a data vector may be stored in a list or a data frame. Data vectors include atomic vectors but also include modified atomic vectors like factors and date-times.
+When you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists.  Whenever the difference matters, I'll call the first set of vectors **lists** and the second set **data vectors**. This seems sensible because non-list vectors are used to store data: every piece of data is stored in one. In turn, a data vector may be stored in a list or a data frame. Data vectors include atomic vectors but also include modified atomic vectors like factors and date-times.
     
 ## What is the tidyverse?
 
