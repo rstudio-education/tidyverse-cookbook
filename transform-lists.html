@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2018-12-11">
+<meta name="date" content="2018-12-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -168,10 +168,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">5</span> Transform Lists</h1>
 <hr />
 <div class="col2">
-
+<ol style="list-style-type: decimal">
+<li>[Extract an element from a list ]</li>
+<li>[Extract one or more elements from a list as a new list]</li>
+<li>[Apply a function to each element of a list]</li>
+</ol>
 </div>
 <hr />
+<div id="what-you-should-know-before-you-begin-4" class="section level2 unnumbered">
+<h2>What you should know before you begin</h2>
+
+<div class="rmdcaution">
+Lists are one of the most felxible data structures in R. Technically, a list is a <em>recursive vector</em>: a vector that can contain another vector or list in each of its elements. As a result, lists are used throughout R as a general purpose glue to hold objects together. You will find lists disguised as model objects, data frames, and list-columns within data frames.
+</div>
+
+
+<div class="rmdcaution">
+When you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists. Whenever the difference matters, I’ll call the first set of vectors <strong>lists</strong> and the second set <strong>data vectors</strong>. This seems sensible because non-list vectors are used to store data: every piece of data is stored in one. In turn, a data vector may be stored in a list or a data frame. Data vectors include atomic vectors but also include modified atomic vectors like factors and date-times.
+</div>
+
+
+<div class="rmdcaution">
+Data frames are a sub-type of list. Each column of a data frame is an element of the list that the data frame is built around.
+</div>
+
 <!--
+
+## Extract an element from a list 
+
+You want to
+
+#### Solution {-}
+
+#### Discussion {-}
+
+## Extract one or more elements from a list as a new list
+
+You want to
+
+#### Solution {-}
+
+#### Discussion {-}
+
 ## Apply a function to each element of a list
 
 You want to
@@ -181,6 +219,7 @@ You want to
 #### Discussion {-}
 -->
 
+</div>
 </div>
             </section>
 
