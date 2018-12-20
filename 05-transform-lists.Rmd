@@ -12,11 +12,15 @@ build_toc("05-transform-lists.Rmd")
 ## What you should know before you begin {-}
 
 ```{block2, type='rmdcaution'}
-Lists are one of the most felxible data structures in R. Technically, a list is a _recursive vector_: a vector that can contain another vector or list in each of its elements. As a result, lists are used throughout R as a general purpose glue to hold objects together. You will find lists disguised as model objects, data frames, and list-columns within data frames.
+A list is a _recursive vector_: a vector that can contain another vector or list in each of its elements. 
 ```
 
 ```{block2, type='rmdcaution'}
-When you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists.  Whenever the difference matters, I'll call the first set of vectors **lists** and the second set **data vectors**. This seems sensible because non-list vectors are used to store data: every piece of data is stored in one. In turn, a data vector may be stored in a list or a data frame. Data vectors include atomic vectors but also include modified atomic vectors like factors and date-times.
+When you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists.  Whenever the difference matters, I'll call the first set of vectors **lists** and the second set of vectors **data vectors**. This chapter focuses on lists.
+```
+
+```{block2, type='rmdcaution'}
+Lists are one of the most flexible data structures in R. As a result, they are used as a general purpose glue to hold objects together. You will find lists disguised as model objects, data frames, list-columns within data frames, and more.
 ```
 
 ```{block2, type='rmdcaution'}

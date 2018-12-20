@@ -133,5 +133,34 @@ Please help us improve this book. Here are some ways to join the fun:
     stringr::sentences
     stringr::words
     ```
+    
+Unfortunately, the tidyverse packages do not include example lists. I recommend that you use these lists, which come with base R.
 
+    ```{r eval = FALSE}
+    # lists
+    ability.cov
+    Harman23.cor
+    Harman74.cor # long!
+    state.center
+    ```
+
+Alternatively, you can use these lists which come in the repurrrsive package (which must be installed separately. These lists are more interesting than the base R examples; but, unfortunately, most are quite long.
+
+    ```{r eval = FALSE}
+    # lists
+    repurrrsive::gap_split  
+    repurrrsive::gh_repos   
+    repurrrsive::gh_users
+    repurrrsive::got_chars
+    repurrrsive::sw_films
+    repurrrsive::sw_people
+    repurrrsive::sw_planets
+    repurrrsive::sw_species
+    repurrrsive::sw_starships
+    repurrrsive::sw_vehicles
+    repurrrsive::wesanderson
+
+    # data frames with a list-column
+    repurrrsive::gap_nested
+    ```
 -->
