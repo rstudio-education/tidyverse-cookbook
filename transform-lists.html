@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2018-12-19">
+<meta name="date" content="2018-12-20">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -179,12 +179,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>What you should know before you begin</h2>
 
 <div class="rmdcaution">
-Lists are one of the most felxible data structures in R. Technically, a list is a <em>recursive vector</em>: a vector that can contain another vector or list in each of its elements. As a result, lists are used throughout R as a general purpose glue to hold objects together. You will find lists disguised as model objects, data frames, and list-columns within data frames.
+A list is a <em>recursive vector</em>: a vector that can contain another vector or list in each of its elements.
 </div>
 
 
 <div class="rmdcaution">
-When you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists. Whenever the difference matters, I’ll call the first set of vectors <strong>lists</strong> and the second set <strong>data vectors</strong>. This seems sensible because non-list vectors are used to store data: every piece of data is stored in one. In turn, a data vector may be stored in a list or a data frame. Data vectors include atomic vectors but also include modified atomic vectors like factors and date-times.
+When you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists. Whenever the difference matters, I’ll call the first set of vectors <strong>lists</strong> and the second set of vectors <strong>data vectors</strong>. This chapter focuses on lists.
+</div>
+
+
+<div class="rmdcaution">
+Lists are one of the most flexible data structures in R. As a result, they are used as a general purpose glue to hold objects together. You will find lists disguised as model objects, data frames, list-columns within data frames, and more.
 </div>
 
 
