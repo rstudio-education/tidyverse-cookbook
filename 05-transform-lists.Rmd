@@ -27,15 +27,31 @@ Lists are one of the most flexible data structures in R. As a result, they are u
 Data frames are a sub-type of list. Each column of a data frame is an element of the list that the data frame is built around.
 ```
 
-<!--
-
 ## Extract an element from a list 
 
-You want to
+You want to return an element of a list as it is, perhaps to use in a function. You do not want the element to come embedded in a list of length one.
 
 #### Solution {-}
 
+```{r}
+# returns the element named x in state.center
+state.center %>% 
+  pluck("x")
+```
+
 #### Discussion {-}
+
+`pluck()` comes in the purrr package and does the equivalent of `[[` subsetting. If you pass `pluck()` a character string, `pluck()` will return the element whose name matches the string. If you pass `pluck()` an integer _n_, `pluck()` will return the _nth_ element.
+
+Pass multiple arguments to `pluck()` to subset multiple times. `pluck()` will subset the result of each argument with the argument that follows, e.g.
+
+```{r}
+library(repurrrsive)
+sw_films %>% 
+  pluck(7, "title")
+```
+
+<!--
 
 ## Extract one or more elements from a list as a new list
 
