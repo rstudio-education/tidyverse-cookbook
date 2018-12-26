@@ -45,7 +45,7 @@ state.center %>%
 
 Pass multiple arguments to `pluck()` to subset multiple times. `pluck()` will subset the result of each argument with the argument that follows, e.g.
 
-```{r}
+```{r eval = FALSE}
 library(repurrrsive)
 sw_films %>% 
   pluck(7, "title")

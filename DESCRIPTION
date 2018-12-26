@@ -8,6 +8,5 @@ Imports:
   bookdown,
   knitr,
   rmarkdown,
-  tidyverse,
-  repurrrsive
+  tidyverse
 Remotes: rstudio/bookdown
