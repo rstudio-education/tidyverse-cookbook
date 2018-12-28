@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2018-12-20">
+<meta name="date" content="2018-12-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -169,7 +169,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <hr />
 <div class="col2">
 <ol style="list-style-type: decimal">
-<li>[Extract an element from a list ]</li>
+<li><a href="transform-lists.html#extract-an-element-from-a-list">Extract an element from a list</a></li>
 <li>[Extract one or more elements from a list as a new list]</li>
 <li>[Apply a function to each element of a list]</li>
 </ol>
@@ -197,15 +197,32 @@ Lists are one of the most flexible data structures in R. As a result, they are u
 Data frames are a sub-type of list. Each column of a data frame is an element of the list that the data frame is built around.
 </div>
 
+</div>
+<div id="extract-an-element-from-a-list" class="section level2">
+<h2><span class="header-section-number">5.1</span> Extract an element from a list</h2>
+<p>You want to return an element of a list as it is, perhaps to use in a function. You do not want the element to come embedded in a list of length one.</p>
+<div id="solution-40" class="section level4 unnumbered">
+<h4>Solution</h4>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># returns the element named x in state.center</span>
+state.center <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">pluck</span>(<span class="st">&quot;x&quot;</span>)</code></pre>
+<pre><code>##  [1]  -86.7509 -127.2500 -111.6250  -92.2992 -119.7730 -105.5130  -72.3573
+##  [8]  -74.9841  -81.6850  -83.3736 -126.2500 -113.9300  -89.3776  -86.0808
+## [15]  -93.3714  -98.1156  -84.7674  -92.2724  -68.9801  -76.6459  -71.5800
+## [22]  -84.6870  -94.6043  -89.8065  -92.5137 -109.3200  -99.5898 -116.8510
+## [29]  -71.3924  -74.2336 -105.9420  -75.1449  -78.4686 -100.0990  -82.5963
+## [36]  -97.1239 -120.0680  -77.4500  -71.1244  -80.5056  -99.7238  -86.4560
+## [43]  -98.7857 -111.3300  -72.5450  -78.2005 -119.7460  -80.6665  -89.9941
+## [50] -107.2560</code></pre>
+</div>
+<div id="discussion-37" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p><code>pluck()</code> comes in the purrr package and does the equivalent of <code>[[</code> subsetting. If you pass <code>pluck()</code> a character string, <code>pluck()</code> will return the element whose name matches the string. If you pass <code>pluck()</code> an integer <em>n</em>, <code>pluck()</code> will return the <em>nth</em> element.</p>
+<p>Pass multiple arguments to <code>pluck()</code> to subset multiple times. <code>pluck()</code> will subset the result of each argument with the argument that follows, e.g.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(repurrrsive)
+sw_films <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">pluck</span>(<span class="dv">7</span>, <span class="st">&quot;title&quot;</span>)</code></pre>
 <!--
-
-## Extract an element from a list 
-
-You want to
-
-#### Solution {-}
-
-#### Discussion {-}
 
 ## Extract one or more elements from a list as a new list
 
@@ -224,6 +241,7 @@ You want to
 #### Discussion {-}
 -->
 
+</div>
 </div>
 </div>
             </section>
