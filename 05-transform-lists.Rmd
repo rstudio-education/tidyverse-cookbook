@@ -45,7 +45,7 @@ state.center %>%
 
 Pass multiple arguments to `pluck()` to subset multiple times. `pluck()` will subset the result of each argument with the argument that follows, e.g.
 
-```{r eval = FALSE}
+```{r}
 library(repurrrsive)
 sw_films %>% 
   pluck(7, "title")
@@ -53,19 +53,26 @@ sw_films %>%
 
 <!--
 
-## Extract one or more elements from a list as a new list
-
-You want to
-
-#### Solution {-}
-
-#### Discussion {-}
-
 ## Apply a function to each element of a list
 
 You want to
 
 #### Solution {-}
 
+```{r}
+
+```
+
 #### Discussion {-}
+
+The map functions in the `purrr` package apply a function to each element of a vector.
+
+##### Return a list
+##### Return a vector
+##### Return a vector
+##### Return a vector
+##### Return a vector
+##### Return a vector
+##### Return a vector
+##### Return a vector
 -->
