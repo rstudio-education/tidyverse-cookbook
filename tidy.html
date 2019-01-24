@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2018-12-28">
+<meta name="date" content="2019-01-24">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -256,7 +256,7 @@ Tidy data is not an arbitrary requirement of the tidyverse; it is the ideal data
 ##  8          5           3.4          1.5         0.2 setosa 
 ##  9          4.4         2.9          1.4         0.2 setosa 
 ## 10          4.9         3.1          1.5         0.1 setosa 
-## # ... with 140 more rows</code></pre>
+## # … with 140 more rows</code></pre>
 </div>
 </div>
 <div id="convert-a-tibble-to-a-data-frame" class="section level2">
@@ -301,7 +301,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 ##  8 Amy    1975     6    28    18  34   -77   tropi… -1          30     1006
 ##  9 Amy    1975     6    29     0  34.4 -75.8 tropi… 0           35     1004
 ## 10 Amy    1975     6    29     6  34   -74.8 tropi… 0           40     1002
-## # ... with 10,000 more rows, and 2 more variables: ts_diameter &lt;dbl&gt;,
+## # … with 10,000 more rows, and 2 more variables: ts_diameter &lt;dbl&gt;,
 ## #   hu_diameter &lt;dbl&gt;</code></pre>
 </div>
 <div id="discussion-13" class="section level4 unnumbered">
@@ -441,7 +441,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 <span class="st">  </span><span class="kw">separate</span>(<span class="dt">col =</span> rate, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>)</code></pre>
 <pre><code>## # A tibble: 6 x 4
 ##   country      year  cases population
-## * &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
 ## 1 Afghanistan  1999    745   19987071
 ## 2 Afghanistan  2000   2666   20595360
 ## 3 Brazil       1999  37737  172006362
