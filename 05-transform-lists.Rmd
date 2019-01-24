@@ -16,16 +16,21 @@ A list is a _recursive vector_: a vector that can contain another vector or list
 ```
 
 ```{block2, type='rmdcaution'}
-When you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists.  Whenever the difference matters, I'll call the first set of vectors **lists** and the second set of vectors **data vectors**. This chapter focuses on lists.
-```
-
-```{block2, type='rmdcaution'}
 Lists are one of the most flexible data structures in R. As a result, they are used as a general purpose glue to hold objects together. You will find lists disguised as model objects, data frames, list-columns within data frames, and more.
 ```
 
 ```{block2, type='rmdcaution'}
 Data frames are a sub-type of list. Each column of a data frame is an element of the list that the data frame is built around.
 ```
+
+```{block2, type='rmdcaution'}
+More than any other part of R, lists demonstrate how a programming language can appear different to beginners than to experts. Seasoned R programmers do not distinguish between lists and vectors because the two are equivalent: a list is a type of vector. Many, perhaps all, of the recipes in this chapter will also work with other types of vectors.
+
+However, a beginner who uses R for data science will quickly appreciate that lists behave differently than other types of vectors. Users will encounter two main differences. First, many R functions will not accept lists as input, but will accept other types of vectors. Second, when you subset a list with `[ ]` to extract the value of one of its elements, R will give you a new list of length one that contains the value. This poses a problem if you want to pass that value to a function that does not accept lists as input.
+
+Since this book is written for beginners and practitioners, I've treated lists as a distinct type of object. This introduces a new problem: when you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists.  Whenever the difference matters, I'll call the first set of vectors **lists** and the second set of vectors **data vectors**. This chapter focuses on lists.
+```
+
 
 ## Extract an element from a list 
 
