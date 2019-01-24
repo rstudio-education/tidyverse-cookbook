@@ -251,7 +251,9 @@ table1 %>%
 
 #### Discussion {-}
 
-`pull()` comes in the dplyr package. You can also pull a column by integer position:
+`pull()` comes in the dplyr package. It does the equivalent of `pluck()` in the purrr package; however, `pull()` is designed to work specifically with data frames. `pluck()` is designed to work with all types of lists. 
+
+You can also pull a column by integer position:
 
 ```{r}
 table1 %>% 
