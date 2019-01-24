@@ -565,7 +565,8 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 </div>
 <div id="discussion-30" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p><code>pull()</code> comes in the dplyr package. You can also pull a column by integer position:</p>
+<p><code>pull()</code> comes in the dplyr package. It does the equivalent of <code>pluck()</code> in the purrr package; however, <code>pull()</code> is designed to work specifically with data frames. <code>pluck()</code> is designed to work with all types of lists.</p>
+<p>You can also pull a column by integer position:</p>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">pull</span>(<span class="dv">3</span>)</code></pre>
 <pre><code>## [1]    745   2666  37737  80488 212258 213766</code></pre>

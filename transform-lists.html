@@ -170,7 +170,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="col2">
 <ol style="list-style-type: decimal">
 <li><a href="transform-lists.html#extract-an-element-from-a-list">Extract an element from a list</a></li>
-<li>[Apply a function to each element of a list]</li>
+<li><a href="transform-lists.html#apply-a-function-iteratively-to-each-element-of-a-list">Apply a function iteratively to each element of a list</a></li>
 </ol>
 </div>
 <hr />
@@ -183,17 +183,19 @@ A list is a <em>recursive vector</em>: a vector that can contain another vector 
 
 
 <div class="rmdcaution">
-When you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists. Whenever the difference matters, I’ll call the first set of vectors <strong>lists</strong> and the second set of vectors <strong>data vectors</strong>. This chapter focuses on lists.
-</div>
-
-
-<div class="rmdcaution">
 Lists are one of the most flexible data structures in R. As a result, they are used as a general purpose glue to hold objects together. You will find lists disguised as model objects, data frames, list-columns within data frames, and more.
 </div>
 
 
 <div class="rmdcaution">
 Data frames are a sub-type of list. Each column of a data frame is an element of the list that the data frame is built around.
+</div>
+
+
+<div class="rmdcaution">
+<p>More than any other part of R, lists demonstrate how a programming language can appear different to beginners than to experts. Seasoned R programmers do not distinguish between lists and vectors because the two are equivalent: a list is a type of vector. Many, perhaps all, of the recipes in this chapter will also work with other types of vectors.</p>
+<p>However, a beginner who uses R for data science will quickly appreciate that lists behave differently than other types of vectors. Users will encounter two main differences. First, many R functions will not accept lists as input, but will accept other types of vectors. Second, when you subset a list with <code>[ ]</code> to extract the value of one of its elements, R will give you a new list of length one that contains the value. This poses a problem if you want to pass that value to a function that does not accept lists as input.</p>
+Since this book is written for beginners and practitioners, I’ve treated lists as a distinct type of object. This introduces a new problem: when you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists. Whenever the difference matters, I’ll call the first set of vectors <strong>lists</strong> and the second set of vectors <strong>data vectors</strong>. This chapter focuses on lists.
 </div>
 
 </div>
@@ -222,32 +224,217 @@ state.center <span class="op">%&gt;%</span><span class="st"> </span>
 sw_films <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">pluck</span>(<span class="dv">7</span>, <span class="st">&quot;title&quot;</span>)</code></pre>
 <pre><code>## [1] &quot;The Force Awakens&quot;</code></pre>
+</div>
+</div>
+<div id="apply-a-function-iteratively-to-each-element-of-a-list" class="section level2">
+<h2><span class="header-section-number">5.2</span> Apply a function iteratively to each element of a list</h2>
+<p>You want to apply a function separately to each element in a list and then combine the results into a single object.</p>
+<p>This is similar to what you might do with a for loop, or with the apply family of functions.</p>
+<p>For example, <code>got_chars</code> is a list of 30 lists. Each of the 30 sublists contains information about a different character in the <em>Game of Thrones</em> television series. You would like to run the <code>pluck()</code> function separately on each sublist to extract the name element of the sublist, and then to combine the 30 names into a single list.</p>
+<div id="solution-41" class="section level4 unnumbered">
+<h4>Solution</h4>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(repurrrsive)
+got_chars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map</span>(pluck, <span class="st">&quot;name&quot;</span>)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;Theon Greyjoy&quot;
+## 
+## [[2]]
+## [1] &quot;Tyrion Lannister&quot;
+## 
+## [[3]]
+## [1] &quot;Victarion Greyjoy&quot;
+## 
+## [[4]]
+## [1] &quot;Will&quot;
+## 
+## [[5]]
+## [1] &quot;Areo Hotah&quot;
+## 
+## [[6]]
+## [1] &quot;Chett&quot;
+## 
+## [[7]]
+## [1] &quot;Cressen&quot;
+## 
+## [[8]]
+## [1] &quot;Arianne Martell&quot;
+## 
+## [[9]]
+## [1] &quot;Daenerys Targaryen&quot;
+## 
+## [[10]]
+## [1] &quot;Davos Seaworth&quot;
+## 
+## [[11]]
+## [1] &quot;Arya Stark&quot;
+## 
+## [[12]]
+## [1] &quot;Arys Oakheart&quot;
+## 
+## [[13]]
+## [1] &quot;Asha Greyjoy&quot;
+## 
+## [[14]]
+## [1] &quot;Barristan Selmy&quot;
+## 
+## [[15]]
+## [1] &quot;Varamyr&quot;
+## 
+## [[16]]
+## [1] &quot;Brandon Stark&quot;
+## 
+## [[17]]
+## [1] &quot;Brienne of Tarth&quot;
+## 
+## [[18]]
+## [1] &quot;Catelyn Stark&quot;
+## 
+## [[19]]
+## [1] &quot;Cersei Lannister&quot;
+## 
+## [[20]]
+## [1] &quot;Eddard Stark&quot;
+## 
+## [[21]]
+## [1] &quot;Jaime Lannister&quot;
+## 
+## [[22]]
+## [1] &quot;Jon Connington&quot;
+## 
+## [[23]]
+## [1] &quot;Jon Snow&quot;
+## 
+## [[24]]
+## [1] &quot;Aeron Greyjoy&quot;
+## 
+## [[25]]
+## [1] &quot;Kevan Lannister&quot;
+## 
+## [[26]]
+## [1] &quot;Melisandre&quot;
+## 
+## [[27]]
+## [1] &quot;Merrett Frey&quot;
+## 
+## [[28]]
+## [1] &quot;Quentyn Martell&quot;
+## 
+## [[29]]
+## [1] &quot;Samwell Tarly&quot;
+## 
+## [[30]]
+## [1] &quot;Sansa Stark&quot;</code></pre>
+</div>
+<div id="discussion-38" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p><code>map()</code> takes a vector to iterate over (here supplied by the pipe) followed by a function to apply to each element of the vector. Pass the function name to <code>map()</code> without quotes and without parentheses. <code>map()</code> will pass each element of the vector one at a time to the first argument of the function.</p>
+<p>If your function requires additional arguments to do its job, pass the arguments to <code>map()</code>. <code>map()</code> will forward these arguments in order, with their names to the function when it runs the function.</p>
+<div id="the-map-family-of-functions" class="section level5">
+<h5><span class="header-section-number">5.2.0.0.1</span> The map family of functions</h5>
+<p><code>map()</code> is one of 10 similar functions provided by the purrr package. Together these functions form a family. Each function in the family applies a function to a vector in the same iterative way. However, each function in the family returns the results in a different type of data structure. For example, <code>map()</code> returns the results in a list, as above. <code>map_chr()</code> returns the results as a character vector:</p>
+<pre class="sourceCode r"><code class="sourceCode r">got_chars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map_chr</span>(pluck, <span class="st">&quot;name&quot;</span>)</code></pre>
+<pre><code>##  [1] &quot;Theon Greyjoy&quot;      &quot;Tyrion Lannister&quot;   &quot;Victarion Greyjoy&quot; 
+##  [4] &quot;Will&quot;               &quot;Areo Hotah&quot;         &quot;Chett&quot;             
+##  [7] &quot;Cressen&quot;            &quot;Arianne Martell&quot;    &quot;Daenerys Targaryen&quot;
+## [10] &quot;Davos Seaworth&quot;     &quot;Arya Stark&quot;         &quot;Arys Oakheart&quot;     
+## [13] &quot;Asha Greyjoy&quot;       &quot;Barristan Selmy&quot;    &quot;Varamyr&quot;           
+## [16] &quot;Brandon Stark&quot;      &quot;Brienne of Tarth&quot;   &quot;Catelyn Stark&quot;     
+## [19] &quot;Cersei Lannister&quot;   &quot;Eddard Stark&quot;       &quot;Jaime Lannister&quot;   
+## [22] &quot;Jon Connington&quot;     &quot;Jon Snow&quot;           &quot;Aeron Greyjoy&quot;     
+## [25] &quot;Kevan Lannister&quot;    &quot;Melisandre&quot;         &quot;Merrett Frey&quot;      
+## [28] &quot;Quentyn Martell&quot;    &quot;Samwell Tarly&quot;      &quot;Sansa Stark&quot;</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>map</code></td>
+<td>A list</td>
+</tr>
+<tr class="even">
+<td><code>map_chr</code></td>
+<td>A character vector</td>
+</tr>
+<tr class="odd">
+<td><code>map_dbl</code></td>
+<td>A double (numeric) vector</td>
+</tr>
+<tr class="even">
+<td><code>map_df</code></td>
+<td>A data frame (<code>map_df</code> does the equivalent of <code>map_dfr</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>map_dfr</code></td>
+<td>A single data frame made by row-binding the individual results<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></td>
+</tr>
+<tr class="even">
+<td><code>map_dfc</code></td>
+<td>A single data frame made by column-binding the individual results<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></td>
+</tr>
+<tr class="odd">
+<td><code>map_int</code></td>
+<td>An integer vector</td>
+</tr>
+<tr class="even">
+<td><code>map_lgl</code></td>
+<td>A logical vector</td>
+</tr>
+<tr class="odd">
+<td><code>walk</code></td>
+<td>The original input (returned invisibly)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="how-to-choose-a-map-function" class="section level4">
+<h4><span class="header-section-number">5.2.0.1</span> How to choose a map function</h4>
+<p>To map a function over a vector, consider what type of output the function will produce. Then pick the map function that will combine that type of data into a single structure in a useful way.</p>
+<p>For example, suppose you want to map the function <code>length()</code> which returns an integer, over <code>got_chars</code>.</p>
+<p><code>map_int()</code> would return the results as an integer vector. This is useful because it does not modify the type of the results.</p>
+<pre class="sourceCode r"><code class="sourceCode r">got_chars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map_int</span>(length)</code></pre>
+<pre><code>##  [1] 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18
+## [24] 18 18 18 18 18 18 18</code></pre>
+<p>In contrast, <code>map_chr()</code> will return the results as a character vector, coercing their type to character as it does. This is less useful; you cannot do math with this output.</p>
+<pre class="sourceCode r"><code class="sourceCode r">got_chars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map_chr</span>(length)</code></pre>
+<pre><code>##  [1] &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot;
+## [15] &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot;
+## [29] &quot;18&quot; &quot;18&quot;</code></pre>
+<p><code>walk()</code> is intended to be used with a function like <code>plot()</code> or <code>print()</code>. These functions use their input to generate a side effect, but they do not themselves return an object to pass on.</p>
+<div id="how-to-map-over-the-2nd-3rd-or-nth-argument-of-a-function" class="section level5">
+<h5><span class="header-section-number">5.2.0.1.1</span> How to map over the 2nd, 3rd, or nth argument of a function</h5>
+<p>Every function in the map family recognizes a shortcut syntax built around the <code>~</code> symbol and the pronoun <code>.x</code> (or alternatively <code>.</code>).</p>
+<p>To use the syntax, pass an expression that contains a <code>.x</code> and is preceeded by a <code>~</code> to a map function. The map function will pass to <code>.x</code> the elements of the vector to iterate over.</p>
+<p>You can use this syntax to map to an argument that is not the first,</p>
+<pre class="sourceCode r"><code class="sourceCode r">gap_split <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">lm</span>(lifeExp <span class="op">~</span><span class="st"> </span>year, <span class="dt">data =</span> .x))</code></pre>
+<p>You can also use this syntax to map an arbitrary expression over a vector (instead of to map a predefined function),</p>
+<pre class="sourceCode r"><code class="sourceCode r">gap_split <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map_lgl</span>(<span class="op">~</span><span class="kw">coef</span>(<span class="kw">lm</span>(lifeExp <span class="op">~</span><span class="st"> </span>year, <span class="dt">data =</span> .x))[<span class="dv">1</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre>
 <!--
-
-## Apply a function to each element of a list
-
-You want to
-
-#### Solution {-}
-
-
-
-#### Discussion {-}
-
-The map functions in the `purrr` package apply a function to each element of a vector.
-
-##### Return a list
-##### Return a vector
-##### Return a vector
-##### Return a vector
-##### Return a vector
-##### Return a vector
-##### Return a vector
-##### Return a vector
--->
+map2
+pmap
+reduce
+!-->
 
 </div>
 </div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>These results should themselves be data frames. In other words, the function that is mapped should return a data frame.<a href="transform-lists.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>These results should themselves be data frames. In other words, the function that is mapped should return a data frame.<a href="transform-lists.html#fnref3" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 
