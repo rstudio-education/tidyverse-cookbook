@@ -9,6 +9,8 @@ output_max_height()
 
 ***
 
+This chapter includes the following recipes:
+
 ```{r echo = FALSE, results='asis'}
 build_toc("05-transform-lists.Rmd")
 ```

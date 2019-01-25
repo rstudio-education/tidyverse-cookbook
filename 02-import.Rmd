@@ -2,6 +2,8 @@
 
 ***
 
+This chapter includes the following recipes:
+
 ```{r echo = FALSE, results='asis'}
 build_toc("02-import.Rmd")
 ```
@@ -12,14 +14,10 @@ build_toc("02-import.Rmd")
 
 ```{block2, type='rmdcaution'}
 Before you can manipulate data with R, you need to import the data into R's memory, or build a connection that R can use to access the data remotely.
-```
 
-```{block2, type='rmdcaution'}
-How you import data will depend on the format in which the data is stored. The most common way to store small data sets is as a plain text file. Data may also be stored in a proprietary format associated with a specific piece of software, such as SAS, SPSS, or Microsoft Excel. Data collected from the internet is often stored as a JSON file. Large data sets may be stored in a database or a distributed storage system.
-```
+How you import your data will depend on the format in which the data is stored. The most common way to store small data sets is as a plain text file. Data may also be stored in a proprietary format associated with a specific piece of software, such as SAS, SPSS, or Microsoft Excel. Data collected from the internet is often stored as a JSON or XML file. Large data sets may be stored in a database or a distributed storage system.
 
-```{block2, type='rmdcaution'}
-R stores data in your computer's RAM while you manipulate it. This creates a size limitation: truly big data sets should be stored outside of R in a database or distributed storage system that R can connect to to manipulate the data.
+When you import data, R stores data in your computer's RAM while you manipulate it. This creates a size limitation: truly big data sets should be stored outside of R in a database or distributed storage system that R can connect to to manipulate the data.
 ```
 
 ## Import data quickly with a GUI

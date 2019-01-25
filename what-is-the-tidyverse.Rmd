@@ -18,23 +18,23 @@ To save space, each recipe assumes that you have already run `library("tidyverse
 
 R comes with a built in reference manual, which is fondly (but inaccurately) called R's help pages. You can use R's help pages to glean details that I do not cover here.
 
-To access the help page for an R function, type a `?` at the command line followed by the function name, and then run the result, e.g.
+To access the help page for an R function, type a `?` at the command line of your R console, followed by the function name, and then hit enter to run the result, e.g.
 
 ```{r eval = FALSE}
 ?mutate
 ```
 
-If a function comes in an R package, you will need to load the package with `library()` before you access the function's help page. 
-
-Alternatively, you can access the help page by typing a `?` followed by the package name, followed by `::`, followed by the function name, e.g.
+If a function comes in an R package, you will need to load the package with `library()` before you can access the function's help page. Alternatively, you can access the help page by typing a `?` followed by the package name, followed by `::`, followed by the function name, e.g.
 
 ```{r eval = FALSE}
 ?dplyr::mutate
 ```  
 
+<!--
 ## Vocab
 
 When you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists.  Whenever the difference matters, I'll call the first set of vectors **lists** and the second set **data vectors**. This seems sensible because non-list vectors are used to store data: every piece of data is stored in one. In turn, a data vector may be stored in a list or a data frame. Data vectors include atomic vectors but also include modified atomic vectors like factors and date-times.
+-->
     
 ## What is the tidyverse?
 
@@ -66,6 +66,10 @@ knitr::include_graphics("images/tidy-data.png")
 ```
 
 In practice, tidy data in R appears as data frames or tibbles. A **tibble** is an enhanced version of a data frame that is easier to view at the command line. R treats tibbles like data frames in almost every other respect, because tibbles are a subclass of data frame.
+
+```{r echo = FALSE}
+knitr::include_graphics("images/tibble-tibble.png")
+```
 
 Tidy tibbles act as a common data structure that tidyverse functions use to talk to each other. Tidy data has other advantages as well. Tidy data aligns with R's native data structure, the data frame; and tidy data is easy to use with R's fast, built in vectorized operations. You can think of tidy data as the data format optimized for R.
 
