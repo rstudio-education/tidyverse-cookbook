@@ -1,6 +1,12 @@
 
 # Transform Lists
 
+```{r include = FALSE}
+library(knitrhooks)
+output_max_height()
+```
+
+
 ***
 
 ```{r echo = FALSE, results='asis'}
@@ -58,15 +64,15 @@ sw_films %>%
 
 ## Apply a function iteratively to each element of a list
 
-You want to apply a function separately to each element in a list and then combine the results into a single object.
+You want to apply a function separately to each element in a list and then combine the results into a single object. This is similar to what you might do with a for loop, or with the apply family of functions.
 
-This is similar to what you might do with a for loop, or with the apply family of functions.
+For example, `got_chars` is a list of 30 sublists. Each of the 30 sublists contains information about a different character in the _Game of Thrones_ television series. One piece of information contained in each sublist is the character's name.
 
-For example, `got_chars` is a list of 30 lists. Each of the 30 sublists contains information about a different character in the _Game of Thrones_ television series. You would like to run the `pluck()` function separately on each sublist to extract the name element of the sublist, and then to combine the 30 names into a single list.
+You would like to return just the names of each character in `got_chars`. To do this, you will apply `pluck()` separately to each sublist to retrieve the names. Then you will combine the results into a new list.
 
 #### Solution {-}
 
-```{r}
+```{r, output_max_height = "300px"}
 library(repurrrsive)
 got_chars %>% 
   map(pluck, "name")
@@ -74,9 +80,16 @@ got_chars %>%
 
 #### Discussion {-}
 
-`map()` takes a vector to iterate over (here supplied by the pipe) followed by a function to apply to each element of the vector. Pass the function name to `map()` without quotes and without parentheses. `map()` will pass each element of the vector one at a time to the first argument of the function. 
+`map()` takes a vector to iterate over (here supplied by the pipe) followed by a function to apply to each element of the vector, followed by any arguments to pass to the function when it is applied to the vector. 
 
-If your function requires additional arguments to do its job, pass the arguments to `map()`. `map()` will forward these arguments in order, with their names to the function when it runs the function.
+```{r echo = FALSE}
+knitr::include_graphics("images/purrr-map.png")
+```
+
+
+Pass the function name to `map()` without quotes and without parentheses. `map()` will pass each element of the vector one at a time to the first argument of the function. 
+
+If your function requires additional arguments to do its job, pass the arguments to `map()`. `map()` will forward these arguments in order, with their names, to the function when `map()` runs the function.
 
 ##### The map family of functions
 
@@ -134,11 +147,11 @@ gap_split %>%
   map(~lm(lifeExp ~ year, data = .x))
 ```
 
-You can also use this syntax to map an arbitrary expression over a vector (instead of to map a predefined function),
+You can also use this syntax to map an arbitrary expression over a vector,
 
 ```{r eval = FALSE}
-gap_split %>% 
-  map_lgl(~coef(lm(lifeExp ~ year, data = .x))[1] > 0)
+got_chars %>% 
+  map_lgl(~length(.x) > 0)
 ```
 
 <!--
