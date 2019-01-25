@@ -10,4 +10,7 @@ Imports:
   rmarkdown,
   tidyverse,
   repurrrsive
-Remotes: rstudio/bookdown
+Remotes: 
+  rstudio/bookdown
+  nathaneastwood/knitrhooks
+
