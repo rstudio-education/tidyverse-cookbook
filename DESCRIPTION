@@ -11,6 +11,6 @@ Imports:
   tidyverse,
   repurrrsive
 Remotes: 
-  rstudio/bookdown
+  rstudio/bookdown,
   nathaneastwood/knitrhooks
 
