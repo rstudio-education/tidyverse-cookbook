@@ -9,7 +9,8 @@ Imports:
   knitr,
   rmarkdown,
   tidyverse,
-  repurrrsive
+  repurrrsive,
+  knitrhooks
 Remotes: 
   rstudio/bookdown,
   nathaneastwood/knitrhooks
