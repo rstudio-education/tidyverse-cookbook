@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2019-01-24">
+<meta name="date" content="2019-01-29">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -167,6 +167,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="transform-lists" class="section level1">
 <h1><span class="header-section-number">5</span> Transform Lists</h1>
 <hr />
+<p>This chapter includes the following recipes:</p>
 <div class="col2">
 <ol style="list-style-type: decimal">
 <li><a href="transform-lists.html#extract-an-element-from-a-list">Extract an element from a list</a></li>
@@ -202,149 +203,155 @@ Since this book is written for beginners and practitioners, I’ve treated lists
 <div id="extract-an-element-from-a-list" class="section level2">
 <h2><span class="header-section-number">5.1</span> Extract an element from a list</h2>
 <p>You want to return an element of a list as it is, perhaps to use in a function. You do not want the element to come embedded in a list of length one.</p>
-<div id="solution-40" class="section level4 unnumbered">
+<div id="solution-39" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># returns the element named x in state.center</span>
 state.center <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">pluck</span>(<span class="st">&quot;x&quot;</span>)</code></pre>
-<pre><code>##  [1]  -86.7509 -127.2500 -111.6250  -92.2992 -119.7730 -105.5130  -72.3573
+<pre>##  [1]  -86.7509 -127.2500 -111.6250  -92.2992 -119.7730 -105.5130  -72.3573
 ##  [8]  -74.9841  -81.6850  -83.3736 -126.2500 -113.9300  -89.3776  -86.0808
 ## [15]  -93.3714  -98.1156  -84.7674  -92.2724  -68.9801  -76.6459  -71.5800
 ## [22]  -84.6870  -94.6043  -89.8065  -92.5137 -109.3200  -99.5898 -116.8510
 ## [29]  -71.3924  -74.2336 -105.9420  -75.1449  -78.4686 -100.0990  -82.5963
 ## [36]  -97.1239 -120.0680  -77.4500  -71.1244  -80.5056  -99.7238  -86.4560
 ## [43]  -98.7857 -111.3300  -72.5450  -78.2005 -119.7460  -80.6665  -89.9941
-## [50] -107.2560</code></pre>
+## [50] -107.2560
+</pre>
 </div>
-<div id="discussion-37" class="section level4 unnumbered">
+<div id="discussion-36" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>pluck()</code> comes in the purrr package and does the equivalent of <code>[[</code> subsetting. If you pass <code>pluck()</code> a character string, <code>pluck()</code> will return the element whose name matches the string. If you pass <code>pluck()</code> an integer <em>n</em>, <code>pluck()</code> will return the <em>nth</em> element.</p>
 <p>Pass multiple arguments to <code>pluck()</code> to subset multiple times. <code>pluck()</code> will subset the result of each argument with the argument that follows, e.g.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(repurrrsive)
 sw_films <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">pluck</span>(<span class="dv">7</span>, <span class="st">&quot;title&quot;</span>)</code></pre>
-<pre><code>## [1] &quot;The Force Awakens&quot;</code></pre>
+<pre>## [1] "The Force Awakens"
+</pre>
 </div>
 </div>
 <div id="apply-a-function-iteratively-to-each-element-of-a-list" class="section level2">
 <h2><span class="header-section-number">5.2</span> Apply a function iteratively to each element of a list</h2>
-<p>You want to apply a function separately to each element in a list and then combine the results into a single object.</p>
-<p>This is similar to what you might do with a for loop, or with the apply family of functions.</p>
-<p>For example, <code>got_chars</code> is a list of 30 lists. Each of the 30 sublists contains information about a different character in the <em>Game of Thrones</em> television series. You would like to run the <code>pluck()</code> function separately on each sublist to extract the name element of the sublist, and then to combine the 30 names into a single list.</p>
-<div id="solution-41" class="section level4 unnumbered">
+<p>You want to apply a function separately to each element in a list and then combine the results into a single object. This is similar to what you might do with a for loop, or with the apply family of functions.</p>
+<p>For example, <code>got_chars</code> is a list of 30 sublists. Each of the 30 sublists contains information about a different character in the <em>Game of Thrones</em> television series. One piece of information contained in each sublist is the character’s name.</p>
+<p>You would like to return just the names of each character in <code>got_chars</code>. To do this, you will apply <code>pluck()</code> separately to each sublist to retrieve the names. Then you will combine the results into a new list.</p>
+<div id="solution-40" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(repurrrsive)
 got_chars <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">map</span>(pluck, <span class="st">&quot;name&quot;</span>)</code></pre>
-<pre><code>## [[1]]
-## [1] &quot;Theon Greyjoy&quot;
+<pre style = "max-height:300px; overflow-y: auto;">## [[1]]
+## [1] "Theon Greyjoy"
 ## 
 ## [[2]]
-## [1] &quot;Tyrion Lannister&quot;
+## [1] "Tyrion Lannister"
 ## 
 ## [[3]]
-## [1] &quot;Victarion Greyjoy&quot;
+## [1] "Victarion Greyjoy"
 ## 
 ## [[4]]
-## [1] &quot;Will&quot;
+## [1] "Will"
 ## 
 ## [[5]]
-## [1] &quot;Areo Hotah&quot;
+## [1] "Areo Hotah"
 ## 
 ## [[6]]
-## [1] &quot;Chett&quot;
+## [1] "Chett"
 ## 
 ## [[7]]
-## [1] &quot;Cressen&quot;
+## [1] "Cressen"
 ## 
 ## [[8]]
-## [1] &quot;Arianne Martell&quot;
+## [1] "Arianne Martell"
 ## 
 ## [[9]]
-## [1] &quot;Daenerys Targaryen&quot;
+## [1] "Daenerys Targaryen"
 ## 
 ## [[10]]
-## [1] &quot;Davos Seaworth&quot;
+## [1] "Davos Seaworth"
 ## 
 ## [[11]]
-## [1] &quot;Arya Stark&quot;
+## [1] "Arya Stark"
 ## 
 ## [[12]]
-## [1] &quot;Arys Oakheart&quot;
+## [1] "Arys Oakheart"
 ## 
 ## [[13]]
-## [1] &quot;Asha Greyjoy&quot;
+## [1] "Asha Greyjoy"
 ## 
 ## [[14]]
-## [1] &quot;Barristan Selmy&quot;
+## [1] "Barristan Selmy"
 ## 
 ## [[15]]
-## [1] &quot;Varamyr&quot;
+## [1] "Varamyr"
 ## 
 ## [[16]]
-## [1] &quot;Brandon Stark&quot;
+## [1] "Brandon Stark"
 ## 
 ## [[17]]
-## [1] &quot;Brienne of Tarth&quot;
+## [1] "Brienne of Tarth"
 ## 
 ## [[18]]
-## [1] &quot;Catelyn Stark&quot;
+## [1] "Catelyn Stark"
 ## 
 ## [[19]]
-## [1] &quot;Cersei Lannister&quot;
+## [1] "Cersei Lannister"
 ## 
 ## [[20]]
-## [1] &quot;Eddard Stark&quot;
+## [1] "Eddard Stark"
 ## 
 ## [[21]]
-## [1] &quot;Jaime Lannister&quot;
+## [1] "Jaime Lannister"
 ## 
 ## [[22]]
-## [1] &quot;Jon Connington&quot;
+## [1] "Jon Connington"
 ## 
 ## [[23]]
-## [1] &quot;Jon Snow&quot;
+## [1] "Jon Snow"
 ## 
 ## [[24]]
-## [1] &quot;Aeron Greyjoy&quot;
+## [1] "Aeron Greyjoy"
 ## 
 ## [[25]]
-## [1] &quot;Kevan Lannister&quot;
+## [1] "Kevan Lannister"
 ## 
 ## [[26]]
-## [1] &quot;Melisandre&quot;
+## [1] "Melisandre"
 ## 
 ## [[27]]
-## [1] &quot;Merrett Frey&quot;
+## [1] "Merrett Frey"
 ## 
 ## [[28]]
-## [1] &quot;Quentyn Martell&quot;
+## [1] "Quentyn Martell"
 ## 
 ## [[29]]
-## [1] &quot;Samwell Tarly&quot;
+## [1] "Samwell Tarly"
 ## 
 ## [[30]]
-## [1] &quot;Sansa Stark&quot;</code></pre>
+## [1] "Sansa Stark"
+</pre>
 </div>
-<div id="discussion-38" class="section level4 unnumbered">
+<div id="discussion-37" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p><code>map()</code> takes a vector to iterate over (here supplied by the pipe) followed by a function to apply to each element of the vector. Pass the function name to <code>map()</code> without quotes and without parentheses. <code>map()</code> will pass each element of the vector one at a time to the first argument of the function.</p>
-<p>If your function requires additional arguments to do its job, pass the arguments to <code>map()</code>. <code>map()</code> will forward these arguments in order, with their names to the function when it runs the function.</p>
+<p><code>map()</code> takes a vector to iterate over (here supplied by the pipe) followed by a function to apply to each element of the vector, followed by any arguments to pass to the function when it is applied to the vector.</p>
+<p><img src="images/purrr-map.png" /><!-- --></p>
+<p>Pass the function name to <code>map()</code> without quotes and without parentheses. <code>map()</code> will pass each element of the vector one at a time to the first argument of the function.</p>
+<p>If your function requires additional arguments to do its job, pass the arguments to <code>map()</code>. <code>map()</code> will forward these arguments in order, with their names, to the function when <code>map()</code> runs the function.</p>
 <div id="the-map-family-of-functions" class="section level5">
 <h5><span class="header-section-number">5.2.0.0.1</span> The map family of functions</h5>
 <p><code>map()</code> is one of 10 similar functions provided by the purrr package. Together these functions form a family. Each function in the family applies a function to a vector in the same iterative way. However, each function in the family returns the results in a different type of data structure. For example, <code>map()</code> returns the results in a list, as above. <code>map_chr()</code> returns the results as a character vector:</p>
 <pre class="sourceCode r"><code class="sourceCode r">got_chars <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">map_chr</span>(pluck, <span class="st">&quot;name&quot;</span>)</code></pre>
-<pre><code>##  [1] &quot;Theon Greyjoy&quot;      &quot;Tyrion Lannister&quot;   &quot;Victarion Greyjoy&quot; 
-##  [4] &quot;Will&quot;               &quot;Areo Hotah&quot;         &quot;Chett&quot;             
-##  [7] &quot;Cressen&quot;            &quot;Arianne Martell&quot;    &quot;Daenerys Targaryen&quot;
-## [10] &quot;Davos Seaworth&quot;     &quot;Arya Stark&quot;         &quot;Arys Oakheart&quot;     
-## [13] &quot;Asha Greyjoy&quot;       &quot;Barristan Selmy&quot;    &quot;Varamyr&quot;           
-## [16] &quot;Brandon Stark&quot;      &quot;Brienne of Tarth&quot;   &quot;Catelyn Stark&quot;     
-## [19] &quot;Cersei Lannister&quot;   &quot;Eddard Stark&quot;       &quot;Jaime Lannister&quot;   
-## [22] &quot;Jon Connington&quot;     &quot;Jon Snow&quot;           &quot;Aeron Greyjoy&quot;     
-## [25] &quot;Kevan Lannister&quot;    &quot;Melisandre&quot;         &quot;Merrett Frey&quot;      
-## [28] &quot;Quentyn Martell&quot;    &quot;Samwell Tarly&quot;      &quot;Sansa Stark&quot;</code></pre>
+<pre>##  [1] "Theon Greyjoy"      "Tyrion Lannister"   "Victarion Greyjoy" 
+##  [4] "Will"               "Areo Hotah"         "Chett"             
+##  [7] "Cressen"            "Arianne Martell"    "Daenerys Targaryen"
+## [10] "Davos Seaworth"     "Arya Stark"         "Arys Oakheart"     
+## [13] "Asha Greyjoy"       "Barristan Selmy"    "Varamyr"           
+## [16] "Brandon Stark"      "Brienne of Tarth"   "Catelyn Stark"     
+## [19] "Cersei Lannister"   "Eddard Stark"       "Jaime Lannister"   
+## [22] "Jon Connington"     "Jon Snow"           "Aeron Greyjoy"     
+## [25] "Kevan Lannister"    "Melisandre"         "Merrett Frey"      
+## [28] "Quentyn Martell"    "Samwell Tarly"      "Sansa Stark"
+</pre>
 <table>
 <thead>
 <tr class="header">
@@ -400,14 +407,16 @@ got_chars <span class="op">%&gt;%</span><span class="st"> </span>
 <p><code>map_int()</code> would return the results as an integer vector. This is useful because it does not modify the type of the results.</p>
 <pre class="sourceCode r"><code class="sourceCode r">got_chars <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">map_int</span>(length)</code></pre>
-<pre><code>##  [1] 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18
-## [24] 18 18 18 18 18 18 18</code></pre>
+<pre>##  [1] 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18
+## [24] 18 18 18 18 18 18 18
+</pre>
 <p>In contrast, <code>map_chr()</code> will return the results as a character vector, coercing their type to character as it does. This is less useful; you cannot do math with this output.</p>
 <pre class="sourceCode r"><code class="sourceCode r">got_chars <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">map_chr</span>(length)</code></pre>
-<pre><code>##  [1] &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot;
-## [15] &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot; &quot;18&quot;
-## [29] &quot;18&quot; &quot;18&quot;</code></pre>
+<pre>##  [1] "18" "18" "18" "18" "18" "18" "18" "18" "18" "18" "18" "18" "18" "18"
+## [15] "18" "18" "18" "18" "18" "18" "18" "18" "18" "18" "18" "18" "18" "18"
+## [29] "18" "18"
+</pre>
 <p><code>walk()</code> is intended to be used with a function like <code>plot()</code> or <code>print()</code>. These functions use their input to generate a side effect, but they do not themselves return an object to pass on.</p>
 <div id="how-to-map-over-the-2nd-3rd-or-nth-argument-of-a-function" class="section level5">
 <h5><span class="header-section-number">5.2.0.1.1</span> How to map over the 2nd, 3rd, or nth argument of a function</h5>
@@ -416,9 +425,9 @@ got_chars <span class="op">%&gt;%</span><span class="st"> </span>
 <p>You can use this syntax to map to an argument that is not the first,</p>
 <pre class="sourceCode r"><code class="sourceCode r">gap_split <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="kw">lm</span>(lifeExp <span class="op">~</span><span class="st"> </span>year, <span class="dt">data =</span> .x))</code></pre>
-<p>You can also use this syntax to map an arbitrary expression over a vector (instead of to map a predefined function),</p>
-<pre class="sourceCode r"><code class="sourceCode r">gap_split <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">map_lgl</span>(<span class="op">~</span><span class="kw">coef</span>(<span class="kw">lm</span>(lifeExp <span class="op">~</span><span class="st"> </span>year, <span class="dt">data =</span> .x))[<span class="dv">1</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre>
+<p>You can also use this syntax to map an arbitrary expression over a vector,</p>
+<pre class="sourceCode r"><code class="sourceCode r">got_chars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map_lgl</span>(<span class="op">~</span><span class="kw">length</span>(.x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre>
 <!--
 map2
 pmap

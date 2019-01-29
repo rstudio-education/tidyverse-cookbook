@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2019-01-24">
+<meta name="date" content="2019-01-29">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -167,6 +167,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="import" class="section level1">
 <h1><span class="header-section-number">2</span> Import</h1>
 <hr />
+<p>This chapter includes the following recipes:</p>
 <div class="col2">
 <ol style="list-style-type: decimal">
 <li><a href="import.html#import-data-quickly-with-a-gui">Import data quickly with a GUI</a></li>
@@ -177,28 +178,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>What you should know before you begin</h2>
 
 <div class="rmdcaution">
-Before you can manipulate data with R, you need to import the data into R’s memory, or build a connection that R can use to access the data remotely.
-</div>
-
-
-<div class="rmdcaution">
-How you import data will depend on the format in which the data is stored. The most common way to store small data sets is as a plain text file. Data may also be stored in a proprietary format associated with a specific piece of software, such as SAS, SPSS, or Microsoft Excel. Data collected from the internet is often stored as a JSON file. Large data sets may be stored in a database or a distributed storage system.
-</div>
-
-
-<div class="rmdcaution">
-R stores data in your computer’s RAM while you manipulate it. This creates a size limitation: truly big data sets should be stored outside of R in a database or distributed storage system that R can connect to to manipulate the data.
+<p>Before you can manipulate data with R, you need to import the data into R’s memory, or build a connection that R can use to access the data remotely.</p>
+<p>How you import your data will depend on the format in which the data is stored. The most common way to store small data sets is as a plain text file. Data may also be stored in a proprietary format associated with a specific piece of software, such as SAS, SPSS, or Microsoft Excel. Data collected from the internet is often stored as a JSON or XML file. Large data sets may be stored in a database or a distributed storage system.</p>
+When you import data, R stores data in your computer’s RAM while you manipulate it. This creates a size limitation: truly big data sets should be stored outside of R in a database or distributed storage system that R can connect to to manipulate the data.
 </div>
 
 </div>
 <div id="import-data-quickly-with-a-gui" class="section level2">
 <h2><span class="header-section-number">2.1</span> Import data quickly with a GUI</h2>
 <p>You want to import data quickly, and you do not mind using a semi-reproducible graphical user interface (GUI) to do so.</p>
-<div id="solution-10" class="section level4 unnumbered">
+<div id="solution-9" class="section level4 unnumbered">
 <h4>Solution</h4>
 <p><img src="images/import-dataset.png" width="80%" /></p>
 </div>
-<div id="discussion-10" class="section level4 unnumbered">
+<div id="discussion-9" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>The RStudio IDE provides an Import Dataset button in the Environment pane, which appears in the top right corner of the IDE by default. You can use this button to import data that is stored in plain text files as well as in Excel, SAS, SPSS, and Stata files.</p>
 <p>Click the button to launch a window that includes a file browser (below). Use the browser to select the file to import.</p>

@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2019-01-24">
+<meta name="date" content="2019-01-29">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -221,7 +221,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="arrange-rows-in-ascending-order-by-the-values-of-a-column" class="section level2">
 <h2><span class="header-section-number">4.1</span> Arrange rows in ascending order by the values of a column</h2>
 <p>You want to sort the rows of a data frame in <strong>ascending</strong> order by the values in one or more columns.</p>
-<div id="solution-20" class="section level4 unnumbered">
+<div id="solution-19" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">mpg <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">arrange</span>(cty)</code></pre>
@@ -240,7 +240,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ## 10 dodge        dako…   5.2  1999     8 manu… 4        11    17 r     pick…
 ## # … with 224 more rows</code></pre>
 </div>
-<div id="discussion-19" class="section level4 unnumbered">
+<div id="discussion-18" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>arrange()</code> sorts the rows according to the values of the specified column, with the lowest values appearing near the top of the data frame. <code>arrange()</code> will use additional columns as tiebreakers to sort within rows that share the same value of the first column.</p>
 <pre class="sourceCode r"><code class="sourceCode r">mpg <span class="op">%&gt;%</span><span class="st"> </span>
@@ -264,7 +264,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="arrange-rows-in-descending-order-by-the-values-of-a-column" class="section level2">
 <h2><span class="header-section-number">4.2</span> Arrange rows in descending order by the values of a column</h2>
 <p>You want to sort the rows of a data frame in <strong>descending</strong> order by the values in one or more columns.</p>
-<div id="solution-21" class="section level4 unnumbered">
+<div id="solution-20" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">mpg <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cty))</code></pre>
@@ -283,7 +283,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ## 10 honda        civic   1.8  2008     4 auto… f        25    36 r     subc…
 ## # … with 224 more rows</code></pre>
 </div>
-<div id="discussion-20" class="section level4 unnumbered">
+<div id="discussion-19" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>Place <code>desc()</code> around a column name to cause <code>arrange()</code> to sort by descending values of that column. You can use <code>desc()</code> for tie-breaker columns as well.</p>
 <pre class="sourceCode r"><code class="sourceCode r">mpg <span class="op">%&gt;%</span><span class="st"> </span>
@@ -307,7 +307,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="filter-rows-with-a-logical-test" class="section level2">
 <h2><span class="header-section-number">4.3</span> Filter rows with a logical test</h2>
 <p>You want to filter your table to just the rows that meet a specific condition.</p>
-<div id="solution-22" class="section level4 unnumbered">
+<div id="solution-21" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">mpg <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(model <span class="op">==</span><span class="st"> &quot;jetta&quot;</span>)</code></pre>
@@ -324,7 +324,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ## 8 volkswagen   jetta   2.8  1999     6 auto(… f        16    23 r     comp…
 ## 9 volkswagen   jetta   2.8  1999     6 manua… f        17    24 r     comp…</code></pre>
 </div>
-<div id="discussion-21" class="section level4 unnumbered">
+<div id="discussion-20" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>filter()</code> takes a logical test and returns the rows for which the logical test returns <code>TRUE</code>. <code>filter()</code> will match column names that appear within the logical test to columns in your data frame.</p>
 <p><code>filter()</code> will combine multiple logical tests with an AND operator (<code>&amp;</code>):</p>
@@ -344,7 +344,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="select-columns-by-name" class="section level2">
 <h2><span class="header-section-number">4.4</span> Select columns by name</h2>
 <p>You want to return a “subset” of columns from your data frame by listing the name of each column to return.</p>
-<div id="solution-23" class="section level4 unnumbered">
+<div id="solution-22" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(country, year, cases)</code></pre>
@@ -359,7 +359,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ## 6 China        2000 213766</code></pre>
 <!-- I couldn't find table1 anywhere in a search, may want to provide code for people at the top to generate? Or at least cross-reference -->
 </div>
-<div id="discussion-22" class="section level4 unnumbered">
+<div id="discussion-21" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>select()</code> returns a new data frame that includes each column passed to <code>select()</code>. Repeat a name to include the column twice.</p>
 </div>
@@ -367,7 +367,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="drop-columns-by-name" class="section level2">
 <h2><span class="header-section-number">4.5</span> Drop columns by name</h2>
 <p>You want to return a “subset” of columns from your data frame by listing the name of each column to drop.</p>
-<div id="solution-24" class="section level4 unnumbered">
+<div id="solution-23" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(population, year))</code></pre>
@@ -381,7 +381,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ## 5 China       212258
 ## 6 China       213766</code></pre>
 </div>
-<div id="discussion-23" class="section level4 unnumbered">
+<div id="discussion-22" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>If you use a <code>-</code> before a column name, <code>select()</code> will return every column in the data frame except that column. To drop more than one column at a time, group the columns into a vector preceded by <code>-</code>.</p>
 </div>
@@ -389,7 +389,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="select-a-range-of-columns" class="section level2">
 <h2><span class="header-section-number">4.6</span> Select a range of columns</h2>
 <p>You want to return two columns from a data frame as well as every column that appears between them.</p>
-<div id="solution-25" class="section level4 unnumbered">
+<div id="solution-24" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(country<span class="op">:</span>cases)</code></pre>
@@ -403,7 +403,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ## 5 China        1999 212258
 ## 6 China        2000 213766</code></pre>
 </div>
-<div id="discussion-24" class="section level4 unnumbered">
+<div id="discussion-23" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>If you combine two column names with a <code>:</code>, <code>select()</code> will return both columns and every column that appears between them in the data frame.</p>
 </div>
@@ -411,7 +411,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="select-columns-by-integer-position" class="section level2">
 <h2><span class="header-section-number">4.7</span> Select columns by integer position</h2>
 <p>You want to return a “subset” of columns from your data frame by listing the position of each column to return.</p>
-<div id="solution-26" class="section level4 unnumbered">
+<div id="solution-25" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</code></pre>
@@ -425,7 +425,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ## 5 China        1999 1272915272
 ## 6 China        2000 1280428583</code></pre>
 </div>
-<div id="discussion-25" class="section level4 unnumbered">
+<div id="discussion-24" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>select()</code> interprets the whole number <em>n</em> as the _n_th column in the data set. You can combine numbers with <code>-</code> and <code>:</code> inside of <code>select()</code> as well.</p>
 </div>
@@ -433,7 +433,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="select-columns-by-start-of-name" class="section level2">
 <h2><span class="header-section-number">4.8</span> Select columns by start of name</h2>
 <p>You want to return evey column in your data that begins with a specific string.</p>
-<div id="solution-27" class="section level4 unnumbered">
+<div id="solution-26" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&quot;c&quot;</span>))</code></pre>
@@ -451,7 +451,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="select-columns-by-end-of-name" class="section level2">
 <h2><span class="header-section-number">4.9</span> Select columns by end of name</h2>
 <p>You want to return evey column in your data that ends with a specific string.</p>
-<div id="solution-28" class="section level4 unnumbered">
+<div id="solution-27" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(<span class="kw">ends_with</span>(<span class="st">&quot;tion&quot;</span>))</code></pre>
@@ -469,7 +469,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="select-columns-by-string-in-name" class="section level2">
 <h2><span class="header-section-number">4.10</span> Select columns by string in name</h2>
 <p>You want to return evey column in your data whose name contains a specific string or regular expression.</p>
-<div id="solution-29" class="section level4 unnumbered">
+<div id="solution-28" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;o.*u&quot;</span>))</code></pre>
@@ -483,7 +483,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ## 5 China       1272915272
 ## 6 China       1280428583</code></pre>
 </div>
-<div id="discussion-26" class="section level4 unnumbered">
+<div id="discussion-25" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>o.*u</code> is a regular expression that matches an <code>o</code> followed by a <code>u</code> with any number of characters in between. <code>country</code> and <code>population</code> are returned because the names <code>country</code> and <code>population</code> each contain an <code>o</code> followed (at any distance) by a <code>u</code>.</p>
 </div>
@@ -491,7 +491,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="reorder-columns" class="section level2">
 <h2><span class="header-section-number">4.11</span> Reorder columns</h2>
 <p>You want to return all of the columns in the original data frame in a new order.</p>
-<div id="solution-30" class="section level4 unnumbered">
+<div id="solution-29" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(country, year, population, cases)</code></pre>
@@ -505,7 +505,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ## 5 China        1999 1272915272 212258
 ## 6 China        2000 1280428583 213766</code></pre>
 </div>
-<div id="discussion-27" class="section level4 unnumbered">
+<div id="discussion-26" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>Use <code>select()</code> to select all of the columns in the new order.</p>
 </div>
@@ -513,7 +513,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="reorder-columns-without-naming-all-columns" class="section level2">
 <h2><span class="header-section-number">4.12</span> Reorder columns without naming all columns</h2>
 <p>You want to reorder some of the columns in the original data frame, but you don’t care about the order for other columns, and you may have too many columns to name them each individually.</p>
-<div id="solution-31" class="section level4 unnumbered">
+<div id="solution-30" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(country, year, <span class="kw">everything</span>())</code></pre>
@@ -527,7 +527,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ## 5 China        1999 212258 1272915272
 ## 6 China        2000 213766 1280428583</code></pre>
 </div>
-<div id="discussion-28" class="section level4 unnumbered">
+<div id="discussion-27" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>Use <code>everything()</code> within <code>select()</code> to select all of the columns in the order they are named: all columns are kept, and no columns are duplicated. Using <code>everything()</code> preserves the original ordering of the original (unnamed) columns.</p>
 </div>
@@ -535,7 +535,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="rename-columns" class="section level2">
 <h2><span class="header-section-number">4.13</span> Rename columns</h2>
 <p>You want to rename one or more columns in your data frame, retaining the rest.</p>
-<div id="solution-32" class="section level4 unnumbered">
+<div id="solution-31" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">rename</span>(<span class="dt">state =</span> country, <span class="dt">date =</span> year)</code></pre>
@@ -549,7 +549,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ## 5 China        1999 212258 1272915272
 ## 6 China        2000 213766 1280428583</code></pre>
 </div>
-<div id="discussion-29" class="section level4 unnumbered">
+<div id="discussion-28" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>For each column to be renamed, type a new name for the column and set it equal to the old name for the column.</p>
 </div>
@@ -557,13 +557,13 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="return-the-contents-of-a-column-as-a-vector" class="section level2">
 <h2><span class="header-section-number">4.14</span> Return the contents of a column as a vector</h2>
 <p>You want to return the contents of a single column as a vector, not as a data frame with one column.</p>
-<div id="solution-33" class="section level4 unnumbered">
+<div id="solution-32" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">pull</span>(cases)</code></pre>
 <pre><code>## [1]    745   2666  37737  80488 212258 213766</code></pre>
 </div>
-<div id="discussion-30" class="section level4 unnumbered">
+<div id="discussion-29" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>pull()</code> comes in the dplyr package. It does the equivalent of <code>pluck()</code> in the purrr package; however, <code>pull()</code> is designed to work specifically with data frames. <code>pluck()</code> is designed to work with all types of lists.</p>
 <p>You can also pull a column by integer position:</p>
@@ -575,7 +575,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="summarise-data" class="section level2">
 <h2><span class="header-section-number">4.15</span> Summarise data</h2>
 <p>You want to compute summary statistics for your data set.</p>
-<div id="solution-34" class="section level4 unnumbered">
+<div id="solution-33" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(cases), <span class="dt">max_rate =</span> <span class="kw">max</span>(cases<span class="op">/</span>population))</code></pre>
@@ -584,7 +584,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ##         &lt;int&gt;    &lt;dbl&gt;
 ## 1      547660 0.000461</code></pre>
 </div>
-<div id="discussion-31" class="section level4 unnumbered">
+<div id="discussion-30" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>When used by itself, <code>summarise()</code> returns a new 1 x n tibble. Each argument name passed to <code>summarise()</code> will become a column name in the tibble. Each column will contain the result of the R expression passed to the argument/column name.</p>
 <p><code>summarise()</code> is intended to be used with <em>summary functions</em>, which are functions that take a vector of values as input and return a single value as output (e.g <code>sum()</code>, <code>max()</code>, <code>mean()</code>).</p>
@@ -594,7 +594,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="summarise-data-by-groups" class="section level2">
 <h2><span class="header-section-number">4.16</span> Summarise data by groups</h2>
 <p>You want to compute and then compare summary statistics for different groups of data in your data set.</p>
-<div id="solution-35" class="section level4 unnumbered">
+<div id="solution-34" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -606,7 +606,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ## 2 Brazil           118225 0.000461
 ## 3 China            426024 0.000167</code></pre>
 </div>
-<div id="discussion-32" class="section level4 unnumbered">
+<div id="discussion-31" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>group_by()</code> converts your data set into a grouped tibble, which is a tibble subclass that indicates in its attributes which rows belong to which group.</p>
 <p>Where appropriate, tidyverse functions recognize grouped tibbles. The functions:</p>
@@ -654,7 +654,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="mutate-data-add-new-variables" class="section level2">
 <h2><span class="header-section-number">4.17</span> Mutate data (Add new variables)</h2>
 <p>You want to compute one or more new variables and add them to your table as columns.</p>
-<div id="solution-36" class="section level4 unnumbered">
+<div id="solution-35" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rate =</span> cases<span class="op">/</span>population, <span class="dt">percent =</span> rate <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</code></pre>
@@ -668,7 +668,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ## 5 China        1999 212258 1272915272 0.000167  0.0167 
 ## 6 China        2000 213766 1280428583 0.000167  0.0167</code></pre>
 </div>
-<div id="discussion-33" class="section level4 unnumbered">
+<div id="discussion-32" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>mutate()</code> returns a copy of your table that contains additional columns. Each argument name passed to <code>mutate()</code> will become the name of a new column. Each new column will contain the result of the R expression passed to the argument/column name.</p>
 <p><code>mutate()</code> will build the columns in the order that you define them. As a result, you may use a column in the column definitions that follow it.</p>
@@ -690,11 +690,11 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="combine-transform-recipes" class="section level2">
 <h2><span class="header-section-number">4.18</span> Combine transform recipes</h2>
 <p>You want to transform the structure of a table, and you want to use the data within the table to do it. This is the sort of thing you do everytime you call <code>summarise()</code> or <code>mutate()</code>.</p>
-<div id="solution-37" class="section level4 unnumbered">
+<div id="solution-36" class="section level4 unnumbered">
 <h4>Solution</h4>
 <p>See the discussion.</p>
 </div>
-<div id="discussion-34" class="section level4 unnumbered">
+<div id="discussion-33" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>When you transform a data frame, you often work with several functions:</p>
 <ol style="list-style-type: decimal">
@@ -787,7 +787,7 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 1 John  guitar
 ## 2 Paul  bass  
 ## 3 Keith guitar</code></pre>
-<div id="solution-38" class="section level4 unnumbered">
+<div id="solution-37" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
@@ -798,7 +798,7 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 2 John  Beatles guitar
 ## 3 Paul  Beatles bass</code></pre>
 </div>
-<div id="discussion-35" class="section level4 unnumbered">
+<div id="discussion-34" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <div id="mutating-joins" class="section level5 unnumbered">
 <h5>Mutating joins</h5>
@@ -915,7 +915,7 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 1 John  guitar
 ## 2 Paul  bass  
 ## 3 Keith guitar</code></pre>
-<div id="solution-39" class="section level4 unnumbered">
+<div id="solution-38" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">semi_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
@@ -925,7 +925,7 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 1 John  Beatles
 ## 2 Paul  Beatles</code></pre>
 </div>
-<div id="discussion-36" class="section level4 unnumbered">
+<div id="discussion-35" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <div id="filtering-joins" class="section level5 unnumbered">
 <h5>Filtering joins</h5>

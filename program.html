@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2019-01-24">
+<meta name="date" content="2019-01-29">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -167,19 +167,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="program" class="section level1">
 <h1><span class="header-section-number">1</span> Program</h1>
 <hr />
-<p>To manipulate vectors with <a href="http://purrr.tidyverse.org">purrr</a>, see <a href="transform-lists.html#transform-lists">Transform Lists</a>.</p>
+<p>This chapter includes the following recipes. To manipulate vectors with <a href="http://purrr.tidyverse.org">purrr</a>, see <a href="transform-lists.html#transform-lists">Transform Lists</a>.</p>
 <div class="col2">
 <ol style="list-style-type: decimal">
 <li><a href="program.html#install">Install a tidyverse package</a></li>
 <li><a href="program.html#install-all">Install all of the tidyverse packages</a></li>
-<li><a href="program.html#load">Load a single tidyverse package</a></li>
+<li><a href="program.html#load">Load a tidyverse package</a></li>
 <li><a href="program.html#load-the-core-set-of-tidyverse-packages">Load the core set of tidyverse packages</a></li>
 <li><a href="program.html#update">Update a tidyverse package</a></li>
-<li><a href="program.html#update-all">Check that all of your tidyverse packages are up-to-date</a></li>
-<li><a href="program.html#list-every-package-in-the-tidyverse">List every package in the tidyverse</a></li>
+<li><a href="program.html#update-all">Update all of the tidyverse packages</a></li>
+<li><a href="program.html#list-all-of-the-tidyverse-packages">List all of the tidyverse packages</a></li>
 <li><a href="program.html#combine-functions-into-a-pipe">Combine functions into a pipe</a></li>
 <li><a href="program.html#pipe-a-result-to-a-specific-argument">Pipe a result to a specific argument</a></li>
-<li><a href="program.html#change-an-object-in-place-with-a-pipe">Change an object in place with a pipe</a></li>
 </ol>
 </div>
 <hr />
@@ -187,25 +186,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>What you should know before you begin</h2>
 
 <div class="rmdcaution">
+<p>The <a href="http://www.tidyverse.org">tidyverse</a> is a collection of R packages that are designed to work well together. There are about 25 packages in the tidyverse.</p>
 <p>An R package is a bundle of functions, documentation, and data sets. R has over 13,000 packages. These are not installed with R, but are archived <a href="https://cran.r-project.org/web/packages/index.html">online</a> for when you need them.</p>
-The <a href="http://www.tidyverse.org">tidyverse</a> is a collection of R packages that are designed to work well together. There are about 25 packages in the tidyverse.
-</div>
-
-
-<div class="rmdcaution">
 <p>To use an R package, you must:</p>
 <ol style="list-style-type: decimal">
 <li><p>Install the package on your local machine with <code>install.packages()</code>. You only need to do this once per machine.</p></li>
-<li>Load the package with <code>library()</code>. You need to do this each time you start a new R session (if you wish to use the package in that session).
-</div></li>
+<li><p>Load the package into your R session with <code>library()</code>. You need to do this each time you start a new R session (if you wish to use the package in that session).</p></li>
 </ol>
-
-<div class="rmdcaution">
-You cannot use the contents of a package until you load the package in your current R session.
-</div>
-
-
-<div class="rmdcaution">
+<p>You cannot use the contents of a package until you load the package in your current R session.</p>
 You should update your packages from time to time to receive the latest improvements from package authors.
 </div>
 
@@ -241,7 +229,7 @@ By default, <code>install.packages()</code> will download packages from <a href=
 </div>
 <div id="discussion-1" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p>The <code>tidyverse</code> package provides a shortcut for downloading all of the packages in the tidyverse. <code>tidyverse</code> purposefully lists each of the tidyverse packages as a dependency, which causes R to install all of the packages in the tidyverse when R installs <code>tidyverse</code>.</p>
+<p>The <code>tidyverse</code> package provides a shortcut for downloading all of the packages in the tidyverse. <code>tidyverse</code> purposefully lists every package in the tidyverse as one of its dependencies. This causes R to install all of the packages in the tidyverse when R installs <code>tidyverse</code>.</p>
 <p><code>install.packages(&quot;tidyverse&quot;)</code> will install the following packages:</p>
 <pre><code>##  [1] &quot;broom&quot;       &quot;cli&quot;         &quot;crayon&quot;      &quot;dplyr&quot;       &quot;dbplyr&quot;     
 ##  [6] &quot;forcats&quot;     &quot;ggplot2&quot;     &quot;haven&quot;       &quot;hms&quot;         &quot;httr&quot;       
@@ -252,8 +240,8 @@ By default, <code>install.packages()</code> will download packages from <a href=
 </div>
 </div>
 <div id="load" class="section level2">
-<h2><span class="header-section-number">1.3</span> Load a single tidyverse package</h2>
-<p>You want to load a package in the tidyverse that has been <a href="program.html#install">installed</a> on your computer, so that you can use its contents.</p>
+<h2><span class="header-section-number">1.3</span> Load a tidyverse package</h2>
+<p>You want to load a package that is in the tidyverse, so that you can use its contents. The package is <a href="program.html#install">installed</a> on your computer.</p>
 <div id="solution-2" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre>
@@ -263,14 +251,14 @@ By default, <code>install.packages()</code> will download packages from <a href=
 <p>You can load individual tidyverse packages with <code>library()</code>. The package will stay loaded until you end your R session or run <code>detach()</code> on the package. If you begin a new R session, you will need to reload the package in the new session with <code>library()</code>.</p>
 
 <div class="rmdcaution">
-<code>library()</code> cannot load packages that have not been previously <a href="program.html#install">installed</a> on your machine.
+<code>library()</code> cannot load packages that have not been <a href="program.html#install">installed</a> on your machine.
 </div>
 
 </div>
 </div>
 <div id="load-the-core-set-of-tidyverse-packages" class="section level2">
 <h2><span class="header-section-number">1.4</span> Load the core set of tidyverse packages</h2>
-<p>You would like to load the most used tidyverse packages so you can use their contents. You’ve already <a href="program.html#install-all">installed</a> these packages on your computer.</p>
+<p>You would like to load the most used packages in the tidyverse with a single command. You’ve already <a href="program.html#install-all">installed</a> these packages on your computer.</p>
 <div id="solution-3" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre>
@@ -296,21 +284,21 @@ By default, <code>install.packages()</code> will download packages from <a href=
 <p>You can still load each of these packages individually with <code>library()</code>.</p>
 
 <div class="rmdcaution">
-Notice that <code>library(&quot;tidyverse&quot;)</code> does not load every package installed by <code>install.packages(&quot;tidyverse&quot;)</code>. You must <a href="program.html#load">use <code>library()</code></a> to individually load the “non-core” tidyverse packages.
+Notice that <code>library(&quot;tidyverse&quot;)</code> does not load every package installed by <code>install.packages(&quot;tidyverse&quot;)</code>. You must use <code>library()</code> to individually load the “non-core” tidyverse packages.
 </div>
 
 </div>
 </div>
 <div id="update" class="section level2">
 <h2><span class="header-section-number">1.5</span> Update a tidyverse package</h2>
-<p>You want to ensure that you have the most up-to-date version of a package in the tidyverse installed on your machine.</p>
+<p>You want to ensure that you have installed the latest version of a package that is in the tidyverse.</p>
 <div id="solution-4" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre>
 </div>
 <div id="discussion-4" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p><code>update.packages()</code> will compare the version number of the package that you have installed locally to the newest version number available on CRAN. If the version numbers do not match, <code>update.packages()</code> will download and install the newest version from CRAN.</p>
+<p><code>update.packages()</code> will compare the version number of the package that you have installed locally to the newest version number available on CRAN. If your local version is older than the version on CRAN, <code>update.packages()</code> will download and install the newest version from CRAN. Otherwise, <code>update.packages()</code> will do nothing.</p>
 
 <div class="rmdcaution">
 Be sure that you are connected to the internet when you run <code>update.packages()</code>.
@@ -319,8 +307,8 @@ Be sure that you are connected to the internet when you run <code>update.package
 </div>
 </div>
 <div id="update-all" class="section level2">
-<h2><span class="header-section-number">1.6</span> Check that all of your tidyverse packages are up-to-date</h2>
-<p>You want to ensure that you have the latest version of <em>every</em> tidyverse package.</p>
+<h2><span class="header-section-number">1.6</span> Update all of the tidyverse packages</h2>
+<p>You want to ensure that you have installed the latest version of <em>every</em> package that is in the tidyverse.</p>
 <div id="solution-5" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidyverse_update</span>()</code></pre>
@@ -331,8 +319,8 @@ Be sure that you are connected to the internet when you run <code>update.package
 <p>Otherwise, <code>tidyverse_update()</code> will return a piece of code that you can copy and run to selectively update only those packages that are out-of-date.</p>
 </div>
 </div>
-<div id="list-every-package-in-the-tidyverse" class="section level2">
-<h2><span class="header-section-number">1.7</span> List every package in the tidyverse</h2>
+<div id="list-all-of-the-tidyverse-packages" class="section level2">
+<h2><span class="header-section-number">1.7</span> List all of the tidyverse packages</h2>
 <p>You want to generate a vector that contains the names of every package in the tidyverse.</p>
 <div id="solution-6" class="section level4 unnumbered">
 <h4>Solution</h4>
@@ -346,7 +334,7 @@ Be sure that you are connected to the internet when you run <code>update.package
 </div>
 <div id="discussion-6" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p><code>tidyverse_packages()</code> returns a vector with the names of every package that was in the tidyverse when you installed the <code>tidyverse</code> package. These are the packages that were installed onto your machine along with the <code>tidyverse</code> package. They are also the packages that <a href="program.html#update-all"><code>tidyverse_update()</code></a> will check.</p>
+<p><code>tidyverse_packages()</code> returns a character vector that contains the names of every package that was in the tidyverse when you installed the <code>tidyverse</code> package. These are the packages that were installed onto your machine along with the <code>tidyverse</code> package. They are also the packages that <a href="program.html#update-all"><code>tidyverse_update()</code></a> will check.</p>
 <p><a href="program.html#update">Update</a> the <code>tidyverse</code> package before running <code>tidyverse_packages()</code> to receive the most current list.</p>
 </div>
 </div>
@@ -377,6 +365,7 @@ Be sure that you are connected to the internet when you run <code>update.package
 <div id="discussion-7" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>The <code>%&gt;%</code> operator (pronounced “pipe operator”) evaluates the code on its left hand side (LHS) and then passes the result to the the code on its right hand side (RHS), which should be a function call. By default <code>%&gt;%</code> will pass the result of the LHS to the first unnamed argument of the function on the RHS.</p>
+<p><img src="images/dplyr-pipe.png" /><!-- --></p>
 <p><code>starwars %&gt;% group_by(species)</code> is the equivalent of <code>group_by(starwars, species)</code>, and the above solution is the equivalent of the nested code:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">arrange</span>(
   <span class="kw">summarise</span>(
@@ -390,8 +379,7 @@ Be sure that you are connected to the internet when you run <code>update.package
 x2 &lt;-<span class="st"> </span><span class="kw">group_by</span>(x1, species)
 x3 &lt;-<span class="st"> </span><span class="kw">summarise</span>(x3, <span class="dt">avg_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
 <span class="kw">arrange</span>(x3, avg_height)</code></pre>
-<p>The chunk of functions connected by <code>%&gt;%</code> is called a “pipe.”
-Pipes are easier to read than nested code (mentally pronounce <code>%&gt;%</code> as “then” to read the pipe as a sequence of steps). And pipes require fewer temporary objects than code that passes temporary objects from one function to the next.</p>
+<p>The chunk of functions connected by <code>%&gt;%</code> is called a “pipe.” Pipes are easier to read than nested code (mentally pronounce <code>%&gt;%</code> as “then” to read the pipe as a sequence of steps). In addition, pipes require fewer temporary objects than code that passes temporary objects from one function to the next.</p>
 <p>The <code>%&gt;%</code> operator is loaded with the dplyr package, which imports it from the magrittr package. Tidyverse functions facilitate using <code>%&gt;%</code> by</p>
 <ol style="list-style-type: decimal">
 <li>accepting a data frame as their first argument</li>
@@ -427,35 +415,44 @@ Pipes are easier to read than nested code (mentally pronounce <code>%&gt;%</code
 <p>By default <code>%&gt;%</code> passes the result of the left hand side to the the first unnamed argument of the function on the right hand side. To override this default, use <code>.</code> as a placeholder within the function call on the right hand side. <code>%&gt;%</code> will evaluate <code>.</code> as the result of the left hand side, instead of passing the result to the first unnamed argument.</p>
 <p>The solution code is the equivalent of</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(mass <span class="op">~</span><span class="st"> </span>height, <span class="dt">data =</span> starwars)</code></pre>
-</div>
-</div>
-<div id="change-an-object-in-place-with-a-pipe" class="section level2">
-<h2><span class="header-section-number">1.10</span> Change an object in place with a pipe</h2>
-<p>You want to manipulate a data set and then assign the resulting data set back to its original object. You don’t want to repeat the name of the object twice. For example:</p>
-<pre class="sourceCode r"><code class="sourceCode r">starwars &lt;-<span class="st"> </span>starwars <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">avg_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre>
-<div id="solution-9" class="section level4 unnumbered">
-<h4>Solution</h4>
-<pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&lt;&gt;%</span>
-<span class="st">    </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">summarise</span>(<span class="dt">avg_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre>
-</div>
-<div id="discussion-9" class="section level4 unnumbered">
-<h4>Discussion</h4>
-<p>The <code>%&lt;&gt;%</code> operator (pronounced “compound assignment operator”) is used to update a variable by first piping it into one or more right hand side expressions (ex. <code>group_by</code> and <code>summarise</code>), and then assigning the result back into the object.</p>
-<p>It saves you the extra step of typing the assignment operator and the variable name again.</p>
+<!--
 
-<div class="rmdcaution">
-Overwriting your original object is a bad idea if you haven’t created a backup copy of your unmodified data somewhere else.
-</div>
+Change an object in place with a pipe
 
-<p>The authors of the <a href="https://r4ds.had.co.nz/">R for Data Science</a> present a contrary opinion to the compound assignment operator.</p>
-<blockquote>
-<p>I’m not a fan of this operator because I think assignment is such a special operation that it should always be clear when it’s occurring. In my opinion, a little bit of duplication (i.e. repeating the name of the object twice) is fine in return for making assignment more explicit.</p>
-</blockquote>
-<p>What this boils down to is a tradeoff between writing concise code (<code>%&lt;&gt;%</code>) or readable and clear code (repeating the name of the object twice with <code>%&gt;%</code>).
-```</p>
+You want to manipulate a data set and then assign the resulting data set back to its original object. You don't want to repeat the name of the object twice. For example:
+
+
+```r
+starwars <- starwars %>%
+    group_by(species) %>%
+    summarise(avg_height = mean(height, na.rm = TRUE))
+```
+
+#### Solution {-}
+
+
+```r
+starwars %<>%
+    group_by(species) %>% 
+    summarise(avg_height = mean(height, na.rm = TRUE))
+```
+
+
+#### Discussion {-}
+
+The `%<>%` operator (pronounced "compound assignment operator")  is used to update a variable by first piping it into one or more right hand side expressions (ex. `group_by` and `summarise`), and then assigning the result back into the object.
+
+It saves you the extra step of typing the assignment operator and the variable name again. 
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">Overwriting your original object is a bad idea if you haven't created a backup copy of your unmodified data somewhere else.</div>\EndKnitrBlock{rmdcaution}
+
+The authors of the [R for Data Science](https://r4ds.had.co.nz/) present a contrary opinion to the  compound assignment operator. 
+
+> I’m not a fan of this operator because I think assignment is such a special operation that it should always be clear when it’s occurring. In my opinion, a little bit of duplication (i.e. repeating the name of the object twice) is fine in return for making assignment more explicit.
+
+What this boils down to is a tradeoff between writing concise code (`%<>%`) or readable and clear code (repeating the name of the object twice with `%>%`).
+```
+-->
 
 </div>
 </div>
