@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>5 Transform Lists and Vectors | The Tidyverse Cookbook</title>
+  <meta name="description" content="How to solve common data science tasks with R’s Tidyverse">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="5 Transform Lists and Vectors | The Tidyverse Cookbook" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="How to solve common data science tasks with R’s Tidyverse" />
+  <meta name="github-repo" content="rstudio-education/tidyverse-cookbook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Transform Lists and Vectors | The Tidyverse Cookbook" />
+  
+  <meta name="twitter:description" content="How to solve common data science tasks with R’s Tidyverse" />
+  
+
+<meta name="author" content="Edited by Garrett Grolemund">
+
+
+<meta name="date" content="2019-01-31">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="transform-tables.html">
+<link rel="next" href="transform-strings.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Tidyverse Cookbook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="how-to-use-this-book.html"><a href="how-to-use-this-book.html"><i class="fa fa-check"></i>How to use this book</a></li>
+<li class="part"><span><b>I The Recipes</b></span></li>
+<li class="chapter" data-level="1" data-path="program.html"><a href="program.html"><i class="fa fa-check"></i><b>1</b> Program</a></li>
+<li class="chapter" data-level="2" data-path="import.html"><a href="import.html"><i class="fa fa-check"></i><b>2</b> Import</a></li>
+<li class="chapter" data-level="3" data-path="tidy.html"><a href="tidy.html"><i class="fa fa-check"></i><b>3</b> Tidy</a></li>
+<li class="chapter" data-level="4" data-path="transform-tables.html"><a href="transform-tables.html"><i class="fa fa-check"></i><b>4</b> Transform Tables</a></li>
+<li class="chapter" data-level="5" data-path="transform-lists-and-vectors.html"><a href="transform-lists-and-vectors.html"><i class="fa fa-check"></i><b>5</b> Transform Lists and Vectors</a></li>
+<li class="chapter" data-level="6" data-path="transform-strings.html"><a href="transform-strings.html"><i class="fa fa-check"></i><b>6</b> Transform Strings</a></li>
+<li class="chapter" data-level="7" data-path="transform-factors.html"><a href="transform-factors.html"><i class="fa fa-check"></i><b>7</b> Transform Factors</a></li>
+<li class="chapter" data-level="8" data-path="transform-dates-and-times.html"><a href="transform-dates-and-times.html"><i class="fa fa-check"></i><b>8</b> Transform Dates and Times</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Tidyverse Cookbook</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="transform-lists-and-vectors" class="section level1">
+<h1><span class="header-section-number">5</span> Transform Lists and Vectors</h1>
+<hr />
+<p>This chapter includes the following recipes:</p>
+<div class="col2">
+<ol style="list-style-type: decimal">
+<li><a href="transform-lists-and-vectors.html#extract">Extract an element from a list</a></li>
+<li><a href="transform-lists-and-vectors.html#determine-the-type-of-a-vector">Determine the type of a vector</a></li>
+<li><a href="transform-lists-and-vectors.html#map">Map a function to each element of a vector</a></li>
+</ol>
+</div>
+<hr />
+<div id="what-you-should-know-before-you-begin-4" class="section level2 unnumbered">
+<h2>What you should know before you begin</h2>
+
+<div class="rmdcaution">
+<p>A vector is a one dimensional array of elements. Vectors are the basic building blocks of R. Almost all data in R is stored in a vector, or even a vector of vectors.</p>
+<p>A list is a <em>recursive vector</em>: a vector that can contain another vector or list in each of its elements.</p>
+<p>Lists are one of the most flexible data structures in R. As a result, they are used as a general purpose glue to hold objects together. You will find lists disguised as model objects, data frames, list-columns within data frames, and more.</p>
+<p>Data frames are a sub-type of list. Each column of a data frame is an element of the list that the data frame is built around.</p>
+<p>More than any other part of R, lists demonstrate how a programming language can appear different to beginners than to experts. Seasoned R programmers do not distinguish between lists and vectors because the two are equivalent: a list is a type of vector.</p>
+<p>However, a beginner who uses R for data science will quickly see that lists behave differently than other types of vectors. First, many R functions will not accept lists as input, even though they accept other types of vectors. Second, when you subset a list with <code>[ ]</code> to extract the value of one of its elements, R will give you a new list of length one that contains the value as its first element. This poses a problem if you want to pass that value to a function that does not accept lists as input (solve that problem with <a href="transform-lists-and-vectors.html#extract">this recipe</a>).</p>
+<p>To respect this difference, I try to be clear when talking about vectors that are not lists. This introduces a new problem: when you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists. Whenever the difference matters, I’ll call the first set of vectors <strong>lists</strong> and the second set of vectors <strong>data vectors</strong><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. I’ll refer to the superset that includes both lists and data vectors as vectors.</p>
+<p>Data vectors come in six atomic <em>types</em>: double, integer logical, character, complex, and raw. Every element in a data vector must be the same type of data as the vector (if you try to put a different type of data into an atomic vector, R will coerce the data’s type to match the vector). R also contains an S3 class system that builds classes like factors and date-times on top of the atomic types. You don’t need to understand R’s types and classes to use R or this cookbook, but you should know that R will recognize different types of data and treat them accordingly.</p>
+This chapter focuses on both lists and data vectors, but it only features recipes that work with the <em>structure</em> of a list or data vector. The chapters that follow will contain recipes that work with the <em>types</em> of data stored in a data vector.
+</div>
+
+</div>
+<div id="extract" class="section level2">
+<h2><span class="header-section-number">5.1</span> Extract an element from a list</h2>
+<p>You want to return the value of an element of a list as it is, perhaps to use in a function. You do not want the value to come embedded in a list of length one.</p>
+<p><img src="images/purrr-pluck.png" style="display: block; margin: auto;" /></p>
+<div id="solution-39" class="section level4 unnumbered">
+<h4>Solution</h4>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># returns the element named x in state.center</span>
+state.center <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">pluck</span>(<span class="st">&quot;x&quot;</span>)</code></pre>
+<pre>##  [1]  -86.7509 -127.2500 -111.6250  -92.2992 -119.7730 -105.5130  -72.3573
+##  [8]  -74.9841  -81.6850  -83.3736 -126.2500 -113.9300  -89.3776  -86.0808
+## [15]  -93.3714  -98.1156  -84.7674  -92.2724  -68.9801  -76.6459  -71.5800
+## [22]  -84.6870  -94.6043  -89.8065  -92.5137 -109.3200  -99.5898 -116.8510
+## [29]  -71.3924  -74.2336 -105.9420  -75.1449  -78.4686 -100.0990  -82.5963
+## [36]  -97.1239 -120.0680  -77.4500  -71.1244  -80.5056  -99.7238  -86.4560
+## [43]  -98.7857 -111.3300  -72.5450  -78.2005 -119.7460  -80.6665  -89.9941
+## [50] -107.2560
+</pre>
+</div>
+<div id="discussion-36" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p><code>pluck()</code> comes in the purrr package and does the equivalent of <code>[[</code> subsetting. If you pass <code>pluck()</code> a character string, <code>pluck()</code> will return the element whose name matches the string. If you pass <code>pluck()</code> an integer <em>n</em>, <code>pluck()</code> will return the <em>nth</em> element of the list.</p>
+<p>Pass multiple arguments to <code>pluck()</code> to subset multiple times. <code>pluck()</code> will subset the result of each argument with the argument that follows, e.g.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(repurrrsive)
+sw_films <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">pluck</span>(<span class="dv">7</span>, <span class="st">&quot;title&quot;</span>)</code></pre>
+<pre>## [1] "The Force Awakens"
+</pre>
+</div>
+</div>
+<div id="determine-the-type-of-a-vector" class="section level2">
+<h2><span class="header-section-number">5.2</span> Determine the type of a vector</h2>
+<p>You want to know the type of a vector.</p>
+<div id="solution-40" class="section level4 unnumbered">
+<h4>Solution</h4>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(letters)</code></pre>
+<pre>## [1] "character"
+</pre>
+</div>
+<div id="discussion-37" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>R vectors can be one of six atomic types, or a list. <code>typeof()</code> provides a useful way to check which type of vector you are working with. This is useful, for example, when you want to match a function’s output to an appropriate map function (<a href="transform-lists-and-vectors.html#map">below</a>).</p>
+</div>
+</div>
+<div id="map" class="section level2">
+<h2><span class="header-section-number">5.3</span> Map a function to each element of a vector</h2>
+<p>You want to apply a function separately to each element in a vector and then combine the results into a single object. This is similar to what you might do with a for loop, or with the apply family of functions.</p>
+<p><img src="images/purrr-map-goal.png" style="display: block; margin: auto;" /></p>
+<p>For example, <code>got_chars</code> is a list of 30 sublists. You want to compute the <code>length()</code> of each sublist.</p>
+<div id="solution-41" class="section level4 unnumbered">
+<h4>Solution</h4>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(repurrrsive)
+got_chars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map</span>(length)</code></pre>
+<pre style = "max-height:300px; overflow-y: auto;">## [[1]]
+## [1] 18
+## 
+## [[2]]
+## [1] 18
+## 
+## [[3]]
+## [1] 18
+## 
+## [[4]]
+## [1] 18
+## 
+## [[5]]
+## [1] 18
+## 
+## [[6]]
+## [1] 18
+## 
+## [[7]]
+## [1] 18
+## 
+## [[8]]
+## [1] 18
+## 
+## [[9]]
+## [1] 18
+## 
+## [[10]]
+## [1] 18
+## 
+## [[11]]
+## [1] 18
+## 
+## [[12]]
+## [1] 18
+## 
+## [[13]]
+## [1] 18
+## 
+## [[14]]
+## [1] 18
+## 
+## [[15]]
+## [1] 18
+## 
+## [[16]]
+## [1] 18
+## 
+## [[17]]
+## [1] 18
+## 
+## [[18]]
+## [1] 18
+## 
+## [[19]]
+## [1] 18
+## 
+## [[20]]
+## [1] 18
+## 
+## [[21]]
+## [1] 18
+## 
+## [[22]]
+## [1] 18
+## 
+## [[23]]
+## [1] 18
+## 
+## [[24]]
+## [1] 18
+## 
+## [[25]]
+## [1] 18
+## 
+## [[26]]
+## [1] 18
+## 
+## [[27]]
+## [1] 18
+## 
+## [[28]]
+## [1] 18
+## 
+## [[29]]
+## [1] 18
+## 
+## [[30]]
+## [1] 18
+</pre>
+</div>
+<div id="discussion-38" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p><code>map()</code> takes a vector to iterate over (here supplied by the pipe) followed by a function to apply to each element of the vector, followed by any arguments to pass to the function when it is applied to the vector.</p>
+<p><img src="images/purrr-map.png" style="display: block; margin: auto;" /></p>
+<p>Pass the function name to <code>map()</code> without quotes and without parentheses. <code>map()</code> will pass each element of the vector one at a time to the first argument of the function.</p>
+<p>If your function requires additional arguments to do its job, pass the arguments to <code>map()</code>. <code>map()</code> will forward these arguments in order, with their names, to the function when <code>map()</code> runs the function.</p>
+<pre class="sourceCode r"><code class="sourceCode r">got_chars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map</span>(keep, is.numeric)</code></pre>
+<pre style = "max-height:300px; overflow-y: auto;">## [[1]]
+## [[1]]$id
+## [1] 1022
+## 
+## 
+## [[2]]
+## [[2]]$id
+## [1] 1052
+## 
+## 
+## [[3]]
+## [[3]]$id
+## [1] 1074
+## 
+## 
+## [[4]]
+## [[4]]$id
+## [1] 1109
+## 
+## 
+## [[5]]
+## [[5]]$id
+## [1] 1166
+## 
+## 
+## [[6]]
+## [[6]]$id
+## [1] 1267
+## 
+## 
+## [[7]]
+## [[7]]$id
+## [1] 1295
+## 
+## 
+## [[8]]
+## [[8]]$id
+## [1] 130
+## 
+## 
+## [[9]]
+## [[9]]$id
+## [1] 1303
+## 
+## 
+## [[10]]
+## [[10]]$id
+## [1] 1319
+## 
+## 
+## [[11]]
+## [[11]]$id
+## [1] 148
+## 
+## 
+## [[12]]
+## [[12]]$id
+## [1] 149
+## 
+## 
+## [[13]]
+## [[13]]$id
+## [1] 150
+## 
+## 
+## [[14]]
+## [[14]]$id
+## [1] 168
+## 
+## 
+## [[15]]
+## [[15]]$id
+## [1] 2066
+## 
+## 
+## [[16]]
+## [[16]]$id
+## [1] 208
+## 
+## 
+## [[17]]
+## [[17]]$id
+## [1] 216
+## 
+## 
+## [[18]]
+## [[18]]$id
+## [1] 232
+## 
+## 
+## [[19]]
+## [[19]]$id
+## [1] 238
+## 
+## 
+## [[20]]
+## [[20]]$id
+## [1] 339
+## 
+## 
+## [[21]]
+## [[21]]$id
+## [1] 529
+## 
+## 
+## [[22]]
+## [[22]]$id
+## [1] 576
+## 
+## 
+## [[23]]
+## [[23]]$id
+## [1] 583
+## 
+## 
+## [[24]]
+## [[24]]$id
+## [1] 60
+## 
+## 
+## [[25]]
+## [[25]]$id
+## [1] 605
+## 
+## 
+## [[26]]
+## [[26]]$id
+## [1] 743
+## 
+## 
+## [[27]]
+## [[27]]$id
+## [1] 751
+## 
+## 
+## [[28]]
+## [[28]]$id
+## [1] 844
+## 
+## 
+## [[29]]
+## [[29]]$id
+## [1] 954
+## 
+## 
+## [[30]]
+## [[30]]$id
+## [1] 957
+</pre>
+<div id="the-map-family-of-functions" class="section level5">
+<h5><span class="header-section-number">5.3.0.0.1</span> The map family of functions</h5>
+<p><code>map()</code> is one of ten similar functions provided by the purrr package that together form a family of functions. Each member of the map family applies a function to a vector in the same iterative way; but each member returns the results in a different type of data structure.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>map</code></td>
+<td>A list</td>
+</tr>
+<tr class="even">
+<td><code>map_chr</code></td>
+<td>A character vector</td>
+</tr>
+<tr class="odd">
+<td><code>map_dbl</code></td>
+<td>A double (numeric) vector</td>
+</tr>
+<tr class="even">
+<td><code>map_df</code></td>
+<td>A data frame (<code>map_df</code> does the equivalent of <code>map_dfr</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>map_dfr</code></td>
+<td>A single data frame made by row-binding the individual results<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></td>
+</tr>
+<tr class="even">
+<td><code>map_dfc</code></td>
+<td>A single data frame made by column-binding the individual results<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></td>
+</tr>
+<tr class="odd">
+<td><code>map_int</code></td>
+<td>An integer vector</td>
+</tr>
+<tr class="even">
+<td><code>map_lgl</code></td>
+<td>A logical vector</td>
+</tr>
+<tr class="odd">
+<td><code>walk</code></td>
+<td>The original input (returned invisibly)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="how-to-choose-a-map-function" class="section level4">
+<h4><span class="header-section-number">5.3.0.1</span> How to choose a map function</h4>
+<p>To map a function over a vector, consider what type of output the function will produce. Then pick the map function that returns that type of output. This is a general rule that will return sensible results.</p>
+<p>For example, the <code>length()</code> function returns an integer, so you would map <code>length()</code> over <code>got_chars</code> with <code>map_int()</code>, which returns the results as an integer vector.</p>
+<pre class="sourceCode r"><code class="sourceCode r">got_chars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map_int</span>(length)</code></pre>
+<pre>##  [1] 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18
+## [24] 18 18 18 18 18 18 18
+</pre>
+<p><code>walk()</code> returns the original vector invisibly (so you can pipe the result to a new function). <code>walk()</code> is intended to be used with functions like <code>plot()</code> or <code>print()</code>, which execute side effects but do not return an object to pass on.</p>
+<div id="map-shorthand-syntax" class="section level5">
+<h5><span class="header-section-number">5.3.0.1.1</span> Map shorthand syntax</h5>
+<p>Map functions recognize two syntax shorthands.</p>
+<ol style="list-style-type: decimal">
+<li><p>If your vector is a list of sublists, you can extract elements from the sublists by name or position, e.g.</p>
+<pre class="sourceCode r"><code class="sourceCode r">got_chars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map_chr</span>(<span class="st">&quot;name&quot;</span>)</code></pre>
+<pre>##  [1] "Theon Greyjoy"      "Tyrion Lannister"   "Victarion Greyjoy" 
+ ##  [4] "Will"               "Areo Hotah"         "Chett"             
+ ##  [7] "Cressen"            "Arianne Martell"    "Daenerys Targaryen"
+ ## [10] "Davos Seaworth"     "Arya Stark"         "Arys Oakheart"     
+ ## [13] "Asha Greyjoy"       "Barristan Selmy"    "Varamyr"           
+ ## [16] "Brandon Stark"      "Brienne of Tarth"   "Catelyn Stark"     
+ ## [19] "Cersei Lannister"   "Eddard Stark"       "Jaime Lannister"   
+ ## [22] "Jon Connington"     "Jon Snow"           "Aeron Greyjoy"     
+ ## [25] "Kevan Lannister"    "Melisandre"         "Merrett Frey"      
+ ## [28] "Quentyn Martell"    "Samwell Tarly"      "Sansa Stark"
+ </pre>
+<pre class="sourceCode r"><code class="sourceCode r">got_chars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map_chr</span>(<span class="dv">3</span>)</code></pre>
+<pre>##  [1] "Theon Greyjoy"      "Tyrion Lannister"   "Victarion Greyjoy" 
+ ##  [4] "Will"               "Areo Hotah"         "Chett"             
+ ##  [7] "Cressen"            "Arianne Martell"    "Daenerys Targaryen"
+ ## [10] "Davos Seaworth"     "Arya Stark"         "Arys Oakheart"     
+ ## [13] "Asha Greyjoy"       "Barristan Selmy"    "Varamyr"           
+ ## [16] "Brandon Stark"      "Brienne of Tarth"   "Catelyn Stark"     
+ ## [19] "Cersei Lannister"   "Eddard Stark"       "Jaime Lannister"   
+ ## [22] "Jon Connington"     "Jon Snow"           "Aeron Greyjoy"     
+ ## [25] "Kevan Lannister"    "Melisandre"         "Merrett Frey"      
+ ## [28] "Quentyn Martell"    "Samwell Tarly"      "Sansa Stark"
+ </pre>
+<p>These do the equivalent of</p>
+<pre class="sourceCode r"><code class="sourceCode r">got_chars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map_chr</span>(pluck, <span class="st">&quot;name&quot;</span>)
+got_chars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map_chr</span>(pluck, <span class="dv">3</span>)</code></pre></li>
+<li><p>You can use <code>~</code> and <code>.x</code> to map with expressions instead of functions. To turn a pice of code into an expression to map, first place a <code>~</code> at the start of the code. Then use <code>.x</code> as a pronoun for the value that map should supply from the vector to map over. The map function will iteratively pass each element of your vector to the <code>.x</code> in the expression and then run the expression.</p>
+<p>An expression like this:</p>
+<pre class="sourceCode r"><code class="sourceCode r">got_chars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map_lgl</span>(<span class="op">~</span><span class="kw">length</span>(.x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre>
+<p>becomes the equivalent of</p>
+<pre class="sourceCode r"><code class="sourceCode r">got_chars <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">map_lgl</span>(<span class="cf">function</span>(x) <span class="kw">length</span>(x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</code></pre>
+<p>Expressions provide an easy way to map over a function argument that is not the first.</p></li>
+</ol>
+<!--
+You can use this syntax to map to an argument that is not the first,
+
+
+```r
+gap_split %>% 
+  map(~lm(lifeExp ~ year, data = .x))
+```
+
+You can also use this syntax to map an arbitrary expression over a vector,
+
+
+```r
+got_chars %>% 
+  map_lgl(~length(.x) > 0)
+```
+
+map2
+pmap
+reduce
+
+Each of the 30 sublists contains information about a different character in the _Game of Thrones_ television series. One piece of information contained in each sublist is the character's name.
+
+You would like to return just the names of each character in `got_chars`. To do this, you will apply `pluck()` separately to each sublist to retrieve the names. Then you will combine the results into a new list.
+!-->
+
+</div>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>if you’re an R afficianado, data vectors include both atomic vectors and the S3 classes built upon them, like factors and dates and times<a href="transform-lists-and-vectors.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>These results should themselves be data frames. In other words, the function that is mapped should return a data frame.<a href="transform-lists-and-vectors.html#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>These results should themselves be data frames. In other words, the function that is mapped should return a data frame.<a href="transform-lists-and-vectors.html#fnref4" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="transform-tables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="transform-strings.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio-education/tidyverse-cookbook/edit/master/05-transform-lists.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
