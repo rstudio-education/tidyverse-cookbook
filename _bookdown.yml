@@ -5,7 +5,7 @@ before_chapter_script: "setup.R"
 
 rmd_files: [
   "index.Rmd",
-  "what-is-the-tidyverse.Rmd",
+  "00-how-to-use-this-book.Rmd",
   "01-program.Rmd",
   "02-import.Rmd",
   "03-tidy.Rmd",
