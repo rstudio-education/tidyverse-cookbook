@@ -4,7 +4,7 @@
 
 ***
 
-This chapter includes the following recipes. To manipulate vectors with [purrr](http://purrr.tidyverse.org), see [Transform Lists].
+This chapter includes the following recipes. To manipulate vectors with [purrr](http://purrr.tidyverse.org), see [Transform Lists and Vectors].
 
 ```{r echo = FALSE, results='asis'}
 build_toc("01-program.Rmd")
