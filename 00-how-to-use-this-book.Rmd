@@ -6,7 +6,7 @@ library(tidyverse)
 
 The recipes in this book are organized according to the model of data science presented in [_R for Data Science_](http://r4ds.had.co.nz/introduction.html). When you do data science, you find yourself repeating the same sequence of steps:
 
-```{r echo = FALSE}
+```{r echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/data-science-workflow.png")
 ```
 
@@ -61,13 +61,13 @@ Each package in the tidyverse is designed to use and return **tidy data** whenev
 1. Each column contains a single variable
 1. Each row contains a single observation
 
-```{r echo = FALSE}
+```{r echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/tidy-data.png")
 ```
 
 In practice, tidy data in R appears as data frames or tibbles. A **tibble** is an enhanced version of a data frame that is easier to view at the command line. R treats tibbles like data frames in almost every other respect, because tibbles are a subclass of data frame.
 
-```{r echo = FALSE}
+```{r echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/tibble-tibble.png")
 ```
 
