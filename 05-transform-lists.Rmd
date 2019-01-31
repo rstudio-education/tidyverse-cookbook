@@ -1,5 +1,5 @@
 
-# Transform Lists
+# Transform Lists and Vectors
 
 ```{r include = FALSE}
 library(knitrhooks)
@@ -20,29 +20,33 @@ build_toc("05-transform-lists.Rmd")
 ## What you should know before you begin {-}
 
 ```{block2, type='rmdcaution'}
+A vector is a one dimensional array of elements. Vectors are the basic building blocks of R. Almost all data in R is stored in a vector, or even a vector of vectors. 
+
 A list is a _recursive vector_: a vector that can contain another vector or list in each of its elements. 
-```
 
-```{block2, type='rmdcaution'}
 Lists are one of the most flexible data structures in R. As a result, they are used as a general purpose glue to hold objects together. You will find lists disguised as model objects, data frames, list-columns within data frames, and more.
-```
 
-```{block2, type='rmdcaution'}
 Data frames are a sub-type of list. Each column of a data frame is an element of the list that the data frame is built around.
+
+More than any other part of R, lists demonstrate how a programming language can appear different to beginners than to experts. Seasoned R programmers do not distinguish between lists and vectors because the two are equivalent: a list is a type of vector. 
+
+However, a beginner who uses R for data science will quickly see that lists behave differently than other types of vectors. First, many R functions will not accept lists as input, even though they accept other types of vectors. Second, when you subset a list with `[ ]` to extract the value of one of its elements, R will give you a new list of length one that contains the value as its first element. This poses a problem if you want to pass that value to a function that does not accept lists as input (solve that problem with [this recipe](#extract)).
+
+To respect this difference, I try to be clear when talking about vectors that are not lists. This introduces a new problem: when you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists.  Whenever the difference matters, I'll call the first set of vectors **lists** and the second set of vectors **data vectors**^[if you're an R afficianado, data vectors include both atomic vectors and the S3 classes built upon them, like factors and dates and times]. I'll refer to the superset that includes both lists and data vectors as vectors.
+
+Data vectors come in six atomic _types_: double, integer logical, character, complex, and raw. Every element in a data vector must be the same type of data as the vector (if you try to put a different type of data into an atomic vector, R will coerce the data's type to match the vector). R also contains an S3 class system that builds classes like factors and date-times on top of the atomic types. You don't need to understand R's types and classes to use R or this cookbook, but you should know that R will recognize different types of data and treat them accordingly.
+
+This chapter focuses on both lists and data vectors, but it only features recipes that work with the _structure_ of a list or data vector. The chapters that follow will contain recipes that work with the _types_ of data stored in a data vector.
 ```
 
-```{block2, type='rmdcaution'}
-More than any other part of R, lists demonstrate how a programming language can appear different to beginners than to experts. Seasoned R programmers do not distinguish between lists and vectors because the two are equivalent: a list is a type of vector. Many, perhaps all, of the recipes in this chapter will also work with other types of vectors.
+## Extract an element from a list {#extract}
 
-However, a beginner who uses R for data science will quickly appreciate that lists behave differently than other types of vectors. Users will encounter two main differences. First, many R functions will not accept lists as input, but will accept other types of vectors. Second, when you subset a list with `[ ]` to extract the value of one of its elements, R will give you a new list of length one that contains the value. This poses a problem if you want to pass that value to a function that does not accept lists as input.
+You want to return the value of an element of a list as it is, perhaps to use in a function. You do not want the value to come embedded in a list of length one.
 
-Since this book is written for beginners and practitioners, I've treated lists as a distinct type of object. This introduces a new problem: when you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists.  Whenever the difference matters, I'll call the first set of vectors **lists** and the second set of vectors **data vectors**. This chapter focuses on lists.
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/purrr-pluck.png")
 ```
 
-
-## Extract an element from a list 
-
-You want to return an element of a list as it is, perhaps to use in a function. You do not want the element to come embedded in a list of length one.
 
 #### Solution {-}
 
@@ -54,7 +58,7 @@ state.center %>%
 
 #### Discussion {-}
 
-`pluck()` comes in the purrr package and does the equivalent of `[[` subsetting. If you pass `pluck()` a character string, `pluck()` will return the element whose name matches the string. If you pass `pluck()` an integer _n_, `pluck()` will return the _nth_ element.
+`pluck()` comes in the purrr package and does the equivalent of `[[` subsetting. If you pass `pluck()` a character string, `pluck()` will return the element whose name matches the string. If you pass `pluck()` an integer _n_, `pluck()` will return the _nth_ element of the list.
 
 Pass multiple arguments to `pluck()` to subset multiple times. `pluck()` will subset the result of each argument with the argument that follows, e.g.
 
@@ -64,43 +68,58 @@ sw_films %>%
   pluck(7, "title")
 ```
 
-## Apply a function iteratively to each element of a list
+## Determine the type of a vector
 
-You want to apply a function separately to each element in a list and then combine the results into a single object. This is similar to what you might do with a for loop, or with the apply family of functions.
+You want to know the type of a vector.
 
-For example, `got_chars` is a list of 30 sublists. Each of the 30 sublists contains information about a different character in the _Game of Thrones_ television series. One piece of information contained in each sublist is the character's name.
+#### Solution {-}
 
-You would like to return just the names of each character in `got_chars`. To do this, you will apply `pluck()` separately to each sublist to retrieve the names. Then you will combine the results into a new list.
+```{r}
+typeof(letters)
+```
+
+#### Discussion {-}
+
+R vectors can be one of six atomic types, or a list. `typeof()` provides a useful way to check which type of vector you are working with. This is useful, for example, when you want to match a function's output to an appropriate map function ([below](#map)).
+
+## Map a function to each element of a vector {#map}
+
+You want to apply a function separately to each element in a vector and then combine the results into a single object. This is similar to what you might do with a for loop, or with the apply family of functions.
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/purrr-map-goal.png")
+```
+
+For example, `got_chars` is a list of 30 sublists. You want to compute the `length()` of each sublist.
 
 #### Solution {-}
 
 ```{r, output_max_height = "300px"}
 library(repurrrsive)
 got_chars %>% 
-  map(pluck, "name")
+  map(length)
 ```
 
 #### Discussion {-}
 
 `map()` takes a vector to iterate over (here supplied by the pipe) followed by a function to apply to each element of the vector, followed by any arguments to pass to the function when it is applied to the vector. 
 
-```{r echo = FALSE}
+```{r echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/purrr-map.png")
 ```
-
 
 Pass the function name to `map()` without quotes and without parentheses. `map()` will pass each element of the vector one at a time to the first argument of the function. 
 
 If your function requires additional arguments to do its job, pass the arguments to `map()`. `map()` will forward these arguments in order, with their names, to the function when `map()` runs the function.
 
+```{r, output_max_height = "300px"}
+got_chars %>% 
+  map(keep, is.numeric)
+```
+
 ##### The map family of functions
 
-`map()` is one of 10 similar functions provided by the purrr package. Together these functions form a family. Each function in the family applies a function to a vector in the same iterative way. However, each function in the family returns the results in a different type of data structure. For example, `map()` returns the results in a list, as above. `map_chr()` returns the results as a character vector:
-
-```{r}
-got_chars %>% 
-  map_chr(pluck, "name")
-```
+`map()` is one of ten similar functions provided by the purrr package that together form a family of functions. Each member of the map family applies a function to a vector in the same iterative way; but each member returns the results in a different type of data structure. 
 
 Function  | Returns
 --------- | ---------
@@ -116,32 +135,61 @@ Function  | Returns
 
 #### How to choose a map function
 
-To map a function over a vector, consider what type of output the function will produce. Then pick the map function that will combine that type of data into a single structure in a useful way. 
+To map a function over a vector, consider what type of output the function will produce. Then pick the map function that returns that type of output. This is a general rule that will return sensible results.
 
-For example, suppose you want to map the function `length()` which returns an integer, over `got_chars`.
-
-`map_int()` would return the results as an integer vector. This is useful because it does not modify the type of the results.
+For example, the `length()` function returns an integer, so you would map `length()` over `got_chars` with `map_int()`, which returns the results as an integer vector.
 
 ```{r}
 got_chars %>% 
   map_int(length)
 ```
 
-In contrast, `map_chr()` will return the results as a character vector, coercing their type to character as it does. This is less useful; you cannot do math with this output.
+`walk()` returns the original vector invisibly (so you can pipe the result to a new function). `walk()` is intended to be used with functions like `plot()` or `print()`, which execute side effects but do not return an object to pass on.
 
-```{r}
-got_chars %>% 
-  map_chr(length)
-```
+##### Map shorthand syntax
 
-`walk()` is intended to be used with a function like `plot()` or `print()`. These functions use their input to generate a side effect, but they do not themselves return an object to pass on.
+Map functions recognize two syntax shorthands.
 
-##### How to map over the 2nd, 3rd, or nth argument of a function
+1. If your vector is a list of sublists, you can extract elements from the sublists by name or position, e.g.
 
-Every function in the map family recognizes a shortcut syntax built around the `~` symbol and the pronoun `.x` (or alternatively `.`).
+    ```{r}
+    got_chars %>% 
+      map_chr("name")
+    ```
+    
+    ```{r}
+    got_chars %>% 
+      map_chr(3)
+    ```
+    
+    These do the equivalent of 
+    
+    ```{r eval = FALSE}
+    got_chars %>% 
+      map_chr(pluck, "name")
+    got_chars %>% 
+      map_chr(pluck, 3)
+    ```
 
-To use the syntax, pass an expression that contains a `.x` and is preceeded by a `~` to a map function. The map function will pass to `.x` the elements of the vector to iterate over.
+2. You can use `~` and `.x` to map with expressions instead of functions. To turn a pice of code into an expression to map, first place a `~` at the start of the code. Then use `.x` as a pronoun for the value that map should supply from the vector to map over. The map function will iteratively pass each element of your vector to the `.x` in the expression and then run the expression.
 
+    An expression like this: 
+    
+    ```{r eval = FALSE}
+    got_chars %>% 
+      map_lgl(~length(.x) > 0)
+    ```
+    
+    becomes the equivalent of
+    
+    ```{r eval = FALSE}
+    got_chars %>% 
+      map_lgl(function(x) length(x) > 0)
+    ```
+
+    Expressions provide an easy way to map over a function argument that is not the first.
+
+<!--
 You can use this syntax to map to an argument that is not the first,
 
 ```{r eval = FALSE}
@@ -156,9 +204,11 @@ got_chars %>%
   map_lgl(~length(.x) > 0)
 ```
 
-<!--
 map2
 pmap
 reduce
-!-->
 
+Each of the 30 sublists contains information about a different character in the _Game of Thrones_ television series. One piece of information contained in each sublist is the character's name.
+
+You would like to return just the names of each character in `got_chars`. To do this, you will apply `pluck()` separately to each sublist to retrieve the names. Then you will combine the results into a new list.
+!-->
