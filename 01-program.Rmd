@@ -15,9 +15,7 @@ build_toc("01-program.Rmd")
 ## What you should know before you begin {-}
 
 ```{block2, type='rmdcaution'}
-The [tidyverse](http://www.tidyverse.org) is a collection of R packages that are designed to work well together. There are about 25 packages in the tidyverse.
-
-An R package is a bundle of functions, documentation, and data sets. R has over 13,000 packages. These are not installed with R, but are archived [online](https://cran.r-project.org/web/packages/index.html) for when you need them. 
+The [tidyverse](http://www.tidyverse.org) is a collection of R packages that are designed to work well together. There are about 25 packages in the tidyverse. An R package is a bundle of functions, documentation, and data sets. R has over 13,000 packages. These are not installed with R, but are archived [online](https://cran.r-project.org/web/packages/index.html) for when you need them. 
 
 To use an R package, you must:
   
@@ -25,9 +23,7 @@ To use an R package, you must:
 
 2. Load the package into your R session with `library()`. You need to do this each time you start a new R session (if you wish to use the package in that session).
 
-You cannot use the contents of a package until you load the package in your current R session. 
-
-You should update your packages from time to time to receive the latest improvements from package authors.
+You cannot use the contents of a package until you load the package in your current R session. You should update your packages from time to time to receive the latest improvements from package authors.
 ```
 
 ```{block2, type='rmdcaution'}
@@ -78,7 +74,7 @@ tidyverse_packages()
 
 ## Load a tidyverse package {#load}
 
-You want to load a package that is in the tidyverse, so that you can use its contents. The package is [installed](#install) on your computer.
+You want to load a package that is in the tidyverse, so that you can use its contents. You've already [installed](#install) the package on your computer.
 
 #### Solution {-}
 
@@ -92,6 +88,14 @@ You can load individual tidyverse packages with `library()`. The package will st
 
 ```{block2, type = "rmdcaution"}
 `library()` cannot load packages that have not been [installed](#install) on your machine.
+```
+
+```{block2, type = "rmdcaution"}
+You must place quotation marks around a package name when you use `install.packages()`, but the same is not true for `library()`. The commands below will both load the dplyr package if it is installed on your computer. 
+  
+    library(dplyr)
+    library("dplyr")
+
 ```
 
 ## Load the core set of tidyverse packages
@@ -130,7 +134,7 @@ Notice that `library("tidyverse")` does not load every package installed by `ins
 
 ## Update a tidyverse package {#update}
 
-You want to ensure that you have installed the latest version of a package that is in the tidyverse. 
+You want to check that you have the latest version of a package that is in the tidyverse. 
 
 #### Solution {-}
 
@@ -140,7 +144,7 @@ update.packages("dplyr")
 
 #### Discussion {-}
 
-`update.packages()` will compare the version number of the package that you have installed locally to the newest version number available on CRAN. If your local version is older than the version on CRAN, `update.packages()` will download and install the newest version from CRAN. Otherwise, `update.packages()` will do nothing.
+`update.packages()` compares the version number of your local copy of a package to the version number of the newest version available on CRAN. If your local copy is older than the newest version, `update.packages()` will download and install the newest version from CRAN. Otherwise, `update.packages()` will do nothing.
 
 ```{block2, type = "rmdcaution"}
 Be sure that you are connected to the internet when you run `update.packages()`.
@@ -148,7 +152,7 @@ Be sure that you are connected to the internet when you run `update.packages()`.
 
 ## Update all of the tidyverse packages {#update-all}
 
-You want to ensure that you have installed the latest version of _every_ package that is in the tidyverse.
+You want to check that you have the latest version of _every_ package that is in the tidyverse.
 
 #### Solution {-}
 
@@ -158,9 +162,7 @@ tidyverse_update()
 
 #### Discussion {-}
 
-`tidyverse_update()` checks whether or not each of your tidyverse packages is [up-to-date](#update). If every package is up-to-date, `tidyverse_update()` will return the message: `All tidyverse packages up-to-date`. 
-
-Otherwise, `tidyverse_update()` will return a piece of code that you can copy and run to selectively update only those packages that are out-of-date.
+`tidyverse_update()` checks whether or not each of your tidyverse packages is [up-to-date](#update). If every package is up-to-date, `tidyverse_update()` will return the message: `All tidyverse packages up-to-date`. Otherwise, `tidyverse_update()` will return a piece of code that you can copy and run to selectively update only those packages that are out-of-date.
 
 ## List all of the tidyverse packages
 
@@ -180,7 +182,7 @@ tidyverse_packages()
 
 ## Combine functions into a pipe
 
-You want to chain multiple functions together to be run in sequence, with each function operating on the preceeding function's output.
+You want to chain multiple functions together to be run in sequence, with each function operating on the preceding function's output.
 
 #### Solution {-}
 
@@ -200,7 +202,7 @@ knitr::include_graphics("images/dplyr-pipe.png")
 ```
 
 
-`starwars %>% group_by(species)` is the equivalent of `group_by(starwars, species)`, and the above solution is the equivalent of the nested code:
+So `starwars %>% group_by(species)` is the equivalent of `group_by(starwars, species)`, and the above solution is the equivalent of the nested code:
 
 ```{r eval = FALSE}
 arrange(
@@ -221,12 +223,12 @@ x3 <- summarise(x3, avg_height = mean(height, na.rm = TRUE))
 arrange(x3, avg_height)
 ```
 
-The chunk of functions connected by `%>%` is called a "pipe." Pipes are easier to read than nested code (mentally pronounce `%>%` as "then" to read the pipe as a sequence of steps). In addition, pipes require fewer temporary objects than code that passes temporary objects from one function to the next.
+The chunk of functions connected by `%>%` is called a "pipe." To read a pipe as a sequence of steps, mentally pronounce `%>%` as "then."
 
 The `%>%` operator is loaded with the dplyr package, which imports it from the magrittr package. Tidyverse functions facilitate using `%>%` by 
 
-1. accepting a data frame as their first argument
-2. returning a data frame as their result
+1. accepting a data frame or tibble as their first argument
+2. returning a data frame or tibble as their result
 
 ```{block2, type = "rmdcaution"}
 `%>%` is easy to type in the RStudio IDE with the keyboard shortcuts 
