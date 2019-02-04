@@ -358,9 +358,12 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 <li>Remove the <code>key</code> and <code>value</code> columns from the copy</li>
 <li>Remove every duplicate row in the data set that remains</li>
 <li>Insert a new column for each unique variable name in the <code>key</code> column</li>
-<li>Fill the new columns with the values of the <code>value</code> column in a way that preserves every relationship between values in the original data set</li>
+<li><p>Fill the new columns with the values of the <code>value</code> column in a way that preserves every relationship between values in the original data set</p>
+
+<div class="rmdcaution">
+Since this is easier to see than explain, you may want to study the diagram and result above.
+</div></li>
 </ol>
-<p>Since this is easier to see than explain, you may want to study the diagram above.</p>
 <p>Each new column created by <code>spread()</code> will inherit the data type of the <code>value</code> column. If you would to convert each new column to the most sensible data type given its final contents, add the argument <code>convert = TRUE</code>.</p>
 </div>
 </div>
@@ -404,9 +407,12 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 <li>Add a key column with the supplied name</li>
 <li>Fill the key column with the column names of the removed columns, repeating rows as necessary so that each combination of row and removed column name appears once</li>
 <li>Add a value column with the supplied name</li>
-<li>Fill the value column with the values of the removed columns in a way that preserves every relationship between values and column names in the original data set</li>
+<li><p>Fill the value column with the values of the removed columns in a way that preserves every relationship between values and column names in the original data set</p>
+
+<div class="rmdcaution">
+Since this is easier to see than explain, you may want to study the diagram and result above.
+</div></li>
 </ol>
-<p>Since this is easier to see than explain, you may want to study the diagram above.</p>
 <div id="identify-columns-to-gather" class="section level5 unnumbered">
 <h5>Identify columns to gather</h5>
 <p>You can identify the columns to gather (i.e. remove) by:</p>
@@ -463,9 +469,12 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 <li>Add a new column for each value of <code>into</code>. The values will become the names of the new columns.</li>
 <li>Split each cell of <code>col</code> into multiple values, based on the locations of a separator character.</li>
 <li>Place the new values into the new columns in order, one value per column</li>
-<li>Remove the <code>col</code> column. Add the argument <code>remove = FALSE</code> to retain the <code>col</code> column in the final result.</li>
+<li><p>Remove the <code>col</code> column. Add the argument <code>remove = FALSE</code> to retain the <code>col</code> column in the final result.</p>
+
+<div class="rmdcaution">
+Since this is easier to see than explain, you may want to study the diagram and result above.
+</div></li>
 </ol>
-<p>Since this is easier to see than explain, you may want to study the diagram above.</p>
 <p>Each new column created by <code>separate()</code> will inherit the data type of the <code>col</code> column. If you would like to convert each new column to the most sensible data type given its final contents, add the argument <code>convert = TRUE</code>.</p>
 <div id="control-where-cells-are-separated" class="section level5 unnumbered">
 <h5>Control where cells are separated</h5>
@@ -520,9 +529,12 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 <li>Create a copy of the original data set</li>
 <li>Paste together the values of the listed columns in a vectorized (i.e. rowwise) fashion. <code>unite()</code> will place the value of <code>sep</code> between each value during the paste process.</li>
 <li>Append the results as a new column whose name is the value of <code>col</code></li>
-<li>Remove the listed columns. To retain the columns in the result, add the argument <code>remove = FALSE</code>.</li>
+<li><p>Remove the listed columns. To retain the columns in the result, add the argument <code>remove = FALSE</code>.</p>
+
+<div class="rmdcaution">
+Since this is easier to see than explain, you may want to study the diagram and result above.
+</div></li>
 </ol>
-<p>Since this is easier to see than explain, you may want to study the diagram above.</p>
 
 <div class="rmdcaution">
 If you do not suppy a <code>sep</code> value, <code>unite()</code> will use <code>_</code> as a separator character. To avoid a separator character, use <code>sep = &quot;&quot;</code>.

@@ -166,10 +166,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="transform-tables" class="section level1">
 <h1><span class="header-section-number">4</span> Transform Tables</h1>
 <hr />
+<p>This chapter includes the following recipes:</p>
 <div class="col2">
 <ol style="list-style-type: decimal">
-<li><a href="transform-tables.html#arrange-rows-in-ascending-order-by-the-values-of-a-column">Arrange rows in ascending order by the values of a column</a></li>
-<li><a href="transform-tables.html#arrange-rows-in-descending-order-by-the-values-of-a-column">Arrange rows in descending order by the values of a column</a></li>
+<li><a href="transform-tables.html#arrange-rows-by-value-in-ascending-order">Arrange rows by value in ascending order</a></li>
+<li><a href="transform-tables.html#arrange-rows-by-value-in-descending-order">Arrange rows by value in descending order</a></li>
 <li><a href="transform-tables.html#filter-rows-with-a-logical-test">Filter rows with a logical test</a></li>
 <li><a href="transform-tables.html#select-columns-by-name">Select columns by name</a></li>
 <li><a href="transform-tables.html#drop-columns-by-name">Drop columns by name</a></li>
@@ -179,7 +180,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="transform-tables.html#select-columns-by-end-of-name">Select columns by end of name</a></li>
 <li><a href="transform-tables.html#select-columns-by-string-in-name">Select columns by string in name</a></li>
 <li><a href="transform-tables.html#reorder-columns">Reorder columns</a></li>
-<li><a href="transform-tables.html#reorder-columns-without-naming-all-columns">Reorder columns without naming all columns</a></li>
+<li><a href="transform-tables.html#reorder-columns-without-naming-each-column">Reorder columns without naming each column</a></li>
 <li><a href="transform-tables.html#rename-columns">Rename columns</a></li>
 <li><a href="transform-tables.html#return-the-contents-of-a-column-as-a-vector">Return the contents of a column as a vector</a></li>
 <li><a href="transform-tables.html#summarise-data">Summarise data</a></li>
@@ -195,16 +196,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>What you should know before you begin</h2>
 
 <div class="rmdcaution">
-Tidyverse functions that transform tables do not transform your original table, which is preserved in its original form under its original name. Tidyverse functions instead return a modified copy of the table, which can be passed to the next function in a pipe, or assigned to a name for later use.
-</div>
-
-
-<div class="rmdcaution">
-dplyr functions will match column names that appear within their arguments to columns in the data frame that they are manipulating. To avoid this behavior, place <code>!!</code> before a name to unquote it, e.g. <code>!!model</code>.
-</div>
-
-
-<div class="rmdcaution">
+<p>The dplyr package provides the most important tidyverse functions for manipulating tables. These functions share some defaults that make it easy to transform tables:</p>
+<ol style="list-style-type: decimal">
+<li><p>dplyr functions always return a transformed <em>copy</em> of your table. They won’t change your original table unless you tell them to (by saving over the name of the original table). That’s good news, because you should always retain a clean copy of your original data in case something goes wrong.</p></li>
+<li><p>You can refer to columns by name inside of a dplyr function. There’s no need for <code>$</code> syntax or <code>&quot;&quot;</code>. Every dplyr function requires you to supply a data frame, and it will recognize the columns in that data frame, e.g.</p>
+<p><code>summarise(mpg, h = mean(hwy), c = mean(cty))</code></p>
+<p>This only becomes a problem if you’d like to use an object that has the same name as one of the columns in the data frame. In this case, place <code>!!</code> before the object’s name to unquote it, dplyr will skip the columns when looking up the object. e.g.</p>
+<p><code>hwy &lt;- 1:10</code><br />
+<code>summarise(mpg, h = mean(!!hwy), c = mean(cty))</code></p></li>
+</ol>
 <p>Transforming a table sometimes requires more than one recipe. Why? Because tables are made of multiple data structures that work together:</p>
 <ol style="list-style-type: decimal">
 <li>The table itself is a data frame or tibble.<br />
@@ -213,99 +213,103 @@ dplyr functions will match column names that appear within their arguments to co
 </li>
 <li>Some columns may be list-columns, which are lists that contain vectors.</li>
 </ol>
-This matters because one of the <a href="how-to-use-this-book.html#what-is-the-tidyverse">design philosophies of the tidyverse</a> is that each function should focus on one task and do it well. Functions that do one task well tend to work with one type of data structure. So to transform a table, you often need to combine a function that manipulates tables with a function that manipulates data vectors and maybe a function that manipulates lists. See <a href="transform-tables.html#combine-transform-recipes">Combine transform recipes</a> for tips.
+<p>Each tidyverse function tends to focus on a single type of data structure; it is part of the tidyverse philosophy that each function should do one thing and do it well.</p>
+So to transform a table, begin with a recipe that transforms the structure of the table. You’ll find those recipes in this chapter. Then complete it with a recipe that transforms the actual data values in your table. The <a href="transform-tables.html#combine-transform-recipes">Combine transform recipes</a> recipe will show you how.
 </div>
 
 </div>
-<div id="arrange-rows-in-ascending-order-by-the-values-of-a-column" class="section level2">
-<h2><span class="header-section-number">4.1</span> Arrange rows in ascending order by the values of a column</h2>
+<div id="arrange-rows-by-value-in-ascending-order" class="section level2">
+<h2><span class="header-section-number">4.1</span> Arrange rows by value in ascending order</h2>
 <p>You want to sort the rows of a data frame in <strong>ascending</strong> order by the values in one or more columns.</p>
+<p><img src="images/dplyr-arrange.png" style="display: block; margin: auto;" /></p>
 <div id="solution-19" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">mpg <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">arrange</span>(cty)</code></pre>
+<span class="st">  </span><span class="kw">arrange</span>(displ)</code></pre>
 <pre><code>## # A tibble: 234 x 11
 ##    manufacturer model displ  year   cyl trans drv     cty   hwy fl    class
 ##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
-##  1 dodge        dako…   4.7  2008     8 auto… 4         9    12 e     pick…
-##  2 dodge        dura…   4.7  2008     8 auto… 4         9    12 e     suv  
-##  3 dodge        ram …   4.7  2008     8 auto… 4         9    12 e     pick…
-##  4 dodge        ram …   4.7  2008     8 manu… 4         9    12 e     pick…
-##  5 jeep         gran…   4.7  2008     8 auto… 4         9    12 e     suv  
-##  6 chevrolet    c150…   5.3  2008     8 auto… r        11    15 e     suv  
-##  7 chevrolet    k150…   5.3  2008     8 auto… 4        11    14 e     suv  
-##  8 chevrolet    k150…   5.7  1999     8 auto… 4        11    15 r     suv  
-##  9 dodge        cara…   3.3  2008     6 auto… f        11    17 e     mini…
-## 10 dodge        dako…   5.2  1999     8 manu… 4        11    17 r     pick…
+##  1 honda        civic   1.6  1999     4 manu… f        28    33 r     subc…
+##  2 honda        civic   1.6  1999     4 auto… f        24    32 r     subc…
+##  3 honda        civic   1.6  1999     4 manu… f        25    32 r     subc…
+##  4 honda        civic   1.6  1999     4 manu… f        23    29 p     subc…
+##  5 honda        civic   1.6  1999     4 auto… f        24    32 r     subc…
+##  6 audi         a4      1.8  1999     4 auto… f        18    29 p     comp…
+##  7 audi         a4      1.8  1999     4 manu… f        21    29 p     comp…
+##  8 audi         a4 q…   1.8  1999     4 manu… 4        18    26 p     comp…
+##  9 audi         a4 q…   1.8  1999     4 auto… 4        16    25 p     comp…
+## 10 honda        civic   1.8  2008     4 manu… f        26    34 r     subc…
 ## # … with 224 more rows</code></pre>
 </div>
 <div id="discussion-18" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p><code>arrange()</code> sorts the rows according to the values of the specified column, with the lowest values appearing near the top of the data frame. <code>arrange()</code> will use additional columns as tiebreakers to sort within rows that share the same value of the first column.</p>
+<p><code>arrange()</code> sorts the rows according to the values of the specified column, with the lowest values appearing near the top of the data frame. If you provide additional column names, <code>arrange()</code> will use the additional columns in order as tiebreakers to sort within rows that share the same value of the first column.</p>
 <pre class="sourceCode r"><code class="sourceCode r">mpg <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">arrange</span>(cty, hwy)</code></pre>
+<span class="st">  </span><span class="kw">arrange</span>(displ, cty)</code></pre>
 <pre><code>## # A tibble: 234 x 11
 ##    manufacturer model displ  year   cyl trans drv     cty   hwy fl    class
 ##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
-##  1 dodge        dako…   4.7  2008     8 auto… 4         9    12 e     pick…
-##  2 dodge        dura…   4.7  2008     8 auto… 4         9    12 e     suv  
-##  3 dodge        ram …   4.7  2008     8 auto… 4         9    12 e     pick…
-##  4 dodge        ram …   4.7  2008     8 manu… 4         9    12 e     pick…
-##  5 jeep         gran…   4.7  2008     8 auto… 4         9    12 e     suv  
-##  6 chevrolet    k150…   5.3  2008     8 auto… 4        11    14 e     suv  
-##  7 jeep         gran…   6.1  2008     8 auto… 4        11    14 p     suv  
-##  8 chevrolet    c150…   5.3  2008     8 auto… r        11    15 e     suv  
-##  9 chevrolet    k150…   5.7  1999     8 auto… 4        11    15 r     suv  
-## 10 dodge        dako…   5.2  1999     8 auto… 4        11    15 r     pick…
+##  1 honda        civic   1.6  1999     4 manu… f        23    29 p     subc…
+##  2 honda        civic   1.6  1999     4 auto… f        24    32 r     subc…
+##  3 honda        civic   1.6  1999     4 auto… f        24    32 r     subc…
+##  4 honda        civic   1.6  1999     4 manu… f        25    32 r     subc…
+##  5 honda        civic   1.6  1999     4 manu… f        28    33 r     subc…
+##  6 audi         a4 q…   1.8  1999     4 auto… 4        16    25 p     comp…
+##  7 audi         a4      1.8  1999     4 auto… f        18    29 p     comp…
+##  8 audi         a4 q…   1.8  1999     4 manu… 4        18    26 p     comp…
+##  9 volkswagen   pass…   1.8  1999     4 auto… f        18    29 p     mids…
+## 10 audi         a4      1.8  1999     4 manu… f        21    29 p     comp…
 ## # … with 224 more rows</code></pre>
 </div>
 </div>
-<div id="arrange-rows-in-descending-order-by-the-values-of-a-column" class="section level2">
-<h2><span class="header-section-number">4.2</span> Arrange rows in descending order by the values of a column</h2>
+<div id="arrange-rows-by-value-in-descending-order" class="section level2">
+<h2><span class="header-section-number">4.2</span> Arrange rows by value in descending order</h2>
 <p>You want to sort the rows of a data frame in <strong>descending</strong> order by the values in one or more columns.</p>
+<p><img src="images/dplyr-desc.png" style="display: block; margin: auto;" /></p>
 <div id="solution-20" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">mpg <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cty))</code></pre>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(displ))</code></pre>
 <pre><code>## # A tibble: 234 x 11
 ##    manufacturer model displ  year   cyl trans drv     cty   hwy fl    class
 ##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
-##  1 volkswagen   new …   1.9  1999     4 manu… f        35    44 d     subc…
-##  2 volkswagen   jetta   1.9  1999     4 manu… f        33    44 d     comp…
-##  3 volkswagen   new …   1.9  1999     4 auto… f        29    41 d     subc…
-##  4 honda        civic   1.6  1999     4 manu… f        28    33 r     subc…
-##  5 toyota       coro…   1.8  2008     4 manu… f        28    37 r     comp…
-##  6 honda        civic   1.8  2008     4 manu… f        26    34 r     subc…
-##  7 toyota       coro…   1.8  1999     4 manu… f        26    35 r     comp…
-##  8 toyota       coro…   1.8  2008     4 auto… f        26    35 r     comp…
-##  9 honda        civic   1.6  1999     4 manu… f        25    32 r     subc…
-## 10 honda        civic   1.8  2008     4 auto… f        25    36 r     subc…
+##  1 chevrolet    corv…   7    2008     8 manu… r        15    24 p     2sea…
+##  2 chevrolet    k150…   6.5  1999     8 auto… 4        14    17 d     suv  
+##  3 chevrolet    corv…   6.2  2008     8 manu… r        16    26 p     2sea…
+##  4 chevrolet    corv…   6.2  2008     8 auto… r        15    25 p     2sea…
+##  5 jeep         gran…   6.1  2008     8 auto… 4        11    14 p     suv  
+##  6 chevrolet    c150…   6    2008     8 auto… r        12    17 r     suv  
+##  7 dodge        dura…   5.9  1999     8 auto… 4        11    15 r     suv  
+##  8 dodge        ram …   5.9  1999     8 auto… 4        11    15 r     pick…
+##  9 chevrolet    c150…   5.7  1999     8 auto… r        13    17 r     suv  
+## 10 chevrolet    corv…   5.7  1999     8 manu… r        16    26 p     2sea…
 ## # … with 224 more rows</code></pre>
 </div>
 <div id="discussion-19" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p>Place <code>desc()</code> around a column name to cause <code>arrange()</code> to sort by descending values of that column. You can use <code>desc()</code> for tie-breaker columns as well.</p>
+<p>Place <code>desc()</code> around a column name to cause <code>arrange()</code> to sort by descending values of that column. You can use <code>desc()</code> for tie-breaker columns as well (compare line nine below to the table above).</p>
 <pre class="sourceCode r"><code class="sourceCode r">mpg <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">arrange</span>(cty, <span class="kw">desc</span>(hwy))</code></pre>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(displ), <span class="kw">desc</span>(cty))</code></pre>
 <pre><code>## # A tibble: 234 x 11
 ##    manufacturer model displ  year   cyl trans drv     cty   hwy fl    class
 ##    &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
-##  1 dodge        dako…   4.7  2008     8 auto… 4         9    12 e     pick…
-##  2 dodge        dura…   4.7  2008     8 auto… 4         9    12 e     suv  
-##  3 dodge        ram …   4.7  2008     8 auto… 4         9    12 e     pick…
-##  4 dodge        ram …   4.7  2008     8 manu… 4         9    12 e     pick…
-##  5 jeep         gran…   4.7  2008     8 auto… 4         9    12 e     suv  
-##  6 dodge        cara…   3.3  2008     6 auto… f        11    17 e     mini…
-##  7 dodge        dako…   5.2  1999     8 manu… 4        11    17 r     pick…
-##  8 ford         expe…   4.6  1999     8 auto… r        11    17 r     suv  
-##  9 ford         expe…   5.4  1999     8 auto… r        11    17 r     suv  
-## 10 lincoln      navi…   5.4  1999     8 auto… r        11    17 r     suv  
+##  1 chevrolet    corv…   7    2008     8 manu… r        15    24 p     2sea…
+##  2 chevrolet    k150…   6.5  1999     8 auto… 4        14    17 d     suv  
+##  3 chevrolet    corv…   6.2  2008     8 manu… r        16    26 p     2sea…
+##  4 chevrolet    corv…   6.2  2008     8 auto… r        15    25 p     2sea…
+##  5 jeep         gran…   6.1  2008     8 auto… 4        11    14 p     suv  
+##  6 chevrolet    c150…   6    2008     8 auto… r        12    17 r     suv  
+##  7 dodge        dura…   5.9  1999     8 auto… 4        11    15 r     suv  
+##  8 dodge        ram …   5.9  1999     8 auto… 4        11    15 r     pick…
+##  9 chevrolet    corv…   5.7  1999     8 manu… r        16    26 p     2sea…
+## 10 chevrolet    corv…   5.7  1999     8 auto… r        15    23 p     2sea…
 ## # … with 224 more rows</code></pre>
 </div>
 </div>
 <div id="filter-rows-with-a-logical-test" class="section level2">
 <h2><span class="header-section-number">4.3</span> Filter rows with a logical test</h2>
 <p>You want to filter your table to just the rows that meet a specific condition.</p>
+<p><img src="images/dplyr-filter.png" style="display: block; margin: auto;" /></p>
 <div id="solution-21" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">mpg <span class="op">%&gt;%</span><span class="st"> </span>
@@ -326,23 +330,16 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="discussion-20" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>filter()</code> takes a logical test and returns the rows for which the logical test returns <code>TRUE</code>. <code>filter()</code> will match column names that appear within the logical test to columns in your data frame.</p>
-<p><code>filter()</code> will combine multiple logical tests with an AND operator (<code>&amp;</code>):</p>
+<p>If you provide multiple logical tests, <code>filter()</code> will combine them with an AND operator (<code>&amp;</code>):</p>
 <pre class="sourceCode r"><code class="sourceCode r">mpg <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(model <span class="op">==</span><span class="st"> &quot;jetta&quot;</span>, year <span class="op">==</span><span class="st"> </span><span class="dv">1999</span>)</code></pre>
-<pre><code>## # A tibble: 5 x 11
-##   manufacturer model displ  year   cyl trans  drv     cty   hwy fl    class
-##   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
-## 1 volkswagen   jetta   1.9  1999     4 manua… f        33    44 d     comp…
-## 2 volkswagen   jetta   2    1999     4 manua… f        21    29 r     comp…
-## 3 volkswagen   jetta   2    1999     4 auto(… f        19    26 r     comp…
-## 4 volkswagen   jetta   2.8  1999     6 auto(… f        16    23 r     comp…
-## 5 volkswagen   jetta   2.8  1999     6 manua… f        17    24 r     comp…</code></pre>
-<p>See <code>?Comparison</code> and <code>?Logic</code> to learn more about writing logical tests in R.</p>
+<p>Use R’s boolean operators, like <code>|</code>and <code>!</code>, to create other combinations of logical tests to pass to filter. See the help pages for <code>?Comparison</code> and <code>?Logic</code> to learn more about writing logical tests in R.</p>
 </div>
 </div>
 <div id="select-columns-by-name" class="section level2">
 <h2><span class="header-section-number">4.4</span> Select columns by name</h2>
 <p>You want to return a “subset” of columns from your data frame by listing the name of each column to return.</p>
+<p><img src="images/dplyr-select.png" style="display: block; margin: auto;" /></p>
 <div id="solution-22" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
@@ -366,6 +363,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="drop-columns-by-name" class="section level2">
 <h2><span class="header-section-number">4.5</span> Drop columns by name</h2>
 <p>You want to return a “subset” of columns from your data frame by listing the name of each column to drop.</p>
+<p><img src="images/dplyr-select-drop.png" style="display: block; margin: auto;" /></p>
 <div id="solution-23" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
@@ -388,6 +386,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="select-a-range-of-columns" class="section level2">
 <h2><span class="header-section-number">4.6</span> Select a range of columns</h2>
 <p>You want to return two columns from a data frame as well as every column that appears between them.</p>
+<p><img src="images/dplyr-select-range.png" style="display: block; margin: auto;" /></p>
 <div id="solution-24" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
@@ -485,11 +484,13 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="discussion-25" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>o.*u</code> is a regular expression that matches an <code>o</code> followed by a <code>u</code> with any number of characters in between. <code>country</code> and <code>population</code> are returned because the names <code>country</code> and <code>population</code> each contain an <code>o</code> followed (at any distance) by a <code>u</code>.</p>
+<p>See the help page for <code>?regex</code> to learn more about regular expressions in R.</p>
 </div>
 </div>
 <div id="reorder-columns" class="section level2">
 <h2><span class="header-section-number">4.11</span> Reorder columns</h2>
 <p>You want to return all of the columns in the original data frame in a new order.</p>
+<p><img src="images/dplyr-select-reorder.png" style="display: block; margin: auto;" /></p>
 <div id="solution-29" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
@@ -506,12 +507,13 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 </div>
 <div id="discussion-26" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p>Use <code>select()</code> to select all of the columns in the new order.</p>
+<p>Use <code>select()</code> to select all of the columns. List the column names in the new order.</p>
 </div>
 </div>
-<div id="reorder-columns-without-naming-all-columns" class="section level2">
-<h2><span class="header-section-number">4.12</span> Reorder columns without naming all columns</h2>
+<div id="reorder-columns-without-naming-each-column" class="section level2">
+<h2><span class="header-section-number">4.12</span> Reorder columns without naming each column</h2>
 <p>You want to reorder some of the columns in the original data frame, but you don’t care about the order for other columns, and you may have too many columns to name them each individually.</p>
+<p><img src="images/dplyr-select-everything.png" style="display: block; margin: auto;" /></p>
 <div id="solution-30" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
@@ -534,6 +536,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="rename-columns" class="section level2">
 <h2><span class="header-section-number">4.13</span> Rename columns</h2>
 <p>You want to rename one or more columns in your data frame, retaining the rest.</p>
+<p><img src="images/dplyr-rename.png" style="display: block; margin: auto;" /></p>
 <div id="solution-31" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
@@ -556,6 +559,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="return-the-contents-of-a-column-as-a-vector" class="section level2">
 <h2><span class="header-section-number">4.14</span> Return the contents of a column as a vector</h2>
 <p>You want to return the contents of a single column as a vector, not as a data frame with one column.</p>
+<p><img src="images/dplyr-pull.png" style="display: block; margin: auto;" /></p>
 <div id="solution-32" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
@@ -574,6 +578,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 <div id="summarise-data" class="section level2">
 <h2><span class="header-section-number">4.15</span> Summarise data</h2>
 <p>You want to compute summary statistics for your data set.</p>
+<p><img src="images/dplyr-summarise.png" style="display: block; margin: auto;" /></p>
 <div id="solution-33" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
@@ -585,14 +590,16 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 </div>
 <div id="discussion-30" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p>When used by itself, <code>summarise()</code> returns a new 1 x n tibble. Each argument name passed to <code>summarise()</code> will become a column name in the tibble. Each column will contain the result of the R expression passed to the argument/column name.</p>
-<p><code>summarise()</code> is intended to be used with <em>summary functions</em>, which are functions that take a vector of values as input and return a single value as output (e.g <code>sum()</code>, <code>max()</code>, <code>mean()</code>).</p>
+<p>To use <code>summarise()</code> pass it a series of column names followed by R expressions. <code>summarise()</code> will return a new 1 x n tibble. Each argument name passed to <code>summarise()</code> will become a column name in the tibble. The column will contain the results of evaluating the R expression assigned to the name.</p>
+<p><img src="images/dplyr-summary-functions.png" style="display: block; margin: auto;" /></p>
+<p><code>summarise()</code> is intended to be used with <em>summary functions</em>, which are functions that take a vector of values as input and return a single value as output (e.g <code>sum()</code>, <code>max()</code>, <code>mean()</code>). In normal use, <code>summarise()</code> will pass each function a column (i.e. vector) of values and expect a single value in return.</p>
 <p><code>summarize()</code> is an alias for <code>summarise()</code>.</p>
 </div>
 </div>
 <div id="summarise-data-by-groups" class="section level2">
 <h2><span class="header-section-number">4.16</span> Summarise data by groups</h2>
-<p>You want to compute and then compare summary statistics for different groups of data in your data set.</p>
+<p>You want to compute summary statistics for different subgroups of data in your data set. You can use the variables in your data set to identify which subgroup each row belongs to.</p>
+<p><img src="images/dplyr-group_by.png" style="display: block; margin: auto;" /></p>
 <div id="solution-34" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
@@ -607,15 +614,28 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 </div>
 <div id="discussion-31" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p><code>group_by()</code> converts your data set into a grouped tibble, which is a tibble subclass that indicates in its attributes which rows belong to which group.</p>
-<p>Where appropriate, tidyverse functions recognize grouped tibbles. The functions:</p>
+<p><code>group_by()</code> converts your data into a grouped tibble, which is a tibble subclass that indicates in its attributes<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> which rows belong to which group.</p>
+<p>To group rows by the values of a single column, pass <code>group_by()</code> a single column name. To group rows by the unique <em>combination</em> of values across multiple columns, pass <code>group_by()</code> the names of two or more columns.</p>
+<div id="group-wise-operations" class="section level5 unnumbered">
+<h5>Group-wise operations</h5>
+<p>Where appropriate, tidyverse functions recognize grouped tibbles. Tidyverse functions:</p>
 <ol style="list-style-type: decimal">
 <li>treat each group as a distinct data set</li>
-<li>execute their code content separately on each group</li>
-<li>combine the results in a new data frame that contains a column of group labels (as above).</li>
+<li>execute their code separately on each group</li>
+<li><p>combine the results into a new data frame that contains the same grouping characteristics. <code>summarise()</code> is an exception, see below.</p>
+
+<div class="rmdcaution">
+Since this is easier to see than explain, you may want to study the diagram and result above.
+</div></li>
 </ol>
-<p>Pass <code>group_by()</code> a column to group by the values of that column (rows that contain the same value will be placed in the same group). Pass <code>group_by()</code> two or more column names to group by the distinct combinations of values in those columns.</p>
-<p>As a rule, tidyverse functions will return a result that contains the same grouping criteria as the original grouped tibble. <code>summarise()</code> is an exception: <code>summarise()</code> removes the last column name from the grouping criteria of its result. Because of this, you can call <code>summarise()</code> repeatedly to view progressively higher level summaries:</p>
+</div>
+<div id="group-wise-summaries" class="section level5 unnumbered">
+<h5>Group-wise summaries</h5>
+<p><code>summarise()</code> gives grouped data special treatment in two ways:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>summarise()</code> will one or more columns of group labels to its result. This makes the output of grouped summaries interpretable.</p></li>
+<li><p><code>summarise()</code> removes the last column name from the grouping criteria of its result. For example, if the input of <code>summarise()</code> is grouped by <code>country</code> and <code>year</code>, the output of <code>summarise()</code> will only be grouped by <code>country</code>. Because of this, you can call <code>summarise()</code> repeatedly to view progressively higher level summaries:</p></li>
+</ol>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(country, year) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(cases))</code></pre>
@@ -648,6 +668,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 ##   total_cases
 ##         &lt;int&gt;
 ## 1      547660</code></pre>
+</div>
 </div>
 </div>
 <div id="mutate-data-add-new-variables" class="section level2">
@@ -731,7 +752,7 @@ This matters because one of the <a href="how-to-use-this-book.html#what-is-the-t
 </div>
 <div id="an-example-that-uses-list-columns" class="section level5">
 <h5><span class="header-section-number">4.18.0.0.2</span> An example that uses list columns</h5>
-<p><code>sepals</code> contains sepal length measurements for three species of flower. The measurements are stored in a list-column named <code>lengths</code>.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p><code>sepals</code> contains sepal length measurements for three species of flower. The measurements are stored in a list-column named <code>lengths</code>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <pre class="sourceCode r"><code class="sourceCode r">sepals</code></pre>
 <pre><code>## # A tibble: 3 x 2
 ##   Species    lengths   
@@ -956,7 +977,8 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p>I made this data frame with the code <code>sepals &lt;- iris %&gt;%    group_by(Species) %&gt;%    summarise(lengths = list(Sepal.Length))</code><a href="transform-tables.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>Attributes are metadata associated with a data structure. R can see an object’s attributes, but users typically cannot.<a href="transform-tables.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>I made this data frame with the code <code>sepals &lt;- iris %&gt;%    group_by(Species) %&gt;%    summarise(lengths = list(Sepal.Length))</code><a href="transform-tables.html#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

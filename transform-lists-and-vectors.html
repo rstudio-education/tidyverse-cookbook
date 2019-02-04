@@ -185,7 +185,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data frames are a sub-type of list. Each column of a data frame is an element of the list that the data frame is built around.</p>
 <p>More than any other part of R, lists demonstrate how a programming language can appear different to beginners than to experts. Seasoned R programmers do not distinguish between lists and vectors because the two are equivalent: a list is a type of vector.</p>
 <p>However, a beginner who uses R for data science will quickly see that lists behave differently than other types of vectors. First, many R functions will not accept lists as input, even though they accept other types of vectors. Second, when you subset a list with <code>[ ]</code> to extract the value of one of its elements, R will give you a new list of length one that contains the value as its first element. This poses a problem if you want to pass that value to a function that does not accept lists as input (solve that problem with <a href="transform-lists-and-vectors.html#extract">this recipe</a>).</p>
-<p>To respect this difference, I try to be clear when talking about vectors that are not lists. This introduces a new problem: when you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists. Whenever the difference matters, I’ll call the first set of vectors <strong>lists</strong> and the second set of vectors <strong>data vectors</strong><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. I’ll refer to the superset that includes both lists and data vectors as vectors.</p>
+<p>To respect this difference, I try to be clear when talking about vectors that are not lists. This introduces a new problem: when you speak about R, it is difficult to distinguish between vectors that are lists and vectors that are not lists. Whenever the difference matters, I’ll call the first set of vectors <strong>lists</strong> and the second set of vectors <strong>data vectors</strong><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. I’ll refer to the superset that includes both lists and data vectors as vectors.</p>
 <p>Data vectors come in six atomic <em>types</em>: double, integer logical, character, complex, and raw. Every element in a data vector must be the same type of data as the vector (if you try to put a different type of data into an atomic vector, R will coerce the data’s type to match the vector). R also contains an S3 class system that builds classes like factors and date-times on top of the atomic types. You don’t need to understand R’s types and classes to use R or this cookbook, but you should know that R will recognize different types of data and treat them accordingly.</p>
 This chapter focuses on both lists and data vectors, but it only features recipes that work with the <em>structure</em> of a list or data vector. The chapters that follow will contain recipes that work with the <em>types</em> of data stored in a data vector.
 </div>
@@ -522,11 +522,11 @@ got_chars <span class="op">%&gt;%</span><span class="st"> </span>
 </tr>
 <tr class="odd">
 <td><code>map_dfr</code></td>
-<td>A single data frame made by row-binding the individual results<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></td>
+<td>A single data frame made by row-binding the individual results<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></td>
 </tr>
 <tr class="even">
 <td><code>map_dfc</code></td>
-<td>A single data frame made by column-binding the individual results<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></td>
+<td>A single data frame made by column-binding the individual results<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></td>
 </tr>
 <tr class="odd">
 <td><code>map_int</code></td>
@@ -631,10 +631,10 @@ You would like to return just the names of each character in `got_chars`. To do 
 </div>
 <div class="footnotes">
 <hr />
-<ol start="2">
-<li id="fn2"><p>if you’re an R afficianado, data vectors include both atomic vectors and the S3 classes built upon them, like factors and dates and times<a href="transform-lists-and-vectors.html#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>These results should themselves be data frames. In other words, the function that is mapped should return a data frame.<a href="transform-lists-and-vectors.html#fnref3" class="footnote-back">↩</a></p></li>
+<ol start="3">
+<li id="fn3"><p>if you’re an R afficianado, data vectors include both atomic vectors and the S3 classes built upon them, like factors and dates and times<a href="transform-lists-and-vectors.html#fnref3" class="footnote-back">↩</a></p></li>
 <li id="fn4"><p>These results should themselves be data frames. In other words, the function that is mapped should return a data frame.<a href="transform-lists-and-vectors.html#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>These results should themselves be data frames. In other words, the function that is mapped should return a data frame.<a href="transform-lists-and-vectors.html#fnref5" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
