@@ -2,6 +2,8 @@
 
 ***
 
+This chapter includes the following recipes:
+
 ```{r echo = FALSE, results='asis'}
 build_toc("04-transform-tables.Rmd")
 ```
@@ -11,67 +13,86 @@ build_toc("04-transform-tables.Rmd")
 ## What you should know before you begin {-}
 
 ```{block2, type='rmdcaution'}
-Tidyverse functions that transform tables do not transform your original table, which is preserved in its original form under its original name. Tidyverse functions instead return a modified copy of the table, which can be passed to the next function in a pipe, or assigned to a name for later use.
-```
+The dplyr package provides the most important tidyverse functions for manipulating tables. These functions share some defaults that make it easy to transform tables:
 
-```{block2, type = "rmdcaution"}
-dplyr functions will match column names that appear within their arguments to columns in the data frame that they are manipulating. To avoid this behavior, place `!!` before a name to unquote it, e.g. `!!model`.
-```
+1. dplyr functions always return a transformed _copy_ of your table. They won't change your original table unless you tell them to (by saving over the name of the original table). That's good news, because you should always retain a clean copy of your original data in case something goes wrong.
 
-```{block2, type = "rmdcaution"}
+2. You can refer to columns by name inside of a dplyr function. There's no need for `$` syntax or `""`. Every dplyr function requires you to supply a data frame, and it will recognize the columns in that data frame, e.g.
+
+    `summarise(mpg, h = mean(hwy), c = mean(cty))` 
+
+    This only becomes a problem if you'd like to use an object that has the same name as one of the columns in the data frame. In this case, place `!!` before the object's name to unquote it, dplyr will skip the columns when looking up the object. e.g.
+    
+    `hwy <- 1:10`  
+    `summarise(mpg, h = mean(!!hwy), c = mean(cty))` 
+
 Transforming a table sometimes requires more than one recipe. Why? Because tables are made of multiple data structures that work together: 
 
 1. The table itself is a data frame or tibble.  
 1. The columns of the table are vectors.  
 1. Some columns may be list-columns, which are lists that contain vectors.  
 
-This matters because one of the [design philosophies of the tidyverse](#what-is-the-tidyverse) is that each function should focus on one task and do it well. Functions that do one task well tend to work with one type of data structure. So to transform a table, you often need to combine a function that manipulates tables with a function that manipulates data vectors and maybe a function that manipulates lists. See [Combine transform recipes] for tips.
+Each tidyverse function tends to focus on a single type of data structure; it is part of the tidyverse philosophy that each function should do one thing and do it well. 
+
+So to transform a table, begin with a recipe that transforms the structure of the table. You'll find those recipes in this chapter. Then complete it with a recipe that transforms the actual data values in your table. The [Combine transform recipes] recipe will show you how. 
 ```
 
-## Arrange rows in ascending order by the values of a column
+## Arrange rows by value in ascending order
 
 You want to sort the rows of a data frame in **ascending** order by the values in one or more columns.
 
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-arrange.png")
+```
+
 #### Solution {-}
 
 ```{r}
 mpg %>% 
-  arrange(cty)
+  arrange(displ)
 ```
 
 #### Discussion {-}
 
-`arrange()` sorts the rows according to the values of the specified column, with the lowest values appearing near the top of the data frame. `arrange()` will use additional columns as tiebreakers to sort within rows that share the same value of the first column.
+`arrange()` sorts the rows according to the values of the specified column, with the lowest values appearing near the top of the data frame. If you provide additional column names, `arrange()` will use the additional columns in order as tiebreakers to sort within rows that share the same value of the first column.
 
 ```{r}
 mpg %>% 
-  arrange(cty, hwy)
+  arrange(displ, cty)
 ```
 
-## Arrange rows in descending order by the values of a column
+## Arrange rows by value in descending order
 
 You want to sort the rows of a data frame in **descending** order by the values in one or more columns.
 
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-desc.png")
+```
+
 #### Solution {-}
 
 ```{r}
 mpg %>% 
-  arrange(desc(cty))
+  arrange(desc(displ))
 ```
 
 #### Discussion {-}
 
-Place `desc()` around a column name to cause `arrange()` to sort by descending values of that column. You can use `desc()` for tie-breaker columns as well.
+Place `desc()` around a column name to cause `arrange()` to sort by descending values of that column. You can use `desc()` for tie-breaker columns as well (compare line nine below to the table above).
 
 ```{r}
 mpg %>% 
-  arrange(cty, desc(hwy))
+  arrange(desc(displ), desc(cty))
 ```
 
 
 ## Filter rows with a logical test
 
 You want to filter your table to just the rows that meet a specific condition.
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-filter.png")
+```
 
 #### Solution {-}
 
@@ -84,18 +105,22 @@ mpg %>%
 
 `filter()` takes a logical test and returns the rows for which the logical test returns `TRUE`. `filter()` will match column names that appear within the logical test to columns in your data frame. 
 
-`filter()` will combine multiple logical tests with an AND operator (`&`):
+If you provide multiple logical tests, `filter()` will combine them with an AND operator (`&`):
 
-```{r}
+```{r eval = FALSE}
 mpg %>% 
   filter(model == "jetta", year == 1999)
 ```
 
-See `?Comparison` and `?Logic` to learn more about writing logical tests in R.
+Use R's boolean operators, like `|`and `!`, to create other combinations of logical tests to pass to filter. See the help pages for `?Comparison` and `?Logic` to learn more about writing logical tests in R.
 
 ## Select columns by name
 
 You want to return a "subset" of columns from your data frame by listing the name of each column to return.
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-select.png")
+```
 
 #### Solution {-}
 
@@ -114,6 +139,10 @@ table1 %>%
 
 You want to return a "subset" of columns from your data frame by listing the name of each column to drop.
 
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-select-drop.png")
+```
+
 #### Solution {-}
 
 ```{r}
@@ -128,6 +157,10 @@ If you use a `-` before a column name, `select()` will return every column in th
 ## Select a range of columns
 
 You want to return two columns from a data frame as well as every column that appears between them. 
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-select-range.png")
+```
 
 #### Solution {-}
 
@@ -192,9 +225,15 @@ table1 %>%
 
 `o.*u` is a regular expression that matches an `o` followed by a `u` with any number of characters in between. `country` and `population` are returned because the names `country` and `population` each contain an `o` followed (at any distance) by a `u`.
 
+See the help page for `?regex` to learn more about regular expressions in R.
+
 ## Reorder columns
 
 You want to return all of the columns in the original data frame in a new order.
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-select-reorder.png")
+```
 
 #### Solution {-}
 
@@ -205,11 +244,15 @@ table1 %>%
 
 #### Discussion {-}
 
-Use `select()` to select all of the columns in the new order.
+Use `select()` to select all of the columns. List the column names in the new order.
 
-## Reorder columns without naming all columns
+## Reorder columns without naming each column
 
 You want to reorder some of the columns in the original data frame, but you don't care about the order for other columns, and you may have too many columns to name them each individually.
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-select-everything.png")
+```
 
 #### Solution {-}
 
@@ -226,6 +269,10 @@ Use `everything()` within `select()` to select all of the columns in the order t
 
 You want to rename one or more columns in your data frame, retaining the rest.
 
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-rename.png")
+```
+
 #### Solution {-}
 
 ```{r}
@@ -240,6 +287,10 @@ For each column to be renamed, type a new name for the column and set it equal t
 ## Return the contents of a column as a vector
 
 You want to return the contents of a single column as a vector, not as a data frame with one column.
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-pull.png")
+```
 
 #### Solution {-}
 
@@ -264,6 +315,10 @@ table1 %>%
 
 You want to compute summary statistics for your data set.
 
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-summarise.png")
+```
+
 #### Solution {-}
 
 ```{r}
@@ -273,15 +328,23 @@ table1 %>%
 
 #### Discussion {-}
 
-When used by itself, `summarise()` returns a new 1 x n tibble. Each argument name passed to `summarise()` will become a column name in the tibble. Each column will contain the result of the R expression passed to the argument/column name. 
+To use `summarise()` pass it a series of column names followed by R expressions. `summarise()` will return a new 1 x n tibble. Each argument name passed to `summarise()` will become a column name in the tibble. The column will contain the results of evaluating the R expression assigned to the name. 
 
-`summarise()` is intended to be used with _summary functions_, which are functions that take a vector of values as input and return a single value as output (e.g `sum()`, `max()`, `mean()`).
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-summary-functions.png")
+```
+
+`summarise()` is intended to be used with _summary functions_, which are functions that take a vector of values as input and return a single value as output (e.g `sum()`, `max()`, `mean()`). In normal use, `summarise()` will pass each function a column (i.e. vector) of values and expect a single value in return.
 
 `summarize()` is an alias for `summarise()`.
 
 ## Summarise data by groups
 
-You want to compute and then compare summary statistics for different groups of data in your data set.
+You want to compute summary statistics for different subgroups of data in your data set. You can use the variables in your data set to identify which subgroup each row belongs to.
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-group_by.png")
+```
 
 #### Solution {-}
 
@@ -293,17 +356,29 @@ table1 %>%
 
 #### Discussion {-}
 
-`group_by()` converts your data set into a grouped tibble, which is a tibble subclass that indicates in its attributes which rows belong to which group. 
+`group_by()` converts your data into a grouped tibble, which is a tibble subclass that indicates in its attributes^[Attributes are metadata associated with a data structure. R can see an object's attributes, but users typically cannot.] which rows belong to which group.
 
-Where appropriate, tidyverse functions recognize grouped tibbles. The functions: 
+To group rows by the values of a single column, pass `group_by()` a single column name. To group rows by the unique _combination_ of values across multiple columns, pass `group_by()` the names of two or more columns.
+
+##### Group-wise operations {-}
+
+Where appropriate, tidyverse functions recognize grouped tibbles. Tidyverse functions: 
 
 1. treat each group as a distinct data set
-1. execute their code content separately on each group
-1. combine the results in a new data frame that contains a column of group labels (as above).
+1. execute their code separately on each group
+1. combine the results into a new data frame that contains the same grouping characteristics. `summarise()` is an exception, see below.
 
-Pass `group_by()` a column to group by the values of that column (rows that contain the same value will be placed in the same group). Pass `group_by()` two or more column names to group by the distinct combinations of values in those columns.
+    ```{block2, type='rmdcaution'}
+    Since this is easier to see than explain, you may want to     study the diagram and result above. 
+    ```
 
-As a rule, tidyverse functions will return a result that contains the same grouping criteria as the original grouped tibble. `summarise()` is an exception: `summarise()` removes the last column name from the grouping criteria of its result. Because of this, you can call `summarise()` repeatedly to view progressively higher level summaries:
+##### Group-wise summaries {-}
+
+`summarise()` gives grouped data special treatment in two ways:
+
+1. `summarise()` will one or more columns of group labels to its result. This makes the output of grouped summaries interpretable. 
+
+2. `summarise()` removes the last column name from the grouping criteria of its result. For example, if the input of `summarise()` is grouped by `country` and `year`, the output of `summarise()` will only be grouped by `country`. Because of this, you can call `summarise()` repeatedly to view progressively higher level summaries:
 
 ```{r}
 table1 %>% 
