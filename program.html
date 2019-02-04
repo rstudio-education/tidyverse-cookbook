@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2019-01-31">
+<meta name="date" content="2019-02-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -185,15 +185,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>What you should know before you begin</h2>
 
 <div class="rmdcaution">
-<p>The <a href="http://www.tidyverse.org">tidyverse</a> is a collection of R packages that are designed to work well together. There are about 25 packages in the tidyverse.</p>
-<p>An R package is a bundle of functions, documentation, and data sets. R has over 13,000 packages. These are not installed with R, but are archived <a href="https://cran.r-project.org/web/packages/index.html">online</a> for when you need them.</p>
+<p>The <a href="http://www.tidyverse.org">tidyverse</a> is a collection of R packages that are designed to work well together. There are about 25 packages in the tidyverse. An R package is a bundle of functions, documentation, and data sets. R has over 13,000 packages. These are not installed with R, but are archived <a href="https://cran.r-project.org/web/packages/index.html">online</a> for when you need them.</p>
 <p>To use an R package, you must:</p>
 <ol style="list-style-type: decimal">
 <li><p>Install the package on your local machine with <code>install.packages()</code>. You only need to do this once per machine.</p></li>
 <li><p>Load the package into your R session with <code>library()</code>. You need to do this each time you start a new R session (if you wish to use the package in that session).</p></li>
 </ol>
-<p>You cannot use the contents of a package until you load the package in your current R session.</p>
-You should update your packages from time to time to receive the latest improvements from package authors.
+You cannot use the contents of a package until you load the package in your current R session. You should update your packages from time to time to receive the latest improvements from package authors.
 </div>
 
 
@@ -240,7 +238,7 @@ By default, <code>install.packages()</code> will download packages from <a href=
 </div>
 <div id="load" class="section level2">
 <h2><span class="header-section-number">1.3</span> Load a tidyverse package</h2>
-<p>You want to load a package that is in the tidyverse, so that you can use its contents. The package is <a href="program.html#install">installed</a> on your computer.</p>
+<p>You want to load a package that is in the tidyverse, so that you can use its contents. You’ve already <a href="program.html#install">installed</a> the package on your computer.</p>
 <div id="solution-2" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre>
@@ -251,6 +249,13 @@ By default, <code>install.packages()</code> will download packages from <a href=
 
 <div class="rmdcaution">
 <code>library()</code> cannot load packages that have not been <a href="program.html#install">installed</a> on your machine.
+</div>
+
+
+<div class="rmdcaution">
+<p>You must place quotation marks around a package name when you use <code>install.packages()</code>, but the same is not true for <code>library()</code>. The commands below will both load the dplyr package if it is installed on your computer.</p>
+<pre><code>library(dplyr)
+library(&quot;dplyr&quot;)</code></pre>
 </div>
 
 </div>
@@ -290,14 +295,14 @@ Notice that <code>library(&quot;tidyverse&quot;)</code> does not load every pack
 </div>
 <div id="update" class="section level2">
 <h2><span class="header-section-number">1.5</span> Update a tidyverse package</h2>
-<p>You want to ensure that you have installed the latest version of a package that is in the tidyverse.</p>
+<p>You want to check that you have the latest version of a package that is in the tidyverse.</p>
 <div id="solution-4" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</code></pre>
 </div>
 <div id="discussion-4" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p><code>update.packages()</code> will compare the version number of the package that you have installed locally to the newest version number available on CRAN. If your local version is older than the version on CRAN, <code>update.packages()</code> will download and install the newest version from CRAN. Otherwise, <code>update.packages()</code> will do nothing.</p>
+<p><code>update.packages()</code> compares the version number of your local copy of a package to the version number of the newest version available on CRAN. If your local copy is older than the newest version, <code>update.packages()</code> will download and install the newest version from CRAN. Otherwise, <code>update.packages()</code> will do nothing.</p>
 
 <div class="rmdcaution">
 Be sure that you are connected to the internet when you run <code>update.packages()</code>.
@@ -307,15 +312,14 @@ Be sure that you are connected to the internet when you run <code>update.package
 </div>
 <div id="update-all" class="section level2">
 <h2><span class="header-section-number">1.6</span> Update all of the tidyverse packages</h2>
-<p>You want to ensure that you have installed the latest version of <em>every</em> package that is in the tidyverse.</p>
+<p>You want to check that you have the latest version of <em>every</em> package that is in the tidyverse.</p>
 <div id="solution-5" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidyverse_update</span>()</code></pre>
 </div>
 <div id="discussion-5" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p><code>tidyverse_update()</code> checks whether or not each of your tidyverse packages is <a href="program.html#update">up-to-date</a>. If every package is up-to-date, <code>tidyverse_update()</code> will return the message: <code>All tidyverse packages up-to-date</code>.</p>
-<p>Otherwise, <code>tidyverse_update()</code> will return a piece of code that you can copy and run to selectively update only those packages that are out-of-date.</p>
+<p><code>tidyverse_update()</code> checks whether or not each of your tidyverse packages is <a href="program.html#update">up-to-date</a>. If every package is up-to-date, <code>tidyverse_update()</code> will return the message: <code>All tidyverse packages up-to-date</code>. Otherwise, <code>tidyverse_update()</code> will return a piece of code that you can copy and run to selectively update only those packages that are out-of-date.</p>
 </div>
 </div>
 <div id="list-all-of-the-tidyverse-packages" class="section level2">
@@ -339,7 +343,7 @@ Be sure that you are connected to the internet when you run <code>update.package
 </div>
 <div id="combine-functions-into-a-pipe" class="section level2">
 <h2><span class="header-section-number">1.8</span> Combine functions into a pipe</h2>
-<p>You want to chain multiple functions together to be run in sequence, with each function operating on the preceeding function’s output.</p>
+<p>You want to chain multiple functions together to be run in sequence, with each function operating on the preceding function’s output.</p>
 <div id="solution-7" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">starwars <span class="op">%&gt;%</span><span class="st"> </span>
@@ -365,7 +369,7 @@ Be sure that you are connected to the internet when you run <code>update.package
 <h4>Discussion</h4>
 <p>The <code>%&gt;%</code> operator (pronounced “pipe operator”) evaluates the code on its left hand side (LHS) and then passes the result to the the code on its right hand side (RHS), which should be a function call. By default <code>%&gt;%</code> will pass the result of the LHS to the first unnamed argument of the function on the RHS.</p>
 <p><img src="images/dplyr-pipe.png" /><!-- --></p>
-<p><code>starwars %&gt;% group_by(species)</code> is the equivalent of <code>group_by(starwars, species)</code>, and the above solution is the equivalent of the nested code:</p>
+<p>So <code>starwars %&gt;% group_by(species)</code> is the equivalent of <code>group_by(starwars, species)</code>, and the above solution is the equivalent of the nested code:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">arrange</span>(
   <span class="kw">summarise</span>(
     <span class="kw">group_by</span>(starwars, species), 
@@ -378,11 +382,11 @@ Be sure that you are connected to the internet when you run <code>update.package
 x2 &lt;-<span class="st"> </span><span class="kw">group_by</span>(x1, species)
 x3 &lt;-<span class="st"> </span><span class="kw">summarise</span>(x3, <span class="dt">avg_height =</span> <span class="kw">mean</span>(height, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
 <span class="kw">arrange</span>(x3, avg_height)</code></pre>
-<p>The chunk of functions connected by <code>%&gt;%</code> is called a “pipe.” Pipes are easier to read than nested code (mentally pronounce <code>%&gt;%</code> as “then” to read the pipe as a sequence of steps). In addition, pipes require fewer temporary objects than code that passes temporary objects from one function to the next.</p>
+<p>The chunk of functions connected by <code>%&gt;%</code> is called a “pipe.” To read a pipe as a sequence of steps, mentally pronounce <code>%&gt;%</code> as “then.”</p>
 <p>The <code>%&gt;%</code> operator is loaded with the dplyr package, which imports it from the magrittr package. Tidyverse functions facilitate using <code>%&gt;%</code> by</p>
 <ol style="list-style-type: decimal">
-<li>accepting a data frame as their first argument</li>
-<li>returning a data frame as their result</li>
+<li>accepting a data frame or tibble as their first argument</li>
+<li>returning a data frame or tibble as their result</li>
 </ol>
 
 <div class="rmdcaution">

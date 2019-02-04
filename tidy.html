@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2019-01-31">
+<meta name="date" content="2019-02-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -166,6 +166,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="tidy" class="section level1">
 <h1><span class="header-section-number">3</span> Tidy</h1>
 <hr />
+<p>This chapter includes the following recipes:</p>
 <div class="col2">
 <ol style="list-style-type: decimal">
 <li><a href="tidy.html#create-a-tibble-manually">Create a tibble manually</a></li>
@@ -184,30 +185,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>What you should know before you begin</h2>
 
 <div class="rmdcaution">
-Data tidying refers to reshaping your data into a tidy data frame or <a href="how-to-use-this-book.html#tidy-data">tibble</a>. Data tidying is an important first step for your analysis because every tidyverse function will expect your data to be stored as <strong>Tidy Data</strong>.
-</div>
-
-
-<div class="rmdcaution">
+<p>Data tidying refers to reshaping your data into a tidy data frame or <a href="how-to-use-this-book.html#tidy-data">tibble</a>. Data tidying is an important first step for your analysis because every tidyverse function will expect your data to be stored as <strong>Tidy Data</strong>.</p>
 <p>Tidy data is tabular data organized so that:</p>
 <ol style="list-style-type: decimal">
 <li>Each column contains a single variable</li>
-<li>Each row contains a single observation
-</div></li>
+<li>Each row contains a single observation</li>
 </ol>
-
-<div class="rmdcaution">
-The definition of tidy data depends on the definition of variable, which is <em>a quantity, quality, or property that you can measure</em>.
-</div>
-
-
-<div class="rmdcaution">
-With enough mental flexibility, you can consider anything to be a variable (and use anything as a variable). However, some variables will be more useful than others for any specific task. In general, if you can formulate your task as an equation (math or code that contains an equals sign), the most useful variables will be the objects in the equation.
-</div>
-
-
-<div class="rmdcaution">
-Tidy data is not an arbitrary requirement of the tidyverse; it is the ideal data format for doing data science with R. Tidy data makes it easy to extract every value of a variable to build a plot or to compute a summary statistic. Tidy data also makes it easy to compute new variables; when your data is tidy, you can rely on R’s rowwise operations to maintain the integrity of your observations. Moreover, R can directly manipulate tidy data with R’s fast, built-in vectorised observations, which lets your code run as fast as possible.
+<p>Tidy data is not an arbitrary requirement of the tidyverse; it is the ideal data format for doing data science with R. Tidy data makes it easy to extract every value of a variable to build a plot or to compute a summary statistic. Tidy data also makes it easy to compute new variables; when your data is tidy, you can rely on R’s rowwise operations to maintain the integrity of your observations. Moreover, R can directly manipulate tidy data with R’s fast, built-in vectorised observations, which lets your code run as fast as possible.</p>
+<p>The definition of Tidy Data isn’t complete until you define variable and observation, so let’s borrow two definitions from <a href="https://r4ds.had.co.nz/exploratory-data-analysis.html"><em>R for Data Science</em></a>:</p>
+<ol style="list-style-type: decimal">
+<li>A <strong>variable</strong> is a quantity, quality, or property that you can measure.</li>
+<li>An <strong>observation</strong> is a set of measurements made under similar conditions (you usually make all of the measurements in an observation at the same time and on the same object).</li>
+</ol>
+As you work with data, you will be surprised to realize that what is a variable (or observation) will depend less on the data itself and more on what you are trying to do with it. With enough mental flexibility, you can consider anything to be a variable. However, some variables will be more useful than others for any specific task. In general, if you can formulate your task as an equation (math or code that contains an equals sign), the most useful variables will be the names in the equation.
 </div>
 
 </div>
@@ -229,7 +219,7 @@ Tidy data is not an arbitrary requirement of the tidyverse; it is the ideal data
 </div>
 <div id="discussion-10" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p><code>tribble()</code> creates a tibble while generating a preview of the result in your code. To use <code>tribble()</code>, list each column name preceded by a <code>~</code>, then list the values of the tribble in a rowwise fashion. If you take care to align your columns, the transposed syntax of <code>tribble()</code> becomes a preview of the table.</p>
+<p><code>tribble()</code> creates a tibble and tricks you into typing out a preview of the result. To use <code>tribble()</code>, list each column name preceded by a <code>~</code>, then list the values of the tribble in a rowwise fashion. If you take care to align your columns, the transposed syntax of <code>tribble()</code> becomes a preview of the table.</p>
 <p>You can also create a tibble with <code>tibble()</code>, whose syntax mirrors <code>data.frame()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">number =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), 
        <span class="dt">letter =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>),
@@ -315,7 +305,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 </div>
 <div id="inspect-every-cell-of-a-tibble" class="section level2">
 <h2><span class="header-section-number">3.5</span> Inspect every cell of a tibble</h2>
-<p>You want to see which values are stored in a tibble.</p>
+<p>You want to see every value that is stored in a tibble.</p>
 <div id="solution-14" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(storms)</code></pre>
@@ -327,7 +317,8 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 </div>
 <div id="spread-a-pair-of-columns-into-a-field-of-cells" class="section level2">
 <h2><span class="header-section-number">3.6</span> Spread a pair of columns into a field of cells</h2>
-<p>You want to <strong>pivot</strong>, <strong>convert long data to wide</strong>, or move variable names out of the cells and into the column names. These are different ways of describing the same thing.</p>
+<p>You want to <strong>pivot</strong>, <strong>convert long data to wide</strong>, or move variable names out of the cells and into the column names. These are different ways of describing the same action.</p>
+<p><img src="images/tidyr-spread.png" style="display: block; margin: auto;" /></p>
 <p>For example, <code>table2</code> contains <code>type</code>, which is a column that repeats the variable names <code>case</code> and <code>population</code>. To make <code>table2</code> tidy, you must move <code>case</code> and <code>population</code> values into their own columns.</p>
 <pre class="sourceCode r"><code class="sourceCode r">table2</code></pre>
 <pre><code>## # A tibble: 12 x 4
@@ -367,15 +358,17 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 <li>Remove the <code>key</code> and <code>value</code> columns from the copy</li>
 <li>Remove every duplicate row in the data set that remains</li>
 <li>Insert a new column for each unique variable name in the <code>key</code> column</li>
-<li>Fill the new columns with the values of the <code>value</code> column in a way that preserves each relationship between values in the original data set</li>
+<li>Fill the new columns with the values of the <code>value</code> column in a way that preserves every relationship between values in the original data set</li>
 </ol>
-<p>Each new column created by <code>spread()</code> will inherit the data type of the <code>value</code> column. If you would like <code>spread()</code> to convert each new column to the most sensible data type given its final contents, add the argument <code>convert = TRUE</code>.</p>
+<p>Since this is easier to see than explain, you may want to study the diagram above.</p>
+<p>Each new column created by <code>spread()</code> will inherit the data type of the <code>value</code> column. If you would to convert each new column to the most sensible data type given its final contents, add the argument <code>convert = TRUE</code>.</p>
 </div>
 </div>
 <div id="gather-a-field-of-cells-into-a-pair-of-columns" class="section level2">
 <h2><span class="header-section-number">3.7</span> Gather a field of cells into a pair of columns</h2>
-<p>You want to <strong>convert wide data to long</strong>, reshape a <strong>two-by-two table</strong>, or move variable values out of the column names and into the cells. These are different ways of describing the same thing.</p>
-<p>For example, <code>table4a</code> is a two-by-two table with the column names <code>1999</code> and <code>2000</code>. These names are values of a <code>year</code> variable. The field of cells in <code>table4a</code> contains counts of TB cases, which is another variable. To make <code>table4a</code> tidy, you need to move <code>year</code> and <code>cases</code> into their own columns.</p>
+<p>You want to <strong>convert wide data to long</strong>, reshape a <strong>two-by-two table</strong>, or move variable values out of the column names and into the cells. These are different ways of describing the same action.</p>
+<p><img src="images/tidyr-gather.png" style="display: block; margin: auto;" /></p>
+<p>For example, <code>table4a</code> is a two-by-two table with the column names <code>1999</code> and <code>2000</code>. These names are values of a <code>year</code> variable. The field of cells in <code>table4a</code> contains counts of TB cases, which is another variable. To make <code>table4a</code> tidy, you need to move year and case values into their own columns.</p>
 <pre class="sourceCode r"><code class="sourceCode r">table4a</code></pre>
 <pre><code>## # A tibble: 3 x 3
 ##   country     `1999` `2000`
@@ -399,7 +392,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 </div>
 <div id="discussion-15" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p><code>gather()</code> is the inverse of <code>spread()</code>: <code>gather()</code> collapses a field of cells that spans several columns into two columns:</p>
+<p><code>gather()</code> is the inverse of <code>spread()</code>: <code>gather()</code> collapses a field of cells that spans several columns into two new columns:</p>
 <ol style="list-style-type: decimal">
 <li>A column of former “keys”, which contains the column names of the former field</li>
 <li>A column of former “values”, which contains the cell values of the former field</li>
@@ -411,19 +404,31 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 <li>Add a key column with the supplied name</li>
 <li>Fill the key column with the column names of the removed columns, repeating rows as necessary so that each combination of row and removed column name appears once</li>
 <li>Add a value column with the supplied name</li>
-<li>Fill the value column with the values of the removed columns in a way that preserves each relationship between values and column names in the original data set</li>
+<li>Fill the value column with the values of the removed columns in a way that preserves every relationship between values and column names in the original data set</li>
 </ol>
-<p>You can identify the columns to remove by name, by index (number), by inverse index (negative number), or by any of the <a href="https://dplyr.tidyverse.org/reference/select.html#useful-functions"><code>select()</code> helpers</a>, which come in the dplyr package. So for example, the following commands will do the same thing as the solution above:</p>
+<p>Since this is easier to see than explain, you may want to study the diagram above.</p>
+<div id="identify-columns-to-gather" class="section level5 unnumbered">
+<h5>Identify columns to gather</h5>
+<p>You can identify the columns to gather (i.e. remove) by:</p>
+<ol style="list-style-type: decimal">
+<li>name</li>
+<li>index (numbers)</li>
+<li>inverse index (negative numbers that specifiy the columns to <em>retain</em>, all other columns will be removed.)</li>
+<li>the <a href="https://dplyr.tidyverse.org/reference/select.html#useful-functions"><code>select()</code> helpers</a> that come in the dplyr package</li>
+</ol>
+<p>So for example, the following commands will do the same thing as the solution above:</p>
 <pre class="sourceCode r"><code class="sourceCode r">table4a <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>, <span class="st">`</span><span class="dt">&quot;1999&quot;, &quot;2000&quot;)</span>
 <span class="dt">table4a %&gt;% gather(key = &quot;year&quot;, value = &quot;cases&quot;, -1)</span>
 <span class="dt">table4a %&gt;% gather(key = &quot;year&quot;, value = &quot;cases&quot;, one_of(c(&quot;1999&quot;, &quot;2000&quot;)))</span></code></pre>
-<p>By default, the new key column will contain character strings. If you would like <code>gather()</code> to convert the new key column to the most sensible data type given its final contents, add the argument <code>convert = TRUE</code>.</p>
+<p>By default, the new key column will contain character strings. If you would like to convert the new key column to the most sensible data type given its final contents, add the argument <code>convert = TRUE</code>.</p>
+</div>
 </div>
 </div>
 <div id="separate-a-column-into-new-columns" class="section level2">
 <h2><span class="header-section-number">3.8</span> Separate a column into new columns</h2>
-<p>You want to split a single column into multiple columns by separating each cell in the column into a row of cells that each contain a separate portion of the value in the original cell.</p>
-<p>For example, <code>table3</code> combines <code>cases</code> and <code>population</code> values in a single column named <code>rate</code>. To make <code>table3</code> tidy, you need to separate <code>rate</code> into two columns: one for the <code>cases</code> variable, one for the <code>population</code> variable.</p>
+<p>You want to split a single column into multiple columns by separating each cell in the column into a row of cells. Each new cell should contain a separate portion of the value in the original cell.</p>
+<p><img src="images/tidyr-separate.png" style="display: block; margin: auto;" /></p>
+<p>For example, <code>table3</code> combines <code>cases</code> and <code>population</code> values in a single column named <code>rate</code>. To tidy <code>table3</code>, you need to separate <code>rate</code> into two columns: one for the <code>cases</code> variable and one for the <code>population</code> variable.</p>
 <pre class="sourceCode r"><code class="sourceCode r">table3</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ##   country      year rate             
@@ -437,7 +442,8 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 <div id="solution-17" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table3 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">separate</span>(<span class="dt">col =</span> rate, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>)</code></pre>
+<span class="st">  </span><span class="kw">separate</span>(<span class="dt">col =</span> rate, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), 
+           <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>)</code></pre>
 <pre><code>## # A tibble: 6 x 4
 ##   country      year  cases population
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
@@ -450,27 +456,38 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 </div>
 <div id="discussion-16" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p>To use <code>separate()</code>, pass <code>col</code> the name of the column to split. Pass <code>into</code> a vector of names for the new columns that <code>col</code> will be split into. You should supply one name for each new column that you expect to appear in the result; a mismatch will imply that something went wrong. <code>separate()</code> will:</p>
+<p>To use <code>separate()</code>, pass <code>col</code> the name of the column to split, and pass <code>into</code> a vector of names for the new columns to split <code>col</code> into. You should supply one name for each new column that you expect to appear in the result; a mismatch will imply that something went wrong.</p>
+<p><code>separate()</code> will:</p>
 <ol style="list-style-type: decimal">
 <li>Create a copy of the original data set</li>
-<li>Add a new column for each name in <code>into</code></li>
-<li>Split each value of <code>col</code> into multiple values. To do this, <code>separate()</code> will locate the positions of a separator character in each value. <code>separate()</code> will then makes the segments that appear between the separators separate (sub)values.</li>
-<li>Place the resulting (sub)values into the new columns in order, one (sub)value per column</li>
-<li>Remove the <code>col</code> column</li>
+<li>Add a new column for each value of <code>into</code>. The values will become the names of the new columns.</li>
+<li>Split each cell of <code>col</code> into multiple values, based on the locations of a separator character.</li>
+<li>Place the new values into the new columns in order, one value per column</li>
+<li>Remove the <code>col</code> column. Add the argument <code>remove = FALSE</code> to retain the <code>col</code> column in the final result.</li>
 </ol>
-<p>Add the argument <code>remove = FALSE</code> to retain the <code>col</code> column in the final result.</p>
-<p>By default, <code>separate()</code> will use each non-alpha-numeric character as a separator. To designate a specific separator character, pass a regular expression to <code>sep</code>. To split values into sequences that each have a specific number of characters, pass an integer vector to <code>sep</code>:</p>
+<p>Since this is easier to see than explain, you may want to study the diagram above.</p>
+<p>Each new column created by <code>separate()</code> will inherit the data type of the <code>col</code> column. If you would like to convert each new column to the most sensible data type given its final contents, add the argument <code>convert = TRUE</code>.</p>
+<div id="control-where-cells-are-separated" class="section level5 unnumbered">
+<h5>Control where cells are separated</h5>
+<p>By default, <code>separate()</code> will use non-alpha-numeric characters as a separators. Pass a regular expression to the <code>sep</code> argument to specify a different set of separators. Alternatively, pass an integer vector to the <code>sep</code> argument to split cells into sequences that each have a specific number of characters:</p>
 <ul>
-<li><code>sep = 1</code> will split each value between the first and second character.</li>
-<li><code>sep = c(1, 3)</code> will split each value between the first and second character and then again between the third and fourth character.</li>
-<li><code>sep = -1</code> will split each value between the last and second to last character.</li>
+<li><code>sep = 1</code> will split each cell between the first and second character.</li>
+<li><code>sep = c(1, 3)</code> will split each cell between the first and second character and then again between the third and fourth character.</li>
+<li><code>sep = -1</code> will split each cell between the last and second to last character.</li>
 </ul>
-<p>Each new column created by <code>separate()</code> will inherit the data type of the <code>col</code> column. If you would like <code>separate()</code> to convert each new column to the most sensible data type given its final contents, add the argument <code>convert = TRUE</code>.</p>
+</div>
+<div id="separate-into-multiple-rows" class="section level5 unnumbered">
+<h5>Separate into multiple rows</h5>
+<p><code>separate_rows()</code> behaves like <code>separate()</code> except that it places each new value into a new row (instead of into a new column).</p>
+<p><img src="images/tidyr-separate-rows.png" style="display: block; margin: auto;" /></p>
+<p>To use <code>separate_rows()</code>, follow the same syntax as <code>separate()</code>.</p>
+</div>
 </div>
 </div>
 <div id="unite-multiple-columns-into-a-single-column" class="section level2">
 <h2><span class="header-section-number">3.9</span> Unite multiple columns into a single column</h2>
 <p>You want to combine several columns into a single column by uniting their values across rows.</p>
+<p><img src="images/tidyr-unite.png" style="display: block; margin: auto;" /></p>
 <p>For example, <code>table5</code> splits the <code>year</code> variable across two columns: <code>century</code> and <code>year</code>. To make <code>table5</code> tidy, you need to unite <code>century</code> and <code>year</code> into a single column.</p>
 <pre class="sourceCode r"><code class="sourceCode r">table5</code></pre>
 <pre><code>## # A tibble: 6 x 4
@@ -498,15 +515,17 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 </div>
 <div id="discussion-17" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p>To use <code>unite()</code>, give <code>col</code> a character string to use as the name of the new column to create. Then list the columns to combine, and give <code>sep</code> a separator character to use to paste together the values in the cells of each column. <code>unite()</code> will:</p>
+<p>To use <code>unite()</code>, give the <code>col</code> argument a character string to use as the name of the new column to create. Then list the columns to combine. Finally, give the <code>sep</code> argument a separator character to use to paste together the values in the cells of each column. <code>unite()</code> will:</p>
 <ol style="list-style-type: decimal">
-<li>Paste together the values of the listed columns in vectorized (i.e. rowwise) fashion. <code>unite()</code> will place <code>sep</code> between each value during the paste process.</li>
-<li>Append the result as a column named <code>col</code> to a copy of the original data set</li>
+<li>Create a copy of the original data set</li>
+<li>Paste together the values of the listed columns in a vectorized (i.e. rowwise) fashion. <code>unite()</code> will place the value of <code>sep</code> between each value during the paste process.</li>
+<li>Append the results as a new column whose name is the value of <code>col</code></li>
 <li>Remove the listed columns. To retain the columns in the result, add the argument <code>remove = FALSE</code>.</li>
 </ol>
+<p>Since this is easier to see than explain, you may want to study the diagram above.</p>
 
 <div class="rmdcaution">
-If you do not suppy a <code>sep</code> value, <code>unite()</code> will use <code>_</code> as a separator character.
+If you do not suppy a <code>sep</code> value, <code>unite()</code> will use <code>_</code> as a separator character. To avoid a separator character, use <code>sep = &quot;&quot;</code>.
 </div>
 
 

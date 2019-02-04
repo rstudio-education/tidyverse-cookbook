@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2019-01-31">
+<meta name="date" content="2019-02-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -184,8 +184,7 @@ When you speak about R, it is difficult to distinguish between vectors that are 
 </div>
 <div id="what-is-the-tidyverse" class="section level2">
 <h2><span class="header-section-number">0.2</span> What is the tidyverse?</h2>
-<p>Each of the recipes in this book relies on R’s <a href="https://www.tidyverse.org/">tidyverse</a>, which is a collection of packages, functions, and <em>ideas</em>. You do not need to know which ideas are in the tidyverse to use tidyverse functions, just as you do not need to know which ingredients are in a cake mix to make a cake. However, understanding the tidyverse will help you see the best practices embedded in each recipe. This will make it easier for you to adapt the recipes to your own work.</p>
-<p>The <strong>tidyverse</strong> is a collection of R packages designed for data science. Tidyverse packages share a common design philosophy, so when you learn how to use one tidyverse package, you learn a lot about how to use the others.</p>
+<p>Each of the recipes in this book relies on R’s <a href="https://www.tidyverse.org/">tidyverse</a>, which is a collection of R packages designed for data science. Tidyverse packages share a common design philosophy, so when you learn how to use one tidyverse package, you learn a lot about how to use the others.</p>
 <p>Tidyverse packages are also:</p>
 <ul>
 <li>optimised to run fast, relying on C++ under the hood</li>
@@ -194,6 +193,7 @@ When you speak about R, it is difficult to distinguish between vectors that are 
 </ul>
 <p>Install the complete set of tidyverse packages with:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre>
+<p>Each tidyverse package is a collection of functions, documentation, and <em>ideas</em>. You do not need to know which ideas are in the tidyverse to use tidyverse functions, just as you do not need to know which ingredients are in a cake mix to make a cake. However, understanding the tidyverse will help you see the best practices embedded in each recipe. This will make it easier for you to adapt the recipes to your own work.</p>
 <div id="tidy-data" class="section level3">
 <h3><span class="header-section-number">0.2.1</span> Tidy data</h3>
 <p>Each package in the tidyverse is designed to use and return <strong>tidy data</strong> whenever appropriate. Tidy data is tabular data organized so that:</p>
@@ -214,10 +214,10 @@ When you speak about R, it is difficult to distinguish between vectors that are 
 <li>Focus on one task per function</li>
 <li>Can be combined with other functions to perform multi-step operations (using the pipe operator, <code>%&gt;%</code>)</li>
 </ol>
-<p>Tidy tools are easy to understand and easy to use. If tidy data is the data format optimised for R, tidy tools are the function format optimised for <em>you</em>.</p>
+<p>Tidy tools are easy to understand and easy to use. They encourage you to organize your work into a sequence of steps that can be considered and checked one at a time. If tidy data is the data format optimized for R, tidy tools are the function format optimized for <em>you</em>.</p>
 
 <div class="rmdtip">
-If you’d like to develop a deeper understanding of the tidyverse, I encourage you to read <a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a>, or to work through the <a href="https://rstudio.cloud/learn/primers">free primers on RStudio Cloud</a>.
+If you’d like a deeper understanding of the tidyverse, I encourage you to read <a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a>, or to work through the <a href="https://rstudio.cloud/learn/primers">free primers on RStudio Cloud</a>.
 </div>
 
 
