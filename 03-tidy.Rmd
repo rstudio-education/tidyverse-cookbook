@@ -145,7 +145,9 @@ To use `spread()`, assign the column that contains variable names to `key`. Assi
 1. Insert a new column for each unique variable name in the `key` column 
 1. Fill the new columns with the values of the `value` column in a way that preserves every relationship between values in the original data set
 
-Since this is easier to see than explain, you may want to study the diagram above. 
+    ```{block2, type='rmdcaution'}
+    Since this is easier to see than explain, you may want to     study the diagram and result above. 
+    ``` 
 
 Each new column created by `spread()` will inherit the data type of the `value` column. If you would to convert each new column to the most sensible data type given its final contents, add the argument `convert = TRUE`.
 
@@ -186,7 +188,9 @@ To use `gather()`, pick names for the new `key` and `value` columns, and supply 
 1. Add a value column with the supplied name
 1. Fill the value column with the values of the removed columns in a way that preserves every relationship between values and column names in the original data set
 
-Since this is easier to see than explain, you may want to study the diagram above. 
+    ```{block2, type='rmdcaution'}
+    Since this is easier to see than explain, you may want to     study the diagram and result above. 
+    ``` 
 
 ##### Identify columns to gather {-}
 
@@ -241,7 +245,9 @@ To use `separate()`, pass `col` the name of the column to split, and pass `into`
 1. Place the new values into the new columns in order, one value per column
 1. Remove the `col` column. Add the argument `remove = FALSE` to retain the `col` column in the final result.
 
-Since this is easier to see than explain, you may want to study the diagram above. 
+    ```{block2, type='rmdcaution'}
+    Since this is easier to see than explain, you may want to     study the diagram and result above. 
+    ``` 
 
 Each new column created by `separate()` will inherit the data type of the `col` column. If you would like to convert each new column to the most sensible data type given its final contents, add the argument `convert = TRUE`.
 
@@ -293,7 +299,9 @@ To use `unite()`, give the `col` argument a character string to use as the name 
 1. Append the results as a new column whose name is the value of `col`
 1. Remove the listed columns. To retain the columns in the result, add the argument `remove = FALSE`.
 
-Since this is easier to see than explain, you may want to study the diagram above. 
+    ```{block2, type='rmdcaution'}
+    Since this is easier to see than explain, you may want to     study the diagram and result above. 
+    ``` 
 
 ```{block2, type = "rmdcaution"}
 If you do not suppy a `sep` value, `unite()` will use `_` as a separator character. To avoid a separator character, use `sep = ""`.
