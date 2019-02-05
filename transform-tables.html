@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2019-02-04">
+<meta name="date" content="2019-02-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -180,15 +180,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="transform-tables.html#select-columns-by-end-of-name">Select columns by end of name</a></li>
 <li><a href="transform-tables.html#select-columns-by-string-in-name">Select columns by string in name</a></li>
 <li><a href="transform-tables.html#reorder-columns">Reorder columns</a></li>
-<li><a href="transform-tables.html#reorder-columns-without-naming-each-column">Reorder columns without naming each column</a></li>
+<li><a href="transform-tables.html#reorder-columns-without-naming-each">Reorder columns without naming each</a></li>
 <li><a href="transform-tables.html#rename-columns">Rename columns</a></li>
 <li><a href="transform-tables.html#return-the-contents-of-a-column-as-a-vector">Return the contents of a column as a vector</a></li>
-<li><a href="transform-tables.html#summarise-data">Summarise data</a></li>
-<li><a href="transform-tables.html#summarise-data-by-groups">Summarise data by groups</a></li>
 <li><a href="transform-tables.html#mutate-data-add-new-variables">Mutate data (Add new variables)</a></li>
+<li><a href="transform-tables.html#summarise-data">Summarise data</a></li>
+<li><a href="transform-tables.html#group-data">Group data</a></li>
+<li><a href="transform-tables.html#summarise-data-by-groups">Summarise data by groups</a></li>
 <li><a href="transform-tables.html#combine-transform-recipes">Combine transform recipes</a></li>
-<li><a href="transform-tables.html#join-data-sets-by-common-columns">Join data sets by common column(s)</a></li>
-<li><a href="transform-tables.html#filter-one-data-set-against-another">Filter one data set against another</a></li>
+<li><a href="transform-tables.html#joins">Join data sets by common column(s)</a></li>
+<li><a href="transform-tables.html#find-rows-that-have-a-match">Find rows that have a match</a></li>
+<li><a href="transform-tables.html#find-rows-that-do-not-have-a-match">Find rows that do not have a match</a></li>
 </ol>
 </div>
 <hr />
@@ -510,8 +512,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p>Use <code>select()</code> to select all of the columns. List the column names in the new order.</p>
 </div>
 </div>
-<div id="reorder-columns-without-naming-each-column" class="section level2">
-<h2><span class="header-section-number">4.12</span> Reorder columns without naming each column</h2>
+<div id="reorder-columns-without-naming-each" class="section level2">
+<h2><span class="header-section-number">4.12</span> Reorder columns without naming each</h2>
 <p>You want to reorder some of the columns in the original data frame, but you don’t care about the order for other columns, and you may have too many columns to name them each individually.</p>
 <p><img src="images/dplyr-select-everything.png" style="display: block; margin: auto;" /></p>
 <div id="solution-30" class="section level4 unnumbered">
@@ -575,11 +577,52 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <pre><code>## [1]    745   2666  37737  80488 212258 213766</code></pre>
 </div>
 </div>
-<div id="summarise-data" class="section level2">
-<h2><span class="header-section-number">4.15</span> Summarise data</h2>
-<p>You want to compute summary statistics for your data set.</p>
-<p><img src="images/dplyr-summarise.png" style="display: block; margin: auto;" /></p>
+<div id="mutate-data-add-new-variables" class="section level2">
+<h2><span class="header-section-number">4.15</span> Mutate data (Add new variables)</h2>
+<p>You want to compute one or more new variables and add them to your table as columns.</p>
+<p><img src="images/dplyr-mutate.png" style="display: block; margin: auto;" /></p>
 <div id="solution-33" class="section level4 unnumbered">
+<h4>Solution</h4>
+<pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rate =</span> cases<span class="op">/</span>population, <span class="dt">percent =</span> rate <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##   country      year  cases population      rate percent
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Afghanistan  1999    745   19987071 0.0000373 0.00373
+## 2 Afghanistan  2000   2666   20595360 0.000129  0.0129 
+## 3 Brazil       1999  37737  172006362 0.000219  0.0219 
+## 4 Brazil       2000  80488  174504898 0.000461  0.0461 
+## 5 China        1999 212258 1272915272 0.000167  0.0167 
+## 6 China        2000 213766 1280428583 0.000167  0.0167</code></pre>
+</div>
+<div id="discussion-30" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>To use <code>mutate()</code>, pass it a series of names followed by R expressions. <code>mutate()</code> will return a copy of your table that contains one column for each name that you pass to <code>mutate()</code>. The name of the column will be the name that you passed to <code>mutate()</code>; the contents of the column will be the result of the R expression that you assigned to the name. The R expression should always return a vector of the same length as the other columns in the data frame,<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> because <code>mutate()</code> will add the vector as a new column.</p>
+<p><img src="images/dplyr-vectorized-functions.png" style="display: block; margin: auto;" /></p>
+<p>In other words, <code>mutate()</code> is intended to be used with <em>vectorized functions</em>, which are functions that take a vector of values as input and return a new vector of values as output (e.g <code>abs()</code>, <code>round()</code>, and all of R’s math operations).</p>
+<p><code>mutate()</code> will build the columns in the order that you define them. As a result, you may use a new column in the column definitions that follow it.</p>
+<div id="dropping-the-original-data" class="section level5 unnumbered">
+<h5>Dropping the original data</h5>
+<p>Use <code>transmute()</code> to return only the new columns that <code>mutate()</code> would create.</p>
+<pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">transmute</span>(<span class="dt">rate =</span> cases<span class="op">/</span>population, <span class="dt">percent =</span> rate <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</code></pre>
+<pre><code>## # A tibble: 6 x 2
+##        rate percent
+##       &lt;dbl&gt;   &lt;dbl&gt;
+## 1 0.0000373 0.00373
+## 2 0.000129  0.0129 
+## 3 0.000219  0.0219 
+## 4 0.000461  0.0461 
+## 5 0.000167  0.0167 
+## 6 0.000167  0.0167</code></pre>
+</div>
+</div>
+</div>
+<div id="summarise-data" class="section level2">
+<h2><span class="header-section-number">4.16</span> Summarise data</h2>
+<p>You want to compute summary statistics for the data in your data frame.</p>
+<p><img src="images/dplyr-summarise.png" style="display: block; margin: auto;" /></p>
+<div id="solution-34" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(cases), <span class="dt">max_rate =</span> <span class="kw">max</span>(cases<span class="op">/</span>population))</code></pre>
@@ -588,19 +631,54 @@ So to transform a table, begin with a recipe that transforms the structure of th
 ##         &lt;int&gt;    &lt;dbl&gt;
 ## 1      547660 0.000461</code></pre>
 </div>
-<div id="discussion-30" class="section level4 unnumbered">
+<div id="discussion-31" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p>To use <code>summarise()</code> pass it a series of column names followed by R expressions. <code>summarise()</code> will return a new 1 x n tibble. Each argument name passed to <code>summarise()</code> will become a column name in the tibble. The column will contain the results of evaluating the R expression assigned to the name.</p>
+<p>To use <code>summarise()</code>, pass it a series of names followed by R expressions. <code>summarise()</code> will return a new tibble that contains one column for each name that you pass to <code>summarise()</code>. The name of the column will be the name that you passed to <code>summarise()</code>; the contents of the column will be the result of the R expression that you assigned to the name. The R expression should always return a single value because <code>summarise()</code> will always return a 1 x n tibble.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p><img src="images/dplyr-summary-functions.png" style="display: block; margin: auto;" /></p>
-<p><code>summarise()</code> is intended to be used with <em>summary functions</em>, which are functions that take a vector of values as input and return a single value as output (e.g <code>sum()</code>, <code>max()</code>, <code>mean()</code>). In normal use, <code>summarise()</code> will pass each function a column (i.e. vector) of values and expect a single value in return.</p>
+<p>In other words, <code>summarise()</code> is intended to be used with <em>summary functions</em>, which are functions that take a vector of values as input and return a single value as output (e.g <code>sum()</code>, <code>max()</code>, <code>mean()</code>). In normal use, <code>summarise()</code> will pass each function a column (i.e. vector) of values and expect a single value in return.</p>
 <p><code>summarize()</code> is an alias for <code>summarise()</code>.</p>
 </div>
 </div>
+<div id="group-data" class="section level2">
+<h2><span class="header-section-number">4.17</span> Group data</h2>
+<p>You want to assign the rows of your data to subgroups based on their shared values or their shared combinations of values.</p>
+<p><img src="images/dplyr-groups.png" style="display: block; margin: auto;" /></p>
+<p>You want to do this as the first step in a multi-step analysis, because grouping data doesn’t do anything noticeable until you pass the grouped data to a tidyverse function.</p>
+<div id="solution-35" class="section level4 unnumbered">
+<h4>Solution</h4>
+<pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(country)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+## # Groups:   country [3]
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+</div>
+<div id="discussion-32" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p><code>group_by()</code> converts your data into a grouped tibble, which is a tibble subclass that indicates in its attributes<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> which rows belong to which group.</p>
+<p>To group rows by the values of a single column, pass <code>group_by()</code> a single column name. To group rows by the unique <em>combination</em> of values across multiple columns, pass <code>group_by()</code> the names of two or more columns.</p>
+<div id="group-wise-operations" class="section level5 unnumbered">
+<h5>Group-wise operations</h5>
+<p>Where appropriate, tidyverse functions recognize grouped tibbles. Tidyverse functions:</p>
+<ol style="list-style-type: decimal">
+<li>treat each group as a distinct data set</li>
+<li>execute their code separately on each group</li>
+<li>combine the results into a new data frame that contains the same grouping characteristics. <code>summarise()</code> is a slight exception, see below.</li>
+</ol>
+</div>
+</div>
+</div>
 <div id="summarise-data-by-groups" class="section level2">
-<h2><span class="header-section-number">4.16</span> Summarise data by groups</h2>
-<p>You want to compute summary statistics for different subgroups of data in your data set. You can use the variables in your data set to identify which subgroup each row belongs to.</p>
+<h2><span class="header-section-number">4.18</span> Summarise data by groups</h2>
+<p>You want to compute summary statistics for different subgroups of data in your grouped data frame.</p>
 <p><img src="images/dplyr-group_by.png" style="display: block; margin: auto;" /></p>
-<div id="solution-34" class="section level4 unnumbered">
+<div id="solution-36" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -612,29 +690,23 @@ So to transform a table, begin with a recipe that transforms the structure of th
 ## 2 Brazil           118225 0.000461
 ## 3 China            426024 0.000167</code></pre>
 </div>
-<div id="discussion-31" class="section level4 unnumbered">
+<div id="discussion-33" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p><code>group_by()</code> converts your data into a grouped tibble, which is a tibble subclass that indicates in its attributes<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> which rows belong to which group.</p>
-<p>To group rows by the values of a single column, pass <code>group_by()</code> a single column name. To group rows by the unique <em>combination</em> of values across multiple columns, pass <code>group_by()</code> the names of two or more columns.</p>
-<div id="group-wise-operations" class="section level5 unnumbered">
-<h5>Group-wise operations</h5>
-<p>Where appropriate, tidyverse functions recognize grouped tibbles. Tidyverse functions:</p>
+<p>Group-wise summaries are the most common use of grouped data. When you apply <code>summarise()</code> to grouped data, <code>summarise()</code> will:</p>
 <ol style="list-style-type: decimal">
 <li>treat each group as a distinct data set</li>
-<li>execute their code separately on each group</li>
-<li><p>combine the results into a new data frame that contains the same grouping characteristics. <code>summarise()</code> is an exception, see below.</p>
+<li>compute separate statistics for each group</li>
+<li><p>combine the results into a new tibble</p>
 
 <div class="rmdcaution">
 Since this is easier to see than explain, you may want to study the diagram and result above.
 </div></li>
 </ol>
-</div>
-<div id="group-wise-summaries" class="section level5 unnumbered">
-<h5>Group-wise summaries</h5>
 <p><code>summarise()</code> gives grouped data special treatment in two ways:</p>
 <ol style="list-style-type: decimal">
-<li><p><code>summarise()</code> will one or more columns of group labels to its result. This makes the output of grouped summaries interpretable.</p></li>
-<li><p><code>summarise()</code> removes the last column name from the grouping criteria of its result. For example, if the input of <code>summarise()</code> is grouped by <code>country</code> and <code>year</code>, the output of <code>summarise()</code> will only be grouped by <code>country</code>. Because of this, you can call <code>summarise()</code> repeatedly to view progressively higher level summaries:</p></li>
+<li><p><code>summarise()</code> will retain the column(s) that were used to group the data in its result. This makes the output of grouped summaries interpretable.</p></li>
+<li><p><code>summarise()</code> will shorten the grouping criteria of its result by one column name (the last column name). Compare this to other tidyverse functions which give their result the <em>same</em> grouping criteria as their input.</p>
+<p>For example, if the input of <code>summarise()</code> is grouped by <code>country</code> and <code>year</code>, the output of <code>summarise()</code> will only be grouped by <code>country</code>. Because of this, you can call <code>summarise()</code> repeatedly to view progressively higher level summaries:</p></li>
 </ol>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(country, year) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -670,61 +742,24 @@ Since this is easier to see than explain, you may want to study the diagram and 
 ## 1      547660</code></pre>
 </div>
 </div>
-</div>
-<div id="mutate-data-add-new-variables" class="section level2">
-<h2><span class="header-section-number">4.17</span> Mutate data (Add new variables)</h2>
-<p>You want to compute one or more new variables and add them to your table as columns.</p>
-<div id="solution-35" class="section level4 unnumbered">
-<h4>Solution</h4>
-<pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rate =</span> cases<span class="op">/</span>population, <span class="dt">percent =</span> rate <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</code></pre>
-<pre><code>## # A tibble: 6 x 6
-##   country      year  cases population      rate percent
-##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-## 1 Afghanistan  1999    745   19987071 0.0000373 0.00373
-## 2 Afghanistan  2000   2666   20595360 0.000129  0.0129 
-## 3 Brazil       1999  37737  172006362 0.000219  0.0219 
-## 4 Brazil       2000  80488  174504898 0.000461  0.0461 
-## 5 China        1999 212258 1272915272 0.000167  0.0167 
-## 6 China        2000 213766 1280428583 0.000167  0.0167</code></pre>
-</div>
-<div id="discussion-32" class="section level4 unnumbered">
-<h4>Discussion</h4>
-<p><code>mutate()</code> returns a copy of your table that contains additional columns. Each argument name passed to <code>mutate()</code> will become the name of a new column. Each new column will contain the result of the R expression passed to the argument/column name.</p>
-<p><code>mutate()</code> will build the columns in the order that you define them. As a result, you may use a column in the column definitions that follow it.</p>
-<p><code>mutate()</code> is intended to be used with <em>vectorized functions</em>, which are functions that take a vector of values as input and return a new vector of values as output (e.g <code>abs()</code>, <code>round()</code>, and all of R’s math operations).</p>
-<p>Use <code>transmute()</code> to return only the new columns that <code>mutate()</code> would create.</p>
-<pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">transmute</span>(<span class="dt">rate =</span> cases<span class="op">/</span>population, <span class="dt">percent =</span> rate <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</code></pre>
-<pre><code>## # A tibble: 6 x 2
-##        rate percent
-##       &lt;dbl&gt;   &lt;dbl&gt;
-## 1 0.0000373 0.00373
-## 2 0.000129  0.0129 
-## 3 0.000219  0.0219 
-## 4 0.000461  0.0461 
-## 5 0.000167  0.0167 
-## 6 0.000167  0.0167</code></pre>
-</div>
-</div>
 <div id="combine-transform-recipes" class="section level2">
-<h2><span class="header-section-number">4.18</span> Combine transform recipes</h2>
+<h2><span class="header-section-number">4.19</span> Combine transform recipes</h2>
 <p>You want to transform the structure of a table, and you want to use the data within the table to do it. This is the sort of thing you do everytime you call <code>summarise()</code> or <code>mutate()</code>.</p>
-<div id="solution-36" class="section level4 unnumbered">
+<div id="solution-37" class="section level4 unnumbered">
 <h4>Solution</h4>
 <p>See the discussion.</p>
 </div>
-<div id="discussion-33" class="section level4 unnumbered">
+<div id="discussion-34" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>When you transform a data frame, you often work with several functions:</p>
 <ol style="list-style-type: decimal">
-<li><p>A function that transforms the structure of the data frame to add or remove rows or columns. This function transforms a <em>table</em>.</p></li>
-<li><p>A function that transforms the values that appear in the data frame to create new values to place in a new row or column. This function transforms a <em>data vector</em>.</p></li>
+<li><p>A function that transforms the <em>table</em> itself, adding columns to its structure, or building a whole new table to hold results.</p></li>
+<li><p>A function that transforms the values held in the table. Since values are always held in vectors (here column vectors), this function transforms a <em>vector</em> to create a new vector that can then be added to the empty column or table created by function 1.</p></li>
 <li><p>A function that mediates between 1 and 2 if the values are embedded in a list-column, which is a <em>list</em>.</p></li>
 </ol>
 <p>The most concise way to learn how to combine these functions is to learn about the functions in isolation, and to then have the functions call each other as necessary.</p>
-<div id="an-example" class="section level5">
-<h5><span class="header-section-number">4.18.0.0.1</span> An Example</h5>
+<div id="an-example" class="section level5 unnumbered">
+<h5>An example</h5>
 <p><code>smiths</code> contains measurements that describe two fictional people: John and Mary Smith.</p>
 <pre class="sourceCode r"><code class="sourceCode r">smiths</code></pre>
 <pre><code>## # A tibble: 2 x 5
@@ -750,9 +785,9 @@ Since this is easier to see than explain, you may want to study the diagram and 
 ## 2 Mary Smith     1    NA     NA   1.54          2</code></pre>
 <p><code>round()</code> works with data vectors. <code>mutate()</code> works with tables. Together they create the table you want.</p>
 </div>
-<div id="an-example-that-uses-list-columns" class="section level5">
-<h5><span class="header-section-number">4.18.0.0.2</span> An example that uses list columns</h5>
-<p><code>sepals</code> contains sepal length measurements for three species of flower. The measurements are stored in a list-column named <code>lengths</code>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<div id="an-example-that-uses-list-columns" class="section level5 unnumbered">
+<h5>An example that uses list columns</h5>
+<p><code>sepals</code> is a tibble that I made for this example.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> It contains sepal length measurements for three species of flowers. The measurements are stored in a list-column named <code>lengths</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">sepals</code></pre>
 <pre><code>## # A tibble: 3 x 2
 ##   Species    lengths   
@@ -766,9 +801,9 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 <pre><code>##  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4
 ## [18] 5.1 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5
 ## [35] 4.9 5.0 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0</code></pre>
-<p>To append the average sepal length for each species, you would need three functions:</p>
+<p>To add the average sepal length for each species to the table, you would need three functions:</p>
 <ol style="list-style-type: decimal">
-<li><p><code>mean()</code> which can compute the average value of a data vector in <code>lengths</code></p>
+<li><p><code>mean()</code> which can compute the average of a data vector in <code>lengths</code></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(sepals[[<span class="dv">1</span>, <span class="dv">2</span>]])</code></pre>
 <pre><code>## [1] 5.006</code></pre></li>
 <li><p><code>map_dbl()</code> which can apply <code>mean()</code> to each cell of <code>lengths</code>, which is a list-column.</p>
@@ -788,11 +823,12 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 </div>
 </div>
 </div>
-<div id="join-data-sets-by-common-columns" class="section level2">
-<h2><span class="header-section-number">4.19</span> Join data sets by common column(s)</h2>
-<p>You want to combine two data sets into a single data set, taking care to ensure that observations in the first data set are matched to the corresponding observations in the second data set, even if those observations do not appear in the same order.</p>
-<p>Your data is structured in such a way that you can match observations by the values of one or more ID columns that appear in both data sets.</p>
-<p>For example, you would like to combine <code>band_members</code> and <code>band_insturments</code> into a single data based on the values of the <code>name</code> column. The new data set will correctly list who plays what.</p>
+<div id="joins" class="section level2">
+<h2><span class="header-section-number">4.20</span> Join data sets by common column(s)</h2>
+<p>You want to combine two data frames into a single data frame, such that observations in the first data frame are matched to the corresponding observations in the second data frame, even if those observations do not appear in the same order.</p>
+<p>Your data is structured in such a way that you can match observations by the values of one or more ID columns that appear in both data frames.</p>
+<p><img src="images/dplyr-left-join.png" style="display: block; margin: auto;" /></p>
+<p>For example, you would like to combine <code>band_members</code> and <code>band_instruments</code> into a single data frame based on the values of the <code>name</code> column. The new data frame will correctly list who plays what.</p>
 <pre class="sourceCode r"><code class="sourceCode r">band_members</code></pre>
 <pre><code>## # A tibble: 3 x 2
 ##   name  band   
@@ -807,7 +843,7 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 1 John  guitar
 ## 2 Paul  bass  
 ## 3 Keith guitar</code></pre>
-<div id="solution-37" class="section level4 unnumbered">
+<div id="solution-38" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
@@ -818,14 +854,14 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 2 John  Beatles guitar
 ## 3 Paul  Beatles bass</code></pre>
 </div>
-<div id="discussion-34" class="section level4 unnumbered">
+<div id="discussion-35" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<div id="mutating-joins" class="section level5 unnumbered">
-<h5>Mutating joins</h5>
-<p>You have four options when joining content from one data set to another. Of these, <code>left_join()</code> is the most frequently used.</p>
+<p>There are four ways to join content from one data frame to another. Each uses a different function name, but the same arguments and syntax. Of these, <code>left_join()</code> is the most common.</p>
 <ol style="list-style-type: decimal">
-<li><p><code>left_join()</code> returns a copy of the first data set that includes any rows from the second data set that have a match in the first data set, ignoring the rows that do not have a match (as above).</p></li>
-<li><p><code>right_join()</code> returns a copy of the second data set intermixed with any rows from the first data set that have a match in the second data set, ignoring the rows that do not have a match:</p>
+<li><p><code>left_join()</code> drops any row in the <em>second</em> data set does not match a row in the first data set. (It retains every row in the first data set, which appears on the left when you type the function call, hence the name).</p>
+<p><img src="images/dplyr-left-join.png" style="display: block; margin: auto;" /></p></li>
+<li><p><code>right_join()</code> drops any row in the <em>first</em> data set does not match a row in the first data set.</p>
+<p><img src="images/dplyr-right-join.png" style="display: block; margin: auto;" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">right_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
 <pre><code>## # A tibble: 3 x 3
@@ -834,7 +870,8 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 1 John  Beatles guitar
 ## 2 Paul  Beatles bass  
 ## 3 Keith &lt;NA&gt;    guitar</code></pre></li>
-<li><p><code>inner_join()</code> returns a copy of those rows in the first data set that have a match in the second data set along with the rows from the second data set that they match. <code>inner_join()</code> does not retain any incomplete rows from either data set.</p>
+<li><p><code>inner_join()</code> drops any row in <em>either</em> data set that does not have a match in both data sets, i.e. <code>inner_join()</code> does not retain any incomplete rows in the final result.</p>
+<p><img src="images/dplyr-inner-join.png" style="display: block; margin: auto;" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">inner_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
 <pre><code>## # A tibble: 2 x 3
@@ -842,7 +879,8 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
 ## 1 John  Beatles guitar
 ## 2 Paul  Beatles bass</code></pre></li>
-<li><p><code>full_join()</code> returns a copy of the first data set that includes every row from the second data set. <code>full_join()</code> includes all of the data from each data set.</p>
+<li><p><code>full_join()</code> retains every row from both data sets; it is the only join guaranteed to retain all of the original data.</p>
+<p><img src="images/dplyr-full-join.png" style="display: block; margin: auto;" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">full_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
 <pre><code>## # A tibble: 4 x 3
@@ -853,12 +891,14 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 3 Paul  Beatles bass  
 ## 4 Keith &lt;NA&gt;    guitar</code></pre></li>
 </ol>
+<div id="mutating-joins" class="section level5 unnumbered">
+<h5>Mutating joins</h5>
 <p><code>left_join()</code>, <code>right_join()</code>, <code>inner_join()</code>, and <code>full_join()</code> are collectively called <em>mutating joins</em> because they add additional columns to a copy of a data set, as does <code>mutate()</code>.</p>
 </div>
 <div id="specifying-columns-to-join-on" class="section level5 unnumbered">
 <h5>Specifying column(s) to join on</h5>
-<p>Pass the <code>by</code> argument the name of the column to join on as a character string. This name should appear in both data sets.</p>
-<p>To join on multiple columns, pass <code>by</code> a character vector of column names. Each name should appear in both data sets. R will join together rows that contain the same combination of values in the columns.</p>
+<p>By default, the mutating join functions will join on the set of columns whose names appear in both data frames. The join functions will match each row in the first data frame to the row in the second data frame that has the same combination of values across the commonly named columns.</p>
+<p>To override the default, add a <code>by</code> argument to your join function. Pass it the name(s) of the column(s) to join on as a character vector. These names should appear in both data sets. R will join together rows that contain the same combination of values in these columns, ignoring the values in other columns, even if those columns share a name with a column in the other data frame.</p>
 <pre class="sourceCode r"><code class="sourceCode r">table1 <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(table3, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>))</code></pre>
 <pre><code>## # A tibble: 6 x 5
@@ -870,11 +910,10 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 4 Brazil       2000  80488  174504898 80488/174504898  
 ## 5 China        1999 212258 1272915272 212258/1272915272
 ## 6 China        2000 213766 1280428583 213766/1280428583</code></pre>
-<p>If you do not provide a <code>by</code> argument, the mutating join functions will join on the set of column names that appear in both data sets.</p>
 </div>
 <div id="joining-when-id-names-do-not-match" class="section level5 unnumbered">
 <h5>Joining when ID names do not match</h5>
-<p>It is common for an ID column to appear with different names in each data set. For example, the <code>name</code> column appears as <code>artist</code> in <code>band_instruments2</code>.</p>
+<p>Often an ID variable will appear with a different name in each data frame. For example, the <code>name</code> variable appears as <code>artist</code> in <code>band_instruments2</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">band_instruments2</code></pre>
 <pre><code>## # A tibble: 3 x 2
 ##   artist plays 
@@ -882,7 +921,15 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 1 John   guitar
 ## 2 Paul   bass  
 ## 3 Keith  guitar</code></pre>
-<p>To join by two columns that have different names, pass <code>by</code> a named character vector. For each element in the vector, the mutating join will match the column in the first data set that corresponds to the name of the element to the column in the data set that corresponds to the value of the argument.</p>
+<p>To join by two columns that have different names, pass <code>by</code> a named character vector: each element of the vector should be a pair of names, e.g.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dt">name1 =</span> <span class="st">&quot;name2&quot;</span>, <span class="dt">name4 =</span> <span class="st">&quot;name4&quot;</span>)</code></pre>
+<p>For each element,</p>
+<ol style="list-style-type: decimal">
+<li>Write the name of the column that appears in the first data frame</li>
+<li>Write an equals sign</li>
+<li>Write the name of the matching column that appears in the second data set.</li>
+</ol>
+<p>Only the second name needs to be surrounded with quotation marks. The join will match the corresponding columns across data frames.</p>
 <pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(band_instruments2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="dt">name =</span> <span class="st">&quot;artist&quot;</span>))</code></pre>
 <pre><code>## # A tibble: 3 x 3
@@ -895,7 +942,7 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 </div>
 <div id="suffixes" class="section level5 unnumbered">
 <h5>Suffixes</h5>
-<p>The mutating joins will append the suffixes <code>.x</code> and <code>.y</code> to any columns that are not used to join on, but have the same name in both data sets. The columns from the first data set are suffixed with <code>.x</code>, the columns from the second with <code>.y</code>.</p>
+<p>Joins will append the suffixes <code>.x</code> and <code>.y</code> to any columns that have the same name in both data sets <em>but are not used to join on</em>. The columns from the first data set are suffixed with <code>.x</code>, the columns from the second with <code>.y</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">table4a <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(table4b, <span class="dt">by =</span> <span class="st">&quot;country&quot;</span>)</code></pre>
 <pre><code>## # A tibble: 3 x 5
@@ -916,11 +963,12 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 </div>
 </div>
 </div>
-<div id="filter-one-data-set-against-another" class="section level2">
-<h2><span class="header-section-number">4.20</span> Filter one data set against another</h2>
-<p>You want to filter a data set down to only the rows that <em>have</em> a corresponding row in a second set, or alternatively to only the rows that <em>do not have</em> a corresponding row in a second data set.</p>
-<p>Your data is structured in such a way that you can match rows by the values of one or more ID columns that appear in both data sets.</p>
-<p>For example, you would like to return the rows of <code>band_members</code> that have a corresponding row in <code>band_instruments</code>. The new data set will be a reduced version of <code>band_members</code> that does not contain any new columns.</p>
+<div id="find-rows-that-have-a-match" class="section level2">
+<h2><span class="header-section-number">4.21</span> Find rows that have a match</h2>
+<p>You want to find the rows in one data frame that have a match in a second data frame. By match, you mean that both rows refer to the same observation, even if they include different measurements.</p>
+<p>Your data is structured in such a way that you can match rows by the values of one or more ID columns that appear in both data frames.</p>
+<p><img src="images/dplyr-semi-join.png" style="display: block; margin: auto;" /></p>
+<p>For example, you would like to return the rows of <code>band_members</code> that have a corresponding row in <code>band_instruments</code>. The new data frame will be a reduced version of <code>band_members</code> that does not contain any new columns.</p>
 <pre class="sourceCode r"><code class="sourceCode r">band_members</code></pre>
 <pre><code>## # A tibble: 3 x 2
 ##   name  band   
@@ -935,7 +983,7 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 1 John  guitar
 ## 2 Paul  bass  
 ## 3 Keith guitar</code></pre>
-<div id="solution-38" class="section level4 unnumbered">
+<div id="solution-39" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">semi_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
@@ -945,40 +993,64 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 1 John  Beatles
 ## 2 Paul  Beatles</code></pre>
 </div>
-<div id="discussion-35" class="section level4 unnumbered">
+<div id="discussion-36" class="section level4 unnumbered">
 <h4>Discussion</h4>
+<p><code>semi_join()</code> returns only the rows of the first data frame that <em>have</em> a match in the second data frame. A match is a row that would be combined with the first row by a <a href="transform-tables.html#joins">mutating join</a>. This makes <code>semi_join()</code> a useful way to preview which rows will be retained by a mutating join.</p>
+<p><code>semi_join()</code> uses the same syntax as mutating joins. Learn more in <a href="transform-tables.html#specifying-columns-to-join-on">Specifying column(s) to join on</a> and <a href="transform-tables.html#joining-when-id-names-do-not-match">Joining when ID names do not match</a>.</p>
 <div id="filtering-joins" class="section level5 unnumbered">
 <h5>Filtering joins</h5>
-<p>You have two options when filtering one data against another.</p>
-<ol style="list-style-type: decimal">
-<li><p><code>semi_join()</code> returns a copy of the first data set that includes only the rows that <em>have</em> a corresponding row in the second data set.</p></li>
-<li><p><code>anti_join()</code> returns a copy of the first data set that includes only the rows that <em>do not have</em> a corresponding row in the second data set.</p>
+<p><code>semi_join()</code> and <code>anti_join()</code> (see below) are called <em>filtering joins</em> because they filter a data frame to only those rows that meet a specific criteria, as does <code>filter()</code>.</p>
+<p>Unlike mutating joins, filtering joins do not add columns from the second data frame to the first. Instead, they use the second data frame to identify rows to return from the first.</p>
+<p>When you need to filter on a complicated set of conditions, filtering joins can be more effective than <code>filter()</code>: use <code>tribble()</code> to create a data frame to filter against with a filtering join.</p>
+</div>
+</div>
+</div>
+<div id="find-rows-that-do-not-have-a-match" class="section level2">
+<h2><span class="header-section-number">4.22</span> Find rows that do not have a match</h2>
+<p>You want to find the rows in one data frame that <em>do not</em> have a match in a second data frame. By match, you mean that both rows refer to the same observation, even if they include different measurements.</p>
+<p>Your data is structured in such a way that you can match rows by the values of one or more ID columns that appear in both data frames.</p>
+<p><img src="images/dplyr-anti-join.png" style="display: block; margin: auto;" /></p>
+<p>For example, you would like to return the rows of <code>band_members</code> that do not have a corresponding row in <code>band_instruments</code>. The new data frame will be a reduced version of <code>band_members</code> that does not contain any new columns.</p>
+<pre class="sourceCode r"><code class="sourceCode r">band_members</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   name  band   
+##   &lt;chr&gt; &lt;chr&gt;  
+## 1 Mick  Stones 
+## 2 John  Beatles
+## 3 Paul  Beatles</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">band_instruments</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   name  plays 
+##   &lt;chr&gt; &lt;chr&gt; 
+## 1 John  guitar
+## 2 Paul  bass  
+## 3 Keith guitar</code></pre>
+<div id="solution-40" class="section level4 unnumbered">
+<h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">anti_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##   name  band  
 ##   &lt;chr&gt; &lt;chr&gt; 
 ## 1 Mick  Stones</code></pre>
-<p><code>anti_join()</code> provides a useful way to check for typos that could interfere with a mutating join; these rows will not have a match in the second data set (assuming that the typo does not also appear in the second data set).</p>
-<p><code>anti_join()</code> also highlihts entries that are coded in different ways across data sets, such as <code>&quot;North_Carolina&quot;</code> and <code>&quot;North Carolina&quot;</code>.</p></li>
-</ol>
-<p><code>semi_join()</code> and <code>anti_join()</code> are collectively called <em>filtering joins</em> because they filter a data set to only those rows that meet a specific criteria, as does <code>filter()</code>.</p>
-<p>Filtering joins can be more effective than <code>filter()</code> when you need to filter on a complicated set of conditions: use <code>tribble()</code> to create a data set to filter against.</p>
-<p>Unlike mutating joins, filtering joins do not add columns from the second data set to the first. They only use the second data set to identify rows to return from the first.</p>
 </div>
-<div id="specifying-columns-to-join-on-1" class="section level5 unnumbered">
-<h5>Specifying column(s) to join on</h5>
-<p>Filtering joins use the same <code>by</code> syntax as mutating joins. Learn more in <a href="transform-tables.html#specifying-columns-to-join-on-1">Specifying column(s) to join on</a> and <a href="transform-tables.html#joining-when-id-names-do-not-match">Joining when ID names do not match</a>.</p>
+<div id="discussion-37" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p><code>anti_join()</code> returns only the rows of the first data frame that <em>do not have</em> a match in the second data frame. A match is a row that would be combined with the first row by a <a href="transform-tables.html#joins">mutating join</a>. This makes <code>ant_join()</code> a useful way to debug a mutating join.</p>
+<p><code>anti_join()</code> provides a useful way to check for typos that could interfere with a mutating join; these rows will not have a match in the second data frame (assuming that the typo does not also appear in the second data frame).</p>
+<p><code>anti_join()</code> also highlights entries that are coded in different ways across data frames, such as <code>&quot;North_Carolina&quot;</code> and <code>&quot;North Carolina&quot;</code>.</p>
+<p><code>anti_join()</code> uses the same syntax as mutating joins. Learn more in <a href="transform-tables.html#specifying-columns-to-join-on">Specifying column(s) to join on</a> and <a href="transform-tables.html#joining-when-id-names-do-not-match">Joining when ID names do not match</a>. Along with <code>semi_join()</code>, <code>anti_join()</code> is one of the two <a href="transform-tables.html#filtering-joins">Filtering joins</a>.</p>
 
-</div>
 </div>
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p>Attributes are metadata associated with a data structure. R can see an object’s attributes, but users typically cannot.<a href="transform-tables.html#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>I made this data frame with the code <code>sepals &lt;- iris %&gt;%    group_by(Species) %&gt;%    summarise(lengths = list(Sepal.Length))</code><a href="transform-tables.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>Or one that can be made the same length with R’s recycling rules, e.g. a vector of length one.<a href="transform-tables.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p><code>summarise()</code> will return a larger tibble if you pair it with <code>group_by()</code>.<a href="transform-tables.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Attributes are metadata associated with a data structure. R can see an object’s attributes, but users typically cannot.<a href="transform-tables.html#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>I made this data frame with the code <code>sepals &lt;- iris %&gt;%    group_by(Species) %&gt;%    summarise(lengths = list(Sepal.Length))</code><a href="transform-tables.html#fnref4" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
