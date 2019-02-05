@@ -246,7 +246,7 @@ table1 %>%
 
 Use `select()` to select all of the columns. List the column names in the new order.
 
-## Reorder columns without naming each column
+## Reorder columns without naming each
 
 You want to reorder some of the columns in the original data frame, but you don't care about the order for other columns, and you may have too many columns to name them each individually.
 
@@ -311,9 +311,46 @@ table1 %>%
   pull(3)
 ```
 
+## Mutate data (Add new variables)
+
+You want to compute one or more new variables and add them to your table as columns.
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-mutate.png")
+```
+
+#### Solution {-}
+
+```{r}
+table1 %>% 
+  mutate(rate = cases/population, percent = rate * 100)
+```
+
+#### Discussion {-}
+
+To use `mutate()`, pass it a series of names followed by R expressions. `mutate()` will return a copy of your table that contains one column for each name that you pass to `mutate()`. The name of the column will be the name that you passed to `mutate()`; the contents of the column will be the result of the R expression that you assigned to the name. The R expression should always return a vector of the same length as the other columns in the data frame,^[Or one that can be made the same length with R's recycling rules, e.g. a vector of length one.] because `mutate()` will add the vector as a new column.
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-vectorized-functions.png")
+```
+
+In other words, `mutate()` is intended to be used with _vectorized functions_, which are functions that take a vector of values as input and return a new vector of values as output (e.g `abs()`, `round()`, and all of R's math operations).
+
+`mutate()` will build the columns in the order that you define them. As a result, you may use a new column in the column definitions that follow it.
+
+##### Dropping the original data {-}
+
+Use `transmute()` to return only the new columns that `mutate()` would create.
+
+```{r}
+table1 %>% 
+  transmute(rate = cases/population, percent = rate * 100)
+```
+
+
 ## Summarise data
 
-You want to compute summary statistics for your data set.
+You want to compute summary statistics for the data in your data frame.
 
 ```{r echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/dplyr-summarise.png")
@@ -328,19 +365,50 @@ table1 %>%
 
 #### Discussion {-}
 
-To use `summarise()` pass it a series of column names followed by R expressions. `summarise()` will return a new 1 x n tibble. Each argument name passed to `summarise()` will become a column name in the tibble. The column will contain the results of evaluating the R expression assigned to the name. 
+To use `summarise()`, pass it a series of names followed by R expressions. `summarise()` will return a new tibble that contains one column for each name that you pass to `summarise()`. The name of the column will be the name that you passed to `summarise()`; the contents of the column will be the result of the R expression that you assigned to the name. The R expression should always return a single value because `summarise()` will always return a 1 x n tibble.^[`summarise()` will return a larger tibble if you pair it with `group_by()`.]
 
 ```{r echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/dplyr-summary-functions.png")
 ```
 
-`summarise()` is intended to be used with _summary functions_, which are functions that take a vector of values as input and return a single value as output (e.g `sum()`, `max()`, `mean()`). In normal use, `summarise()` will pass each function a column (i.e. vector) of values and expect a single value in return.
+In other words, `summarise()` is intended to be used with _summary functions_, which are functions that take a vector of values as input and return a single value as output (e.g `sum()`, `max()`, `mean()`). In normal use, `summarise()` will pass each function a column (i.e. vector) of values and expect a single value in return.
 
 `summarize()` is an alias for `summarise()`.
 
+## Group data
+
+You want to assign the rows of your data to subgroups based on their shared values or their shared combinations of values. 
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-groups.png")
+```
+
+You want to do this as the first step in a multi-step analysis, because grouping data doesn't do anything noticeable until you pass the grouped data to a tidyverse function.
+
+#### Solution {-}
+
+```{r}
+table1 %>% 
+  group_by(country)
+```
+
+#### Discussion {-}
+
+`group_by()` converts your data into a grouped tibble, which is a tibble subclass that indicates in its attributes^[Attributes are metadata associated with a data structure. R can see an object's attributes, but users typically cannot.] which rows belong to which group.
+
+To group rows by the values of a single column, pass `group_by()` a single column name. To group rows by the unique _combination_ of values across multiple columns, pass `group_by()` the names of two or more columns.
+
+##### Group-wise operations {-}
+
+Where appropriate, tidyverse functions recognize grouped tibbles. Tidyverse functions: 
+
+1. treat each group as a distinct data set
+1. execute their code separately on each group
+1. combine the results into a new data frame that contains the same grouping characteristics. `summarise()` is a slight exception, see below.
+
 ## Summarise data by groups
 
-You want to compute summary statistics for different subgroups of data in your data set. You can use the variables in your data set to identify which subgroup each row belongs to.
+You want to compute summary statistics for different subgroups of data in your grouped data frame. 
 
 ```{r echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/dplyr-group_by.png")
@@ -356,29 +424,23 @@ table1 %>%
 
 #### Discussion {-}
 
-`group_by()` converts your data into a grouped tibble, which is a tibble subclass that indicates in its attributes^[Attributes are metadata associated with a data structure. R can see an object's attributes, but users typically cannot.] which rows belong to which group.
-
-To group rows by the values of a single column, pass `group_by()` a single column name. To group rows by the unique _combination_ of values across multiple columns, pass `group_by()` the names of two or more columns.
-
-##### Group-wise operations {-}
-
-Where appropriate, tidyverse functions recognize grouped tibbles. Tidyverse functions: 
+Group-wise summaries are the most common use of grouped data. When you apply `summarise()` to grouped data, `summarise()` will:
 
 1. treat each group as a distinct data set
-1. execute their code separately on each group
-1. combine the results into a new data frame that contains the same grouping characteristics. `summarise()` is an exception, see below.
+1. compute separate statistics for each group
+1. combine the results into a new tibble
 
     ```{block2, type='rmdcaution'}
     Since this is easier to see than explain, you may want to     study the diagram and result above. 
     ```
 
-##### Group-wise summaries {-}
-
 `summarise()` gives grouped data special treatment in two ways:
 
-1. `summarise()` will one or more columns of group labels to its result. This makes the output of grouped summaries interpretable. 
+1. `summarise()` will retain the column(s) that were used to group the data in its result. This makes the output of grouped summaries interpretable. 
 
-2. `summarise()` removes the last column name from the grouping criteria of its result. For example, if the input of `summarise()` is grouped by `country` and `year`, the output of `summarise()` will only be grouped by `country`. Because of this, you can call `summarise()` repeatedly to view progressively higher level summaries:
+2. `summarise()` will shorten the grouping criteria of its result by one column name (the last column name). Compare this to other tidyverse functions which give their result the _same_ grouping criteria as their input. 
+
+    For example, if the input of `summarise()` is grouped by `country` and `year`, the output of `summarise()` will only be grouped by `country`. Because of this, you can call `summarise()` repeatedly to view progressively higher level summaries:
 
 ```{r}
 table1 %>% 
@@ -401,32 +463,6 @@ table1 %>%
   summarise(total_cases = sum(total_cases))
 ```
 
-## Mutate data (Add new variables)
-
-You want to compute one or more new variables and add them to your table as columns.
-
-#### Solution {-}
-
-```{r}
-table1 %>% 
-  mutate(rate = cases/population, percent = rate * 100)
-```
-
-#### Discussion {-}
-
-`mutate()` returns a copy of your table that contains additional columns. Each argument name passed to `mutate()` will become the name of a new column. Each new column will contain the result of the R expression passed to the argument/column name. 
-
-`mutate()` will build the columns in the order that you define them. As a result, you may use a column in the column definitions that follow it.
-
-`mutate()` is intended to be used with _vectorized functions_, which are functions that take a vector of values as input and return a new vector of values as output (e.g `abs()`, `round()`, and all of R's math operations).
-
-Use `transmute()` to return only the new columns that `mutate()` would create.
-
-```{r}
-table1 %>% 
-  transmute(rate = cases/population, percent = rate * 100)
-```
-
 ## Combine transform recipes
 
 You want to transform the structure of a table, and you want to use the data within the table to do it. This is the sort of thing you do everytime you call `summarise()` or `mutate()`.
@@ -439,15 +475,15 @@ See the discussion.
 
 When you transform a data frame, you often work with several functions:
 
-1. A function that transforms the structure of the data frame to add or remove rows or columns. This function transforms a _table_. 
+1. A function that transforms the _table_ itself, adding columns to its structure, or building a whole new table to hold results.
 
-1. A function that transforms the values that appear in the data frame to create new values to place in a new row or column. This function transforms a _data vector_.
+1. A function that transforms the values held in the table. Since values are always held in vectors (here column vectors), this function transforms a _vector_ to create a new vector that can then be added to the empty column or table created by function 1.
 
 1. A function that mediates between 1 and 2 if the values are embedded in a list-column, which is a _list_.
 
 The most concise way to learn how to combine these functions is to learn about the functions in isolation, and to then have the functions call each other as necessary.
 
-##### An Example
+##### An example {-}
 
 `smiths` contains measurements that describe two fictional people: John and Mary Smith.
 
@@ -472,11 +508,11 @@ smiths %>%
 
 `round()` works with data vectors. `mutate()` works with tables. Together they create the table you want.
 
-##### An example that uses list columns
+##### An example that uses list columns {-}
 
-`sepals` contains sepal length measurements for three species of flower. The measurements are stored in a list-column named `lengths`.^[I made this data frame with the code `sepals <- iris %>% 
+`sepals` is a tibble that I made for this example.^[I made this data frame with the code `sepals <- iris %>% 
   group_by(Species) %>% 
-  summarise(lengths = list(Sepal.Length))`]
+  summarise(lengths = list(Sepal.Length))`] It contains sepal length measurements for three species of flowers. The measurements are stored in a list-column named `lengths`.
 
 ```{r echo = FALSE}
 sepals <- iris %>% 
@@ -495,9 +531,9 @@ Each cell in `lengths` contains a data vector of 50 sepal lengths.
 sepals[[1, 2]]
 ```
 
-To append the average sepal length for each species, you would need three functions:
+To add the average sepal length for each species to the table, you would need three functions:
 
-1. `mean()` which can compute the average value of a data vector in `lengths`
+1. `mean()` which can compute the average of a data vector in `lengths`
 
     ```{r}
     mean(sepals[[1, 2]])
@@ -518,13 +554,17 @@ To append the average sepal length for each species, you would need three functi
 
 `mean()` works with data vectors. `map_dbl()` works with list-columns. `mutate()` works with tables. Together they create the table you want.
 
-## Join data sets by common column(s)
+## Join data sets by common column(s) {#joins}
 
-You want to combine two data sets into a single data set, taking care to ensure that observations in the first data set are matched to the corresponding observations in the second data set, even if those observations do not appear in the same order. 
+You want to combine two data frames into a single data frame, such that observations in the first data frame are matched to the corresponding observations in the second data frame, even if those observations do not appear in the same order. 
 
-Your data is structured in such a way that you can match observations by the values of one or more ID columns that appear in both data sets. 
+Your data is structured in such a way that you can match observations by the values of one or more ID columns that appear in both data frames. 
 
-For example, you would like to combine `band_members` and `band_insturments` into a single data based on the values of the `name` column. The new data set will correctly list who plays what.
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-left-join.png")
+```
+
+For example, you would like to combine `band_members` and `band_instruments` into a single data frame based on the values of the `name` column. The new data frame will correctly list who plays what.
 
 ```{r}
 band_members
@@ -543,57 +583,84 @@ band_members %>%
 
 #### Discussion {-}
 
-##### Mutating joins {-}
+There are four ways to join content from one data frame to another. Each uses a different function name, but the same arguments and syntax. Of these, `left_join()` is the most common.
 
-You have four options when joining content from one data set to another. Of these, `left_join()` is the most frequently used.
+1. `left_join()` drops any row in the _second_ data set does not match a row in the first data set. (It retains every row in the first data set, which appears on the left when you type the function call, hence the name).
 
-1. `left_join()` returns a copy of the first data set that includes any rows from the second data set that have a match in the first data set, ignoring the rows that do not have a match (as above).
+    ```{r echo = FALSE, fig.align='center'}
+    knitr::include_graphics("images/dplyr-left-join.png")
+    ```
 
-1. `right_join()` returns a copy of the second data set intermixed with any rows from the first data set that have a match in the second data set, ignoring the rows that do not have a match:
+1. `right_join()` drops any row in the _first_ data set does not match a row in the first data set.
+
+    ```{r echo = FALSE, fig.align='center'}
+    knitr::include_graphics("images/dplyr-right-join.png")
+    ```
 
     ```{r}
     band_members %>% 
       right_join(band_instruments, by = "name")
     ```
     
-1. `inner_join()` returns a copy of those rows in the first data set that have a match in the second data set along with the rows from the second data set that they match. `inner_join()` does not retain any incomplete rows from either data set. 
+1. `inner_join()` drops any row in _either_ data set that does not have a match in both data sets, i.e. `inner_join()` does not retain any incomplete rows in the final result. 
+
+    ```{r echo = FALSE, fig.align='center'}
+    knitr::include_graphics("images/dplyr-inner-join.png")
+    ```
 
     ```{r}
     band_members %>% 
       inner_join(band_instruments, by = "name")
     ```
     
-1. `full_join()` returns a copy of the first data set that includes every row from the second data set. `full_join()` includes all of the data from each data set. 
+1. `full_join()` retains every row from both data sets; it is the only join guaranteed to retain all of the original data. 
+
+    ```{r echo = FALSE, fig.align='center'}
+    knitr::include_graphics("images/dplyr-full-join.png")
+    ```
 
     ```{r}
     band_members %>% 
       full_join(band_instruments, by = "name")
     ```
 
+##### Mutating joins {-}
+
 `left_join()`, `right_join()`, `inner_join()`, and `full_join()` are collectively called _mutating joins_ because they add additional columns to a copy of a data set, as does `mutate()`.
 
 ##### Specifying column(s) to join on {-}
 
-Pass the `by` argument the name of the column to join on as a character string. This name should appear in both data sets. 
+By default, the mutating join functions will join on the set of columns whose names appear in both data frames. The join functions will match each row in the first data frame to the row in the second data frame that has the same combination of values across the commonly named columns.
 
-To join on multiple columns, pass `by` a character vector of column names. Each name should appear in both data sets. R will join together rows that contain the same combination of values in the columns.
+To override the default, add a `by` argument to your join function. Pass it the name(s) of the column(s) to join on as a character vector. These names should appear in both data sets. R will join together rows that contain the same combination of values in these columns, ignoring the values in other columns, even if those columns share a name with a column in the other data frame.
 
 ```{r}
 table1 %>% 
   left_join(table3, by = c("country", "year"))
 ```
 
-If you do not provide a `by` argument, the mutating join functions will join on the set of column names that appear in both data sets.
 
 ##### Joining when ID names do not match {-}
 
-It is common for an ID column to appear with different names in each data set. For example, the `name` column appears as `artist` in `band_instruments2`. 
+Often an ID variable will appear with a different name in each data frame. For example, the `name` variable appears as `artist` in `band_instruments2`. 
 
 ```{r}
 band_instruments2
 ```
 
-To join by two columns that have different names, pass `by` a named character vector. For each element in the vector, the mutating join will match the column in the first data set that corresponds to the name of the element to the column in the data set that corresponds to the value of the argument.
+To join by two columns that have different names, pass `by` a named character vector: each element of the vector should be a pair of names, e.g. 
+
+```{r eval = FALSE}
+c(name1 = "name2", name4 = "name4")
+```
+
+For each element,
+
+1. Write the name of the column that appears in the first data frame
+2. Write an equals sign
+3. Write the name of the matching column that appears in the second data set.
+
+Only the second name needs to be surrounded with quotation marks. The join will match the corresponding columns across data frames.
 
 ```{r}
 band_members %>% 
@@ -604,7 +671,7 @@ R will use the column name(s) from the first data set in the result.
 
 ##### Suffixes {-}
 
-The mutating joins will append the suffixes `.x` and `.y` to any columns that are not used to join on, but have the same name in both data sets. The columns from the first data set are suffixed with `.x`, the columns from the second with `.y`. 
+Joins will append the suffixes `.x` and `.y` to any columns that have the same name in both data sets _but are not used to join on_. The columns from the first data set are suffixed with `.x`, the columns from the second with `.y`. 
 
 ```{r}
 table4a %>% 
@@ -618,13 +685,17 @@ table4a %>%
   left_join(table4b, by = "country", suffix = c("_cases", "_pop"))
 ```
 
-## Filter one data set against another
+## Find rows that have a match
 
-You want to filter a data set down to only the rows that _have_ a corresponding row in a second set, or alternatively to only the rows that _do not have_ a corresponding row in a second data set.
+You want to find the rows in one data frame that have a match in a second data frame. By match, you mean that both rows refer to the same observation, even if they include different measurements. 
 
-Your data is structured in such a way that you can match rows by the values of one or more ID columns that appear in both data sets. 
+Your data is structured in such a way that you can match rows by the values of one or more ID columns that appear in both data frames. 
 
-For example, you would like to return the rows of `band_members` that have a corresponding row in `band_instruments`. The new data set will be a reduced version of `band_members` that does not contain any new columns.
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-semi-join.png")
+```
+
+For example, you would like to return the rows of `band_members` that have a corresponding row in `band_instruments`. The new data frame will be a reduced version of `band_members` that does not contain any new columns.
 
 ```{r}
 band_members
@@ -643,29 +714,56 @@ band_members %>%
 
 #### Discussion {-}
 
-##### Filtering joins {-}
+`semi_join()` returns only the rows of the first data frame that _have_ a match in the second data frame. A match is a row that would be combined with the first row by a [mutating join](#joins). This makes `semi_join()` a useful way to preview which rows will be retained by a mutating join.
 
-You have two options when filtering one data against another. 
+`semi_join()` uses the same syntax as mutating joins. Learn more in [Specifying column(s) to join on] and [Joining when ID names do not match]. 
 
-1. `semi_join()` returns a copy of the first data set that includes only the rows that _have_ a corresponding row in the second data set. 
+##### Filtering joins {-} 
 
-1. `anti_join()` returns a copy of the first data set that includes only the rows that _do not have_ a corresponding row in the second data set. 
+`semi_join()` and `anti_join()` (see below) are called _filtering joins_ because they filter a data frame to only those rows that meet a specific criteria, as does `filter()`. 
 
-    ```{r}
-    band_members %>% 
-      anti_join(band_instruments, by = "name")
-    ```
+Unlike mutating joins, filtering joins do not add columns from the second data frame to the first. Instead, they use the second data frame to identify rows to return from the first.
+
+When you need to filter on a complicated set of conditions, filtering joins can be more effective than `filter()`: use `tribble()` to create a data frame to filter against with a filtering join.
+
+## Find rows that do not have a match
+
+You want to find the rows in one data frame that _do not_ have a match in a second data frame. By match, you mean that both rows refer to the same observation, even if they include different measurements. 
+
+Your data is structured in such a way that you can match rows by the values of one or more ID columns that appear in both data frames.
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/dplyr-anti-join.png")
+```
+
+For example, you would like to return the rows of `band_members` that do not have a corresponding row in `band_instruments`. The new data frame will be a reduced version of `band_members` that does not contain any new columns.
+
+```{r}
+band_members
+```
+
+```{r}
+band_instruments
+```
+
+#### Solution {-}
+
+```{r}
+band_members %>% 
+  anti_join(band_instruments, by = "name")
+```
+
+#### Discussion {-}
+
+`anti_join()` returns only the rows of the first data frame that _do not have_ a match in the second data frame. A match is a row that would be combined with the first row by a [mutating join](#joins). This makes `ant_join()` a useful way to debug a mutating join.
+
+`anti_join()` provides a useful way to check for typos that could interfere with a mutating join; these rows will not have a match in the second data frame (assuming that the typo does not also appear in the second data frame). 
     
-    `anti_join()` provides a useful way to check for typos that could interfere with a mutating join; these rows will not have a match in the second data set (assuming that the typo does not also appear in the second data set). 
+`anti_join()` also highlights entries that are coded in different ways across data frames, such as `"North_Carolina"` and `"North Carolina"`.
+
+`anti_join()` uses the same syntax as mutating joins. Learn more in [Specifying column(s) to join on] and [Joining when ID names do not match]. Along with `semi_join()`, `anti_join()` is one of the two [Filtering joins].
+
     
-    `anti_join()` also highlihts entries that are coded in different ways across data sets, such as `"North_Carolina"` and `"North Carolina"`.
 
-`semi_join()` and `anti_join()` are collectively called _filtering joins_ because they filter a data set to only those rows that meet a specific criteria, as does `filter()`. 
 
-Filtering joins can be more effective than `filter()` when you need to filter on a complicated set of conditions: use `tribble()` to create a data set to filter against.
 
-Unlike mutating joins, filtering joins do not add columns from the second data set to the first. They only use the second data set to identify rows to return from the first.
-
-##### Specifying column(s) to join on {-}
-
-Filtering joins use the same `by` syntax as mutating joins. Learn more in [Specifying column(s) to join on] and [Joining when ID names do not match]. 
