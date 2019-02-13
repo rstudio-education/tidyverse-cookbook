@@ -25,7 +25,7 @@
 <meta name="author" content="Edited by Garrett Grolemund">
 
 
-<meta name="date" content="2019-02-05">
+<meta name="date" content="2019-02-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -187,10 +187,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="transform-tables.html#summarise-data">Summarise data</a></li>
 <li><a href="transform-tables.html#group-data">Group data</a></li>
 <li><a href="transform-tables.html#summarise-data-by-groups">Summarise data by groups</a></li>
+<li><a href="transform-tables.html#nest-a-data-frame">Nest a data frame</a></li>
 <li><a href="transform-tables.html#combine-transform-recipes">Combine transform recipes</a></li>
 <li><a href="transform-tables.html#joins">Join data sets by common column(s)</a></li>
-<li><a href="transform-tables.html#find-rows-that-have-a-match">Find rows that have a match</a></li>
-<li><a href="transform-tables.html#find-rows-that-do-not-have-a-match">Find rows that do not have a match</a></li>
+<li><a href="transform-tables.html#find-rows-that-have-a-match-in-another-data-set">Find rows that have a match in another data set</a></li>
+<li><a href="transform-tables.html#find-rows-that-do-not-have-a-match-in-another-data-set">Find rows that do not have a match in another data set</a></li>
 </ol>
 </div>
 <hr />
@@ -742,14 +743,61 @@ Since this is easier to see than explain, you may want to study the diagram and 
 ## 1      547660</code></pre>
 </div>
 </div>
-<div id="combine-transform-recipes" class="section level2">
-<h2><span class="header-section-number">4.19</span> Combine transform recipes</h2>
-<p>You want to transform the structure of a table, and you want to use the data within the table to do it. This is the sort of thing you do everytime you call <code>summarise()</code> or <code>mutate()</code>.</p>
+<div id="nest-a-data-frame" class="section level2">
+<h2><span class="header-section-number">4.19</span> Nest a data frame</h2>
+<p>You want to move portions of your data frame into their own tables, and then store those tables in cells in your original data frame.</p>
+<p><img src="images/tidyr-nest.png" style="display: block; margin: auto;" /></p>
+<p>This lets you manipulate the collection of tables with <code>filter()</code>, <code>select()</code>, <code>arrange()</code>, and so on, as you would normally manipulate a collection of values.</p>
 <div id="solution-37" class="section level4 unnumbered">
+<h4>Solution</h4>
+<pre class="sourceCode r"><code class="sourceCode r">iris <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">nest</span>(<span class="dt">.key =</span> <span class="st">&quot;Measurements&quot;</span>)</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##   Species    Measurements     
+##   &lt;fct&gt;      &lt;list&gt;           
+## 1 setosa     &lt;tibble [50 × 4]&gt;
+## 2 versicolor &lt;tibble [50 × 4]&gt;
+## 3 virginica  &lt;tibble [50 × 4]&gt;</code></pre>
+</div>
+<div id="discussion-34" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p><code>nest()</code> comes in the tidyr package. You can use it to nest portions of your data frame in two ways:</p>
+<ol style="list-style-type: decimal">
+<li><p>Pass <code>nest()</code> a <em>grouped data frame</em> made with <code>dplyr::group_by()</code> (as above). <code>nest()</code> will create a separate table for each group. The table will contain every row in the group and every column that is not part of the grouping criteria.</p></li>
+<li><p>Pass <code>nest()</code> an ungrouped data frame and then specify which columns to nest. <code>nest()</code> will perform an implicit grouping on the combination of values that appear across the remaining columns, and then create a separate table for each implied grouping.</p>
+<p>You can specify columns with the same syntax and helpers that you would use with dplyr’s <code>select()</code> function. So, for example, the two calls below will produce the same result as the solution above.</p>
+<pre class="sourceCode r"><code class="sourceCode r">iris <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">nest</span>(Sepal.Width, 
+       Sepal.Length, 
+       Petal.Width, 
+       Petal.Length, 
+       <span class="dt">.key =</span> <span class="st">&quot;Measurements&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as_tibble</span>()
+
+iris <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">nest</span>(<span class="op">-</span>Species, <span class="dt">.key =</span> <span class="st">&quot;Measurements&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as_tibble</span>()</code></pre></li>
+</ol>
+<p><code>nest()</code> preserves class, which means that <code>nest()</code> will return a data frame if its input is a data frame and a tibble if its input is a tibble. In each case, <code>nest()</code> will add the sub-tables to the result as a list-column. Since, list-columns are much easier to view in a tibble than a data frame, I recommend that you convert the result of <code>nest()</code> to a tibble when necessary.</p>
+<p>Use the <code>.key</code> argument to provide a name for the new list-column.</p>
+<!-- 
+Extract a nested cell
+Unnest a data frame
+Create a list-column
+Transform a list-column
+Simplify a list-column
+-->
+</div>
+</div>
+<div id="combine-transform-recipes" class="section level2">
+<h2><span class="header-section-number">4.20</span> Combine transform recipes</h2>
+<p>You want to transform the structure of a table, and you want to use the data within the table to do it. This is the sort of thing you do everytime you call <code>summarise()</code> or <code>mutate()</code>.</p>
+<div id="solution-38" class="section level4 unnumbered">
 <h4>Solution</h4>
 <p>See the discussion.</p>
 </div>
-<div id="discussion-34" class="section level4 unnumbered">
+<div id="discussion-35" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>When you transform a data frame, you often work with several functions:</p>
 <ol style="list-style-type: decimal">
@@ -824,7 +872,7 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 </div>
 </div>
 <div id="joins" class="section level2">
-<h2><span class="header-section-number">4.20</span> Join data sets by common column(s)</h2>
+<h2><span class="header-section-number">4.21</span> Join data sets by common column(s)</h2>
 <p>You want to combine two data frames into a single data frame, such that observations in the first data frame are matched to the corresponding observations in the second data frame, even if those observations do not appear in the same order.</p>
 <p>Your data is structured in such a way that you can match observations by the values of one or more ID columns that appear in both data frames.</p>
 <p><img src="images/dplyr-left-join.png" style="display: block; margin: auto;" /></p>
@@ -843,7 +891,7 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 1 John  guitar
 ## 2 Paul  bass  
 ## 3 Keith guitar</code></pre>
-<div id="solution-38" class="section level4 unnumbered">
+<div id="solution-39" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
@@ -854,7 +902,7 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 2 John  Beatles guitar
 ## 3 Paul  Beatles bass</code></pre>
 </div>
-<div id="discussion-35" class="section level4 unnumbered">
+<div id="discussion-36" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>There are four ways to join content from one data frame to another. Each uses a different function name, but the same arguments and syntax. Of these, <code>left_join()</code> is the most common.</p>
 <ol style="list-style-type: decimal">
@@ -963,8 +1011,8 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 </div>
 </div>
 </div>
-<div id="find-rows-that-have-a-match" class="section level2">
-<h2><span class="header-section-number">4.21</span> Find rows that have a match</h2>
+<div id="find-rows-that-have-a-match-in-another-data-set" class="section level2">
+<h2><span class="header-section-number">4.22</span> Find rows that have a match in another data set</h2>
 <p>You want to find the rows in one data frame that have a match in a second data frame. By match, you mean that both rows refer to the same observation, even if they include different measurements.</p>
 <p>Your data is structured in such a way that you can match rows by the values of one or more ID columns that appear in both data frames.</p>
 <p><img src="images/dplyr-semi-join.png" style="display: block; margin: auto;" /></p>
@@ -983,7 +1031,7 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 1 John  guitar
 ## 2 Paul  bass  
 ## 3 Keith guitar</code></pre>
-<div id="solution-39" class="section level4 unnumbered">
+<div id="solution-40" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">semi_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
@@ -993,7 +1041,7 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 1 John  Beatles
 ## 2 Paul  Beatles</code></pre>
 </div>
-<div id="discussion-36" class="section level4 unnumbered">
+<div id="discussion-37" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>semi_join()</code> returns only the rows of the first data frame that <em>have</em> a match in the second data frame. A match is a row that would be combined with the first row by a <a href="transform-tables.html#joins">mutating join</a>. This makes <code>semi_join()</code> a useful way to preview which rows will be retained by a mutating join.</p>
 <p><code>semi_join()</code> uses the same syntax as mutating joins. Learn more in <a href="transform-tables.html#specifying-columns-to-join-on">Specifying column(s) to join on</a> and <a href="transform-tables.html#joining-when-id-names-do-not-match">Joining when ID names do not match</a>.</p>
@@ -1005,8 +1053,8 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 </div>
 </div>
 </div>
-<div id="find-rows-that-do-not-have-a-match" class="section level2">
-<h2><span class="header-section-number">4.22</span> Find rows that do not have a match</h2>
+<div id="find-rows-that-do-not-have-a-match-in-another-data-set" class="section level2">
+<h2><span class="header-section-number">4.23</span> Find rows that do not have a match in another data set</h2>
 <p>You want to find the rows in one data frame that <em>do not</em> have a match in a second data frame. By match, you mean that both rows refer to the same observation, even if they include different measurements.</p>
 <p>Your data is structured in such a way that you can match rows by the values of one or more ID columns that appear in both data frames.</p>
 <p><img src="images/dplyr-anti-join.png" style="display: block; margin: auto;" /></p>
@@ -1025,7 +1073,7 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ## 1 John  guitar
 ## 2 Paul  bass  
 ## 3 Keith guitar</code></pre>
-<div id="solution-40" class="section level4 unnumbered">
+<div id="solution-41" class="section level4 unnumbered">
 <h4>Solution</h4>
 <pre class="sourceCode r"><code class="sourceCode r">band_members <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">anti_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</code></pre>
@@ -1034,7 +1082,7 @@ sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</code></pre>
 ##   &lt;chr&gt; &lt;chr&gt; 
 ## 1 Mick  Stones</code></pre>
 </div>
-<div id="discussion-37" class="section level4 unnumbered">
+<div id="discussion-38" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>anti_join()</code> returns only the rows of the first data frame that <em>do not have</em> a match in the second data frame. A match is a row that would be combined with the first row by a <a href="transform-tables.html#joins">mutating join</a>. This makes <code>ant_join()</code> a useful way to debug a mutating join.</p>
 <p><code>anti_join()</code> provides a useful way to check for typos that could interfere with a mutating join; these rows will not have a match in the second data frame (assuming that the typo does not also appear in the second data frame).</p>
