@@ -510,7 +510,7 @@ iris %>%
 
 Use the `.key` argument to provide a name for the new list-column.
 
-## Extract a subtable from a nested data frame
+## Extract a table from a nested data frame
 
 You want to extract a single table nested within a data frame.
 
@@ -548,14 +548,40 @@ However, this approach can be suboptimal for nested data. Often a nested table r
 
 You can extract a nested table along with its related information by first subsetting to just the relevant information and then unnesting the result.
 
+## Unnest a data frame
+
+You want to transform a nested data frame into a flat data frame by re-integrating the nested tables into the surrounding data frame.
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/tidyr-unnest.png")
+```
+
+For example, you want to unnest the `nested_iris` data frame created in the recipe above,
+
+```{r}
+nested_iris <-
+  iris %>% 
+  group_by(Species) %>% 
+  nest(.key = "Measurements")
+```
+
+#### Solution {-}
+
+```{r}
+unnest(nested_iris)
+```
+
+#### Discussion {-}
+
+`unnest()` converts a list-column into a regular column or columns, repeating the surrounding rows as necessary. `unnest()` can handle list columns that contain atomic vectors and data frames, but cannot handle list columns that contain objects that would not naturally fit into a data frame, such as model objects.
+
+By default, `unnest()` will unnest every list-column in a data frame. To unnest only a subset of list-columns, pass the names of the list-columns to `unnest()` using dplyr `select()` syntax or helpers. `unnest()` will ignore unnamed list columns, excluding them from the result to return a flat data frame. `unnest()` comes in the tidyr package. 
+
 <!-- 
-Extract a nested cell
 Unnest a data frame
 Create a list-column
 Transform a list-column
 Simplify a list-column
-
-## Apply a function to each element of a list
 
 You want to
 
