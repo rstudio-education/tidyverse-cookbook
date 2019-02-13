@@ -506,9 +506,47 @@ iris %>%
       as_tibble()
     ```
     
-`nest()` preserves class, which means that `nest()` will return a data frame if its input is a data frame and a tibble if its input is a tibble. In each case, `nest()` will add the sub-tables to the result as a list-column. Since, list-columns are much easier to view in a tibble than a data frame, I recommend that you convert the result of `nest()` to a tibble when necessary.
+`nest()` preserves class, which means that `nest()` will return a data frame if its input is a data frame and a tibble if its input is a tibble. In each case, `nest()` will add the subtables to the result as a list-column. Since, list-columns are much easier to view in a tibble than a data frame, I recommend that you convert the result of `nest()` to a tibble when necessary.
 
 Use the `.key` argument to provide a name for the new list-column.
+
+## Extract a subtable from a nested data frame
+
+You want to extract a single table nested within a data frame.
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/tidyr-unnest-single.png")
+```
+
+For example, you want to extract the setosa table from the nested data set created in the solution above,
+
+```{r}
+nested_iris <-
+  iris %>% 
+  group_by(Species) %>% 
+  nest(.key = "Measurements")
+```
+
+#### Solution {-}
+
+```{r}
+nested_iris %>% 
+  filter(Species == "setosa") %>% 
+  unnest()
+```
+
+
+#### Discussion {-}
+
+Since the table is in a cell of the data frame, it is possible to extract the table by extracting the contents of the cell (as below). Be sure to use double brackets to extract the content itself, and not a 1 x 1 data frame that contains the cell.
+
+```{r eval = FALSE}
+nested_iris[[1, 2]]
+```
+
+However, this approach can be suboptimal for nested data. Often a nested table relies on information that is stored alongside it for meaning. For example, in the above example, the table relies on the Species variable to indicate that it describes setosa flowers.
+
+You can extract a nested table along with its related information by first subsetting to just the relevant information and then unnesting the result.
 
 <!-- 
 Extract a nested cell
@@ -516,6 +554,14 @@ Unnest a data frame
 Create a list-column
 Transform a list-column
 Simplify a list-column
+
+## Apply a function to each element of a list
+
+You want to
+
+#### Solution {-}
+
+#### Discussion {-}
 -->
 
 
