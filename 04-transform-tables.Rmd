@@ -463,6 +463,62 @@ table1 %>%
   summarise(total_cases = sum(total_cases))
 ```
 
+## Nest a data frame
+
+You want to move portions of your data frame into their own tables, and then store those tables in cells in your original data frame. 
+
+```{r echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/tidyr-nest.png")
+```
+
+This lets you manipulate the collection of tables with `filter()`, `select()`, `arrange()`, and so on, as you would normally manipulate a collection of values.
+
+#### Solution {-}
+
+```{r}
+iris %>% 
+  group_by(Species) %>% 
+  nest(.key = "Measurements")
+```
+
+
+#### Discussion {-}
+
+`nest()` comes in the tidyr package. You can use it to nest portions of your data frame in two ways:
+
+1. Pass `nest()` a _grouped data frame_ made with `dplyr::group_by()` (as above). `nest()` will create a separate table for each group. The table will contain every row in the group and every column that is not part of the grouping criteria.
+
+2. Pass `nest()` an ungrouped data frame and then specify which columns to nest. `nest()` will perform an implicit grouping on the combination of values that appear across the remaining columns, and then create a separate table for each implied grouping. 
+
+    You can specify columns with the same syntax and helpers that you would use with dplyr's `select()` function. So, for example, the two calls below will produce the same result as the solution above.
+
+    ```{r eval = FALSE}
+    iris %>% 
+      nest(Sepal.Width, 
+           Sepal.Length, 
+           Petal.Width, 
+           Petal.Length, 
+           .key = "Measurements") %>% 
+      as_tibble()
+    
+    iris %>% 
+      nest(-Species, .key = "Measurements") %>% 
+      as_tibble()
+    ```
+    
+`nest()` preserves class, which means that `nest()` will return a data frame if its input is a data frame and a tibble if its input is a tibble. In each case, `nest()` will add the sub-tables to the result as a list-column. Since, list-columns are much easier to view in a tibble than a data frame, I recommend that you convert the result of `nest()` to a tibble when necessary.
+
+Use the `.key` argument to provide a name for the new list-column.
+
+<!-- 
+Extract a nested cell
+Unnest a data frame
+Create a list-column
+Transform a list-column
+Simplify a list-column
+-->
+
+
 ## Combine transform recipes
 
 You want to transform the structure of a table, and you want to use the data within the table to do it. This is the sort of thing you do everytime you call `summarise()` or `mutate()`.
@@ -553,6 +609,7 @@ To add the average sepal length for each species to the table, you would need th
     ```
 
 `mean()` works with data vectors. `map_dbl()` works with list-columns. `mutate()` works with tables. Together they create the table you want.
+
 
 ## Join data sets by common column(s) {#joins}
 
@@ -685,7 +742,7 @@ table4a %>%
   left_join(table4b, by = "country", suffix = c("_cases", "_pop"))
 ```
 
-## Find rows that have a match
+## Find rows that have a match in another data set
 
 You want to find the rows in one data frame that have a match in a second data frame. By match, you mean that both rows refer to the same observation, even if they include different measurements. 
 
@@ -726,7 +783,7 @@ Unlike mutating joins, filtering joins do not add columns from the second data f
 
 When you need to filter on a complicated set of conditions, filtering joins can be more effective than `filter()`: use `tribble()` to create a data frame to filter against with a filtering join.
 
-## Find rows that do not have a match
+## Find rows that do not have a match in another data set
 
 You want to find the rows in one data frame that _do not_ have a match in a second data frame. By match, you mean that both rows refer to the same observation, even if they include different measurements. 
 
