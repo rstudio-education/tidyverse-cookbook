@@ -180,6 +180,126 @@ tidyverse_packages()
 
 [Update](#update) the `tidyverse` package before running `tidyverse_packages()` to receive the most current list.
 
+## Create an object
+
+You want to create an object that stores content to use later.
+
+#### Solution {-}
+
+```{r}
+x <- 1
+```
+
+#### Discussion {-}
+
+The assignment operator is made by a less than sign, `<`, followed by a minus sign `-`. The result looks like an arrow, `<-`. R will assign the contents on the right hand side of the operator to the name on the left hand sign. Afterwards, you can use the name in your code to refer to the contents, e.g. `log(x)`.
+
+Names cannot begin with a number, nor a special character like `^`, `!`, `$`, `@`, `+`, `-`, `/`, or `*`.
+
+```{block2, type = "rmdcaution"}
+If you assign to a name that is already in use, the new content will mask or overwrite the previous object.
+```
+
+## Create a vector
+
+You want to create a one-dimensional, ordered set of values.
+
+#### Solution {-}
+
+```{r}
+c(3, 1, 7, 5)
+```
+
+#### Discussion {-}
+
+The concatenate function, `c()`, combines its arguments into a vector that can be passed to a function or assigned to an object. To name each value, provide names to the arguments of `c()`, e.g. 
+
+```{r}
+c(mu = 3, chi = 1, psi = 7, pi = 5)
+```
+
+
+## See an object
+
+You want to see the contents of an object.
+
+#### Solution {-}
+
+```{r}
+x
+```
+
+#### Discussion {-}
+
+R displays the contents of an object when you call the bare object name—not surrounded with quotation marks, not followed by parentheses. This works for functions too, in which case R displays the code elements assigned to the function name,e.g. `lm`.
+
+## Remove an object
+
+You want to remove an object that you have created.
+
+#### Solution {-}
+
+```{r}
+rm(x)
+```
+
+#### Discussion {-}
+
+The remove function, `rm()`, removes an object from R's memory. `rm()` will not remove an object that is loaded from an R package.
+
+## Call a function
+
+You want to call a function, i.e. you want R to execute a function.
+
+#### Solution {-}
+
+```{r}
+round(3.141593, digits = 2)
+```
+
+#### Discussion {-}
+
+To run a function, type its name followed by an open open and closed parentheses. If the function requires arguments (i.e. inputs) to do its job, place the arguments between the parentheses. 
+
+It is a best practice to name every argument after the first. This is sometimes relaxed to every argument after the second argument, if the second argument is also obvious and required.
+
+
+## See a function's arguments
+
+You want to see which arguments a function uses/recognizes.
+
+#### Solution {-}
+
+```{r}
+args(round)
+```
+
+#### Discussion {-}
+
+`args()` displays the argument names of a function. Ignore the `function`, `(`, `)`, and `NULL` in the output. Each argument name will be listed between the parentheses. 
+
+If an argument has a default value, the value will appear next to its name, as in `digits = 0`. Arguments that have default values are optional: the function will use the default value when you do not supply a different value for that argument. Arguments without default values must be supplied when you run the function to avoid an error.
+
+
+## Open a function's help page
+
+You want to open the help page for a function.
+
+#### Solution {-}
+
+```{r}
+?round
+```
+
+#### Discussion {-}
+
+To open a function's help page, run a `?` followed by the bare function name—no parentheses or quotes. A function's help page is the technical documentation for the function and its arguments. Often the most useful section of a help page is the last, which is an examples section of code that uses the function.
+
+```{block2, type = "rmdcaution"}
+A function's help page is loaded with the function. It will only be available if the package that contains the function is loaded.
+```
+
+
 ## Combine functions into a pipe
 
 You want to chain multiple functions together to be run in sequence, with each function operating on the preceding function's output.
