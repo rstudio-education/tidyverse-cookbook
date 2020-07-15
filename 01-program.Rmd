@@ -194,7 +194,7 @@ x <- 1
 
 The assignment operator is made by a less than sign, `<`, followed by a minus sign `-`. The result looks like an arrow, `<-`. R will assign the contents on the right hand side of the operator to the name on the left hand sign. Afterwards, you can use the name in your code to refer to the contents, e.g. `log(x)`.
 
-Names cannot begin with a number, nor a special character like `^`, `!`, `$`, `@`, `+`, `-`, `/`, or `*`.
+Names cannot begin with a number, nor a special character like `^`, `!`, `$`, `@`, `+`, `-`, `/`, or `*`. 
 
 ```{block2, type = "rmdcaution"}
 If you assign to a name that is already in use, the new content will mask or overwrite the previous object.
