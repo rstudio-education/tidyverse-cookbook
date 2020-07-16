@@ -13,7 +13,8 @@ rmd_files: [
   "05-transform-lists.Rmd",
   "06-transform-strings.Rmd",
   "07-transform-factors.Rmd",
-  "08-transform-dates.Rmd"
+  "08-transform-dates.Rmd",
+  "09-visualize-data.Rmd"
 ]
 
 output_dir: "docs"
