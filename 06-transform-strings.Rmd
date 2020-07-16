@@ -4,7 +4,7 @@
 ***
 
 ```{r echo = FALSE, results='asis'}
-build_toc("07-transform-strings.Rmd")
+build_toc("06-transform-strings.Rmd")
 ```
 
 ***
