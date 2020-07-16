@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>How to use this book | The Tidyverse Cookbook</title>
-  <meta name="description" content="How to solve common data science tasks with R’s Tidyverse">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="How to solve common data science tasks with R’s Tidyverse" />
+  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="How to use this book | The Tidyverse Cookbook" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   <meta name="twitter:description" content="How to solve common data science tasks with R’s Tidyverse" />
   
 
-<meta name="author" content="Edited by Garrett Grolemund">
+<meta name="author" content="Edited by Garrett Grolemund" />
 
 
-<meta name="date" content="2019-02-13">
+<meta name="date" content="2020-07-16" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="program.html">
+<link rel="prev" href="index.html"/>
+<link rel="next" href="program.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -56,7 +58,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; position: absolute; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -167,15 +168,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1>How to use this book</h1>
 <p>The recipes in this book are organized according to the model of data science presented in <a href="http://r4ds.had.co.nz/introduction.html"><em>R for Data Science</em></a>. When you do data science, you find yourself repeating the same sequence of steps:</p>
 <p><img src="images/data-science-workflow.png" style="display: block; margin: auto;" /></p>
-<p>I’ve grouped the recipes by task with the exception of Transform, which is split into chapters based on the type of data or structure to transform. To drill down to a recipe, click on one of the task names in the sidebar. If you are new to R, begin with <a href="program.html#program">Program</a>, which will show you how to install the tidyverse.</p>
+<p>I’ve grouped the recipes by task with the exception of Transform, which is split into chapters based on the type of data or structure to transform. To drill down to a recipe, click on one of the task names in the sidebar. If you are new to R, begin with [Program], which will show you how to install the tidyverse.</p>
 <p>To save space, each recipe assumes that you have already run <code>library(&quot;tidyverse&quot;)</code>. If additional <code>library()</code> calls are required, they will appear in the recipe.</p>
 <div id="how-to-get-help" class="section level2">
 <h2><span class="header-section-number">0.1</span> How to get help</h2>
 <p>R comes with a built in reference manual, which is fondly (but sometimes inaccurately) called R’s help pages. You can use R’s help pages to glean details that I do not cover here.</p>
 <p>To access the help page for an R function, type a <code>?</code> at the command line of your R console, followed by the function name, and then hit enter to run the result, e.g.</p>
-<pre class="sourceCode r"><code class="sourceCode r">?mutate</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">?mutate</a></code></pre></div>
 <p>If a function comes in an R package, you will need to load the package with <code>library()</code> before you can access the function’s help page. Alternatively, you can access the help page by typing a <code>?</code> followed by the package name, followed by two colons, followed by the function name, e.g.</p>
-<pre class="sourceCode r"><code class="sourceCode r">?dplyr<span class="op">::</span>mutate</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">?dplyr<span class="op">::</span>mutate</a></code></pre></div>
 <!--
 ## Vocab
 
@@ -192,7 +193,7 @@ When you speak about R, it is difficult to distinguish between vectors that are 
 <li>unusually well documented, see <a href="tidyverse.org" class="uri">tidyverse.org</a> and <a href="http://r4ds.had.co.nz/"><em>R for Data Science</em></a> as examples.</li>
 </ul>
 <p>Install the complete set of tidyverse packages with:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</a></code></pre></div>
 <p>Each tidyverse package is a collection of functions, documentation, and <em>ideas</em>. You do not need to know which ideas are in the tidyverse to use tidyverse functions, just as you do not need to know which ingredients are in a cake mix to make a cake. However, understanding the tidyverse will help you see the best practices embedded in each recipe. This will make it easier for you to adapt the recipes to your own work.</p>
 <div id="tidy-data" class="section level3">
 <h3><span class="header-section-number">0.2.1</span> Tidy data</h3>
@@ -238,11 +239,13 @@ If you’d like a deeper understanding of the tidyverse, I encourage you to read
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -250,12 +253,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -267,6 +269,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Tidy | The Tidyverse Cookbook</title>
-  <meta name="description" content="How to solve common data science tasks with R’s Tidyverse">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="How to solve common data science tasks with R’s Tidyverse" />
+  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Tidy | The Tidyverse Cookbook" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   <meta name="twitter:description" content="How to solve common data science tasks with R’s Tidyverse" />
   
 
-<meta name="author" content="Edited by Garrett Grolemund">
+<meta name="author" content="Edited by Garrett Grolemund" />
 
 
-<meta name="date" content="2019-02-13">
+<meta name="date" content="2020-07-16" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="import.html">
-<link rel="next" href="transform-tables.html">
+<link rel="prev" href="import.html"/>
+<link rel="next" href="transform-tables.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -56,7 +58,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; position: absolute; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -181,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 </div>
 <hr />
-<div id="what-you-should-know-before-you-begin-2" class="section level2 unnumbered">
+<div id="what-you-should-know-before-you-begin" class="section level2 unnumbered">
 <h2>What you should know before you begin</h2>
 
 <div class="rmdcaution">
@@ -204,12 +205,12 @@ As you work with data, you will be surprised to realize that what is a variable 
 <div id="create-a-tibble-manually" class="section level2">
 <h2><span class="header-section-number">3.1</span> Create a tibble manually</h2>
 <p>You want to create a tibble from scratch by typing in the contents of the tibble.</p>
-<div id="solution-10" class="section level4 unnumbered">
+<div id="solution" class="section level4 unnumbered">
 <h4>Solution</h4>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tribble</span>(<span class="op">~</span>number, <span class="op">~</span>letter,   <span class="op">~</span>greek,
-              <span class="dv">1</span>,     <span class="st">&quot;a&quot;</span>,  <span class="st">&quot;alpha&quot;</span>,
-              <span class="dv">2</span>,     <span class="st">&quot;b&quot;</span>,   <span class="st">&quot;beta&quot;</span>,
-              <span class="dv">3</span>,     <span class="st">&quot;c&quot;</span>,  <span class="st">&quot;gamma&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">tribble</span>(<span class="op">~</span>number, <span class="op">~</span>letter,   <span class="op">~</span>greek,</a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">              <span class="dv">1</span>,     <span class="st">&quot;a&quot;</span>,  <span class="st">&quot;alpha&quot;</span>,</a>
+<a class="sourceLine" id="cb35-3" data-line-number="3">              <span class="dv">2</span>,     <span class="st">&quot;b&quot;</span>,   <span class="st">&quot;beta&quot;</span>,</a>
+<a class="sourceLine" id="cb35-4" data-line-number="4">              <span class="dv">3</span>,     <span class="st">&quot;c&quot;</span>,  <span class="st">&quot;gamma&quot;</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   number letter greek
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;
@@ -217,21 +218,21 @@ As you work with data, you will be surprised to realize that what is a variable 
 ## 2      2 b      beta 
 ## 3      3 c      gamma</code></pre>
 </div>
-<div id="discussion-10" class="section level4 unnumbered">
+<div id="discussion" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>tribble()</code> creates a tibble and tricks you into typing out a preview of the result. To use <code>tribble()</code>, list each column name preceded by a <code>~</code>, then list the values of the tribble in a rowwise fashion. If you take care to align your columns, the transposed syntax of <code>tribble()</code> becomes a preview of the table.</p>
 <p>You can also create a tibble with <code>tibble()</code>, whose syntax mirrors <code>data.frame()</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tibble</span>(<span class="dt">number =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), 
-       <span class="dt">letter =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>),
-       <span class="dt">greek =</span> <span class="kw">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>, <span class="st">&quot;gamma&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">tibble</span>(<span class="dt">number =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), </a>
+<a class="sourceLine" id="cb37-2" data-line-number="2">       <span class="dt">letter =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>),</a>
+<a class="sourceLine" id="cb37-3" data-line-number="3">       <span class="dt">greek =</span> <span class="kw">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>, <span class="st">&quot;gamma&quot;</span>))</a></code></pre></div>
 </div>
 </div>
 <div id="convert-a-data-frame-to-a-tibble" class="section level2">
 <h2><span class="header-section-number">3.2</span> Convert a data frame to a tibble</h2>
 <p>You want to convert a data frame to a tibble.</p>
-<div id="solution-11" class="section level4 unnumbered">
+<div id="solution-1" class="section level4 unnumbered">
 <h4>Solution</h4>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as_tibble</span>(iris)</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">as_tibble</span>(iris)</a></code></pre></div>
 <pre><code>## # A tibble: 150 x 5
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
@@ -251,9 +252,9 @@ As you work with data, you will be surprised to realize that what is a variable 
 <div id="convert-a-tibble-to-a-data-frame" class="section level2">
 <h2><span class="header-section-number">3.3</span> Convert a tibble to a data frame</h2>
 <p>You want to convert a tibble to a data frame.</p>
-<div id="solution-12" class="section level4 unnumbered">
+<div id="solution-2" class="section level4 unnumbered">
 <h4>Solution</h4>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(table1)</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">as.data.frame</span>(table1)</a></code></pre></div>
 <pre><code>##       country year  cases population
 ## 1 Afghanistan 1999    745   19987071
 ## 2 Afghanistan 2000   2666   20595360
@@ -262,7 +263,7 @@ As you work with data, you will be surprised to realize that what is a variable 
 ## 5       China 1999 212258 1272915272
 ## 6       China 2000 213766 1280428583</code></pre>
 </div>
-<div id="discussion-11" class="section level4 unnumbered">
+<div id="discussion-1" class="section level4 unnumbered">
 <h4>Discussion</h4>
 
 <div class="rmdcaution">
@@ -274,9 +275,9 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 <div id="preview-the-contents-of-a-tibble" class="section level2">
 <h2><span class="header-section-number">3.4</span> Preview the contents of a tibble</h2>
 <p>You want to get an idea of what variables and values are stored in a tibble.</p>
-<div id="solution-13" class="section level4 unnumbered">
+<div id="solution-3" class="section level4 unnumbered">
 <h4>Solution</h4>
-<pre class="sourceCode r"><code class="sourceCode r">storms</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">storms</a></code></pre></div>
 <pre><code>## # A tibble: 10,010 x 13
 ##    name   year month   day  hour   lat  long status category  wind pressure
 ##    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;ord&gt;    &lt;int&gt;    &lt;int&gt;
@@ -293,7 +294,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 ## # … with 10,000 more rows, and 2 more variables: ts_diameter &lt;dbl&gt;,
 ## #   hu_diameter &lt;dbl&gt;</code></pre>
 </div>
-<div id="discussion-12" class="section level4 unnumbered">
+<div id="discussion-2" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>When you call a tibble directly, R will display enough information to give you a quick sense of the contents of the tibble. This includes:</p>
 <ol style="list-style-type: decimal">
@@ -306,11 +307,11 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 <div id="inspect-every-cell-of-a-tibble" class="section level2">
 <h2><span class="header-section-number">3.5</span> Inspect every cell of a tibble</h2>
 <p>You want to see every value that is stored in a tibble.</p>
-<div id="solution-14" class="section level4 unnumbered">
+<div id="solution-4" class="section level4 unnumbered">
 <h4>Solution</h4>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(storms)</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">View</span>(storms)</a></code></pre></div>
 </div>
-<div id="discussion-13" class="section level4 unnumbered">
+<div id="discussion-3" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>View()</code> (with a capital V) opens the tibble in R’s data viewer, which will let you scroll to every cell in the tibble.</p>
 </div>
@@ -320,7 +321,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 <p>You want to <strong>pivot</strong>, <strong>convert long data to wide</strong>, or move variable names out of the cells and into the column names. These are different ways of describing the same action.</p>
 <p><img src="images/tidyr-spread.png" style="display: block; margin: auto;" /></p>
 <p>For example, <code>table2</code> contains <code>type</code>, which is a column that repeats the variable names <code>case</code> and <code>population</code>. To make <code>table2</code> tidy, you must move <code>case</code> and <code>population</code> values into their own columns.</p>
-<pre class="sourceCode r"><code class="sourceCode r">table2</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">table2</a></code></pre></div>
 <pre><code>## # A tibble: 12 x 4
 ##    country      year type            count
 ##    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
@@ -336,10 +337,10 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 ## 10 China        1999 population 1272915272
 ## 11 China        2000 cases          213766
 ## 12 China        2000 population 1280428583</code></pre>
-<div id="solution-15" class="section level4 unnumbered">
+<div id="solution-5" class="section level4 unnumbered">
 <h4>Solution</h4>
-<pre class="sourceCode r"><code class="sourceCode r">table2 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> type, <span class="dt">value =</span> count)</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">table2 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> type, <span class="dt">value =</span> count)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   country      year  cases population
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
@@ -350,7 +351,7 @@ Be careful to use <code>as.data.frame()</code> and not <code>as_data_frame()</co
 ## 5 China        1999 212258 1272915272
 ## 6 China        2000 213766 1280428583</code></pre>
 </div>
-<div id="discussion-14" class="section level4 unnumbered">
+<div id="discussion-4" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>To use <code>spread()</code>, assign the column that contains variable names to <code>key</code>. Assign the column that contains the values that are associated with those names to <code>value</code>. <code>spread()</code> will:</p>
 <ol style="list-style-type: decimal">
@@ -372,17 +373,17 @@ Since this is easier to see than explain, you may want to study the diagram and 
 <p>You want to <strong>convert wide data to long</strong>, reshape a <strong>two-by-two table</strong>, or move variable values out of the column names and into the cells. These are different ways of describing the same action.</p>
 <p><img src="images/tidyr-gather.png" style="display: block; margin: auto;" /></p>
 <p>For example, <code>table4a</code> is a two-by-two table with the column names <code>1999</code> and <code>2000</code>. These names are values of a <code>year</code> variable. The field of cells in <code>table4a</code> contains counts of TB cases, which is another variable. To make <code>table4a</code> tidy, you need to move year and case values into their own columns.</p>
-<pre class="sourceCode r"><code class="sourceCode r">table4a</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">table4a</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   country     `1999` `2000`
 ## * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
 ## 1 Afghanistan    745   2666
 ## 2 Brazil       37737  80488
 ## 3 China       212258 213766</code></pre>
-<div id="solution-16" class="section level4 unnumbered">
+<div id="solution-6" class="section level4 unnumbered">
 <h4>Solution</h4>
-<pre class="sourceCode r"><code class="sourceCode r">table4a <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>)</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">table4a <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ##   country     year   cases
 ##   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;
@@ -393,7 +394,7 @@ Since this is easier to see than explain, you may want to study the diagram and 
 ## 5 Brazil      2000   80488
 ## 6 China       2000  213766</code></pre>
 </div>
-<div id="discussion-15" class="section level4 unnumbered">
+<div id="discussion-5" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>gather()</code> is the inverse of <code>spread()</code>: <code>gather()</code> collapses a field of cells that spans several columns into two new columns:</p>
 <ol style="list-style-type: decimal">
@@ -423,9 +424,9 @@ Since this is easier to see than explain, you may want to study the diagram and 
 <li>the <a href="https://dplyr.tidyverse.org/reference/select.html#useful-functions"><code>select()</code> helpers</a> that come in the dplyr package</li>
 </ol>
 <p>So for example, the following commands will do the same thing as the solution above:</p>
-<pre class="sourceCode r"><code class="sourceCode r">table4a <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>, <span class="st">`</span><span class="dt">&quot;1999&quot;, &quot;2000&quot;)</span>
-<span class="dt">table4a %&gt;% gather(key = &quot;year&quot;, value = &quot;cases&quot;, -1)</span>
-<span class="dt">table4a %&gt;% gather(key = &quot;year&quot;, value = &quot;cases&quot;, one_of(c(&quot;1999&quot;, &quot;2000&quot;)))</span></code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">table4a <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;cases&quot;</span>, <span class="st">`</span><span class="dt">&quot;1999&quot;, &quot;2000&quot;)</span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="dt">table4a %&gt;% gather(key = &quot;year&quot;, value = &quot;cases&quot;, -1)</span></a>
+<a class="sourceLine" id="cb53-3" data-line-number="3"><span class="dt">table4a %&gt;% gather(key = &quot;year&quot;, value = &quot;cases&quot;, one_of(c(&quot;1999&quot;, &quot;2000&quot;)))</span></a></code></pre></div>
 <p>By default, the new key column will contain character strings. If you would like to convert the new key column to the most sensible data type given its final contents, add the argument <code>convert = TRUE</code>.</p>
 </div>
 </div>
@@ -435,7 +436,7 @@ Since this is easier to see than explain, you may want to study the diagram and 
 <p>You want to split a single column into multiple columns by separating each cell in the column into a row of cells. Each new cell should contain a separate portion of the value in the original cell.</p>
 <p><img src="images/tidyr-separate.png" style="display: block; margin: auto;" /></p>
 <p>For example, <code>table3</code> combines <code>cases</code> and <code>population</code> values in a single column named <code>rate</code>. To tidy <code>table3</code>, you need to separate <code>rate</code> into two columns: one for the <code>cases</code> variable and one for the <code>population</code> variable.</p>
-<pre class="sourceCode r"><code class="sourceCode r">table3</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">table3</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ##   country      year rate             
 ## * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            
@@ -445,11 +446,11 @@ Since this is easier to see than explain, you may want to study the diagram and 
 ## 4 Brazil       2000 80488/174504898  
 ## 5 China        1999 212258/1272915272
 ## 6 China        2000 213766/1280428583</code></pre>
-<div id="solution-17" class="section level4 unnumbered">
+<div id="solution-7" class="section level4 unnumbered">
 <h4>Solution</h4>
-<pre class="sourceCode r"><code class="sourceCode r">table3 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">separate</span>(<span class="dt">col =</span> rate, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), 
-           <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">table3 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="st">  </span><span class="kw">separate</span>(<span class="dt">col =</span> rate, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), </a>
+<a class="sourceLine" id="cb56-3" data-line-number="3">           <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   country      year  cases population
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
@@ -460,7 +461,7 @@ Since this is easier to see than explain, you may want to study the diagram and 
 ## 5 China        1999 212258 1272915272
 ## 6 China        2000 213766 1280428583</code></pre>
 </div>
-<div id="discussion-16" class="section level4 unnumbered">
+<div id="discussion-6" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>To use <code>separate()</code>, pass <code>col</code> the name of the column to split, and pass <code>into</code> a vector of names for the new columns to split <code>col</code> into. You should supply one name for each new column that you expect to appear in the result; a mismatch will imply that something went wrong.</p>
 <p><code>separate()</code> will:</p>
@@ -498,7 +499,7 @@ Since this is easier to see than explain, you may want to study the diagram and 
 <p>You want to combine several columns into a single column by uniting their values across rows.</p>
 <p><img src="images/tidyr-unite.png" style="display: block; margin: auto;" /></p>
 <p>For example, <code>table5</code> splits the <code>year</code> variable across two columns: <code>century</code> and <code>year</code>. To make <code>table5</code> tidy, you need to unite <code>century</code> and <code>year</code> into a single column.</p>
-<pre class="sourceCode r"><code class="sourceCode r">table5</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">table5</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   country     century year  rate             
 ## * &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;            
@@ -508,10 +509,10 @@ Since this is easier to see than explain, you may want to study the diagram and 
 ## 4 Brazil      20      00    80488/174504898  
 ## 5 China       19      99    212258/1272915272
 ## 6 China       20      00    213766/1280428583</code></pre>
-<div id="solution-18" class="section level4 unnumbered">
+<div id="solution-8" class="section level4 unnumbered">
 <h4>Solution</h4>
-<pre class="sourceCode r"><code class="sourceCode r">table5 <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">unite</span>(<span class="dt">col =</span> <span class="st">&quot;year&quot;</span>, century, year, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">table5 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="st">  </span><span class="kw">unite</span>(<span class="dt">col =</span> <span class="st">&quot;year&quot;</span>, century, year, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ##   country     year  rate             
 ##   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;            
@@ -522,7 +523,7 @@ Since this is easier to see than explain, you may want to study the diagram and 
 ## 5 China       1999  212258/1272915272
 ## 6 China       2000  213766/1280428583</code></pre>
 </div>
-<div id="discussion-17" class="section level4 unnumbered">
+<div id="discussion-7" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>To use <code>unite()</code>, give the <code>col</code> argument a character string to use as the name of the new column to create. Then list the columns to combine. Finally, give the <code>sep</code> argument a separator character to use to paste together the values in the cells of each column. <code>unite()</code> will:</p>
 <ol style="list-style-type: decimal">
@@ -555,11 +556,13 @@ If you do not suppy a <code>sep</code> value, <code>unite()</code> will use <cod
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -567,12 +570,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -584,6 +586,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
