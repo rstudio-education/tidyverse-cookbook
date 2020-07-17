@@ -13,16 +13,26 @@ build_toc("02-import.Rmd")
 ## What you should know before you begin {-}
 
 ```{block2, type='rmdcaution'}
-Before you can manipulate data with R, you need to import the data into R's memory, or build a connection to the data that R can use to access the data remotely.
+Before you can manipulate data with R, you need to import the data into R's memory, or build a connection to the data that R can use to access the data remotely. For example, you can build a connection to data that lives in a database.
 
 How you import your data will depend on the format of the data. The most common way to store small data sets is as a plain text file. Data may also be stored in a proprietary format associated with a specific piece of software, such as SAS, SPSS, or Microsoft Excel. Data used on the internet is often stored as a JSON or XML file. Large data sets may be stored in a database or a distributed storage system.
 
-When you import data into R, R stores the data in your computer's RAM while you manipulate it. This creates a size limitation: truly big data sets should be stored outside of R in a database or distributed storage system. You can then create a connection to the system that R can use to access the data without bringing the data into your computer's RAM. 
+When you import data into R, R stores the data in your computer's RAM while you manipulate it. This creates a size limitation: truly big data sets should be stored outside of R in a database or a distributed storage system. You can then create a connection to the system that R can use to access the data without bringing the data into your computer's RAM. 
+
+The readr package contains the most common functions in the tidyverse for importing data. The readr package is loaded when you run `library(tidyverse)`. The tidyverse also includes the following packages for importing specific types of data. These are not loaded with `library(tidyverse)`. You must load them individually when you need them. 
+
+* DBI - connect to databases
+* haven - read SPSS, Stata, or SAS data
+* httr - access data over web APIs
+* jsonlite - read JSON
+* readxl - read Excel spreadsheets
+* rvest - scrape data from the web
+* xml2 - read XML
 ```
 
 ## Import data quickly with a GUI
 
-You want to import data quickly, and you do not mind using a semi-reproducible graphical user interface (GUI) to do so.
+You want to import data quickly, and you do not mind using a semi-reproducible graphical user interface (GUI) to do so. Your data is not so big that it needs to stay in a database or external storage system.
 
 #### Solution {-}
 
@@ -43,3 +53,266 @@ knitr::include_graphics("images/import-wizard.png")
 After you've selected a file, RStudio will display a preview of how the file will be imported as a data frame. Below the preview, RStudio provides a GUI interface to the common options for importing the type of file you have selected. As you customize the options, RStudio updates the data preview to display the results.
 
 The bottom right-hand corner of the window displays R code that, if run, will reproduce your importation process programatically. You should copy and save this code if you wish to document your work in a reproducible workflow.
+
+## Read a comma-separated values (csv) file
+
+You want to read a .csv file.
+
+#### Solution {-}
+
+```{r}
+# file path to a data set on your computer
+file_path <- readr_example("mtcars.csv")
+
+my_data <- read_csv(file_path)
+my_data
+```
+
+
+#### Discussion {-}
+
+Comma separated value (.csv) files are plain text files arranged so that each line contains a row of data and each cell within a line is separated by a comma. Most data analysis software can export their data as .csv files. So if you are in a pinch you can usually export data from a program as a .csv and then read it into R.
+
+You can also use `read_csv()` to import csv files that are hosted at their own unique URL. This only works if you are connected to the internet, e.g.
+
+```{r eval = FALSE}
+my_data <- read_csv("https://raw.githubusercontent.com/rstudio-education/tidyverse-cookbook/master/data/mtcars.csv")
+```
+
+## Read a fixed-width file
+
+You want to read a .fwf file, which uses the fixed width format to represent a table.
+
+#### Solution {-}
+
+```{r}
+# file path to a data set on your computer
+# or a link to a data set that has its own URL
+file_path <- readr_example("fwf-sample.txt")
+
+my_data <- read_fwf(
+  file_path, 
+  col_positions = fwf_cols(name = 20, state = 10, ssn = 12)
+)
+my_data
+```
+
+
+#### Discussion {-}
+
+Fixed width files arrange data so that each row of a table is in its own line, and each cell begins at a _fixed_ number of character spaces from the beginning of the line. For example, in the example below, the cells in the second column each begin 
+20 spaces from the beginning of the line, no matter many spaces the contents of the first cell required. At first glance, it is easy to mistake fixed width files for tab delimited files. Fixed with files use individual spaces to separate cells, and not tabs.
+
+```
+John Smith          WA        418-Y11-4111
+Mary Hartford       CA        319-Z19-4341
+Evan Nolan          IL        219-532-c301
+```
+
+Pass the output of `fwf_cols()` to the `col_positions` argument of `read_fwf()` to tell R where each column begins. `fwf_cols()` should contain the name of each column followed by the number of spaces _spanned_ by the column.
+
+
+## Read a text file with an unusual delimiter
+
+You want to read a file that resembles a csv, but uses something other than a comma to separate cells.
+
+#### Solution {-}
+
+```{r}
+
+```
+
+
+#### Discussion {-}
+
+
+
+## Read a file no header
+
+You want to
+
+#### Solution {-}
+
+```{r}
+
+```
+
+
+#### Discussion {-}
+
+
+
+## Skip several lines when reading a file
+
+You want to
+
+#### Solution {-}
+
+```{r}
+
+```
+
+
+#### Discussion {-}
+
+
+
+## Replace missing values as you read a file
+
+You want to
+
+#### Solution {-}
+
+```{r}
+
+```
+
+
+#### Discussion {-}
+
+
+
+## Read an excel spreadsheet
+
+You want to
+
+#### Solution {-}
+
+```{r}
+
+```
+
+
+#### Discussion {-}
+
+
+
+## Read a single sheet from an excel spreadsheet
+
+You want to
+
+#### Solution {-}
+
+```{r}
+
+```
+
+
+#### Discussion {-}
+
+
+
+## Read a field of cells from an excel spreadsheet
+
+You want to
+
+#### Solution {-}
+
+```{r}
+
+```
+
+
+#### Discussion {-}
+
+
+
+## Read a compressed RDS file
+
+You want to
+
+#### Solution {-}
+
+```{r}
+
+```
+
+
+#### Discussion {-}
+
+
+
+## Write to a comma-separate values (csv) file
+
+You want to
+
+#### Solution {-}
+
+```{r}
+
+```
+
+
+#### Discussion {-}
+
+
+
+## Write to a tab-delimited file
+
+You want to
+
+#### Solution {-}
+
+```{r}
+
+```
+
+
+#### Discussion {-}
+
+
+
+## Write to a text file with arbitrary delimiters
+
+You want to
+
+#### Solution {-}
+
+```{r}
+
+```
+
+
+#### Discussion {-}
+
+
+
+## Write to an excel spreadsheet
+
+You want to
+
+#### Solution {-}
+
+```{r}
+
+```
+
+
+#### Discussion {-}
+
+
+
+## Write to a compressed RDS file
+
+You want to
+
+#### Solution {-}
+
+```{r}
+
+```
+
+
+#### Discussion {-}
+
+
+
+
+<!--
+
+You want to
+
+#### Solution {-}
+
+#### Discussion {-}
+-->
