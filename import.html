@@ -172,6 +172,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="col2">
 <ol style="list-style-type: decimal">
 <li><a href="import.html#import-data-quickly-with-a-gui">Import data quickly with a GUI</a></li>
+<li><a href="import.html#read-a-comma-separated-values-csv-file">Read a comma-separated values (csv) file</a></li>
+<li><a href="import.html#read-a-fixed-width-file">Read a fixed-width file</a></li>
+<li><a href="import.html#read-a-text-file-with-an-unusual-delimiter">Read a text file with an unusual delimiter</a></li>
+<li><a href="import.html#read-a-file-no-header">Read a file no header</a></li>
+<li><a href="import.html#skip-several-lines-when-reading-a-file">Skip several lines when reading a file</a></li>
+<li><a href="import.html#replace-missing-values-as-you-read-a-file">Replace missing values as you read a file</a></li>
+<li><a href="import.html#read-an-excel-spreadsheet">Read an excel spreadsheet</a></li>
+<li><a href="import.html#read-a-single-sheet-from-an-excel-spreadsheet">Read a single sheet from an excel spreadsheet</a></li>
+<li><a href="import.html#read-a-field-of-cells-from-an-excel-spreadsheet">Read a field of cells from an excel spreadsheet</a></li>
+<li><a href="import.html#read-a-compressed-rds-file">Read a compressed RDS file</a></li>
+<li><a href="import.html#write-to-a-comma-separate-values-csv-file">Write to a comma-separate values (csv) file</a></li>
+<li><a href="import.html#write-to-a-tab-delimited-file">Write to a tab-delimited file</a></li>
+<li><a href="import.html#write-to-a-text-file-with-arbitrary-delimiters">Write to a text file with arbitrary delimiters</a></li>
+<li><a href="import.html#write-to-an-excel-spreadsheet">Write to an excel spreadsheet</a></li>
+<li><a href="import.html#write-to-a-compressed-rds-file">Write to a compressed RDS file</a></li>
 </ol>
 </div>
 <hr />
@@ -179,15 +194,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>What you should know before you begin</h2>
 
 <div class="rmdcaution">
-<p>Before you can manipulate data with R, you need to import the data into R’s memory, or build a connection to the data that R can use to access the data remotely.</p>
+<p>Before you can manipulate data with R, you need to import the data into R’s memory, or build a connection to the data that R can use to access the data remotely. For example, you can build a connection to data that lives in a database.</p>
 <p>How you import your data will depend on the format of the data. The most common way to store small data sets is as a plain text file. Data may also be stored in a proprietary format associated with a specific piece of software, such as SAS, SPSS, or Microsoft Excel. Data used on the internet is often stored as a JSON or XML file. Large data sets may be stored in a database or a distributed storage system.</p>
-When you import data into R, R stores the data in your computer’s RAM while you manipulate it. This creates a size limitation: truly big data sets should be stored outside of R in a database or distributed storage system. You can then create a connection to the system that R can use to access the data without bringing the data into your computer’s RAM.
-</div>
-
+<p>When you import data into R, R stores the data in your computer’s RAM while you manipulate it. This creates a size limitation: truly big data sets should be stored outside of R in a database or a distributed storage system. You can then create a connection to the system that R can use to access the data without bringing the data into your computer’s RAM.</p>
+<p>The readr package contains the most common functions in the tidyverse for importing data. The readr package is loaded when you run <code>library(tidyverse)</code>. The tidyverse also includes the following packages for importing specific types of data. These are not loaded with <code>library(tidyverse)</code>. You must load them individually when you need them.</p>
+<ul>
+<li>DBI - connect to databases</li>
+<li>haven - read SPSS, Stata, or SAS data</li>
+<li>httr - access data over web APIs</li>
+<li>jsonlite - read JSON</li>
+<li>readxl - read Excel spreadsheets</li>
+<li>rvest - scrape data from the web</li>
+<li>xml2 - read XML
+</div></li>
+</ul>
 </div>
 <div id="import-data-quickly-with-a-gui" class="section level2">
 <h2><span class="header-section-number">2.1</span> Import data quickly with a GUI</h2>
-<p>You want to import data quickly, and you do not mind using a semi-reproducible graphical user interface (GUI) to do so.</p>
+<p>You want to import data quickly, and you do not mind using a semi-reproducible graphical user interface (GUI) to do so. Your data is not so big that it needs to stay in a database or external storage system.</p>
 <div id="solution" class="section level4 unnumbered">
 <h4>Solution</h4>
 <p><img src="images/import-dataset.png" width="80%" style="display: block; margin: auto;" /></p>
@@ -199,6 +223,227 @@ When you import data into R, R stores the data in your computer’s RAM while yo
 <p><img src="images/import-wizard.png" width="80%" style="display: block; margin: auto;" /></p>
 <p>After you’ve selected a file, RStudio will display a preview of how the file will be imported as a data frame. Below the preview, RStudio provides a GUI interface to the common options for importing the type of file you have selected. As you customize the options, RStudio updates the data preview to display the results.</p>
 <p>The bottom right-hand corner of the window displays R code that, if run, will reproduce your importation process programatically. You should copy and save this code if you wish to document your work in a reproducible workflow.</p>
+</div>
+</div>
+<div id="read-a-comma-separated-values-csv-file" class="section level2">
+<h2><span class="header-section-number">2.2</span> Read a comma-separated values (csv) file</h2>
+<p>You want to read a .csv file.</p>
+<div id="solution-1" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># file path to a data set on your computer</span></a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">file_path &lt;-<span class="st"> </span><span class="kw">readr_example</span>(<span class="st">&quot;mtcars.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb35-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb35-4" data-line-number="4">my_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(file_path)</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   mpg = col_double(),
+##   cyl = col_double(),
+##   disp = col_double(),
+##   hp = col_double(),
+##   drat = col_double(),
+##   wt = col_double(),
+##   qsec = col_double(),
+##   vs = col_double(),
+##   am = col_double(),
+##   gear = col_double(),
+##   carb = col_double()
+## )</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">my_data</a></code></pre></div>
+<pre><code>## # A tibble: 32 x 11
+##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4
+##  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4
+##  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
+##  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+##  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+##  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+##  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
+##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
+## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
+## # … with 22 more rows</code></pre>
+</div>
+<div id="discussion-1" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>Comma separated value (.csv) files are plain text files arranged so that each line contains a row of data and each cell within a line is separated by a comma. Most data analysis software can export their data as .csv files. So if you are in a pinch you can usually export data from a program as a .csv and then read it into R.</p>
+<p>You can also use <code>read_csv()</code> to import csv files that are hosted at their own unique URL. This only works if you are connected to the internet, e.g.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">my_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/rstudio-education/tidyverse-cookbook/master/data/mtcars.csv&quot;</span>)</a></code></pre></div>
+</div>
+</div>
+<div id="read-a-fixed-width-file" class="section level2">
+<h2><span class="header-section-number">2.3</span> Read a fixed-width file</h2>
+<p>You want to read a .fwf file, which uses the fixed width format to represent a table.</p>
+<div id="solution-2" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co"># file path to a data set on your computer</span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="co"># or a link to a data set that has its own URL</span></a>
+<a class="sourceLine" id="cb40-3" data-line-number="3">file_path &lt;-<span class="st"> </span><span class="kw">readr_example</span>(<span class="st">&quot;fwf-sample.txt&quot;</span>)</a>
+<a class="sourceLine" id="cb40-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb40-5" data-line-number="5">my_data &lt;-<span class="st"> </span><span class="kw">read_fwf</span>(</a>
+<a class="sourceLine" id="cb40-6" data-line-number="6">  file_path, </a>
+<a class="sourceLine" id="cb40-7" data-line-number="7">  <span class="dt">col_positions =</span> <span class="kw">fwf_cols</span>(<span class="dt">name =</span> <span class="dv">20</span>, <span class="dt">state =</span> <span class="dv">10</span>, <span class="dt">ssn =</span> <span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb40-8" data-line-number="8">)</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   name = col_character(),
+##   state = col_character(),
+##   ssn = col_character()
+## )</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">my_data</a></code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   name          state ssn         
+##   &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;       
+## 1 John Smith    WA    418-Y11-4111
+## 2 Mary Hartford CA    319-Z19-4341
+## 3 Evan Nolan    IL    219-532-c301</code></pre>
+</div>
+<div id="discussion-2" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>Fixed width files arrange data so that each row of a table is in its own line, and each cell begins at a <em>fixed</em> number of character spaces from the beginning of the line. For example, in the example below, the cells in the second column each begin
+20 spaces from the beginning of the line, no matter many spaces the contents of the first cell required. At first glance, it is easy to mistake fixed width files for tab delimited files. Fixed with files use individual spaces to separate cells, and not tabs.</p>
+<pre><code>John Smith          WA        418-Y11-4111
+Mary Hartford       CA        319-Z19-4341
+Evan Nolan          IL        219-532-c301</code></pre>
+<p>Pass the output of <code>fwf_cols()</code> to the <code>col_positions</code> argument of <code>read_fwf()</code> to tell R where each column begins. <code>fwf_cols()</code> should contain the name of each column followed by the number of spaces <em>spanned</em> by the column.</p>
+</div>
+</div>
+<div id="read-a-text-file-with-an-unusual-delimiter" class="section level2">
+<h2><span class="header-section-number">2.4</span> Read a text file with an unusual delimiter</h2>
+<p>You want to read a file that resembles a csv, but uses something other than a comma to separate cells.</p>
+<div id="solution-3" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-3" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="read-a-file-no-header" class="section level2">
+<h2><span class="header-section-number">2.5</span> Read a file no header</h2>
+<p>You want to</p>
+<div id="solution-4" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-4" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="skip-several-lines-when-reading-a-file" class="section level2">
+<h2><span class="header-section-number">2.6</span> Skip several lines when reading a file</h2>
+<p>You want to</p>
+<div id="solution-5" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-5" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="replace-missing-values-as-you-read-a-file" class="section level2">
+<h2><span class="header-section-number">2.7</span> Replace missing values as you read a file</h2>
+<p>You want to</p>
+<div id="solution-6" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-6" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="read-an-excel-spreadsheet" class="section level2">
+<h2><span class="header-section-number">2.8</span> Read an excel spreadsheet</h2>
+<p>You want to</p>
+<div id="solution-7" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-7" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="read-a-single-sheet-from-an-excel-spreadsheet" class="section level2">
+<h2><span class="header-section-number">2.9</span> Read a single sheet from an excel spreadsheet</h2>
+<p>You want to</p>
+<div id="solution-8" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-8" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="read-a-field-of-cells-from-an-excel-spreadsheet" class="section level2">
+<h2><span class="header-section-number">2.10</span> Read a field of cells from an excel spreadsheet</h2>
+<p>You want to</p>
+<div id="solution-9" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-9" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="read-a-compressed-rds-file" class="section level2">
+<h2><span class="header-section-number">2.11</span> Read a compressed RDS file</h2>
+<p>You want to</p>
+<div id="solution-10" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-10" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="write-to-a-comma-separate-values-csv-file" class="section level2">
+<h2><span class="header-section-number">2.12</span> Write to a comma-separate values (csv) file</h2>
+<p>You want to</p>
+<div id="solution-11" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-11" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="write-to-a-tab-delimited-file" class="section level2">
+<h2><span class="header-section-number">2.13</span> Write to a tab-delimited file</h2>
+<p>You want to</p>
+<div id="solution-12" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-12" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="write-to-a-text-file-with-arbitrary-delimiters" class="section level2">
+<h2><span class="header-section-number">2.14</span> Write to a text file with arbitrary delimiters</h2>
+<p>You want to</p>
+<div id="solution-13" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-13" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="write-to-an-excel-spreadsheet" class="section level2">
+<h2><span class="header-section-number">2.15</span> Write to an excel spreadsheet</h2>
+<p>You want to</p>
+<div id="solution-14" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-14" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="write-to-a-compressed-rds-file" class="section level2">
+<h2><span class="header-section-number">2.16</span> Write to a compressed RDS file</h2>
+<p>You want to</p>
+<div id="solution-15" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-15" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<!--
+
+You want to
+
+#### Solution {-}
+
+#### Discussion {-}
+-->
 
 </div>
 </div>

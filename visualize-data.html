@@ -202,21 +202,21 @@ To use ggplot2, you build and then extend the graph template described in <a hre
 <p>You want to make a plot.</p>
 <div id="solution" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb198-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-209-1.png" width="672" /></p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb208-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-225-1.png" width="672" /></p>
 </div>
 <div id="discussion" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>Use the same code template to begin <em>any</em> plot:</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="op">&lt;</span>DATA<span class="op">&gt;</span>, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="op">&lt;</span>X_VARIABLE<span class="op">&gt;</span>, <span class="dt">y =</span> <span class="op">&lt;</span>Y_VARIABLE<span class="op">&gt;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb199-2" data-line-number="2"><span class="st">  </span><span class="er">&lt;</span>GEOM_FUNCTION<span class="op">&gt;</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="op">&lt;</span>DATA<span class="op">&gt;</span>, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="op">&lt;</span>X_VARIABLE<span class="op">&gt;</span>, <span class="dt">y =</span> <span class="op">&lt;</span>Y_VARIABLE<span class="op">&gt;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb209-2" data-line-number="2"><span class="st">  </span><span class="er">&lt;</span>GEOM_FUNCTION<span class="op">&gt;</span>()</a></code></pre></div>
 <p>Replace <code>&lt;DATA&gt;</code>, <code>&lt;X_VARIABLE&gt;</code>, <code>&lt;Y_VARIABLE&gt;</code> and <code>&lt;GEOM_FUNCTION&gt;</code> with the data set, column names within that data set, and <a href="visualize-data.html#make-a-specific-type-of-plot-like-a-line-plot-bar-chart-etc.">geom_function</a> that you’d like to use in your plot. Within ggplot2 code, you should <em>not</em> surround column names with quotes.</p>
 <p>The <code>geom_point()</code> function above will create a scatterplot. Notice that some type of plots, like a histogram, will not require a y variable, e.g.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb200-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb210-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>()</a></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-211-1.png" width="672" /></p>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-227-1.png" width="672" /></p>
 
 <div class="rmdcaution">
 When using the ggplot2 template, be sure to put each <code>+</code> at the <em>end</em> of the line it follows and never at the beginning of the line that follows it.
@@ -229,9 +229,9 @@ When using the ggplot2 template, be sure to put each <code>+</code> at the <em>e
 <p>You want to make a plot that is not a scatterplot, as in the <a href="visualize-data.html#make-a-plot">Make a plot</a> recipe.</p>
 <div id="solution-1" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb202-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-213-1.png" width="672" /></p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb212-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-229-1.png" width="672" /></p>
 </div>
 <div id="discussion-1" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -244,12 +244,12 @@ When using the ggplot2 template, be sure to put each <code>+</code> at the <em>e
 <p>You want to add a new variable your plot that will appear as a color, shape, line type or some other visual element accompanied by a legend.</p>
 <div id="solution-2" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1"><span class="kw">ggplot</span>(</a>
-<a class="sourceLine" id="cb203-2" data-line-number="2">  <span class="dt">data =</span> mpg, </a>
-<a class="sourceLine" id="cb203-3" data-line-number="3">  <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class, <span class="dt">size =</span> cty)</a>
-<a class="sourceLine" id="cb203-4" data-line-number="4">) <span class="op">+</span></a>
-<a class="sourceLine" id="cb203-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-214-1.png" width="672" /></p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1"><span class="kw">ggplot</span>(</a>
+<a class="sourceLine" id="cb213-2" data-line-number="2">  <span class="dt">data =</span> mpg, </a>
+<a class="sourceLine" id="cb213-3" data-line-number="3">  <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class, <span class="dt">size =</span> cty)</a>
+<a class="sourceLine" id="cb213-4" data-line-number="4">) <span class="op">+</span></a>
+<a class="sourceLine" id="cb213-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-230-1.png" width="672" /></p>
 </div>
 <div id="discussion-2" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -267,11 +267,11 @@ Aesthetic mappings must be defined inside of the <code>aes()</code> helper funct
 <p>You want to add multiple layers of data to your plot. For example, you want to overlay a trend line on top of a scatterplot.</p>
 <div id="solution-3" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb204-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb204-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb214-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb214-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>()</a></code></pre></div>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-216-1.png" width="672" /></p>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-232-1.png" width="672" /></p>
 </div>
 <div id="discussion-3" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -282,11 +282,11 @@ Be sure to put each <code>+</code> at the <em>end</em> of the line it follows an
 </div>
 
 <p>When you use multiple geoms, data and mappings defined in <code>ggplot()</code> are applied <em>globally</em> to each geom. You may also define data and mappings within each geom function. These will be applied locally to only the geom in which they are defined. For that geom, local mappings will override and extend global ones, e.g.</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb206-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> class)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb206-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb216-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> class)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb216-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>()</a></code></pre></div>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-218-1.png" width="672" /></p>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-234-1.png" width="672" /></p>
 </div>
 </div>
 <div id="subdivide-a-plot-into-multiple-subplots" class="section level2">
@@ -294,20 +294,20 @@ Be sure to put each <code>+</code> at the <em>end</em> of the line it follows an
 <p>You want to make a collection of subplots that each display a different part of the data set.</p>
 <div id="solution-4" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb208-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb208-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>class)</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-219-1.png" width="672" /></p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb218-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb218-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>class)</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-235-1.png" width="672" /></p>
 </div>
 <div id="discussion-4" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>In ggplot2 vocabulary, subplots are called <em>facets</em>. Each subplot shares the same x and y variables, which facilitates comparison.</p>
 <p>Use one of two functions to facet your plot.<code>facet_wrap()</code> creates a separate subplot for each value of a variable. Pass the variable to <code>facet_wrap()</code> preceded by a <code>~</code>.</p>
 <p><code>facet_grid()</code> creates a grid of facets based on the combinations of values of <em>two</em> variables. Pass <code>facet_grid()</code> two variables separated by a <code>~</code>, e.g.</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb209-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb209-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_grid</span>(cyl <span class="op">~</span><span class="st"> </span>fl)</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-220-1.png" width="672" /></p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb219-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb219-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_grid</span>(cyl <span class="op">~</span><span class="st"> </span>fl)</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-236-1.png" width="672" /></p>
 </div>
 </div>
 <div id="add-a-title-subtitle-or-caption-to-a-plot" class="section level2">
@@ -315,14 +315,14 @@ Be sure to put each <code>+</code> at the <em>end</em> of the line it follows an
 <p>You want to add a title and subtitle above your plot, and/or a caption below it.</p>
 <div id="solution-5" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb210-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb210-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(</a>
-<a class="sourceLine" id="cb210-4" data-line-number="4">    <span class="dt">title =</span> <span class="st">&quot;Engine size vs. Fuel efficiency&quot;</span>,</a>
-<a class="sourceLine" id="cb210-5" data-line-number="5">    <span class="dt">subtitle =</span> <span class="st">&quot;Fuel efficiency estimated for highway driving&quot;</span>,</a>
-<a class="sourceLine" id="cb210-6" data-line-number="6">    <span class="dt">caption =</span> <span class="st">&quot;Data from fueleconomy.gov&quot;</span></a>
-<a class="sourceLine" id="cb210-7" data-line-number="7">  )</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-221-1.png" width="672" /></p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb220-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb220-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(</a>
+<a class="sourceLine" id="cb220-4" data-line-number="4">    <span class="dt">title =</span> <span class="st">&quot;Engine size vs. Fuel efficiency&quot;</span>,</a>
+<a class="sourceLine" id="cb220-5" data-line-number="5">    <span class="dt">subtitle =</span> <span class="st">&quot;Fuel efficiency estimated for highway driving&quot;</span>,</a>
+<a class="sourceLine" id="cb220-6" data-line-number="6">    <span class="dt">caption =</span> <span class="st">&quot;Data from fueleconomy.gov&quot;</span></a>
+<a class="sourceLine" id="cb220-7" data-line-number="7">  )</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-237-1.png" width="672" /></p>
 </div>
 <div id="discussion-5" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -334,14 +334,14 @@ Be sure to put each <code>+</code> at the <em>end</em> of the line it follows an
 <p>You want to change the names of the x and y axes.</p>
 <div id="solution-6" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb211-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb211-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(</a>
-<a class="sourceLine" id="cb211-4" data-line-number="4">    <span class="dt">title =</span> <span class="st">&quot;Engine size vs. Fuel efficiency&quot;</span>,</a>
-<a class="sourceLine" id="cb211-5" data-line-number="5">    <span class="dt">x =</span> <span class="st">&quot;Engine Displacement (L)&quot;</span>,</a>
-<a class="sourceLine" id="cb211-6" data-line-number="6">    <span class="dt">y =</span> <span class="st">&quot;Fuel Efficiency (MPG)&quot;</span></a>
-<a class="sourceLine" id="cb211-7" data-line-number="7">  )</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-222-1.png" width="672" /></p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb221-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb221-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(</a>
+<a class="sourceLine" id="cb221-4" data-line-number="4">    <span class="dt">title =</span> <span class="st">&quot;Engine size vs. Fuel efficiency&quot;</span>,</a>
+<a class="sourceLine" id="cb221-5" data-line-number="5">    <span class="dt">x =</span> <span class="st">&quot;Engine Displacement (L)&quot;</span>,</a>
+<a class="sourceLine" id="cb221-6" data-line-number="6">    <span class="dt">y =</span> <span class="st">&quot;Fuel Efficiency (MPG)&quot;</span></a>
+<a class="sourceLine" id="cb221-7" data-line-number="7">  )</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-238-1.png" width="672" /></p>
 </div>
 <div id="discussion-6" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -353,19 +353,19 @@ Be sure to put each <code>+</code> at the <em>end</em> of the line it follows an
 <p>You want to change the title of a legend.</p>
 <div id="solution-7" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb212-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb212-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color =</span> <span class="st">&quot;Type of car&quot;</span>)</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-223-1.png" width="672" /></p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb222-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb222-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color =</span> <span class="st">&quot;Type of car&quot;</span>)</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-239-1.png" width="672" /></p>
 </div>
 <div id="discussion-7" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>ggplot2 creates a legend for each aesthetic except for <code>x</code>, <code>y</code>, and <code>group</code>. By default, ggplot2 labels the legend with the name of the variable mapped to the aesthetic. To override this, add the <code>labs()</code> function to your template and pass a character string to the aesthetic whose legend you want to relabel.</p>
 <p>Use a <code>\n</code> to place a line break in the title, e.g.</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb213-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb213-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color =</span> <span class="st">&quot;Type of</span><span class="ch">\n</span><span class="st">car&quot;</span>)</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-224-1.png" width="672" /></p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb223-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb223-3" data-line-number="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color =</span> <span class="st">&quot;Type of</span><span class="ch">\n</span><span class="st">car&quot;</span>)</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-240-1.png" width="672" /></p>
 </div>
 </div>
 <div id="change-the-names-within-a-legend" class="section level2">
@@ -373,10 +373,10 @@ Be sure to put each <code>+</code> at the <em>end</em> of the line it follows an
 <p>You want to change the value labels that appear within a legend.</p>
 <div id="solution-8" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb214-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb214-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Two seater&quot;</span>, <span class="st">&quot;Compact&quot;</span> ,<span class="st">&quot;Sedan&quot;</span>, <span class="st">&quot;Minivan&quot;</span>, <span class="st">&quot;Truck&quot;</span>, <span class="st">&quot;Subcompact&quot;</span>, <span class="st">&quot;SUV&quot;</span>))</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-225-1.png" width="672" /></p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb224-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb224-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Two seater&quot;</span>, <span class="st">&quot;Compact&quot;</span> ,<span class="st">&quot;Sedan&quot;</span>, <span class="st">&quot;Minivan&quot;</span>, <span class="st">&quot;Truck&quot;</span>, <span class="st">&quot;Subcompact&quot;</span>, <span class="st">&quot;SUV&quot;</span>))</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-241-1.png" width="672" /></p>
 </div>
 <div id="discussion-8" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -393,10 +393,10 @@ Be sure to put each <code>+</code> at the <em>end</em> of the line it follows an
 <p>You want to remove the legend from a ggplot2 plot.</p>
 <div id="solution-9" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb215-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb215-3" data-line-number="3"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-226-1.png" width="672" /></p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb225-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb225-3" data-line-number="3"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-242-1.png" width="672" /></p>
 </div>
 <div id="discussion-9" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -408,10 +408,10 @@ Be sure to put each <code>+</code> at the <em>end</em> of the line it follows an
 <p>You want to change the appearance of the <em>non-data</em> elements of your plot.</p>
 <div id="solution-10" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb216-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb216-3" data-line-number="3"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-227-1.png" width="672" /></p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb226-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb226-3" data-line-number="3"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-243-1.png" width="672" /></p>
 </div>
 <div id="discussion-10" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -424,19 +424,19 @@ Be sure to put each <code>+</code> at the <em>end</em> of the line it follows an
 <p>You want to change the colors that you plot uses to display data.</p>
 <div id="solution-11" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb217-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb217-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Spectral&quot;</span>)</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-228-1.png" width="672" /></p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> class)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb227-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb227-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Spectral&quot;</span>)</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-244-1.png" width="672" /></p>
 </div>
 <div id="discussion-11" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>ggplot2 uses colors for both the <code>color</code> and <code>fill</code> aesthetics. Determine which one you are using, and then add a new color of fill scale with ggplot2’s <a href="https://r4ds.had.co.nz/graphics-for-communication.html#scales">scale system</a>. See the <a href="https://ggplot2.tidyverse.org/reference/index.html">ggplot2 website</a> for a list of available scales. Additional scales are available in the <a href="https://jrnold.github.io/ggthemes/reference/index.html">ggthemes package</a>.</p>
 <p><code>scale_color_brewer()</code>/<code>scale_fill_brewer()</code> (for discrete data) and <code>scale_color_distill()</code>/<code>scale_fill_distill()</code> (for continuous data) are popular choices for pleasing color schemes. Each takes a <code>palette</code> argument that can be set to the name of any of the scales displayed below</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1"><span class="co"># install.packages(RColorBrewer)</span></a>
-<a class="sourceLine" id="cb218-2" data-line-number="2"><span class="kw">library</span>(RColorBrewer)</a>
-<a class="sourceLine" id="cb218-3" data-line-number="3"><span class="kw">display.brewer.all</span>()</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-229-1.png" width="672" /></p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1"><span class="co"># install.packages(RColorBrewer)</span></a>
+<a class="sourceLine" id="cb228-2" data-line-number="2"><span class="kw">library</span>(RColorBrewer)</a>
+<a class="sourceLine" id="cb228-3" data-line-number="3"><span class="kw">display.brewer.all</span>()</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-245-1.png" width="672" /></p>
 <p><code>scale_color_viridis_d()</code>/<code>scale_fill_viridis_d()</code> (for discrete data) and <code>scale_color_viridis()_c</code>/<code>scale_fill_viridis()_c</code> (for continuous data) are another popular choice for continuous data. Each takes an <code>option</code> argument that can be set to one of the palette names below.</p>
 <p><img src="images/viridis.png" /><!-- --></p>
 <p>The <a href="https://nanx.me/ggsci/"><code>ggsci</code></a> and <a href="https://github.com/karthik/wesanderson"><code>wesanderson</code></a> packages also provide popular color scales.</p>
@@ -447,12 +447,12 @@ Be sure to put each <code>+</code> at the <em>end</em> of the line it follows an
 <p>You want to change the range of the x or y axes, effectively zooming in or out on your data.</p>
 <div id="solution-12" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb219-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb219-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb219-4" data-line-number="4"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>)) </a></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb229-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb229-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb229-4" data-line-number="4"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">30</span>)) </a></code></pre></div>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-231-1.png" width="672" /></p>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-247-1.png" width="672" /></p>
 </div>
 <div id="discussion-12" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -465,10 +465,10 @@ Be sure to put each <code>+</code> at the <em>end</em> of the line it follows an
 <p>You want to make a polar plot, e.g. one that uses polar coordinates.</p>
 <div id="solution-13" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb221-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb221-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_polar</span>(<span class="dt">theta =</span> <span class="st">&quot;x&quot;</span>)</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-232-1.png" width="672" /></p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb231-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb231-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_polar</span>(<span class="dt">theta =</span> <span class="st">&quot;x&quot;</span>)</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-248-1.png" width="672" /></p>
 </div>
 <div id="discussion-13" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -480,10 +480,10 @@ Be sure to put each <code>+</code> at the <em>end</em> of the line it follows an
 <p>You want to flip the plot along its diagonal, swapping the locations of the x and y axes.</p>
 <div id="solution-14" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb222-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb222-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
-<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-233-1.png" width="672" /></p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb232-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb232-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<p><img src="tidyverse-cookbook_files/figure-html/unnamed-chunk-249-1.png" width="672" /></p>
 </div>
 <div id="discussion-14" class="section level4 unnumbered">
 <h4>Discussion</h4>
