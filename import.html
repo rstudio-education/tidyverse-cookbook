@@ -181,15 +181,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="import.html#skip-lines-at-the-start-of-a-file-when-reading-a-file">Skip lines at the start of a file when reading a file</a></li>
 <li><a href="import.html#skip-lines-at-the-end-of-a-file-when-reading-a-file">Skip lines at the end of a file when reading a file</a></li>
 <li><a href="import.html#replace-missing-values-as-you-read-a-file">Replace missing values as you read a file</a></li>
+<li><a href="import.html#read-a-compressed-rds-file">Read a compressed RDS file</a></li>
 <li><a href="import.html#read-an-excel-spreadsheet">Read an excel spreadsheet</a></li>
 <li><a href="import.html#read-a-single-sheet-from-an-excel-spreadsheet">Read a single sheet from an excel spreadsheet</a></li>
 <li><a href="import.html#read-a-field-of-cells-from-an-excel-spreadsheet">Read a field of cells from an excel spreadsheet</a></li>
-<li><a href="import.html#read-a-compressed-rds-file">Read a compressed RDS file</a></li>
 <li><a href="import.html#write-to-a-comma-separate-values-csv-file">Write to a comma-separate values (csv) file</a></li>
+<li><a href="import.html#write-to-a-semi-colon-delimited-file">Write to a semi-colon delimited file</a></li>
 <li><a href="import.html#write-to-a-tab-delimited-file">Write to a tab-delimited file</a></li>
 <li><a href="import.html#write-to-a-text-file-with-arbitrary-delimiters">Write to a text file with arbitrary delimiters</a></li>
-<li><a href="import.html#write-to-an-excel-spreadsheet">Write to an excel spreadsheet</a></li>
 <li><a href="import.html#write-to-a-compressed-rds-file">Write to a compressed RDS file</a></li>
+<li><a href="import.html#write-to-an-excel-spreadsheet">Write to an excel spreadsheet</a></li>
 </ol>
 </div>
 <hr />
@@ -208,9 +209,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>jsonlite - read JSON</li>
 <li>readxl - read Excel spreadsheets</li>
 <li>rvest - scrape data from the web</li>
-<li>xml2 - read XML
-</div></li>
+<li>xml2 - read XML</li>
 </ul>
+<h3 id="the-working-directory">The working directory</h3>
+<p>Reading and writing files often involves the use of file paths. If you pass R a partial file path, R will append it to the end of the file path that leads to your <em>working directory</em>. In other words, partial file paths are interpretted in relation to your working directory. The working directory can change from session to session, as a general rule, the working directory is the directory where:</p>
+<ul>
+<li>Your .Rmd file lives (if you are running code by knitting the document)</li>
+<li>Your .Rproj file lives (if you are using the RStudio Project system)</li>
+<li>You opened the R interpreter from (if you are using a unix terminal/shell window)</li>
+</ul>
+Run <code>getwd()</code> to see the file path that leads to your current working directory.
+</div>
+
 </div>
 <div id="import-data-quickly-with-a-gui" class="section level2">
 <h2><span class="header-section-number">2.1</span> Import data quickly with a GUI</h2>
@@ -489,18 +499,44 @@ Evan Nolan          IL        219-532-c301</code></pre>
 <p>The <code>na</code> argument works for all readr functions that read tabular data.</p>
 </div>
 </div>
-<div id="read-an-excel-spreadsheet" class="section level2">
-<h2><span class="header-section-number">2.11</span> Read an excel spreadsheet</h2>
-<p>You want to</p>
+<div id="read-a-compressed-rds-file" class="section level2">
+<h2><span class="header-section-number">2.11</span> Read a compressed RDS file</h2>
+<p>You want to read an .RDS file.</p>
 <div id="solution-10" class="section level4 unnumbered">
 <h4>Solution</h4>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="co"># To make a .RDS file to read</span></a>
+<a class="sourceLine" id="cb74-2" data-line-number="2"><span class="kw">saveRDS</span>(pressure, <span class="dt">file =</span> <span class="st">&quot;file.RDS&quot;</span>)</a>
+<a class="sourceLine" id="cb74-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb74-4" data-line-number="4">my_data &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;file.RDS&quot;</span>)</a>
+<a class="sourceLine" id="cb74-5" data-line-number="5">my_data</a></code></pre></div>
+<pre><code>##    temperature pressure
+## 1            0   0.0002
+## 2           20   0.0012
+## 3           40   0.0060
+## 4           60   0.0300
+## 5           80   0.0900
+## 6          100   0.2700
+## 7          120   0.7500
+## 8          140   1.8500
+## 9          160   4.2000
+## 10         180   8.8000
+## 11         200  17.3000
+## 12         220  32.1000
+## 13         240  57.0000
+## 14         260  96.0000
+## 15         280 157.0000
+## 16         300 247.0000
+## 17         320 376.0000
+## 18         340 558.0000
+## 19         360 806.0000</code></pre>
 </div>
 <div id="discussion-10" class="section level4 unnumbered">
 <h4>Discussion</h4>
+<p><code>readRDS</code> is a base R function—you do not need to run <code>library(tidyverse)</code> to use it. RDS is a file format native to R for saving compressed content. RDS files are <em>not</em> text files and are not human readable in their raw form. Each RDS file contains a single object, which makes it easy to assign its output directly to a single R object. This is not necessarily the case for .RData files, which makes .RDS files safer to use.</p>
 </div>
 </div>
-<div id="read-a-single-sheet-from-an-excel-spreadsheet" class="section level2">
-<h2><span class="header-section-number">2.12</span> Read a single sheet from an excel spreadsheet</h2>
+<div id="read-an-excel-spreadsheet" class="section level2">
+<h2><span class="header-section-number">2.12</span> Read an excel spreadsheet</h2>
 <p>You want to</p>
 <div id="solution-11" class="section level4 unnumbered">
 <h4>Solution</h4>
@@ -509,8 +545,8 @@ Evan Nolan          IL        219-532-c301</code></pre>
 <h4>Discussion</h4>
 </div>
 </div>
-<div id="read-a-field-of-cells-from-an-excel-spreadsheet" class="section level2">
-<h2><span class="header-section-number">2.13</span> Read a field of cells from an excel spreadsheet</h2>
+<div id="read-a-single-sheet-from-an-excel-spreadsheet" class="section level2">
+<h2><span class="header-section-number">2.13</span> Read a single sheet from an excel spreadsheet</h2>
 <p>You want to</p>
 <div id="solution-12" class="section level4 unnumbered">
 <h4>Solution</h4>
@@ -519,8 +555,8 @@ Evan Nolan          IL        219-532-c301</code></pre>
 <h4>Discussion</h4>
 </div>
 </div>
-<div id="read-a-compressed-rds-file" class="section level2">
-<h2><span class="header-section-number">2.14</span> Read a compressed RDS file</h2>
+<div id="read-a-field-of-cells-from-an-excel-spreadsheet" class="section level2">
+<h2><span class="header-section-number">2.14</span> Read a field of cells from an excel spreadsheet</h2>
 <p>You want to</p>
 <div id="solution-13" class="section level4 unnumbered">
 <h4>Solution</h4>
@@ -531,51 +567,74 @@ Evan Nolan          IL        219-532-c301</code></pre>
 </div>
 <div id="write-to-a-comma-separate-values-csv-file" class="section level2">
 <h2><span class="header-section-number">2.15</span> Write to a comma-separate values (csv) file</h2>
-<p>You want to</p>
+<p>You want to save a tibble or data frame as a .csv file.</p>
 <div id="solution-14" class="section level4 unnumbered">
 <h4>Solution</h4>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">write_csv</span>(iris, <span class="dt">path =</span> <span class="st">&quot;my_file.csv&quot;</span>)</a></code></pre></div>
 </div>
 <div id="discussion-14" class="section level4 unnumbered">
 <h4>Discussion</h4>
+<p><code>write_csv()</code> is about twice as fast as base R’s <code>write.csv()</code> and never adds rownames to a table. Tidyverse users tend to place important information in its own column, where it can be easily accessed, instead of in the rownames, where it cannot be as easily accessed.</p>
+<p>R will save your file at the location described by appending the <code>path</code> argument to your <a href="program.html#what-you-should-know-before-you-begin">working directory</a>. If your path contains directories, these must exist <em>before</em> you run <code>write_csv()</code>.</p>
 </div>
 </div>
-<div id="write-to-a-tab-delimited-file" class="section level2">
-<h2><span class="header-section-number">2.16</span> Write to a tab-delimited file</h2>
-<p>You want to</p>
+<div id="write-to-a-semi-colon-delimited-file" class="section level2">
+<h2><span class="header-section-number">2.16</span> Write to a semi-colon delimited file</h2>
+<p>You want to save a tibble or data frame as a .csv file <em>that uses semi-colons to delimit cells</em>.</p>
 <div id="solution-15" class="section level4 unnumbered">
 <h4>Solution</h4>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="kw">write_csv2</span>(iris, <span class="dt">path =</span> <span class="st">&quot;my_file.csv&quot;</span>)</a></code></pre></div>
 </div>
 <div id="discussion-15" class="section level4 unnumbered">
 <h4>Discussion</h4>
+<p>R will save your file at the location described by appending the <code>path</code> argument to your <a href="program.html#what-you-should-know-before-you-begin">working directory</a>. If your path contains directories, these must exist <em>before</em> you run <code>write_csv2()</code>.</p>
 </div>
 </div>
-<div id="write-to-a-text-file-with-arbitrary-delimiters" class="section level2">
-<h2><span class="header-section-number">2.17</span> Write to a text file with arbitrary delimiters</h2>
-<p>You want to</p>
+<div id="write-to-a-tab-delimited-file" class="section level2">
+<h2><span class="header-section-number">2.17</span> Write to a tab-delimited file</h2>
+<p>You want to save a tibble or data frame as a tab delimited file.</p>
 <div id="solution-16" class="section level4 unnumbered">
 <h4>Solution</h4>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="kw">write_tsv</span>(iris, <span class="dt">path =</span> <span class="st">&quot;my_file.tsv&quot;</span>)</a></code></pre></div>
 </div>
 <div id="discussion-16" class="section level4 unnumbered">
 <h4>Discussion</h4>
+<p>R will save your file at the location described by appending the <code>path</code> argument to your <a href="program.html#what-you-should-know-before-you-begin">working directory</a>. If your path contains directories, these must exist <em>before</em> you run <code>write_tsv()</code>.</p>
 </div>
 </div>
-<div id="write-to-an-excel-spreadsheet" class="section level2">
-<h2><span class="header-section-number">2.18</span> Write to an excel spreadsheet</h2>
-<p>You want to</p>
+<div id="write-to-a-text-file-with-arbitrary-delimiters" class="section level2">
+<h2><span class="header-section-number">2.18</span> Write to a text file with arbitrary delimiters</h2>
+<p>You want to save a tibble or data frame as a plain text file that uses an unusual delimiter.</p>
 <div id="solution-17" class="section level4 unnumbered">
 <h4>Solution</h4>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="kw">write_delim</span>(iris, <span class="dt">path =</span> <span class="st">&quot;my_file.tsv&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;|&quot;</span>)</a></code></pre></div>
 </div>
 <div id="discussion-17" class="section level4 unnumbered">
 <h4>Discussion</h4>
+<p><code>write_delim()</code> behaves like <a href="import.html#write-to-a-comma-separate-values-csv-file"><code>write_csv()</code></a>, but requires a <code>delim</code> argument. Pass <code>delim</code> the delimiter you wish to use to separate cells, as a character string.</p>
+<p>R will save your file at the location described by appending the <code>path</code> argument to your <a href="program.html#what-you-should-know-before-you-begin">working directory</a>. If your path contains directories, these must exist <em>before</em> you run <code>write_delim()</code>.</p>
 </div>
 </div>
 <div id="write-to-a-compressed-rds-file" class="section level2">
 <h2><span class="header-section-number">2.19</span> Write to a compressed RDS file</h2>
-<p>You want to</p>
+<p>You want to write a tibble or data frame to a .RDS file.</p>
 <div id="solution-18" class="section level4 unnumbered">
 <h4>Solution</h4>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="kw">saveRDS</span>(iris, <span class="dt">file =</span> <span class="st">&quot;my_file.RDS&quot;</span>)</a></code></pre></div>
 </div>
 <div id="discussion-18" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p><code>saveRDS()</code>, along with <code>readRDS()</code>, is a base R function, which explains the difference in the argument names as well as the read/write naming pattern compared to readr functions—take note!</p>
+<p>R will save your file at the location described by appending the <code>path</code> argument to your <a href="program.html#what-you-should-know-before-you-begin">working directory</a>. If your path contains directories, these must exist <em>before</em> you run <code>saveRDS()</code>. Use the .RDS file extension in the file name to help make the uncommon file format obvious.</p>
+</div>
+</div>
+<div id="write-to-an-excel-spreadsheet" class="section level2">
+<h2><span class="header-section-number">2.20</span> Write to an excel spreadsheet</h2>
+<p>You want to</p>
+<div id="solution-19" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-19" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <!--
 

@@ -231,8 +231,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p><img src="images/dplyr-arrange.png" style="display: block; margin: auto;" /></p>
 <div id="solution" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb101-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(displ)</a></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb108-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(displ)</a></code></pre></div>
 <pre><code>## # A tibble: 234 x 11
 ##    manufacturer model   displ  year   cyl trans   drv     cty   hwy fl    class 
 ##    &lt;chr&gt;        &lt;chr&gt;   &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; 
@@ -251,8 +251,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <div id="discussion" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>arrange()</code> sorts the rows according to the values of the specified column, with the lowest values appearing near the top of the data frame. If you provide additional column names, <code>arrange()</code> will use the additional columns in order as tiebreakers to sort within rows that share the same value of the first column.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb103-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(displ, cty)</a></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb110-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(displ, cty)</a></code></pre></div>
 <pre><code>## # A tibble: 234 x 11
 ##    manufacturer model   displ  year   cyl trans   drv     cty   hwy fl    class 
 ##    &lt;chr&gt;        &lt;chr&gt;   &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; 
@@ -275,8 +275,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p><img src="images/dplyr-desc.png" style="display: block; margin: auto;" /></p>
 <div id="solution-1" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb105-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(displ))</a></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb112-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(displ))</a></code></pre></div>
 <pre><code>## # A tibble: 234 x 11
 ##    manufacturer model     displ  year   cyl trans  drv     cty   hwy fl    class
 ##    &lt;chr&gt;        &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
@@ -295,8 +295,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <div id="discussion-1" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>Place <code>desc()</code> around a column name to cause <code>arrange()</code> to sort by descending values of that column. You can use <code>desc()</code> for tie-breaker columns as well (compare line nine below to the table above).</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb107-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(displ), <span class="kw">desc</span>(cty))</a></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb114-2" data-line-number="2"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(displ), <span class="kw">desc</span>(cty))</a></code></pre></div>
 <pre><code>## # A tibble: 234 x 11
 ##    manufacturer model     displ  year   cyl trans  drv     cty   hwy fl    class
 ##    &lt;chr&gt;        &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
@@ -319,8 +319,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p><img src="images/dplyr-filter.png" style="display: block; margin: auto;" /></p>
 <div id="solution-2" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb109-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(model <span class="op">==</span><span class="st"> &quot;jetta&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb116-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(model <span class="op">==</span><span class="st"> &quot;jetta&quot;</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 9 x 11
 ##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
 ##   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; 
@@ -338,8 +338,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <h4>Discussion</h4>
 <p><code>filter()</code> takes a logical test and returns the rows for which the logical test returns <code>TRUE</code>. <code>filter()</code> will match column names that appear within the logical test to columns in your data frame.</p>
 <p>If you provide multiple logical tests, <code>filter()</code> will combine them with an AND operator (<code>&amp;</code>):</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb111-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(model <span class="op">==</span><span class="st"> &quot;jetta&quot;</span>, year <span class="op">==</span><span class="st"> </span><span class="dv">1999</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" data-line-number="1">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb118-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(model <span class="op">==</span><span class="st"> &quot;jetta&quot;</span>, year <span class="op">==</span><span class="st"> </span><span class="dv">1999</span>)</a></code></pre></div>
 <p>Use R’s boolean operators, like <code>|</code>and <code>!</code>, to create other combinations of logical tests to pass to filter. See the help pages for <code>?Comparison</code> and <code>?Logic</code> to learn more about writing logical tests in R.</p>
 </div>
 </div>
@@ -349,8 +349,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p><img src="images/dplyr-select.png" style="display: block; margin: auto;" /></p>
 <div id="solution-3" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb112-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country, year, cases)</a></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb119-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country, year, cases)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ##   country      year  cases
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;
@@ -373,8 +373,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p><img src="images/dplyr-select-drop.png" style="display: block; margin: auto;" /></p>
 <div id="solution-4" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb114-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(population, year))</a></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb121-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(population, year))</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   country      cases
 ##   &lt;chr&gt;        &lt;int&gt;
@@ -396,8 +396,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p><img src="images/dplyr-select-range.png" style="display: block; margin: auto;" /></p>
 <div id="solution-5" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb116-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country<span class="op">:</span>cases)</a></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb123-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country<span class="op">:</span>cases)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ##   country      year  cases
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;
@@ -418,8 +418,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p>You want to return a “subset” of columns from your data frame by listing the position of each column to return.</p>
 <div id="solution-6" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb118-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb125-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ##   country      year population
 ##   &lt;chr&gt;       &lt;int&gt;      &lt;int&gt;
@@ -440,8 +440,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p>You want to return evey column in your data that begins with a specific string.</p>
 <div id="solution-7" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb120-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&quot;c&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb127-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&quot;c&quot;</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   country      cases
 ##   &lt;chr&gt;        &lt;int&gt;
@@ -458,8 +458,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p>You want to return evey column in your data that ends with a specific string.</p>
 <div id="solution-8" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb122-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">ends_with</span>(<span class="st">&quot;tion&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb129-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">ends_with</span>(<span class="st">&quot;tion&quot;</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 1
 ##   population
 ##        &lt;int&gt;
@@ -476,8 +476,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p>You want to return evey column in your data whose name contains a specific string or regular expression.</p>
 <div id="solution-9" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb124-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;o.*u&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb131-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;o.*u&quot;</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   country     population
 ##   &lt;chr&gt;            &lt;int&gt;
@@ -500,8 +500,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p><img src="images/dplyr-select-reorder.png" style="display: block; margin: auto;" /></p>
 <div id="solution-10" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb126-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country, year, population, cases)</a></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb133-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country, year, population, cases)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   country      year population  cases
 ##   &lt;chr&gt;       &lt;int&gt;      &lt;int&gt;  &lt;int&gt;
@@ -523,8 +523,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p><img src="images/dplyr-select-everything.png" style="display: block; margin: auto;" /></p>
 <div id="solution-11" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb128-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country, year, <span class="kw">everything</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb135-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(country, year, <span class="kw">everything</span>())</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   country      year  cases population
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
@@ -546,8 +546,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p><img src="images/dplyr-rename.png" style="display: block; margin: auto;" /></p>
 <div id="solution-12" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb130-2" data-line-number="2"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">state =</span> country, <span class="dt">date =</span> year)</a></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb137-2" data-line-number="2"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">state =</span> country, <span class="dt">date =</span> year)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   state        date  cases population
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
@@ -569,16 +569,16 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p><img src="images/dplyr-pull.png" style="display: block; margin: auto;" /></p>
 <div id="solution-13" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb132-2" data-line-number="2"><span class="st">  </span><span class="kw">pull</span>(cases)</a></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb139-2" data-line-number="2"><span class="st">  </span><span class="kw">pull</span>(cases)</a></code></pre></div>
 <pre><code>## [1]    745   2666  37737  80488 212258 213766</code></pre>
 </div>
 <div id="discussion-11" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>pull()</code> comes in the dplyr package. It does the equivalent of <code>pluck()</code> in the purrr package; however, <code>pull()</code> is designed to work specifically with data frames. <code>pluck()</code> is designed to work with all types of lists.</p>
 <p>You can also pull a column by integer position:</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb134-2" data-line-number="2"><span class="st">  </span><span class="kw">pull</span>(<span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb141-2" data-line-number="2"><span class="st">  </span><span class="kw">pull</span>(<span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## [1]    745   2666  37737  80488 212258 213766</code></pre>
 </div>
 </div>
@@ -588,8 +588,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p><img src="images/dplyr-mutate.png" style="display: block; margin: auto;" /></p>
 <div id="solution-14" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb136-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rate =</span> cases<span class="op">/</span>population, <span class="dt">percent =</span> rate <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb143-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rate =</span> cases<span class="op">/</span>population, <span class="dt">percent =</span> rate <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 6
 ##   country      year  cases population      rate percent
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;
@@ -609,8 +609,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <div id="dropping-the-original-data" class="section level5 unnumbered">
 <h5>Dropping the original data</h5>
 <p>Use <code>transmute()</code> to return only the new columns that <code>mutate()</code> would create.</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb138-2" data-line-number="2"><span class="st">  </span><span class="kw">transmute</span>(<span class="dt">rate =</span> cases<span class="op">/</span>population, <span class="dt">percent =</span> rate <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb145-2" data-line-number="2"><span class="st">  </span><span class="kw">transmute</span>(<span class="dt">rate =</span> cases<span class="op">/</span>population, <span class="dt">percent =</span> rate <span class="op">*</span><span class="st"> </span><span class="dv">100</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##        rate percent
 ##       &lt;dbl&gt;   &lt;dbl&gt;
@@ -629,8 +629,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p><img src="images/dplyr-summarise.png" style="display: block; margin: auto;" /></p>
 <div id="solution-15" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb140-2" data-line-number="2"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(cases), <span class="dt">max_rate =</span> <span class="kw">max</span>(cases<span class="op">/</span>population))</a></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb147-2" data-line-number="2"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(cases), <span class="dt">max_rate =</span> <span class="kw">max</span>(cases<span class="op">/</span>population))</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 2
 ##   total_cases max_rate
 ##         &lt;int&gt;    &lt;dbl&gt;
@@ -651,8 +651,8 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p>You want to do this as the first step in a multi-step analysis, because grouping data doesn’t do anything noticeable until you pass the grouped data to a tidyverse function.</p>
 <div id="solution-16" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb142-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country)</a></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb149-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ## # Groups:   country [3]
 ##   country      year  cases population
@@ -685,9 +685,9 @@ So to transform a table, begin with a recipe that transforms the structure of th
 <p><img src="images/dplyr-group_by.png" style="display: block; margin: auto;" /></p>
 <div id="solution-17" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb144-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb144-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(cases), <span class="dt">max_rate =</span> <span class="kw">max</span>(cases<span class="op">/</span>population))</a></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb151-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb151-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(cases), <span class="dt">max_rate =</span> <span class="kw">max</span>(cases<span class="op">/</span>population))</a></code></pre></div>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 3 x 3
 ##   country     total_cases max_rate
@@ -714,9 +714,9 @@ Since this is easier to see than explain, you may want to study the diagram and 
 <li><p><code>summarise()</code> will shorten the grouping criteria of its result by one column name (the last column name). Compare this to other tidyverse functions which give their result the <em>same</em> grouping criteria as their input.</p>
 <p>For example, if the input of <code>summarise()</code> is grouped by <code>country</code> and <code>year</code>, the output of <code>summarise()</code> will only be grouped by <code>country</code>. Because of this, you can call <code>summarise()</code> repeatedly to view progressively higher level summaries:</p></li>
 </ol>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb147-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb147-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(cases))</a></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb154-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb154-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(cases))</a></code></pre></div>
 <pre><code>## `summarise()` regrouping output by &#39;country&#39; (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ## # Groups:   country [3]
@@ -728,10 +728,10 @@ Since this is easier to see than explain, you may want to study the diagram and 
 ## 4 Brazil       2000       80488
 ## 5 China        1999      212258
 ## 6 China        2000      213766</code></pre>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb150-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb150-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(cases)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb150-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(total_cases))</a></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb157-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb157-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(cases)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb157-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(total_cases))</a></code></pre></div>
 <pre><code>## `summarise()` regrouping output by &#39;country&#39; (override with `.groups` argument)</code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 3 x 2
@@ -740,11 +740,11 @@ Since this is easier to see than explain, you may want to study the diagram and 
 ## 1 Afghanistan        3411
 ## 2 Brazil           118225
 ## 3 China            426024</code></pre>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb154-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb154-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(cases)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb154-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(total_cases)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb154-5" data-line-number="5"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(total_cases))</a></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb161-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(country, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb161-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(cases)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb161-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(total_cases)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb161-5" data-line-number="5"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_cases =</span> <span class="kw">sum</span>(total_cases))</a></code></pre></div>
 <pre><code>## `summarise()` regrouping output by &#39;country&#39; (override with `.groups` argument)</code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <pre><code>## # A tibble: 1 x 1
@@ -760,9 +760,9 @@ Since this is easier to see than explain, you may want to study the diagram and 
 <p>This lets you manipulate the collection of tables with <code>filter()</code>, <code>select()</code>, <code>arrange()</code>, and so on, as you would normally manipulate a collection of values.</p>
 <div id="solution-18" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" data-line-number="1">iris <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb158-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb158-3" data-line-number="3"><span class="st">  </span><span class="kw">nest</span>(<span class="dt">.key =</span> <span class="st">&quot;Measurements&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1">iris <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb165-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb165-3" data-line-number="3"><span class="st">  </span><span class="kw">nest</span>(<span class="dt">.key =</span> <span class="st">&quot;Measurements&quot;</span>)</a></code></pre></div>
 <pre><code>## Warning: `.key` is deprecated</code></pre>
 <pre><code>## # A tibble: 3 x 2
 ## # Groups:   Species [3]
@@ -779,17 +779,17 @@ Since this is easier to see than explain, you may want to study the diagram and 
 <li><p>Pass <code>nest()</code> a <em>grouped data frame</em> made with <code>dplyr::group_by()</code> (as above). <code>nest()</code> will create a separate table for each group. The table will contain every row in the group and every column that is not part of the grouping criteria.</p></li>
 <li><p>Pass <code>nest()</code> an ungrouped data frame and then specify which columns to nest. <code>nest()</code> will perform an implicit grouping on the combination of values that appear across the remaining columns, and then create a separate table for each implied grouping.</p>
 <p>You can specify columns with the same syntax and helpers that you would use with dplyr’s <code>select()</code> function. So, for example, the two calls below will produce the same result as the solution above.</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1">iris <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb161-2" data-line-number="2"><span class="st">  </span><span class="kw">nest</span>(Sepal.Width, </a>
-<a class="sourceLine" id="cb161-3" data-line-number="3">       Sepal.Length, </a>
-<a class="sourceLine" id="cb161-4" data-line-number="4">       Petal.Width, </a>
-<a class="sourceLine" id="cb161-5" data-line-number="5">       Petal.Length, </a>
-<a class="sourceLine" id="cb161-6" data-line-number="6">       <span class="dt">.key =</span> <span class="st">&quot;Measurements&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb161-7" data-line-number="7"><span class="st">  </span><span class="kw">as_tibble</span>()</a>
-<a class="sourceLine" id="cb161-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb161-9" data-line-number="9">iris <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb161-10" data-line-number="10"><span class="st">  </span><span class="kw">nest</span>(<span class="op">-</span>Species, <span class="dt">.key =</span> <span class="st">&quot;Measurements&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb161-11" data-line-number="11"><span class="st">  </span><span class="kw">as_tibble</span>()</a></code></pre></div></li>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1">iris <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb168-2" data-line-number="2"><span class="st">  </span><span class="kw">nest</span>(Sepal.Width, </a>
+<a class="sourceLine" id="cb168-3" data-line-number="3">       Sepal.Length, </a>
+<a class="sourceLine" id="cb168-4" data-line-number="4">       Petal.Width, </a>
+<a class="sourceLine" id="cb168-5" data-line-number="5">       Petal.Length, </a>
+<a class="sourceLine" id="cb168-6" data-line-number="6">       <span class="dt">.key =</span> <span class="st">&quot;Measurements&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb168-7" data-line-number="7"><span class="st">  </span><span class="kw">as_tibble</span>()</a>
+<a class="sourceLine" id="cb168-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb168-9" data-line-number="9">iris <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb168-10" data-line-number="10"><span class="st">  </span><span class="kw">nest</span>(<span class="op">-</span>Species, <span class="dt">.key =</span> <span class="st">&quot;Measurements&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb168-11" data-line-number="11"><span class="st">  </span><span class="kw">as_tibble</span>()</a></code></pre></div></li>
 </ol>
 <p><code>nest()</code> preserves class, which means that <code>nest()</code> will return a data frame if its input is a data frame and a tibble if its input is a tibble. In each case, <code>nest()</code> will add the subtables to the result as a list-column. Since, list-columns are much easier to view in a tibble than a data frame, I recommend that you convert the result of <code>nest()</code> to a tibble when necessary.</p>
 <p>Use the <code>.key</code> argument to provide a name for the new list-column.</p>
@@ -800,16 +800,16 @@ Since this is easier to see than explain, you may want to study the diagram and 
 <p>You want to extract a single table nested within a data frame.</p>
 <p><img src="images/tidyr-unnest-single.png" style="display: block; margin: auto;" /></p>
 <p>For example, you want to extract the setosa table from the nested data set created in the solution above,</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1">nested_iris &lt;-</a>
-<a class="sourceLine" id="cb162-2" data-line-number="2"><span class="st">  </span>iris <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb162-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb162-4" data-line-number="4"><span class="st">  </span><span class="kw">nest</span>(<span class="dt">.key =</span> <span class="st">&quot;Measurements&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1">nested_iris &lt;-</a>
+<a class="sourceLine" id="cb169-2" data-line-number="2"><span class="st">  </span>iris <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb169-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb169-4" data-line-number="4"><span class="st">  </span><span class="kw">nest</span>(<span class="dt">.key =</span> <span class="st">&quot;Measurements&quot;</span>)</a></code></pre></div>
 <pre><code>## Warning: `.key` is deprecated</code></pre>
 <div id="solution-19" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" data-line-number="1">nested_iris <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb164-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(Species <span class="op">==</span><span class="st"> &quot;setosa&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb164-3" data-line-number="3"><span class="st">  </span><span class="kw">unnest</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1">nested_iris <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb171-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(Species <span class="op">==</span><span class="st"> &quot;setosa&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb171-3" data-line-number="3"><span class="st">  </span><span class="kw">unnest</span>()</a></code></pre></div>
 <pre><code>## Warning: `cols` is now required when using unnest().
 ## Please use `cols = c(Measurements)`</code></pre>
 <pre><code>## # A tibble: 50 x 5
@@ -831,7 +831,7 @@ Since this is easier to see than explain, you may want to study the diagram and 
 <div id="discussion-17" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>Since the table is in a cell of the data frame, it is possible to extract the table by extracting the contents of the cell (as below). Be sure to use double brackets to extract the content itself, and not a 1 x 1 data frame that contains the cell.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1">nested_iris[[<span class="dv">1</span>, <span class="dv">2</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1">nested_iris[[<span class="dv">1</span>, <span class="dv">2</span>]]</a></code></pre></div>
 <p>However, this approach can be suboptimal for nested data. Often a nested table relies on information that is stored alongside it for meaning. For example, in the above example, the table relies on the Species variable to indicate that it describes setosa flowers.</p>
 <p>You can extract a nested table along with its related information by first subsetting to just the relevant information and then unnesting the result.</p>
 </div>
@@ -841,14 +841,14 @@ Since this is easier to see than explain, you may want to study the diagram and 
 <p>You want to transform a nested data frame into a flat data frame by re-integrating the nested tables into the surrounding data frame.</p>
 <p><img src="images/tidyr-unnest.png" style="display: block; margin: auto;" /></p>
 <p>For example, you want to unnest the <code>nested_iris</code> data frame created in the recipe above,</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1">nested_iris &lt;-</a>
-<a class="sourceLine" id="cb168-2" data-line-number="2"><span class="st">  </span>iris <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb168-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb168-4" data-line-number="4"><span class="st">  </span><span class="kw">nest</span>(<span class="dt">.key =</span> <span class="st">&quot;Measurements&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1">nested_iris &lt;-</a>
+<a class="sourceLine" id="cb175-2" data-line-number="2"><span class="st">  </span>iris <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb175-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb175-4" data-line-number="4"><span class="st">  </span><span class="kw">nest</span>(<span class="dt">.key =</span> <span class="st">&quot;Measurements&quot;</span>)</a></code></pre></div>
 <pre><code>## Warning: `.key` is deprecated</code></pre>
 <div id="solution-20" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" data-line-number="1"><span class="kw">unnest</span>(nested_iris)</a></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1"><span class="kw">unnest</span>(nested_iris)</a></code></pre></div>
 <pre><code>## Warning: `cols` is now required when using unnest().
 ## Please use `cols = c(Measurements)`</code></pre>
 <pre><code>## # A tibble: 150 x 5
@@ -904,7 +904,7 @@ You want to
 <div id="an-example" class="section level5 unnumbered">
 <h5>An example</h5>
 <p><code>smiths</code> contains measurements that describe two fictional people: John and Mary Smith.</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1">smiths</a></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" data-line-number="1">smiths</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 5
 ##   subject     time   age weight height
 ##   &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -914,13 +914,13 @@ You want to
 <ol style="list-style-type: decimal">
 <li><code>round()</code> which can round the values of the data vector stored in <code>smiths$height</code>.</li>
 </ol>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1"><span class="kw">round</span>(smiths<span class="op">$</span>height)</a></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1"><span class="kw">round</span>(smiths<span class="op">$</span>height)</a></code></pre></div>
 <pre><code>## [1] 2 2</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><code>mutate()</code> which can add the results to a copy of the <code>smiths</code> table.</li>
 </ol>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1">smiths <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb177-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">height_int =</span> <span class="kw">round</span>(height))</a></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1">smiths <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb184-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">height_int =</span> <span class="kw">round</span>(height))</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 6
 ##   subject     time   age weight height height_int
 ##   &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
@@ -932,7 +932,7 @@ You want to
 <h5>An example that uses list columns</h5>
 <p><code>sepals</code> is a tibble that I made for this example.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> It contains sepal length measurements for three species of flowers. The measurements are stored in a list-column named <code>lengths</code>.</p>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" data-line-number="1">sepals</a></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1">sepals</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   Species    lengths   
 ##   &lt;fct&gt;      &lt;list&gt;    
@@ -940,8 +940,8 @@ You want to
 ## 2 versicolor &lt;dbl [50]&gt;
 ## 3 virginica  &lt;dbl [50]&gt;</code></pre>
 <p>Each cell in <code>lengths</code> contains a data vector of 50 sepal lengths.</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1"><span class="co"># For example, the first cell of lengths</span></a>
-<a class="sourceLine" id="cb182-2" data-line-number="2">sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" data-line-number="1"><span class="co"># For example, the first cell of lengths</span></a>
+<a class="sourceLine" id="cb189-2" data-line-number="2">sepals[[<span class="dv">1</span>, <span class="dv">2</span>]]</a></code></pre></div>
 <pre><code>## [[1]]
 ##  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1 5.7
 ## [20] 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0 5.5 4.9
@@ -949,16 +949,16 @@ You want to
 <p>To add the average sepal length for each species to the table, you would need three functions:</p>
 <ol style="list-style-type: decimal">
 <li><p><code>mean()</code> which can compute the average of a data vector in <code>lengths</code></p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1"><span class="kw">mean</span>(sepals[[<span class="dv">1</span>, <span class="dv">2</span>]])</a></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1"><span class="kw">mean</span>(sepals[[<span class="dv">1</span>, <span class="dv">2</span>]])</a></code></pre></div>
 <pre><code>## Warning in mean.default(sepals[[1, 2]]): argument is not numeric or logical:
 ## returning NA</code></pre>
 <pre><code>## [1] NA</code></pre></li>
 <li><p><code>map_dbl()</code> which can apply <code>mean()</code> to each cell of <code>lengths</code>, which is a list-column.</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1"><span class="kw">map_dbl</span>(sepals<span class="op">$</span>lengths, mean)</a></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1"><span class="kw">map_dbl</span>(sepals<span class="op">$</span>lengths, mean)</a></code></pre></div>
 <pre><code>## [1] 5.006 5.936 6.588</code></pre></li>
 <li><p><code>mutate()</code> which can add the results to a copy of the <code>sepals</code> table.</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" data-line-number="1">sepals <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb189-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">avg_length =</span> <span class="kw">map_dbl</span>(lengths, mean))</a></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" data-line-number="1">sepals <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb196-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">avg_length =</span> <span class="kw">map_dbl</span>(lengths, mean))</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   Species    lengths    avg_length
 ##   &lt;fct&gt;      &lt;list&gt;          &lt;dbl&gt;
@@ -976,14 +976,14 @@ You want to
 <p>Your data is structured in such a way that you can match observations by the values of one or more ID columns that appear in both data frames.</p>
 <p><img src="images/dplyr-left-join.png" style="display: block; margin: auto;" /></p>
 <p>For example, you would like to combine <code>band_members</code> and <code>band_instruments</code> into a single data frame based on the values of the <code>name</code> column. The new data frame will correctly list who plays what.</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1">band_members</a></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" data-line-number="1">band_members</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   name  band   
 ##   &lt;chr&gt; &lt;chr&gt;  
 ## 1 Mick  Stones 
 ## 2 John  Beatles
 ## 3 Paul  Beatles</code></pre>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" data-line-number="1">band_instruments</a></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1">band_instruments</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   name  plays 
 ##   &lt;chr&gt; &lt;chr&gt; 
@@ -992,8 +992,8 @@ You want to
 ## 3 Keith guitar</code></pre>
 <div id="solution-22" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1">band_members <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb195-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1">band_members <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb202-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   name  band    plays 
 ##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
@@ -1009,8 +1009,8 @@ You want to
 <p><img src="images/dplyr-left-join.png" style="display: block; margin: auto;" /></p></li>
 <li><p><code>right_join()</code> drops any row in the <em>first</em> data set does not match a row in the first data set.</p>
 <p><img src="images/dplyr-right-join.png" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" data-line-number="1">band_members <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb197-2" data-line-number="2"><span class="st">  </span><span class="kw">right_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1">band_members <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb204-2" data-line-number="2"><span class="st">  </span><span class="kw">right_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   name  band    plays 
 ##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
@@ -1019,8 +1019,8 @@ You want to
 ## 3 Keith &lt;NA&gt;    guitar</code></pre></li>
 <li><p><code>inner_join()</code> drops any row in <em>either</em> data set that does not have a match in both data sets, i.e. <code>inner_join()</code> does not retain any incomplete rows in the final result.</p>
 <p><img src="images/dplyr-inner-join.png" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1">band_members <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb199-2" data-line-number="2"><span class="st">  </span><span class="kw">inner_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1">band_members <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb206-2" data-line-number="2"><span class="st">  </span><span class="kw">inner_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 3
 ##   name  band    plays 
 ##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
@@ -1028,8 +1028,8 @@ You want to
 ## 2 Paul  Beatles bass</code></pre></li>
 <li><p><code>full_join()</code> retains every row from both data sets; it is the only join guaranteed to retain all of the original data.</p>
 <p><img src="images/dplyr-full-join.png" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1">band_members <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb201-2" data-line-number="2"><span class="st">  </span><span class="kw">full_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1">band_members <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb208-2" data-line-number="2"><span class="st">  </span><span class="kw">full_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 4 x 3
 ##   name  band    plays 
 ##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
@@ -1046,8 +1046,8 @@ You want to
 <h5>Specifying column(s) to join on</h5>
 <p>By default, the mutating join functions will join on the set of columns whose names appear in both data frames. The join functions will match each row in the first data frame to the row in the second data frame that has the same combination of values across the commonly named columns.</p>
 <p>To override the default, add a <code>by</code> argument to your join function. Pass it the name(s) of the column(s) to join on as a character vector. These names should appear in both data sets. R will join together rows that contain the same combination of values in these columns, ignoring the values in other columns, even if those columns share a name with a column in the other data frame.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb203-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(table3, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1">table1 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb210-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(table3, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 5
 ##   country      year  cases population rate             
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt; &lt;chr&gt;            
@@ -1061,7 +1061,7 @@ You want to
 <div id="joining-when-id-names-do-not-match" class="section level5 unnumbered">
 <h5>Joining when ID names do not match</h5>
 <p>Often an ID variable will appear with a different name in each data frame. For example, the <code>name</code> variable appears as <code>artist</code> in <code>band_instruments2</code>.</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1">band_instruments2</a></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1">band_instruments2</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   artist plays 
 ##   &lt;chr&gt;  &lt;chr&gt; 
@@ -1069,7 +1069,7 @@ You want to
 ## 2 Paul   bass  
 ## 3 Keith  guitar</code></pre>
 <p>To join by two columns that have different names, pass <code>by</code> a named character vector: each element of the vector should be a pair of names, e.g.</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1"><span class="kw">c</span>(<span class="dt">name1 =</span> <span class="st">&quot;name2&quot;</span>, <span class="dt">name4 =</span> <span class="st">&quot;name4&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1"><span class="kw">c</span>(<span class="dt">name1 =</span> <span class="st">&quot;name2&quot;</span>, <span class="dt">name4 =</span> <span class="st">&quot;name4&quot;</span>)</a></code></pre></div>
 <p>For each element,</p>
 <ol style="list-style-type: decimal">
 <li>Write the name of the column that appears in the first data frame</li>
@@ -1077,8 +1077,8 @@ You want to
 <li>Write the name of the matching column that appears in the second data set.</li>
 </ol>
 <p>Only the second name needs to be surrounded with quotation marks. The join will match the corresponding columns across data frames.</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1">band_members <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb208-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(band_instruments2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="dt">name =</span> <span class="st">&quot;artist&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1">band_members <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb215-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(band_instruments2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="dt">name =</span> <span class="st">&quot;artist&quot;</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##   name  band    plays 
 ##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
@@ -1090,8 +1090,8 @@ You want to
 <div id="suffixes" class="section level5 unnumbered">
 <h5>Suffixes</h5>
 <p>Joins will append the suffixes <code>.x</code> and <code>.y</code> to any columns that have the same name in both data sets <em>but are not used to join on</em>. The columns from the first data set are suffixed with <code>.x</code>, the columns from the second with <code>.y</code>.</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1">table4a <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb210-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(table4b, <span class="dt">by =</span> <span class="st">&quot;country&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1">table4a <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb217-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(table4b, <span class="dt">by =</span> <span class="st">&quot;country&quot;</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   country     `1999.x` `2000.x`   `1999.y`   `2000.y`
 ##   &lt;chr&gt;          &lt;int&gt;    &lt;int&gt;      &lt;int&gt;      &lt;int&gt;
@@ -1099,8 +1099,8 @@ You want to
 ## 2 Brazil         37737    80488  172006362  174504898
 ## 3 China         212258   213766 1272915272 1280428583</code></pre>
 <p>To use different suffixes, supply a character vector of length two as a <code>suffix</code> argument.</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1">table4a <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb212-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(table4b, <span class="dt">by =</span> <span class="st">&quot;country&quot;</span>, <span class="dt">suffix =</span> <span class="kw">c</span>(<span class="st">&quot;_cases&quot;</span>, <span class="st">&quot;_pop&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1">table4a <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb219-2" data-line-number="2"><span class="st">  </span><span class="kw">left_join</span>(table4b, <span class="dt">by =</span> <span class="st">&quot;country&quot;</span>, <span class="dt">suffix =</span> <span class="kw">c</span>(<span class="st">&quot;_cases&quot;</span>, <span class="st">&quot;_pop&quot;</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   country     `1999_cases` `2000_cases` `1999_pop` `2000_pop`
 ##   &lt;chr&gt;              &lt;int&gt;        &lt;int&gt;      &lt;int&gt;      &lt;int&gt;
@@ -1116,14 +1116,14 @@ You want to
 <p>Your data is structured in such a way that you can match rows by the values of one or more ID columns that appear in both data frames.</p>
 <p><img src="images/dplyr-semi-join.png" style="display: block; margin: auto;" /></p>
 <p>For example, you would like to return the rows of <code>band_members</code> that have a corresponding row in <code>band_instruments</code>. The new data frame will be a reduced version of <code>band_members</code> that does not contain any new columns.</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1">band_members</a></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1">band_members</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   name  band   
 ##   &lt;chr&gt; &lt;chr&gt;  
 ## 1 Mick  Stones 
 ## 2 John  Beatles
 ## 3 Paul  Beatles</code></pre>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" data-line-number="1">band_instruments</a></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1">band_instruments</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   name  plays 
 ##   &lt;chr&gt; &lt;chr&gt; 
@@ -1132,8 +1132,8 @@ You want to
 ## 3 Keith guitar</code></pre>
 <div id="solution-23" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1">band_members <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb218-2" data-line-number="2"><span class="st">  </span><span class="kw">semi_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1">band_members <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb225-2" data-line-number="2"><span class="st">  </span><span class="kw">semi_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 2
 ##   name  band   
 ##   &lt;chr&gt; &lt;chr&gt;  
@@ -1158,14 +1158,14 @@ You want to
 <p>Your data is structured in such a way that you can match rows by the values of one or more ID columns that appear in both data frames.</p>
 <p><img src="images/dplyr-anti-join.png" style="display: block; margin: auto;" /></p>
 <p>For example, you would like to return the rows of <code>band_members</code> that do not have a corresponding row in <code>band_instruments</code>. The new data frame will be a reduced version of <code>band_members</code> that does not contain any new columns.</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1">band_members</a></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1">band_members</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   name  band   
 ##   &lt;chr&gt; &lt;chr&gt;  
 ## 1 Mick  Stones 
 ## 2 John  Beatles
 ## 3 Paul  Beatles</code></pre>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1">band_instruments</a></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1">band_instruments</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 2
 ##   name  plays 
 ##   &lt;chr&gt; &lt;chr&gt; 
@@ -1174,8 +1174,8 @@ You want to
 ## 3 Keith guitar</code></pre>
 <div id="solution-24" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1">band_members <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb224-2" data-line-number="2"><span class="st">  </span><span class="kw">anti_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1">band_members <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb231-2" data-line-number="2"><span class="st">  </span><span class="kw">anti_join</span>(band_instruments, <span class="dt">by =</span> <span class="st">&quot;name&quot;</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 2
 ##   name  band  
 ##   &lt;chr&gt; &lt;chr&gt; 
