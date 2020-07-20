@@ -310,50 +310,70 @@ my_data
 
 `readRDS` is a base R function—you do not need to run `library(tidyverse)` to use it. RDS is a file format native to R for saving compressed content. RDS files are _not_ text files and are not human readable in their raw form. Each RDS file contains a single object, which makes it easy to assign its output directly to a single R object. This is not necessarily the case for .RData files, which makes .RDS files safer to use.
 
+## Read an Excel spreadsheet
 
-
-## Read an excel spreadsheet
-
-You want to
+You want to read an Excel spreadsheet.
 
 #### Solution {-}
 
 ```{r}
+library(readxl)
 
+# File path to an example excel spreadsheet to import
+file_path <- readxl_example("datasets.xlsx")
+
+my_data <- read_excel(file_path)
+my_data
 ```
-
 
 #### Discussion {-}
 
+By default, `read_excel()` reads the _first_ sheet in an Excel spreadsheet. See the [next recipe][Read a specific sheet from an Excel spreadsheet] to read in sheets other than the first.
+
+`read_excel()` is loaded with the readxl package, which must be loaded with `library(readxl)`. Pass `read_excel()` a file path or URL that leads to the Excel file you wish to read. `readxl_example("datasets.xlsx")` returns a file path that leads to an example Excel spreadsheet that is conveniently installed with the readxl package.
 
 
-## Read a single sheet from an excel spreadsheet
+## Read a specific sheet from an Excel spreadsheet
 
-You want to
+You want to read a specific sheet from an Excel spreadsheet.
 
 #### Solution {-}
 
 ```{r}
+library(readxl)
 
+# File path to an example excel spreadsheet to import
+file_path <- readxl_example("datasets.xlsx")
+
+my_data <- read_excel(file_path, sheet = "chickwts")
+my_data
 ```
-
 
 #### Discussion {-}
 
+To read a specific sheet from a larger Excel spreadsheet, use the `sheet` argument to pass [`read_excel()`][Read an Excel spreadsheet] the name of the sheet as a character string. You can also pass `sheet` the number of the sheet to read. For example, `read_excel(file_path, sheet = 2)` would read the second spreadsheet in the file.
 
+If you are unsure of the name of a sheet, use the `excel_sheets()` function to list the names of the spreadsheets within a file, without importing the file, e.g. `excel_sheets(file_path)`.
 
 ## Read a field of cells from an excel spreadsheet
 
-You want to
+You want to read a subset of cells from an Excel spreadsheet.
 
 #### Solution {-}
 
 ```{r}
+library(readxl)
 
+# File path to an example excel spreadsheet to import
+file_path <- readxl_example("datasets.xlsx")
+
+my_data <- read_excel(file_path, range = "C1:E4", skip = 3, n_max = 10)
+my_data
 ```
 
-
 #### Discussion {-}
+
+`read_excel()` adopts the [`skip`][Skip lines at the start of a file when reading a file] and [`n_max][Skip lines at the end of a file when reading a file] arguments of reader functions to skip rows at the top of the spreadsheet and to control how far down the spreadsheet to read. Use the `range` argument to specify a subset of columns to read. Two column names separated by a `:` specifies those two columns and every column between them.
 
 
 
@@ -438,21 +458,17 @@ saveRDS(iris, file = "my_file.RDS")
 
 R will save your file at the location described by appending the `path` argument to your [working directory][What you should know before you begin]. If your path contains directories, these must exist _before_ you run `saveRDS()`. Use the .RDS file extension in the file name to help make the uncommon file format obvious.
 
-
-## Write to an excel spreadsheet
-
-You want to
-
-#### Solution {-}
-
-```{r}
-
+```{r include = FALSE}
+files <- c(
+  "file.RDS",
+  "file.csv",
+  "file.fwf",
+  "file.tsv",
+  "file.txt",
+  "file2.csv"
+)
+map(files, ~if(file.exists(.x)) file.remove(.x))
 ```
-
-
-#### Discussion {-}
-
-
 
 
 <!--
