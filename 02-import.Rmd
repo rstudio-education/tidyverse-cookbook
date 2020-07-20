@@ -28,6 +28,16 @@ The readr package contains the most common functions in the tidyverse for import
 * readxl - read Excel spreadsheets
 * rvest - scrape data from the web
 * xml2 - read XML
+
+### The working directory
+
+Reading and writing files often involves the use of file paths. If you pass R a partial file path, R will append it to the end of the file path that leads to your _working directory_. In other words, partial file paths are interpretted in relation to your working directory. The working directory can change from session to session, as a general rule, the working directory is the directory where:
+
+* Your .Rmd file lives (if you are running code by knitting the document)
+* Your .Rproj file lives (if you are using the RStudio Project system)
+* You opened the R interpreter from (if you are using a unix terminal/shell window)
+
+Run `getwd()` to see the file path that leads to your current working directory.
 ```
 
 ## Import data quickly with a GUI
@@ -281,6 +291,27 @@ R's uses the string `NA` to represent missing data. If your file was exported fr
 
 The `na` argument works for all readr functions that read tabular data.
 
+## Read a compressed RDS file
+
+You want to read an .RDS file.
+
+#### Solution {-}
+
+```{r}
+# To make a .RDS file to read
+saveRDS(pressure, file = "file.RDS")
+
+my_data <- readRDS("file.RDS")
+my_data
+```
+
+
+#### Discussion {-}
+
+`readRDS` is a base R function—you do not need to run `library(tidyverse)` to use it. RDS is a file format native to R for saving compressed content. RDS files are _not_ text files and are not human readable in their raw form. Each RDS file contains a single object, which makes it easy to assign its output directly to a single R object. This is not necessarily the case for .RData files, which makes .RDS files safer to use.
+
+
+
 ## Read an excel spreadsheet
 
 You want to
@@ -326,82 +357,89 @@ You want to
 
 
 
-## Read a compressed RDS file
-
-You want to
-
-#### Solution {-}
-
-```{r}
-
-```
-
-
-#### Discussion {-}
-
-
-
 ## Write to a comma-separate values (csv) file
 
-You want to
+You want to save a tibble or data frame as a .csv file.
 
 #### Solution {-}
 
-```{r}
-
+```{r eval = FALSE}
+write_csv(iris, path = "my_file.csv")
 ```
 
 
 #### Discussion {-}
 
+`write_csv()` is about twice as fast as base R's `write.csv()` and never adds rownames to a table. Tidyverse users tend to place important information in its own column, where it can be easily accessed, instead of in the rownames, where it cannot be as easily accessed.
+
+R will save your file at the location described by appending the `path` argument to your [working directory][What you should know before you begin]. If your path contains directories, these must exist _before_ you run `write_csv()`.
+
+## Write to a semi-colon delimited file
+
+You want to save a tibble or data frame as a .csv file _that uses semi-colons to delimit cells_.
+
+#### Solution {-}
+
+```{r eval = FALSE}
+write_csv2(iris, path = "my_file.csv")
+```
+
+
+#### Discussion {-}
+
+R will save your file at the location described by appending the `path` argument to your [working directory][What you should know before you begin]. If your path contains directories, these must exist _before_ you run `write_csv2()`.
 
 
 ## Write to a tab-delimited file
 
-You want to
+You want to save a tibble or data frame as a tab delimited file.
 
 #### Solution {-}
 
-```{r}
-
+```{r eval = FALSE}
+write_tsv(iris, path = "my_file.tsv")
 ```
 
 
 #### Discussion {-}
 
+R will save your file at the location described by appending the `path` argument to your [working directory][What you should know before you begin]. If your path contains directories, these must exist _before_ you run `write_tsv()`.
 
 
 ## Write to a text file with arbitrary delimiters
 
-You want to
+You want to save a tibble or data frame as a plain text file that uses an unusual delimiter.
+
+#### Solution {-}
+
+```{r eval = FALSE}
+write_delim(iris, path = "my_file.tsv", delim = "|")
+```
+
+#### Discussion {-}
+
+`write_delim()` behaves like [`write_csv()`][Write to a comma-separate values (csv) file], but requires a `delim` argument. Pass `delim` the delimiter you wish to use to separate cells, as a character string.
+
+R will save your file at the location described by appending the `path` argument to your [working directory][What you should know before you begin]. If your path contains directories, these must exist _before_ you run `write_delim()`.
+
+## Write to a compressed RDS file
+
+You want to write a tibble or data frame to a .RDS file.
 
 #### Solution {-}
 
 ```{r}
-
+saveRDS(iris, file = "my_file.RDS")
 ```
-
 
 #### Discussion {-}
 
+`saveRDS()`, along with `readRDS()`, is a base R function, which explains the difference in the argument names as well as the read/write naming pattern compared to readr functions—take note!
+
+R will save your file at the location described by appending the `path` argument to your [working directory][What you should know before you begin]. If your path contains directories, these must exist _before_ you run `saveRDS()`. Use the .RDS file extension in the file name to help make the uncommon file format obvious.
 
 
 ## Write to an excel spreadsheet
-
-You want to
-
-#### Solution {-}
-
-```{r}
-
-```
-
-
-#### Discussion {-}
-
-
-
-## Write to a compressed RDS file
 
 You want to
 
