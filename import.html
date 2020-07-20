@@ -182,15 +182,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="import.html#skip-lines-at-the-end-of-a-file-when-reading-a-file">Skip lines at the end of a file when reading a file</a></li>
 <li><a href="import.html#replace-missing-values-as-you-read-a-file">Replace missing values as you read a file</a></li>
 <li><a href="import.html#read-a-compressed-rds-file">Read a compressed RDS file</a></li>
-<li><a href="import.html#read-an-excel-spreadsheet">Read an excel spreadsheet</a></li>
-<li><a href="import.html#read-a-single-sheet-from-an-excel-spreadsheet">Read a single sheet from an excel spreadsheet</a></li>
+<li><a href="import.html#read-an-excel-spreadsheet">Read an Excel spreadsheet</a></li>
+<li><a href="import.html#read-a-specific-sheet-from-an-excel-spreadsheet">Read a specific sheet from an Excel spreadsheet</a></li>
 <li><a href="import.html#read-a-field-of-cells-from-an-excel-spreadsheet">Read a field of cells from an excel spreadsheet</a></li>
 <li><a href="import.html#write-to-a-comma-separate-values-csv-file">Write to a comma-separate values (csv) file</a></li>
 <li><a href="import.html#write-to-a-semi-colon-delimited-file">Write to a semi-colon delimited file</a></li>
 <li><a href="import.html#write-to-a-tab-delimited-file">Write to a tab-delimited file</a></li>
 <li><a href="import.html#write-to-a-text-file-with-arbitrary-delimiters">Write to a text file with arbitrary delimiters</a></li>
 <li><a href="import.html#write-to-a-compressed-rds-file">Write to a compressed RDS file</a></li>
-<li><a href="import.html#write-to-an-excel-spreadsheet">Write to an excel spreadsheet</a></li>
 </ol>
 </div>
 <hr />
@@ -536,33 +535,93 @@ Evan Nolan          IL        219-532-c301</code></pre>
 </div>
 </div>
 <div id="read-an-excel-spreadsheet" class="section level2">
-<h2><span class="header-section-number">2.12</span> Read an excel spreadsheet</h2>
-<p>You want to</p>
+<h2><span class="header-section-number">2.12</span> Read an Excel spreadsheet</h2>
+<p>You want to read an Excel spreadsheet.</p>
 <div id="solution-11" class="section level4 unnumbered">
 <h4>Solution</h4>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">library</span>(readxl)</a>
+<a class="sourceLine" id="cb76-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb76-3" data-line-number="3"><span class="co"># File path to an example excel spreadsheet to import</span></a>
+<a class="sourceLine" id="cb76-4" data-line-number="4">file_path &lt;-<span class="st"> </span><span class="kw">readxl_example</span>(<span class="st">&quot;datasets.xlsx&quot;</span>)</a>
+<a class="sourceLine" id="cb76-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb76-6" data-line-number="6">my_data &lt;-<span class="st"> </span><span class="kw">read_excel</span>(file_path)</a>
+<a class="sourceLine" id="cb76-7" data-line-number="7">my_data</a></code></pre></div>
+<pre><code>## # A tibble: 150 x 5
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
+##  1          5.1         3.5          1.4         0.2 setosa 
+##  2          4.9         3            1.4         0.2 setosa 
+##  3          4.7         3.2          1.3         0.2 setosa 
+##  4          4.6         3.1          1.5         0.2 setosa 
+##  5          5           3.6          1.4         0.2 setosa 
+##  6          5.4         3.9          1.7         0.4 setosa 
+##  7          4.6         3.4          1.4         0.3 setosa 
+##  8          5           3.4          1.5         0.2 setosa 
+##  9          4.4         2.9          1.4         0.2 setosa 
+## 10          4.9         3.1          1.5         0.1 setosa 
+## # … with 140 more rows</code></pre>
 </div>
 <div id="discussion-11" class="section level4 unnumbered">
 <h4>Discussion</h4>
+<p>By default, <code>read_excel()</code> reads the <em>first</em> sheet in an Excel spreadsheet. See the <a href="import.html#read-a-specific-sheet-from-an-excel-spreadsheet">next recipe</a> to read in sheets other than the first.</p>
+<p><code>read_excel()</code> is loaded with the readxl package, which must be loaded with <code>library(readxl)</code>. Pass <code>read_excel()</code> a file path or URL that leads to the Excel file you wish to read. <code>readxl_example(&quot;datasets.xlsx&quot;)</code> returns a file path that leads to an example Excel spreadsheet that is conveniently installed with the readxl package.</p>
 </div>
 </div>
-<div id="read-a-single-sheet-from-an-excel-spreadsheet" class="section level2">
-<h2><span class="header-section-number">2.13</span> Read a single sheet from an excel spreadsheet</h2>
-<p>You want to</p>
+<div id="read-a-specific-sheet-from-an-excel-spreadsheet" class="section level2">
+<h2><span class="header-section-number">2.13</span> Read a specific sheet from an Excel spreadsheet</h2>
+<p>You want to read a specific sheet from an Excel spreadsheet.</p>
 <div id="solution-12" class="section level4 unnumbered">
 <h4>Solution</h4>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="kw">library</span>(readxl)</a>
+<a class="sourceLine" id="cb78-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb78-3" data-line-number="3"><span class="co"># File path to an example excel spreadsheet to import</span></a>
+<a class="sourceLine" id="cb78-4" data-line-number="4">file_path &lt;-<span class="st"> </span><span class="kw">readxl_example</span>(<span class="st">&quot;datasets.xlsx&quot;</span>)</a>
+<a class="sourceLine" id="cb78-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb78-6" data-line-number="6">my_data &lt;-<span class="st"> </span><span class="kw">read_excel</span>(file_path, <span class="dt">sheet =</span> <span class="st">&quot;chickwts&quot;</span>)</a>
+<a class="sourceLine" id="cb78-7" data-line-number="7">my_data</a></code></pre></div>
+<pre><code>## # A tibble: 71 x 2
+##    weight feed     
+##     &lt;dbl&gt; &lt;chr&gt;    
+##  1    179 horsebean
+##  2    160 horsebean
+##  3    136 horsebean
+##  4    227 horsebean
+##  5    217 horsebean
+##  6    168 horsebean
+##  7    108 horsebean
+##  8    124 horsebean
+##  9    143 horsebean
+## 10    140 horsebean
+## # … with 61 more rows</code></pre>
 </div>
 <div id="discussion-12" class="section level4 unnumbered">
 <h4>Discussion</h4>
+<p>To read a specific sheet from a larger Excel spreadsheet, use the <code>sheet</code> argument to pass <a href="import.html#read-an-excel-spreadsheet"><code>read_excel()</code></a> the name of the sheet as a character string. You can also pass <code>sheet</code> the number of the sheet to read. For example, <code>read_excel(file_path, sheet = 2)</code> would read the second spreadsheet in the file.</p>
+<p>If you are unsure of the name of a sheet, use the <code>excel_sheets()</code> function to list the names of the spreadsheets within a file, without importing the file, e.g. <code>excel_sheets(file_path)</code>.</p>
 </div>
 </div>
 <div id="read-a-field-of-cells-from-an-excel-spreadsheet" class="section level2">
 <h2><span class="header-section-number">2.14</span> Read a field of cells from an excel spreadsheet</h2>
-<p>You want to</p>
+<p>You want to read a subset of cells from an Excel spreadsheet.</p>
 <div id="solution-13" class="section level4 unnumbered">
 <h4>Solution</h4>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="kw">library</span>(readxl)</a>
+<a class="sourceLine" id="cb80-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb80-3" data-line-number="3"><span class="co"># File path to an example excel spreadsheet to import</span></a>
+<a class="sourceLine" id="cb80-4" data-line-number="4">file_path &lt;-<span class="st"> </span><span class="kw">readxl_example</span>(<span class="st">&quot;datasets.xlsx&quot;</span>)</a>
+<a class="sourceLine" id="cb80-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb80-6" data-line-number="6">my_data &lt;-<span class="st"> </span><span class="kw">read_excel</span>(file_path, <span class="dt">range =</span> <span class="st">&quot;C1:E4&quot;</span>, <span class="dt">skip =</span> <span class="dv">3</span>, <span class="dt">n_max =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb80-7" data-line-number="7">my_data</a></code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   Petal.Length Petal.Width Species
+##          &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
+## 1          1.4         0.2 setosa 
+## 2          1.4         0.2 setosa 
+## 3          1.3         0.2 setosa</code></pre>
 </div>
 <div id="discussion-13" class="section level4 unnumbered">
 <h4>Discussion</h4>
+<p><code>read_excel()</code> adopts the <a href="import.html#skip-lines-at-the-start-of-a-file-when-reading-a-file"><code>skip</code></a> and [<code>n_max][Skip lines at the end of a file when reading a file] arguments of reader functions to skip rows at the top of the spreadsheet and to control how far down the spreadsheet to read. Use the</code>range<code>argument to specify a subset of columns to read. Two column names separated by a</code>:` specifies those two columns and every column between them.</p>
 </div>
 </div>
 <div id="write-to-a-comma-separate-values-csv-file" class="section level2">
@@ -570,7 +629,7 @@ Evan Nolan          IL        219-532-c301</code></pre>
 <p>You want to save a tibble or data frame as a .csv file.</p>
 <div id="solution-14" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">write_csv</span>(iris, <span class="dt">path =</span> <span class="st">&quot;my_file.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">write_csv</span>(iris, <span class="dt">path =</span> <span class="st">&quot;my_file.csv&quot;</span>)</a></code></pre></div>
 </div>
 <div id="discussion-14" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -583,7 +642,7 @@ Evan Nolan          IL        219-532-c301</code></pre>
 <p>You want to save a tibble or data frame as a .csv file <em>that uses semi-colons to delimit cells</em>.</p>
 <div id="solution-15" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="kw">write_csv2</span>(iris, <span class="dt">path =</span> <span class="st">&quot;my_file.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="kw">write_csv2</span>(iris, <span class="dt">path =</span> <span class="st">&quot;my_file.csv&quot;</span>)</a></code></pre></div>
 </div>
 <div id="discussion-15" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -595,7 +654,7 @@ Evan Nolan          IL        219-532-c301</code></pre>
 <p>You want to save a tibble or data frame as a tab delimited file.</p>
 <div id="solution-16" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="kw">write_tsv</span>(iris, <span class="dt">path =</span> <span class="st">&quot;my_file.tsv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="kw">write_tsv</span>(iris, <span class="dt">path =</span> <span class="st">&quot;my_file.tsv&quot;</span>)</a></code></pre></div>
 </div>
 <div id="discussion-16" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -607,7 +666,7 @@ Evan Nolan          IL        219-532-c301</code></pre>
 <p>You want to save a tibble or data frame as a plain text file that uses an unusual delimiter.</p>
 <div id="solution-17" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="kw">write_delim</span>(iris, <span class="dt">path =</span> <span class="st">&quot;my_file.tsv&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;|&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="kw">write_delim</span>(iris, <span class="dt">path =</span> <span class="st">&quot;my_file.tsv&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;|&quot;</span>)</a></code></pre></div>
 </div>
 <div id="discussion-17" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -620,22 +679,12 @@ Evan Nolan          IL        219-532-c301</code></pre>
 <p>You want to write a tibble or data frame to a .RDS file.</p>
 <div id="solution-18" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="kw">saveRDS</span>(iris, <span class="dt">file =</span> <span class="st">&quot;my_file.RDS&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="kw">saveRDS</span>(iris, <span class="dt">file =</span> <span class="st">&quot;my_file.RDS&quot;</span>)</a></code></pre></div>
 </div>
 <div id="discussion-18" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p><code>saveRDS()</code>, along with <code>readRDS()</code>, is a base R function, which explains the difference in the argument names as well as the read/write naming pattern compared to readr functions—take note!</p>
 <p>R will save your file at the location described by appending the <code>path</code> argument to your <a href="program.html#what-you-should-know-before-you-begin">working directory</a>. If your path contains directories, these must exist <em>before</em> you run <code>saveRDS()</code>. Use the .RDS file extension in the file name to help make the uncommon file format obvious.</p>
-</div>
-</div>
-<div id="write-to-an-excel-spreadsheet" class="section level2">
-<h2><span class="header-section-number">2.20</span> Write to an excel spreadsheet</h2>
-<p>You want to</p>
-<div id="solution-19" class="section level4 unnumbered">
-<h4>Solution</h4>
-</div>
-<div id="discussion-19" class="section level4 unnumbered">
-<h4>Discussion</h4>
 <!--
 
 You want to
