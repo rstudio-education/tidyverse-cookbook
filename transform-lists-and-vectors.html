@@ -24,7 +24,7 @@
 <meta name="author" content="Edited by Garrett Grolemund" />
 
 
-<meta name="date" content="2020-07-17" />
+<meta name="date" content="2020-07-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -199,9 +199,9 @@ This chapter focuses on both lists and data vectors, but it only features recipe
 <p><img src="images/purrr-pluck.png" style="display: block; margin: auto;" /></p>
 <div id="solution" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" data-line-number="1"><span class="co"># returns the element named x in state.center</span></a>
-<a class="sourceLine" id="cb197-2" data-line-number="2">state.center <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb197-3" data-line-number="3"><span class="st">  </span><span class="kw">pluck</span>(<span class="st">&quot;x&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1"><span class="co"># returns the element named x in state.center</span></a>
+<a class="sourceLine" id="cb226-2" data-line-number="2">state.center <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb226-3" data-line-number="3"><span class="st">  </span><span class="kw">pluck</span>(<span class="st">&quot;x&quot;</span>)</a></code></pre></div>
 <pre>##  [1]  -86.7509 -127.2500 -111.6250  -92.2992 -119.7730 -105.5130  -72.3573
 ##  [8]  -74.9841  -81.6850  -83.3736 -126.2500 -113.9300  -89.3776  -86.0808
 ## [15]  -93.3714  -98.1156  -84.7674  -92.2724  -68.9801  -76.6459  -71.5800
@@ -216,9 +216,9 @@ This chapter focuses on both lists and data vectors, but it only features recipe
 <h4>Discussion</h4>
 <p><code>pluck()</code> comes in the purrr package and does the equivalent of <code>[[</code> subsetting. If you pass <code>pluck()</code> a character string, <code>pluck()</code> will return the element whose name matches the string. If you pass <code>pluck()</code> an integer <em>n</em>, <code>pluck()</code> will return the <em>nth</em> element of the list.</p>
 <p>Pass multiple arguments to <code>pluck()</code> to subset multiple times. <code>pluck()</code> will subset the result of each argument with the argument that follows, e.g.</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" data-line-number="1"><span class="kw">library</span>(repurrrsive)</a>
-<a class="sourceLine" id="cb198-2" data-line-number="2">sw_films <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb198-3" data-line-number="3"><span class="st">  </span><span class="kw">pluck</span>(<span class="dv">7</span>, <span class="st">&quot;title&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1"><span class="kw">library</span>(repurrrsive)</a>
+<a class="sourceLine" id="cb227-2" data-line-number="2">sw_films <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb227-3" data-line-number="3"><span class="st">  </span><span class="kw">pluck</span>(<span class="dv">7</span>, <span class="st">&quot;title&quot;</span>)</a></code></pre></div>
 <pre>## [1] "The Force Awakens"
 </pre>
 </div>
@@ -228,7 +228,7 @@ This chapter focuses on both lists and data vectors, but it only features recipe
 <p>You want to know the type of a vector.</p>
 <div id="solution-1" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1"><span class="kw">typeof</span>(letters)</a></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1"><span class="kw">typeof</span>(letters)</a></code></pre></div>
 <pre>## [1] "character"
 </pre>
 </div>
@@ -244,9 +244,9 @@ This chapter focuses on both lists and data vectors, but it only features recipe
 <p>For example, <code>got_chars</code> is a list of 30 sublists. You want to compute the <code>length()</code> of each sublist.</p>
 <div id="solution-2" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1"><span class="kw">library</span>(repurrrsive)</a>
-<a class="sourceLine" id="cb200-2" data-line-number="2">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb200-3" data-line-number="3"><span class="st">  </span><span class="kw">map</span>(length)</a></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1"><span class="kw">library</span>(repurrrsive)</a>
+<a class="sourceLine" id="cb229-2" data-line-number="2">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb229-3" data-line-number="3"><span class="st">  </span><span class="kw">map</span>(length)</a></code></pre></div>
 <pre style = "max-height:300px; overflow-y: auto;">## [[1]]
 ## [1] 18
 ## 
@@ -344,8 +344,8 @@ This chapter focuses on both lists and data vectors, but it only features recipe
 <p><img src="images/purrr-map.png" style="display: block; margin: auto;" /></p>
 <p>Pass the function name to <code>map()</code> without quotes and without parentheses. <code>map()</code> will pass each element of the vector one at a time to the first argument of the function.</p>
 <p>If your function requires additional arguments to do its job, pass the arguments to <code>map()</code>. <code>map()</code> will forward these arguments in order, with their names, to the function when <code>map()</code> runs the function.</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb201-2" data-line-number="2"><span class="st">  </span><span class="kw">map</span>(keep, is.numeric)</a></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb230-2" data-line-number="2"><span class="st">  </span><span class="kw">map</span>(keep, is.numeric)</a></code></pre></div>
 <pre style = "max-height:300px; overflow-y: auto;">## [[1]]
 ## [[1]]$id
 ## [1] 1022
@@ -550,8 +550,8 @@ This chapter focuses on both lists and data vectors, but it only features recipe
 <h4><span class="header-section-number">5.3.0.1</span> How to choose a map function</h4>
 <p>To map a function over a vector, consider what type of output the function will produce. Then pick the map function that returns that type of output. This is a general rule that will return sensible results.</p>
 <p>For example, the <code>length()</code> function returns an integer, so you would map <code>length()</code> over <code>got_chars</code> with <code>map_int()</code>, which returns the results as an integer vector.</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb202-2" data-line-number="2"><span class="st">  </span><span class="kw">map_int</span>(length)</a></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb231-2" data-line-number="2"><span class="st">  </span><span class="kw">map_int</span>(length)</a></code></pre></div>
 <pre>##  [1] 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18 18
 ## [26] 18 18 18 18 18
 </pre>
@@ -561,8 +561,8 @@ This chapter focuses on both lists and data vectors, but it only features recipe
 <p>Map functions recognize two syntax shorthands.</p>
 <ol style="list-style-type: decimal">
 <li><p>If your vector is a list of sublists, you can extract elements from the sublists by name or position, e.g.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb203-2" data-line-number="2"><span class="st">  </span><span class="kw">map_chr</span>(<span class="st">&quot;name&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb232-2" data-line-number="2"><span class="st">  </span><span class="kw">map_chr</span>(<span class="st">&quot;name&quot;</span>)</a></code></pre></div>
 <pre>##  [1] "Theon Greyjoy"      "Tyrion Lannister"   "Victarion Greyjoy" 
  ##  [4] "Will"               "Areo Hotah"         "Chett"             
  ##  [7] "Cressen"            "Arianne Martell"    "Daenerys Targaryen"
@@ -574,8 +574,8 @@ This chapter focuses on both lists and data vectors, but it only features recipe
  ## [25] "Kevan Lannister"    "Melisandre"         "Merrett Frey"      
  ## [28] "Quentyn Martell"    "Samwell Tarly"      "Sansa Stark"
  </pre>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb204-2" data-line-number="2"><span class="st">  </span><span class="kw">map_chr</span>(<span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb233-2" data-line-number="2"><span class="st">  </span><span class="kw">map_chr</span>(<span class="dv">3</span>)</a></code></pre></div>
 <pre>##  [1] "Theon Greyjoy"      "Tyrion Lannister"   "Victarion Greyjoy" 
  ##  [4] "Will"               "Areo Hotah"         "Chett"             
  ##  [7] "Cressen"            "Arianne Martell"    "Daenerys Targaryen"
@@ -588,17 +588,17 @@ This chapter focuses on both lists and data vectors, but it only features recipe
  ## [28] "Quentyn Martell"    "Samwell Tarly"      "Sansa Stark"
  </pre>
 <p>These do the equivalent of</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb205-2" data-line-number="2"><span class="st">  </span><span class="kw">map_chr</span>(pluck, <span class="st">&quot;name&quot;</span>)</a>
-<a class="sourceLine" id="cb205-3" data-line-number="3">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb205-4" data-line-number="4"><span class="st">  </span><span class="kw">map_chr</span>(pluck, <span class="dv">3</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb234-2" data-line-number="2"><span class="st">  </span><span class="kw">map_chr</span>(pluck, <span class="st">&quot;name&quot;</span>)</a>
+<a class="sourceLine" id="cb234-3" data-line-number="3">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb234-4" data-line-number="4"><span class="st">  </span><span class="kw">map_chr</span>(pluck, <span class="dv">3</span>)</a></code></pre></div></li>
 <li><p>You can use <code>~</code> and <code>.x</code> to map with expressions instead of functions. To turn a pice of code into an expression to map, first place a <code>~</code> at the start of the code. Then use <code>.x</code> as a pronoun for the value that map should supply from the vector to map over. The map function will iteratively pass each element of your vector to the <code>.x</code> in the expression and then run the expression.</p>
 <p>An expression like this:</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb206-2" data-line-number="2"><span class="st">  </span><span class="kw">map_lgl</span>(<span class="op">~</span><span class="kw">length</span>(.x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb235-2" data-line-number="2"><span class="st">  </span><span class="kw">map_lgl</span>(<span class="op">~</span><span class="kw">length</span>(.x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a></code></pre></div>
 <p>becomes the equivalent of</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb207-2" data-line-number="2"><span class="st">  </span><span class="kw">map_lgl</span>(<span class="cf">function</span>(x) <span class="kw">length</span>(x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1">got_chars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb236-2" data-line-number="2"><span class="st">  </span><span class="kw">map_lgl</span>(<span class="cf">function</span>(x) <span class="kw">length</span>(x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a></code></pre></div>
 <p>Expressions provide an easy way to map over a function argument that is not the first.</p></li>
 </ol>
 <!--
@@ -695,6 +695,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

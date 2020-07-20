@@ -24,7 +24,7 @@
 <meta name="author" content="Edited by Garrett Grolemund" />
 
 
-<meta name="date" content="2020-07-17" />
+<meta name="date" content="2020-07-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -173,10 +173,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li><a href="import.html#import-data-quickly-with-a-gui">Import data quickly with a GUI</a></li>
 <li><a href="import.html#read-a-comma-separated-values-csv-file">Read a comma-separated values (csv) file</a></li>
-<li><a href="import.html#read-a-fixed-width-file">Read a fixed-width file</a></li>
+<li><a href="import.html#read-a-semi-colon-delimited-file">Read a semi-colon delimited file</a></li>
+<li><a href="import.html#read-a-tab-delimited-file">Read a tab delimited file</a></li>
 <li><a href="import.html#read-a-text-file-with-an-unusual-delimiter">Read a text file with an unusual delimiter</a></li>
+<li><a href="import.html#read-a-fixed-width-file">Read a fixed-width file</a></li>
 <li><a href="import.html#read-a-file-no-header">Read a file no header</a></li>
-<li><a href="import.html#skip-several-lines-when-reading-a-file">Skip several lines when reading a file</a></li>
+<li><a href="import.html#skip-lines-at-the-start-of-a-file-when-reading-a-file">Skip lines at the start of a file when reading a file</a></li>
+<li><a href="import.html#skip-lines-at-the-end-of-a-file-when-reading-a-file">Skip lines at the end of a file when reading a file</a></li>
 <li><a href="import.html#replace-missing-values-as-you-read-a-file">Replace missing values as you read a file</a></li>
 <li><a href="import.html#read-an-excel-spreadsheet">Read an excel spreadsheet</a></li>
 <li><a href="import.html#read-a-single-sheet-from-an-excel-spreadsheet">Read a single sheet from an excel spreadsheet</a></li>
@@ -228,41 +231,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="read-a-comma-separated-values-csv-file" class="section level2">
 <h2><span class="header-section-number">2.2</span> Read a comma-separated values (csv) file</h2>
 <p>You want to read a .csv file.</p>
+<p><img src="images/readr-csv.png" style="display: block; margin: auto;" /></p>
 <div id="solution-1" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># file path to a data set on your computer</span></a>
-<a class="sourceLine" id="cb35-2" data-line-number="2">file_path &lt;-<span class="st"> </span><span class="kw">readr_example</span>(<span class="st">&quot;mtcars.csv&quot;</span>)</a>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># To make a .csv file to read</span></a>
+<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="kw">write_file</span>(<span class="dt">x =</span> <span class="st">&quot;a,b,c</span><span class="ch">\n</span><span class="st">1,2,3</span><span class="ch">\n</span><span class="st">4,5,NA&quot;</span>, <span class="dt">path =</span> <span class="st">&quot;file.csv&quot;</span>)</a>
 <a class="sourceLine" id="cb35-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb35-4" data-line-number="4">my_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(file_path)</a></code></pre></div>
+<a class="sourceLine" id="cb35-4" data-line-number="4">my_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;file.csv&quot;</span>)</a></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
-##   mpg = col_double(),
-##   cyl = col_double(),
-##   disp = col_double(),
-##   hp = col_double(),
-##   drat = col_double(),
-##   wt = col_double(),
-##   qsec = col_double(),
-##   vs = col_double(),
-##   am = col_double(),
-##   gear = col_double(),
-##   carb = col_double()
+##   a = col_double(),
+##   b = col_double(),
+##   c = col_double()
 ## )</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">my_data</a></code></pre></div>
-<pre><code>## # A tibble: 32 x 11
-##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
-##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4
-##  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4
-##  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
-##  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
-##  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
-##  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
-##  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
-##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
-##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
-## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
-## # … with 22 more rows</code></pre>
+<pre><code>## # A tibble: 2 x 3
+##       a     b     c
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3
+## 2     4     5    NA</code></pre>
 </div>
 <div id="discussion-1" class="section level4 unnumbered">
 <h4>Discussion</h4>
@@ -271,115 +258,239 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">my_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/rstudio-education/tidyverse-cookbook/master/data/mtcars.csv&quot;</span>)</a></code></pre></div>
 </div>
 </div>
-<div id="read-a-fixed-width-file" class="section level2">
-<h2><span class="header-section-number">2.3</span> Read a fixed-width file</h2>
-<p>You want to read a .fwf file, which uses the fixed width format to represent a table.</p>
+<div id="read-a-semi-colon-delimited-file" class="section level2">
+<h2><span class="header-section-number">2.3</span> Read a semi-colon delimited file</h2>
+<p>You want to read a file that resembles a <a href="import.html#read-a-comma-separated-values-csv-file">csv</a>, but uses a <em>semi-colon</em> to separate cells.</p>
+<p><img src="images/readr-csv2.png" style="display: block; margin: auto;" /></p>
 <div id="solution-2" class="section level4 unnumbered">
 <h4>Solution</h4>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co"># file path to a data set on your computer</span></a>
-<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="co"># or a link to a data set that has its own URL</span></a>
-<a class="sourceLine" id="cb40-3" data-line-number="3">file_path &lt;-<span class="st"> </span><span class="kw">readr_example</span>(<span class="st">&quot;fwf-sample.txt&quot;</span>)</a>
-<a class="sourceLine" id="cb40-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb40-5" data-line-number="5">my_data &lt;-<span class="st"> </span><span class="kw">read_fwf</span>(</a>
-<a class="sourceLine" id="cb40-6" data-line-number="6">  file_path, </a>
-<a class="sourceLine" id="cb40-7" data-line-number="7">  <span class="dt">col_positions =</span> <span class="kw">fwf_cols</span>(<span class="dt">name =</span> <span class="dv">20</span>, <span class="dt">state =</span> <span class="dv">10</span>, <span class="dt">ssn =</span> <span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb40-8" data-line-number="8">)</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co"># To make a .csv file to read</span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">write_file</span>(<span class="dt">x =</span> <span class="st">&quot;a;b;c</span><span class="ch">\n</span><span class="st">1;2;3</span><span class="ch">\n</span><span class="st">4;5;NA&quot;</span>, <span class="dt">path =</span> <span class="st">&quot;file2.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb40-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb40-4" data-line-number="4">my_data &lt;-<span class="st"> </span><span class="kw">read_csv2</span>(<span class="st">&quot;file2.csv&quot;</span>)</a></code></pre></div>
+<pre><code>## Using &#39;,&#39; as decimal and &#39;.&#39; as grouping mark. Use read_delim() for more control.</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
-##   name = col_character(),
-##   state = col_character(),
-##   ssn = col_character()
+##   a = col_double(),
+##   b = col_double(),
+##   c = col_double()
 ## )</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">my_data</a></code></pre></div>
-<pre><code>## # A tibble: 3 x 3
-##   name          state ssn         
-##   &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;       
-## 1 John Smith    WA    418-Y11-4111
-## 2 Mary Hartford CA    319-Z19-4341
-## 3 Evan Nolan    IL    219-532-c301</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">my_data</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##       a     b     c
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3
+## 2     4     5    NA</code></pre>
 </div>
 <div id="discussion-2" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>Semi-colon delimited files are popular in parts of the world that use commas for decimal places, like Europe. Semi-colon delimited files are often still given the .csv file extension.</p>
+</div>
+</div>
+<div id="read-a-tab-delimited-file" class="section level2">
+<h2><span class="header-section-number">2.4</span> Read a tab delimited file</h2>
+<p>You want to read a file that resembles a <a href="import.html#read-a-comma-separated-values-csv-file">csv</a>, but uses a <em>tab</em> to separate cells.</p>
+<p><img src="images/readr-tab.png" style="display: block; margin: auto;" /></p>
+<div id="solution-3" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="co"># To make a .tsv file to read</span></a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="kw">write_file</span>(<span class="dt">x =</span> <span class="st">&quot;a</span><span class="ch">\t</span><span class="st">b</span><span class="ch">\t</span><span class="st">c</span><span class="ch">\n</span><span class="st">1</span><span class="ch">\t</span><span class="st">2</span><span class="ch">\t</span><span class="st">3</span><span class="ch">\n</span><span class="st">4</span><span class="ch">\t</span><span class="st">5</span><span class="ch">\t</span><span class="st">NA&quot;</span>, <span class="dt">path =</span> <span class="st">&quot;file.tsv&quot;</span>)</a>
+<a class="sourceLine" id="cb45-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">my_data &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&quot;file.tsv&quot;</span>)</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   a = col_double(),
+##   b = col_double(),
+##   c = col_double()
+## )</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">my_data</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##       a     b     c
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3
+## 2     4     5    NA</code></pre>
+</div>
+<div id="discussion-3" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>Tab delimited files are text files that place each row of a table in its own line, and separate each cell within a line with a tab. Tab delimited files commonly have the extensions .tab, .tsv, and .txt.</p>
+</div>
+</div>
+<div id="read-a-text-file-with-an-unusual-delimiter" class="section level2">
+<h2><span class="header-section-number">2.5</span> Read a text file with an unusual delimiter</h2>
+<p>You want to read a file that resembles a <a href="import.html#read-a-comma-separated-values-csv-file">csv</a>, but uses <em>something other than a comma</em> to separate cells.</p>
+<p><img src="images/readr-delim.png" style="display: block; margin: auto;" /></p>
+<div id="solution-4" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="co"># To make a file to read</span></a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw">write_file</span>(<span class="dt">x =</span> <span class="st">&quot;a|b|c</span><span class="ch">\n</span><span class="st">1|2|3</span><span class="ch">\n</span><span class="st">4|5|NA&quot;</span>, <span class="dt">path =</span> <span class="st">&quot;file.txt&quot;</span>)</a>
+<a class="sourceLine" id="cb49-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb49-4" data-line-number="4">my_data &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&quot;file.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;|&quot;</span>)</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   a = col_double(),
+##   b = col_double(),
+##   c = col_double()
+## )</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">my_data</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##       a     b     c
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3
+## 2     4     5    NA</code></pre>
+</div>
+<div id="discussion-4" class="section level4 unnumbered">
+<h4>Discussion</h4>
+<p>Use <code>read_delim()</code> as you would <a href="import.html#read-a-comma-separated-values-csv-file"><code>read_csv()</code></a>. Pass the delimiter that your file uses as a character string to the <code>delim</code> argument of <code>read_delim()</code>.</p>
+</div>
+</div>
+<div id="read-a-fixed-width-file" class="section level2">
+<h2><span class="header-section-number">2.6</span> Read a fixed-width file</h2>
+<p>You want to read a .fwf file, which uses the fixed width format to represent a table (each column begins <span class="math inline">\(n\)</span> spaces from the left for every line).</p>
+<p><img src="images/readr-fwf.png" style="display: block; margin: auto;" /></p>
+<div id="solution-5" class="section level4 unnumbered">
+<h4>Solution</h4>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co"># To make a .fwf file to read</span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="kw">write_file</span>(<span class="dt">x =</span> <span class="st">&quot;a b c</span><span class="ch">\n</span><span class="st">1 2 3</span><span class="ch">\n</span><span class="st">4 5 NA&quot;</span>, <span class="dt">path =</span> <span class="st">&quot;file.fwf&quot;</span>)</a>
+<a class="sourceLine" id="cb53-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb53-4" data-line-number="4">my_data &lt;-<span class="st"> </span><span class="kw">read_table</span>(<span class="st">&quot;file.fwf&quot;</span>)</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   a = col_double(),
+##   b = col_double(),
+##   c = col_double()
+## )</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">my_data</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##       a     b     c
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3
+## 2     4     5    NA</code></pre>
+</div>
+<div id="discussion-5" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <p>Fixed width files arrange data so that each row of a table is in its own line, and each cell begins at a <em>fixed</em> number of character spaces from the beginning of the line. For example, in the example below, the cells in the second column each begin
 20 spaces from the beginning of the line, no matter many spaces the contents of the first cell required. At first glance, it is easy to mistake fixed width files for tab delimited files. Fixed with files use individual spaces to separate cells, and not tabs.</p>
 <pre><code>John Smith          WA        418-Y11-4111
 Mary Hartford       CA        319-Z19-4341
 Evan Nolan          IL        219-532-c301</code></pre>
-<p>Pass the output of <code>fwf_cols()</code> to the <code>col_positions</code> argument of <code>read_fwf()</code> to tell R where each column begins. <code>fwf_cols()</code> should contain the name of each column followed by the number of spaces <em>spanned</em> by the column.</p>
-</div>
-</div>
-<div id="read-a-text-file-with-an-unusual-delimiter" class="section level2">
-<h2><span class="header-section-number">2.4</span> Read a text file with an unusual delimiter</h2>
-<p>You want to read a file that resembles a csv, but uses something other than a comma to separate cells.</p>
-<div id="solution-3" class="section level4 unnumbered">
-<h4>Solution</h4>
-</div>
-<div id="discussion-3" class="section level4 unnumbered">
-<h4>Discussion</h4>
+<p><code>read_table()</code> will read fixed-width files where each column is separated by at least one whitespace on every line. Use <code>read_fwf()</code> to read fixed-width files that have non-standard formatting.</p>
 </div>
 </div>
 <div id="read-a-file-no-header" class="section level2">
-<h2><span class="header-section-number">2.5</span> Read a file no header</h2>
-<p>You want to</p>
-<div id="solution-4" class="section level4 unnumbered">
-<h4>Solution</h4>
-</div>
-<div id="discussion-4" class="section level4 unnumbered">
-<h4>Discussion</h4>
-</div>
-</div>
-<div id="skip-several-lines-when-reading-a-file" class="section level2">
-<h2><span class="header-section-number">2.6</span> Skip several lines when reading a file</h2>
-<p>You want to</p>
-<div id="solution-5" class="section level4 unnumbered">
-<h4>Solution</h4>
-</div>
-<div id="discussion-5" class="section level4 unnumbered">
-<h4>Discussion</h4>
-</div>
-</div>
-<div id="replace-missing-values-as-you-read-a-file" class="section level2">
-<h2><span class="header-section-number">2.7</span> Replace missing values as you read a file</h2>
-<p>You want to</p>
+<h2><span class="header-section-number">2.7</span> Read a file no header</h2>
+<p>You want to read a file that does not include a line of column names at the start of the file.</p>
+<p><img src="images/readr-header.png" style="display: block; margin: auto;" /></p>
 <div id="solution-6" class="section level4 unnumbered">
 <h4>Solution</h4>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="co"># To make a .csv file to read</span></a>
+<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw">write_file</span>(<span class="st">&quot;1,2,3</span><span class="ch">\n</span><span class="st">4,5,NA&quot;</span>,<span class="st">&quot;file.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb58-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb58-4" data-line-number="4">my_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;file.csv&quot;</span>, <span class="dt">col_names =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   a = col_double(),
+##   b = col_double(),
+##   c = col_double()
+## )</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">my_data</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##       a     b     c
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3
+## 2     4     5    NA</code></pre>
 </div>
 <div id="discussion-6" class="section level4 unnumbered">
 <h4>Discussion</h4>
+<p>If you do not wish to supply column names, set <code>col_names = FALSE</code>. The <code>col_names</code> argument works for all readr functions that read tabular data.</p>
 </div>
 </div>
-<div id="read-an-excel-spreadsheet" class="section level2">
-<h2><span class="header-section-number">2.8</span> Read an excel spreadsheet</h2>
-<p>You want to</p>
+<div id="skip-lines-at-the-start-of-a-file-when-reading-a-file" class="section level2">
+<h2><span class="header-section-number">2.8</span> Skip lines at the start of a file when reading a file</h2>
+<p>You want to read a portion of a file, skipping one or more lines at the <em>start</em> of the file. For example, you want to avoid reading the introductory text at the start of a file.</p>
+<p><img src="images/readr-skip.png" style="display: block; margin: auto;" /></p>
 <div id="solution-7" class="section level4 unnumbered">
 <h4>Solution</h4>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="co"># To make a .csv file to read</span></a>
+<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="kw">write_file</span>(<span class="st">&quot;a,b,c</span><span class="ch">\n</span><span class="st">1,2,3</span><span class="ch">\n</span><span class="st">4,5,NA&quot;</span>,<span class="st">&quot;file.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb62-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb62-4" data-line-number="4">my_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;file.csv&quot;</span>, <span class="dt">skip =</span> <span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   `1` = col_double(),
+##   `2` = col_double(),
+##   `3` = col_logical()
+## )</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">my_data</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##     `1`   `2` `3`  
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
+## 1     4     5 NA</code></pre>
 </div>
 <div id="discussion-7" class="section level4 unnumbered">
 <h4>Discussion</h4>
+<p>Set <code>skip</code> equal to the number of lines you wish to skip before you begin reading the file. The <code>skip</code> argument works for all readr functions that read tabular data, and can be combined with the <a href="import.html#skip-lines-at-the-end-of-a-file-when-reading-a-file"><code>n_max</code> argument</a> to skip more lines at the end of a file.</p>
+<p>When in doubt, first try reading the file with <code>read_lines(&quot;file.csv&quot;)</code> to determine how many lines you need to skip.</p>
 </div>
 </div>
-<div id="read-a-single-sheet-from-an-excel-spreadsheet" class="section level2">
-<h2><span class="header-section-number">2.9</span> Read a single sheet from an excel spreadsheet</h2>
-<p>You want to</p>
+<div id="skip-lines-at-the-end-of-a-file-when-reading-a-file" class="section level2">
+<h2><span class="header-section-number">2.9</span> Skip lines at the end of a file when reading a file</h2>
+<p>You want to read a portion of a file, skipping one or more lines at the <em>end</em> of the file. For example, you want to avoid reading in a text comment that appears at the end of a file.</p>
+<p><img src="images/readr-nmax.png" style="display: block; margin: auto;" /></p>
 <div id="solution-8" class="section level4 unnumbered">
 <h4>Solution</h4>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="co"># To make a .csv file to read</span></a>
+<a class="sourceLine" id="cb66-2" data-line-number="2"><span class="kw">write_file</span>(<span class="st">&quot;a,b,c</span><span class="ch">\n</span><span class="st">1,2,3</span><span class="ch">\n</span><span class="st">4,5,NA&quot;</span>,<span class="st">&quot;file.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb66-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb66-4" data-line-number="4">my_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;file.csv&quot;</span>, <span class="dt">n_max =</span> <span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   a = col_double(),
+##   b = col_double(),
+##   c = col_double()
+## )</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">my_data</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##       a     b     c
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3</code></pre>
 </div>
 <div id="discussion-8" class="section level4 unnumbered">
 <h4>Discussion</h4>
+<p>Set <code>n_max</code> equal to the number of <em>non-header</em> lines you wish to read before you stop reading lines. The <code>n_max</code> argument works for all readr functions that read tabular data.</p>
+<p>When in doubt, first try reading the file with <code>read_lines(&quot;file.csv&quot;)</code> to determine how many lines you need to skip.</p>
 </div>
 </div>
-<div id="read-a-field-of-cells-from-an-excel-spreadsheet" class="section level2">
-<h2><span class="header-section-number">2.10</span> Read a field of cells from an excel spreadsheet</h2>
-<p>You want to</p>
+<div id="replace-missing-values-as-you-read-a-file" class="section level2">
+<h2><span class="header-section-number">2.10</span> Replace missing values as you read a file</h2>
+<p>You want to convert missing values to NA as you read a file, because they have been recorded with a different symbol.</p>
+<p><img src="images/readr-missing.png" style="display: block; margin: auto;" /></p>
 <div id="solution-9" class="section level4 unnumbered">
 <h4>Solution</h4>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="co"># To make a .csv file to read</span></a>
+<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="kw">write_file</span>(<span class="st">&quot;a,b,c</span><span class="ch">\n</span><span class="st">1,2,3</span><span class="ch">\n</span><span class="st">4,5,.&quot;</span>,<span class="st">&quot;file.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb70-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb70-4" data-line-number="4">my_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;file.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   a = col_double(),
+##   b = col_double(),
+##   c = col_double()
+## )</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1">my_data</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##       a     b     c
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     2     3
+## 2     4     5    NA</code></pre>
 </div>
 <div id="discussion-9" class="section level4 unnumbered">
 <h4>Discussion</h4>
+<p>R’s uses the string <code>NA</code> to represent missing data. If your file was exported from another language or application, it might use a different convention. R is likely to read in the convention as a character string, failing to understand that it represents missing data. To prevent this, explicitly tell <code>read_csv()</code> which strings are used to represent missing data.</p>
+<p>The <code>na</code> argument works for all readr functions that read tabular data.</p>
 </div>
 </div>
-<div id="read-a-compressed-rds-file" class="section level2">
-<h2><span class="header-section-number">2.11</span> Read a compressed RDS file</h2>
+<div id="read-an-excel-spreadsheet" class="section level2">
+<h2><span class="header-section-number">2.11</span> Read an excel spreadsheet</h2>
 <p>You want to</p>
 <div id="solution-10" class="section level4 unnumbered">
 <h4>Solution</h4>
@@ -388,8 +499,8 @@ Evan Nolan          IL        219-532-c301</code></pre>
 <h4>Discussion</h4>
 </div>
 </div>
-<div id="write-to-a-comma-separate-values-csv-file" class="section level2">
-<h2><span class="header-section-number">2.12</span> Write to a comma-separate values (csv) file</h2>
+<div id="read-a-single-sheet-from-an-excel-spreadsheet" class="section level2">
+<h2><span class="header-section-number">2.12</span> Read a single sheet from an excel spreadsheet</h2>
 <p>You want to</p>
 <div id="solution-11" class="section level4 unnumbered">
 <h4>Solution</h4>
@@ -398,8 +509,8 @@ Evan Nolan          IL        219-532-c301</code></pre>
 <h4>Discussion</h4>
 </div>
 </div>
-<div id="write-to-a-tab-delimited-file" class="section level2">
-<h2><span class="header-section-number">2.13</span> Write to a tab-delimited file</h2>
+<div id="read-a-field-of-cells-from-an-excel-spreadsheet" class="section level2">
+<h2><span class="header-section-number">2.13</span> Read a field of cells from an excel spreadsheet</h2>
 <p>You want to</p>
 <div id="solution-12" class="section level4 unnumbered">
 <h4>Solution</h4>
@@ -408,8 +519,8 @@ Evan Nolan          IL        219-532-c301</code></pre>
 <h4>Discussion</h4>
 </div>
 </div>
-<div id="write-to-a-text-file-with-arbitrary-delimiters" class="section level2">
-<h2><span class="header-section-number">2.14</span> Write to a text file with arbitrary delimiters</h2>
+<div id="read-a-compressed-rds-file" class="section level2">
+<h2><span class="header-section-number">2.14</span> Read a compressed RDS file</h2>
 <p>You want to</p>
 <div id="solution-13" class="section level4 unnumbered">
 <h4>Solution</h4>
@@ -418,8 +529,8 @@ Evan Nolan          IL        219-532-c301</code></pre>
 <h4>Discussion</h4>
 </div>
 </div>
-<div id="write-to-an-excel-spreadsheet" class="section level2">
-<h2><span class="header-section-number">2.15</span> Write to an excel spreadsheet</h2>
+<div id="write-to-a-comma-separate-values-csv-file" class="section level2">
+<h2><span class="header-section-number">2.15</span> Write to a comma-separate values (csv) file</h2>
 <p>You want to</p>
 <div id="solution-14" class="section level4 unnumbered">
 <h4>Solution</h4>
@@ -428,13 +539,43 @@ Evan Nolan          IL        219-532-c301</code></pre>
 <h4>Discussion</h4>
 </div>
 </div>
-<div id="write-to-a-compressed-rds-file" class="section level2">
-<h2><span class="header-section-number">2.16</span> Write to a compressed RDS file</h2>
+<div id="write-to-a-tab-delimited-file" class="section level2">
+<h2><span class="header-section-number">2.16</span> Write to a tab-delimited file</h2>
 <p>You want to</p>
 <div id="solution-15" class="section level4 unnumbered">
 <h4>Solution</h4>
 </div>
 <div id="discussion-15" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="write-to-a-text-file-with-arbitrary-delimiters" class="section level2">
+<h2><span class="header-section-number">2.17</span> Write to a text file with arbitrary delimiters</h2>
+<p>You want to</p>
+<div id="solution-16" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-16" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="write-to-an-excel-spreadsheet" class="section level2">
+<h2><span class="header-section-number">2.18</span> Write to an excel spreadsheet</h2>
+<p>You want to</p>
+<div id="solution-17" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-17" class="section level4 unnumbered">
+<h4>Discussion</h4>
+</div>
+</div>
+<div id="write-to-a-compressed-rds-file" class="section level2">
+<h2><span class="header-section-number">2.19</span> Write to a compressed RDS file</h2>
+<p>You want to</p>
+<div id="solution-18" class="section level4 unnumbered">
+<h4>Solution</h4>
+</div>
+<div id="discussion-18" class="section level4 unnumbered">
 <h4>Discussion</h4>
 <!--
 
@@ -504,6 +645,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
