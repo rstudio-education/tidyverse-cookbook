@@ -44,7 +44,7 @@ Tidyverse packages are also:
 
 * optimised to run fast, relying on C++ under the hood
 * maintained by a paid staff of talented developers
-* unusually well documented, see [tidyverse.org](tidyverse.org) and [_R for Data Science_](http://r4ds.had.co.nz/) as examples.
+* unusually well documented, see [tidyverse.org](https://www.tidyverse.org/) and [_R for Data Science_](http://r4ds.had.co.nz/) as examples.
 
 Install the complete set of tidyverse packages with:
 
