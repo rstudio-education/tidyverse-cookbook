@@ -339,7 +339,7 @@ or the equivalent of:
 ```{r eval = FALSE}
 x1 <- starwars 
 x2 <- group_by(x1, species)
-x3 <- summarise(x3, avg_height = mean(height, na.rm = TRUE))
+x3 <- summarise(x2, avg_height = mean(height, na.rm = TRUE))
 arrange(x3, avg_height)
 ```
 
