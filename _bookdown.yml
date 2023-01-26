@@ -1,5 +1,5 @@
 book_filename: "tidyverse-cookbook"
-edit: "https://github.com/rstudio-education/tidyverse-cookbook/edit/master/%s"
+edit: "https://github.com/rstudio-education/tidyverse-cookbook/edit/main/%s"
 delete_merged_file: true
 before_chapter_script: "setup.R"
 
